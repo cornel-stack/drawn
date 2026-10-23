@@ -1,0 +1,19 @@
+[project]
+name = "drawn-finish"
+version = "0.1.0"
+description = "ffmpeg finishing stage (music bed, loudnorm, mux, meta) for drawn."
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "drawn-schema",
+    "pyyaml>=6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/drawn_finish"]
+
+[tool.uv.sources]
+drawn-schema = { workspace = true }
