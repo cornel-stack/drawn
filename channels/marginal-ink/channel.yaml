@@ -1,0 +1,22 @@
+name: marginal-ink
+display_name: "Marginal Ink"
+board:
+  style: paper          # off-white paper
+  background: "#f7f3ea"  # warm off-white
+  ink: "#242321"         # near-black ink
+  accent: "#0f7b8a"      # teal
+palette:
+  - "#242321"            # ink
+  - "#0f7b8a"            # teal
+  - "#b5532a"            # terracotta
+  - "#4a5a3b"            # olive
+font:
+  handwriting: Kalam
+  file: assets/fonts/Kalam-Regular.ttf
+voice:
+  service: kokoro
+  kokoro_voice: bf_emma            # British female
+  edge_voice: en-GB-SoniaNeural    # fallback
+  speed: 1.0
+intro_seconds: 2.0
+outro_seconds: 3.0

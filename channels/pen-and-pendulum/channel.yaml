@@ -1,0 +1,22 @@
+name: pen-and-pendulum
+display_name: "Pen & Pendulum"
+board:
+  style: paper          # cream paper
+  background: "#f4ecd8"  # aged paper
+  ink: "#1b2a4a"         # dark ink-blue
+  accent: "#c2462f"      # red pen
+palette:
+  - "#1b2a4a"            # ink blue
+  - "#c2462f"            # red
+  - "#2e7d57"            # green
+  - "#8a6d3b"            # sepia
+font:
+  handwriting: Kalam
+  file: assets/fonts/Kalam-Regular.ttf
+voice:
+  service: kokoro
+  kokoro_voice: bm_lewis           # British male
+  edge_voice: en-GB-ThomasNeural   # fallback
+  speed: 1.0
+intro_seconds: 2.0
+outro_seconds: 3.0

@@ -1,5 +1,12 @@
 """Versioned Lesson schema and linter for drawn."""
 
+from drawn_schema.channel import (
+    BoardStyle,
+    ChannelConfig,
+    FontConfig,
+    VoiceConfig,
+    load_channel,
+)
 from drawn_schema.lesson import (
     SCHEMA_VERSION,
     BoardItem,
@@ -16,6 +23,11 @@ __all__ = [
     "Lesson",
     "Scene",
     "Source",
+    "BoardStyle",
+    "ChannelConfig",
+    "FontConfig",
+    "VoiceConfig",
+    "load_channel",
     "LintResult",
     "lint_lesson",
     "lint_lesson_file",

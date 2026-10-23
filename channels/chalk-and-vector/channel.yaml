@@ -1,0 +1,22 @@
+name: chalk-and-vector
+display_name: "Chalk & Vector"
+board:
+  style: board          # dark chalkboard
+  background: "#13211c"  # deep slate-green board
+  ink: "#f3f1e7"         # chalk white
+  accent: "#ffd24a"      # chalk yellow
+palette:
+  - "#f3f1e7"            # chalk white
+  - "#ffd24a"            # yellow
+  - "#7fd1ff"            # blue chalk
+  - "#ff8f8f"            # red chalk
+font:
+  handwriting: Kalam
+  file: assets/fonts/Kalam-Regular.ttf
+voice:
+  service: kokoro
+  kokoro_voice: bm_george        # British male
+  edge_voice: en-GB-RyanNeural   # fallback
+  speed: 1.0
+intro_seconds: 2.0
+outro_seconds: 3.0
