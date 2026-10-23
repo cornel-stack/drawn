@@ -521,6 +521,14 @@ dev = [
     { name = "pytest" },
     { name = "ruff" },
 ]
+media = [
+    { name = "edge-tts" },
+    { name = "faster-whisper" },
+    { name = "kokoro" },
+    { name = "manim" },
+    { name = "manim-voiceover" },
+    { name = "soundfile" },
+]
 
 [package.metadata]
 requires-dist = [
@@ -535,6 +543,14 @@ requires-dist = [
 dev = [
     { name = "pytest", specifier = ">=8" },
     { name = "ruff", specifier = ">=0.6" },
+]
+media = [
+    { name = "edge-tts", specifier = ">=6.1" },
+    { name = "faster-whisper", specifier = ">=1.0" },
+    { name = "kokoro", specifier = ">=0.9" },
+    { name = "manim", specifier = ">=0.18.1" },
+    { name = "manim-voiceover", specifier = ">=0.3.7" },
+    { name = "soundfile", specifier = ">=0.12" },
 ]
 
 [[package]]
