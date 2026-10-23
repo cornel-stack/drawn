@@ -32,6 +32,16 @@ dev = [
     "pytest>=8",
     "ruff>=0.6",
 ]
+# Heavy render/synthesis runtime, installed by `just setup` (and in CI).
+# Kept out of the default sync so the schema/linter test loop stays fast.
+media = [
+    "manim>=0.18.1",
+    "manim-voiceover>=0.3.7",
+    "kokoro>=0.9",
+    "edge-tts>=6.1",
+    "faster-whisper>=1.0",
+    "soundfile>=0.12",
+]
 
 [tool.ruff]
 line-length = 100
