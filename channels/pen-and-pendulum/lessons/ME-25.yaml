@@ -1,0 +1,73 @@
+# ME-25: Gyroscopic precession — the demo lesson.
+# ~2 minutes. British spelling, no hype, no "in this video".
+schema_version: 1
+id: ME-25
+channel: pen-and-pendulum
+title: "Gyroscopic precession: why the spinning wheel refuses to fall"
+target_minutes: 2
+source:
+  book: "OpenStax University Physics Vol. 1"
+  section: "§11.4 Precession of a gyroscope"
+  license: "CC BY 4.0"
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A spinning bicycle wheel, held by just one end of its axle, hangs out
+      sideways instead of falling to the floor. It is one of the strangest
+      sights in mechanics, and the explanation rewards a careful look at
+      angular momentum.
+    board: []
+
+  - id: s2
+    kind: board
+    narration: >
+      A spinning wheel carries angular momentum, {L}, pointing along its axle.
+      Gravity pulls down on the centre of mass, and about the pivot this
+      produces a torque, {tau}, that points horizontally. Newton's law for
+      rotation says that torque equals the rate of change of angular momentum,
+      {dLdt}. Because the torque sits at right angles to the angular momentum,
+      it cannot speed the wheel up or slow it down; it can only swing the
+      direction of the momentum vector sideways.
+    board:
+      - id: L
+        latex: "\\vec{L} = I\\vec{\\omega}"
+        say: "L equals I omega"
+      - id: tau
+        latex: "\\vec{\\tau} = \\vec{r} \\times M\\vec{g}"
+        say: "tau equals r cross M g"
+      - id: dLdt
+        latex: "\\vec{\\tau} = \\dfrac{d\\vec{L}}{dt}"
+        say: "tau equals d L by d t"
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Follow that sideways push over a small moment of time. The torque has
+      size M g r, where r is the distance from the pivot out to the centre of
+      mass. In a short interval it rotates the angular momentum through a small
+      angle, and dividing the one by the other gives the steady precession
+      rate, {Omega}. Notice what it says: a faster spin, a larger omega,
+      actually means slower precession, so a briskly spinning top wanders round
+      far more lazily than a sluggish one.
+    board:
+      - id: Omega
+        latex: "\\Omega = \\dfrac{M g r}{I\\omega}"
+        say: "capital omega equals M g r over I omega"
+
+  - id: s4
+    kind: summary
+    narration: >
+      So the wheel refuses to topple because the torque from gravity steers its
+      angular momentum sideways rather than pulling it downward, {key}, and the
+      axle sweeps steadily around the vertical in a slow circle. Next, in
+      ME-26, we turn to rolling without slipping.
+    board:
+      - id: key
+        text: "Torque steers L sideways, not down"
+
+  - id: s5
+    kind: end
+    narration: ""
+    board: []
