@@ -1,0 +1,19 @@
+# build / render outputs — never commit
+out/
+.cache/
+media/              # Manim intermediate renders
+packages/assemble/out/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# node
+node_modules/
+
+# os / editor
+.DS_Store
+*.swp

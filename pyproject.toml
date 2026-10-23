@@ -1,0 +1,44 @@
+# Root of the `drawn` uv workspace. This is a virtual project (not itself a
+# package); the real code lives in packages/* which are workspace members.
+[project]
+name = "drawn"
+version = "0.1.0"
+description = "Hand-drawn-style educational YouTube videos from text lesson files."
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "drawn-schema",
+    "drawn-tts",
+    "drawn-board",
+    "drawn-cache",
+    "drawn-finish",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+drawn-schema = { workspace = true }
+drawn-tts = { workspace = true }
+drawn-board = { workspace = true }
+drawn-cache = { workspace = true }
+drawn-finish = { workspace = true }
+
+[tool.uv.workspace]
+members = ["packages/*"]
+# packages/assemble is a Remotion (Node) package; it has no pyproject so uv skips it.
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["packages"]
