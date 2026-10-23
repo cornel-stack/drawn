@@ -1,0 +1,803 @@
+# Generated from research/*_backlog.xlsx by `just fetch`.
+# Do not hand-edit; re-run the importer instead.
+- code: LA-01
+  title: What a system of linear equations really is (and why 3 pictures beat 3 formulas)
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §1.I.1 Gauss's Method
+  format: Explainer
+  target_minutes: 7
+  prereqs: []
+- code: DE-01
+  title: What is a differential equation? (and why physics is written in them)
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §1.2 Basic Concepts
+  format: Explainer
+  target_minutes: 7
+  prereqs:
+  - Calculus 1
+- code: LA-02
+  title: 'Gaussian elimination: the algorithm, visualised row by row'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §1.I.1 Gauss's Method
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-01
+- code: DE-02
+  title: 'Slope fields: seeing every solution at once'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §1.3 Direction Fields
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - DE-01
+- code: LA-03
+  title: 'Row echelon form explained: what the zeros are telling you'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §1.III Reduced Echelon Form
+  format: Explainer
+  target_minutes: 7
+  prereqs:
+  - LA-02
+- code: DE-03
+  title: 'Separable equations: the first trick everyone learns, explained properly'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §2.2 Separable Equations
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - DE-01
+- code: LA-04
+  title: Why solution sets are lines, planes and points (particular + homogeneous)
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §1.I.3 General = Particular + Homogeneous
+  format: Explainer
+  target_minutes: 7
+  prereqs:
+  - LA-03
+- code: DE-04
+  title: 'Integrating factors: where that mysterious e^∫p comes from'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §2.1 Linear First Order
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - DE-03
+- code: LA-05
+  title: 'Vectors are not arrows: three ways to think about a vector'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §1.II Linear Geometry of n-Space
+  format: Explainer
+  target_minutes: 7
+  prereqs: []
+- code: DE-05
+  title: 'Existence and uniqueness, intuitively: when does a DE have one answer?'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §2.3 Existence and Uniqueness
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - DE-02
+- code: LA-06
+  title: The dot product explained visually (projection, angle, work)
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §1.II.2 Length and Angle Measures
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-05
+- code: DE-06
+  title: Exact equations and the hidden potential function
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §2.5 Exact Equations
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - DE-04
+- code: LA-07
+  title: 'What a matrix really does: matrices as transformations'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §3.IV.2 Matrix Multiplication
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-05
+- code: DE-07
+  title: 'Exponential growth and decay: the DE behind every population curve'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §4.1 Growth and Decay
+  format: Explainer
+  target_minutes: 7
+  prereqs:
+  - DE-03
+- code: LA-08
+  title: Why matrix multiplication is defined like that
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §3.IV.2 Matrix Multiplication
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-07
+- code: DE-08
+  title: Newton's law of cooling and the mixing-tank problem, animated
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §4.2 Cooling and Mixing
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - DE-04
+- code: LA-09
+  title: 'Span: everywhere your vectors can reach'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §2.I.2 Subspaces and Spanning Sets
+  format: Explainer
+  target_minutes: 7
+  prereqs:
+  - LA-05
+- code: DE-09
+  title: 'The phase line: stability without solving anything'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §4.4 Autonomous Second Order / Lebl, Notes on Diffy
+    Qs §1.6
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - DE-02
+- code: LA-10
+  title: 'Linear independence: when is a vector redundant?'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §2.II Linear Independence
+  format: Explainer
+  target_minutes: 7
+  prereqs:
+  - LA-09
+- code: DE-10
+  title: 'Euler''s method to Runge-Kutta: how computers solve DEs'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §3.1-3.3 Numerical Methods
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - DE-02
+- code: LA-11
+  title: 'Basis and dimension: choosing your coordinate system'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §2.III Basis and Dimension
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-10
+- code: DE-11
+  title: 'Second-order linear DEs: why solutions form a 2D space'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §5.1 Homogeneous Linear Equations
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - DE-04
+  - LA-11
+- code: LA-12
+  title: 'Rank and nullity: what a matrix destroys and what it keeps'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §3.II Homomorphisms (rank, nullity)
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-11
+- code: DE-12
+  title: 'The characteristic equation: three cases, three pictures'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §5.2 Constant Coefficient Homogeneous
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - DE-11
+- code: LA-36
+  title: ALL of Linear Algebra in 8 minutes
+  course: Linear Algebra
+  source: Hefferon (whole book)
+  format: Anchor (ALL of…)
+  target_minutes: 8
+  prereqs:
+  - LA-01…LA-35
+- code: LA-13
+  title: 'The inverse matrix: undoing a transformation (and when you can''t)'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §3.IV.4 Inverses
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-07
+- code: DE-13
+  title: 'The mass on a spring: damping, visualised'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §6.1 Spring Problems
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - DE-12
+- code: LA-14
+  title: Why is the determinant like that? (area, volume and sign)
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §4.I-II Determinants
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - LA-07
+- code: DE-14
+  title: 'Forcing terms and undetermined coefficients: guessing with a method'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §5.3-5.4 Nonhomogeneous / Undetermined Coefficients
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - DE-12
+- code: LA-15
+  title: 'Cofactor expansion without tears: where the formula comes from'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §4.III Laplace's Formula
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-14
+- code: DE-15
+  title: 'Resonance: why bridges and wine glasses break'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §6.1 Forced Oscillation
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - DE-13
+- code: LA-16
+  title: 'Change of basis: the same vector in two languages'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §3.V Change of Basis
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - LA-11
+- code: DE-16
+  title: Variation of parameters, demystified
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §5.7 Variation of Parameters
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - DE-14
+- code: LA-17
+  title: 'Orthogonal projection: the closest point and why it matters'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §3.VI.1 Orthogonal Projection
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-06
+- code: DE-17
+  title: 'The Laplace transform, visually: what it does to a function'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §8.1 Introduction to Laplace Transform
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - DE-12
+- code: LA-18
+  title: 'Gram-Schmidt in 3D: building an orthonormal basis step by step'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §3.VI.2 Gram-Schmidt
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-17
+- code: DE-18
+  title: 'Solving differential equations with Laplace: turning calculus into algebra'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §8.3 Solution of IVPs
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - DE-17
+- code: DE-30
+  title: ALL of Differential Equations in 10 minutes
+  course: Differential Equations
+  source: Trench (whole book)
+  format: Anchor (ALL of…)
+  target_minutes: 10
+  prereqs:
+  - DE-01…DE-29
+- code: PS-01
+  title: 'What probability actually is: three interpretations, one set of rules'
+  course: Probability & Statistics
+  source: Grinstead & Snell, Intro to Probability §1.2 Discrete Probability
+  format: Explainer
+  target_minutes: 9
+  prereqs: []
+- code: LA-19
+  title: 'Least squares explained visually: regression is projection'
+  course: Linear Algebra
+  source: 'Hefferon, Linear Algebra Topic: Line of Best Fit'
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - LA-17
+- code: PS-02
+  title: 'Conditional probability: why your intuition fails (and how to fix it)'
+  course: Probability & Statistics
+  source: Grinstead & Snell, Intro to Probability §4.1 Conditional Probability
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-01
+- code: DE-19
+  title: 'Step functions and switches: Laplace for piecewise forcing'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §8.4-8.5 Unit Step Functions
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - DE-18
+- code: PS-03
+  title: 'Bayes'' theorem, visually: updating beliefs with evidence'
+  course: Probability & Statistics
+  source: Grinstead & Snell, Intro to Probability §4.1 Bayes' Formula
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - PS-02
+- code: XC-03
+  title: How Bayes' theorem was lost, found and started a 200-year argument
+  course: Cross-course
+  source: History-of-an-idea format
+  format: History of an idea
+  target_minutes: 18
+  prereqs:
+  - PS-03
+- code: LA-20
+  title: 'Eigenvectors and eigenvalues: the directions a matrix doesn''t turn'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §5.II.3 Eigenvalues and Eigenvectors
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - LA-14
+- code: XC-01
+  title: 'Eigenvectors in 5 levels: high school to research'
+  course: Cross-course
+  source: Dr Sean "5 levels" format
+  format: 5 levels
+  target_minutes: 11
+  prereqs:
+  - LA-20
+- code: PS-04
+  title: 'The medical-test paradox: why a positive test might mean you''re fine'
+  course: Probability & Statistics
+  source: Grinstead & Snell, Intro to Probability §4.1 Bayes (applications)
+  format: Explainer
+  target_minutes: 7
+  prereqs:
+  - PS-03
+- code: DE-20
+  title: 'Convolution and the Dirac delta: what a hammer blow does to a system'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §8.6-8.7 Convolution and Impulse
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - DE-18
+- code: PS-05
+  title: 'Counting without listing: permutations and combinations in pictures'
+  course: Probability & Statistics
+  source: Grinstead & Snell, Intro to Probability §3.1 Permutations and Combinations
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-01
+- code: LA-21
+  title: How to actually find eigenvalues (characteristic polynomial, visualised)
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §5.II.3 Eigenvalues and Eigenvectors
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-20
+- code: PS-06
+  title: 'Random variables and distributions: from a coin to a histogram'
+  course: Probability & Statistics
+  source: Grinstead & Snell, Intro to Probability §5.1 Discrete Distributions
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-01
+- code: DE-21
+  title: 'Systems of DEs: when two quantities depend on each other'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §10.1-10.3 Linear Systems of DEs
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - DE-11
+  - LA-20
+- code: PS-07
+  title: 'Expected value: the number you''d get on average (and when it lies)'
+  course: Probability & Statistics
+  source: Grinstead & Snell, Intro to Probability §6.1 Expected Value
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-06
+- code: LA-22
+  title: 'Diagonalisation: why A = PDP⁻¹ makes everything easy'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §5.II.2 Diagonalizability
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - LA-21
+- code: PS-08
+  title: 'Variance and standard deviation: why we square the differences'
+  course: Probability & Statistics
+  source: Grinstead & Snell, Intro to Probability §6.2 Variance
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-07
+- code: DE-22
+  title: 'Phase portraits I: real eigenvalues (saddles, sources, sinks)'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §10.4 Constant Coefficient Systems I
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - DE-21
+- code: PS-09
+  title: 'The binomial distribution: every yes/no experiment at once'
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §4.3 Binomial Distribution
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-06
+- code: LA-23
+  title: Matrix powers, Fibonacci and the closed form (diagonalisation in action)
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §5.II Similarity
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-22
+- code: PS-10
+  title: 'The Poisson distribution: counting rare events'
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §4.5 Poisson Distribution
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-09
+- code: DE-23
+  title: 'Phase portraits II: complex eigenvalues (spirals and centres)'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §10.6 Constant Coefficient Systems III
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - DE-22
+- code: PS-11
+  title: Where the bell curve comes from
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §4.1 Normal Distribution
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - PS-08
+- code: LA-24
+  title: 'Markov chains with matrices: where does the system end up?'
+  course: Linear Algebra
+  source: 'Hefferon, Linear Algebra Topic: Markov Chains'
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - LA-22
+- code: PS-12
+  title: 'The law of large numbers: why casinos always win'
+  course: Probability & Statistics
+  source: Grinstead & Snell, Intro to Probability §8.1 Law of Large Numbers
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-07
+- code: DE-24
+  title: 'Predator-prey and the pendulum: linearising nonlinear systems'
+  course: Differential Equations
+  source: Lebl, Notes on Diffy Qs §8.1-8.2 Nonlinear Systems / Linearisation
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - DE-23
+- code: PS-13
+  title: 'The central limit theorem, visualised: why everything becomes normal'
+  course: Probability & Statistics
+  source: Grinstead & Snell, Intro to Probability §9.1 Central Limit Theorem
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - PS-11
+- code: LA-25
+  title: 'PageRank: the eigenvector that built Google'
+  course: Linear Algebra
+  source: 'Hefferon, Linear Algebra Topic: Page Ranking'
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - LA-24
+- code: PS-14
+  title: 'Markov chains explained: memoryless systems and where they settle'
+  course: Probability & Statistics
+  source: Grinstead & Snell, Intro to Probability §11.1 Markov Chains
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - PS-02
+- code: DE-25
+  title: 'Series solutions: when you can''t solve it, approximate it'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §7.1-7.2 Series Solutions
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - DE-12
+- code: PS-15
+  title: 'Monte Carlo simulation: solving hard problems with random numbers'
+  course: Probability & Statistics
+  source: Grinstead & Snell, Intro to Probability §2.1 Simulation / Monte Carlo
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-12
+- code: LA-26
+  title: 'Complex eigenvalues mean rotation: the geometry nobody shows you'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §5.I Complex Vector Spaces
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-21
+- code: PS-16
+  title: 'Sampling methods: random, stratified, cluster (and what goes wrong)'
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §1.3 Sampling Principles
+  format: Explainer
+  target_minutes: 7
+  prereqs: []
+- code: DE-26
+  title: Fourier series as a change of basis (the linear algebra view)
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §11.2 Fourier Series I
+  format: Explainer
+  target_minutes: 14
+  prereqs:
+  - DE-11
+  - LA-18
+- code: XC-02
+  title: How Fourier discovered the Fourier series (and why nobody believed him)
+  course: Cross-course
+  source: Abide By Reason "discovery" format
+  format: History of an idea
+  target_minutes: 18
+  prereqs:
+  - DE-26
+- code: PS-17
+  title: 'Types of data: nominal, ordinal, interval, ratio (and why it decides your test)'
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §1.2 Data Basics
+  format: Explainer
+  target_minutes: 7
+  prereqs: []
+- code: LA-27
+  title: 'The spectral theorem: why symmetric matrices are the nicest matrices'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §3.II-III Symmetric matrices (Spectral Theorem)
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - LA-22
+- code: PS-18
+  title: 'Sampling distributions: the idea the whole of statistics rests on'
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §5.1 Point Estimates and Sampling Variability
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - PS-13
+- code: DE-27
+  title: 'The heat equation: separation of variables from first principles'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §12.1 The Heat Equation
+  format: Explainer
+  target_minutes: 14
+  prereqs:
+  - DE-26
+- code: PS-19
+  title: 'Confidence intervals: what 95% really means'
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §5.2 Confidence Intervals
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-18
+- code: LA-28
+  title: 'SVD explained visually: every matrix is rotate-stretch-rotate'
+  course: Linear Algebra
+  source: 'Hefferon, Linear Algebra Topic: Singular Value Decomposition'
+  format: Explainer
+  target_minutes: 14
+  prereqs:
+  - LA-27
+- code: PS-20
+  title: 'Hypothesis testing step by step: null, alternative, decision'
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §5.3 Hypothesis Testing
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - PS-19
+- code: DE-28
+  title: 'The wave equation: why a guitar string sounds the way it does'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §12.2 The Wave Equation
+  format: Explainer
+  target_minutes: 14
+  prereqs:
+  - DE-27
+- code: PS-21
+  title: What a p-value is (and the 3 things it isn't)
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §5.3 Hypothesis Testing (p-values)
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-20
+- code: LA-29
+  title: 'PCA from scratch: the linear algebra behind dimensionality reduction'
+  course: Linear Algebra
+  source: 'Hefferon, Linear Algebra Topic: SVD / Principal Component Analysis'
+  format: Explainer
+  target_minutes: 14
+  prereqs:
+  - LA-28
+- code: PS-22
+  title: 'The t-test and the t-distribution: small samples, honest uncertainty'
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §7.1 t-distribution
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-20
+- code: DE-29
+  title: 'Laplace''s equation and steady states: the smoothest function in the room'
+  course: Differential Equations
+  source: Trench, Elementary Differential Equations §12.3 Laplace's Equation
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - DE-27
+- code: PS-23
+  title: 'Type I and Type II errors, power: the four outcomes of every test'
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §5.3 Decision Errors / §7.4 Power
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-20
+- code: LA-30
+  title: 'When a matrix can''t be diagonalised: Jordan form, gently'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §5.IV Jordan Form
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - LA-22
+- code: PS-24
+  title: 'ANOVA explained visually: comparing many means at once'
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §7.5 ANOVA
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - PS-22
+- code: LA-31
+  title: 'Isomorphism: when two vector spaces are secretly the same'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §3.I Isomorphisms
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-11
+- code: PS-25
+  title: 'The chi-square test: are these categories independent?'
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §6.3-6.4 Chi-square
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-20
+- code: LA-32
+  title: Cramer's rule as geometry (why it works, not just how)
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §4.II Geometry of Determinants
+  format: Explainer
+  target_minutes: 7
+  prereqs:
+  - LA-14
+- code: PS-26
+  title: Which statistical test should I use? A visual decision tree
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) Ch.5-7 (summary)
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-20…PS-25
+- code: LA-33
+  title: 'Shear, rotation, reflection, projection: the 2×2 matrix zoo'
+  course: Linear Algebra
+  source: 'Hefferon, Linear Algebra Topic: Geometry of Linear Maps'
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - LA-07
+- code: PS-27
+  title: 'Linear regression explained visually: the line that minimises squares'
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §8.1-8.2 Linear Regression
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - PS-08
+  - LA-19
+- code: LA-34
+  title: 'Why the normal equations work: least squares in one picture'
+  course: Linear Algebra
+  source: Hefferon, Linear Algebra §3.VI Projection (applications)
+  format: Explainer
+  target_minutes: 7
+  prereqs:
+  - LA-19
+- code: PS-28
+  title: 'Correlation and R²: what the numbers measure and what they miss'
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §8.1 Correlation
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - PS-27
+- code: LA-35
+  title: 'Orthogonal matrices: transformations that preserve length'
+  course: Linear Algebra
+  source: 'Hefferon, Linear Algebra Topic: Dimensional Analysis / Orthogonal matrices'
+  format: Explainer
+  target_minutes: 7
+  prereqs:
+  - LA-18
+- code: PS-29
+  title: 'Maximum likelihood estimation: the intuition behind fitting'
+  course: Probability & Statistics
+  source: Downey, Think Stats §8 Estimation (MLE)
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - PS-06
+  - Calculus 1
+- code: PS-30
+  title: 'Logistic regression: how to predict a yes/no'
+  course: Probability & Statistics
+  source: OpenIntro Statistics (4e) §9.5 Logistic Regression
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - PS-27
+- code: PS-31
+  title: ALL of Probability & Statistics in 10 minutes
+  course: Probability & Statistics
+  source: OpenIntro + Grinstead & Snell (whole)
+  format: Anchor (ALL of…)
+  target_minutes: 10
+  prereqs:
+  - PS-01…PS-30

@@ -1,0 +1,805 @@
+# Generated from research/*_backlog.xlsx by `just fetch`.
+# Do not hand-edit; re-run the importer instead.
+- code: MI-01
+  title: 'Supply and demand, properly: what shifts a curve and what moves along it'
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §2 Supply and Demand
+  format: Explainer
+  target_minutes: 9
+  prereqs: []
+- code: MA-01
+  title: 'GDP, properly: three ways to measure one number'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.1-2 Measurement
+  format: Explainer
+  target_minutes: 9
+  prereqs: []
+- code: MI-02
+  title: How to solve elasticity problems (point, arc, revenue test)
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §2.3 Elasticity
+  format: Worked problem ("how to solve")
+  target_minutes: 9
+  prereqs:
+  - MI-01
+- code: MA-02
+  title: Inflation, the CPI and the GDP deflator (and why they disagree)
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.2 Prices
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MA-01
+- code: MI-03
+  title: How to calculate opportunity cost (and why the PPF is curved)
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §2.1 Opportunity cost / PPF
+  format: Worked problem ("how to solve")
+  target_minutes: 7
+  prereqs: []
+- code: MA-03
+  title: The aggregate production function and diminishing returns to capital
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.4 Production function
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MI-11
+- code: MI-04
+  title: 'Consumer and producer surplus: how to calculate them from a graph'
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §2.5 Surplus
+  format: Worked problem ("how to solve")
+  target_minutes: 7
+  prereqs:
+  - MI-01
+- code: MA-04
+  title: 'The Solow growth model, part 1: the diagram and the steady state'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.5 Solow model
+  format: Explainer
+  target_minutes: 14
+  prereqs:
+  - MA-03
+- code: MI-05
+  title: 'Price ceilings, floors and taxes: who really pays?'
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §5 Government interventions
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MI-04
+- code: MA-05
+  title: 'Solow part 2: population, technology and the golden rule'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.5-6 Solow extensions
+  format: Explainer
+  target_minutes: 14
+  prereqs:
+  - MA-04
+- code: MI-06
+  title: Indifference curves and the budget constraint, visualised
+  course: Intermediate Microeconomics
+  source: 'McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §12 Consumer Theory: utility'
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MI-01
+- code: MA-06
+  title: 'Growth accounting: how much of growth is capital, labour and ideas?'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.7 Growth accounting
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MA-05
+- code: MI-07
+  title: Income vs substitution effects (the Slutsky decomposition, step by step)
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §12.3 Income & substitution
+    effects
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MI-06
+- code: MA-07
+  title: 'Consumption smoothing: the two-period model and permanent income'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.9 Consumption
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MI-06
+- code: MI-29
+  title: 'The labour-leisure choice: why higher wages don''t always mean more work'
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §12.4 Labour supply
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MI-07
+- code: MA-26
+  title: 'Investment: Tobin''s q and the user cost of capital'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.8 Investment
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MA-03
+- code: MI-30
+  title: 'Saving and borrowing: the intertemporal budget constraint'
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §12.5 Intertemporal choice
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MI-06
+- code: MA-08
+  title: 'Unemployment: natural rate, cyclical and the labour market diagram'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.12 Labour market
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MA-01
+- code: MI-08
+  title: Marginal utility and why demand slopes down
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §12.1 Marginal utility
+  format: Explainer
+  target_minutes: 7
+  prereqs:
+  - MI-06
+- code: MA-09
+  title: How banks create money (the balance-sheet version)
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.15 Money
+  format: Explainer
+  target_minutes: 9
+  prereqs: []
+- code: MI-09
+  title: How to calculate marginal, average and total cost (and draw the curves)
+  course: Intermediate Microeconomics
+  source: 'McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §9 Producer Theory: cost curves'
+  format: Worked problem ("how to solve")
+  target_minutes: 9
+  prereqs: []
+- code: MA-10
+  title: 'The IS curve, derived: goods-market equilibrium and the multiplier'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.16 The IS curve
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MA-07
+- code: MI-10
+  title: Economies of scale and the long-run average cost curve
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §9.3 Returns to scale
+  format: Explainer
+  target_minutes: 7
+  prereqs:
+  - MI-09
+- code: MA-11
+  title: 'The LM curve, derived: money-market equilibrium'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.17 The LM curve
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MA-10
+- code: MI-11
+  title: 'Cobb-Douglas: the production function that runs economics'
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §9.1 Production functions
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MI-09
+- code: MA-12
+  title: 'The IS-LM model: fiscal and monetary policy in one diagram'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.18 IS-LM
+  format: Explainer
+  target_minutes: 14
+  prereqs:
+  - MA-11
+  - MA-12
+- code: GT-01
+  title: 'Game theory from zero: payoff matrices and dominant strategies'
+  course: Game Theory
+  source: Bonanno, Game Theory (open access, UC Davis) Ch.1 Strategic games
+  format: Explainer
+  target_minutes: 9
+  prereqs: []
+- code: EC-01
+  title: 'Simple linear regression: what OLS actually minimises (and why)'
+  course: Econometrics
+  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.4 Simple regression
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - PS-27 (stats lane)
+- code: MI-28
+  title: ALL of Intermediate Microeconomics in 20 minutes
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) (whole)
+  format: Anchor (ALL of…)
+  target_minutes: 20
+  prereqs:
+  - MI-01…MI-27
+- code: MI-12
+  title: 'Perfect competition: profit maximisation and the shutdown rule'
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §10 Perfect competition
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MI-09
+- code: MA-13
+  title: 'The AD-AS model: demand and supply shocks, short run to long run'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.19 AD-AS
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MA-13
+- code: GT-02
+  title: How to find a Nash equilibrium in a 2×2 game
+  course: Game Theory
+  source: Bonanno, Game Theory (open access, UC Davis) Ch.2 Nash equilibrium
+  format: Worked problem ("how to solve")
+  target_minutes: 9
+  prereqs:
+  - GT-01
+- code: EC-02
+  title: 'R² explained: what it measures and the three ways people misuse it'
+  course: Econometrics
+  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.4.3 Goodness of fit
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - EC-01
+- code: MI-13
+  title: From short run to long run in perfect competition (why profits vanish)
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §10.3 Long run
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MI-12
+- code: MA-14
+  title: 'The Phillips curve: why it worked, broke, and came back'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.20 Phillips curve
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MA-14
+- code: GT-03
+  title: 'The prisoner''s dilemma: why rational players lose'
+  course: Game Theory
+  source: Bonanno, Game Theory (open access, UC Davis) Ch.2 Prisoner's dilemma
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - GT-02
+- code: EC-03
+  title: Standard errors, t-tests and p-values in a regression table
+  course: Econometrics
+  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.5 Inference
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - EC-01
+- code: MI-14
+  title: 'Monopoly: how to find price, quantity and deadweight loss'
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §15 Monopoly
+  format: Worked problem ("how to solve")
+  target_minutes: 11
+  prereqs:
+  - MI-12
+- code: MA-15
+  title: 'Monetary policy and the Taylor rule: how central banks set rates'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.21 Monetary policy
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MA-13
+- code: GT-04
+  title: Sequential games and backward induction (game trees)
+  course: Game Theory
+  source: Bonanno, Game Theory (open access, UC Davis) Ch.3 Perfect information
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - GT-02
+- code: EC-04
+  title: Multiple regression and omitted variable bias, visualised
+  course: Econometrics
+  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.6 Multiple regression
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - EC-01
+- code: MA-25
+  title: ALL of Intermediate Macroeconomics in 20 minutes
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) (whole)
+  format: Anchor (ALL of…)
+  target_minutes: 20
+  prereqs:
+  - MA-01…MA-25
+- code: MI-15
+  title: How to calculate deadweight loss (tax, monopoly, price control)
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §15.2 Deadweight loss
+  format: Worked problem ("how to solve")
+  target_minutes: 7
+  prereqs:
+  - MI-14
+- code: MA-16
+  title: 'Fiscal policy, deficits and debt: the government budget constraint'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.22 Fiscal policy
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MA-13
+- code: GT-05
+  title: 'Subgame perfect equilibrium: the threats that aren''t credible'
+  course: Game Theory
+  source: Bonanno, Game Theory (open access, UC Davis) Ch.4 Subgame perfection
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - GT-04
+- code: EC-05
+  title: 'Multicollinearity: why your coefficients went crazy'
+  course: Econometrics
+  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.6.4 Multicollinearity
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - EC-04
+- code: MI-16
+  title: 'Price discrimination: why the same seat costs three prices'
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §15.4 Price discrimination
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MI-14
+- code: MA-17
+  title: Exchange rates and the balance of payments, explained
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.24 Open economy
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MA-01
+- code: GT-06
+  title: 'Mixed strategies: how to solve for the probabilities'
+  course: Game Theory
+  source: Bonanno, Game Theory (open access, UC Davis) Ch.5 Mixed strategies
+  format: Worked problem ("how to solve")
+  target_minutes: 11
+  prereqs:
+  - GT-02
+- code: EC-06
+  title: Heteroskedasticity and robust standard errors
+  course: Econometrics
+  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.5.4 Heteroskedasticity
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - EC-03
+- code: EC-07
+  title: 'Logs in regression: how to read elasticities and percent changes'
+  course: Econometrics
+  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.8 Nonlinear
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - EC-04
+- code: GT-07
+  title: 'Repeated games and tit-for-tat: how cooperation survives'
+  course: Game Theory
+  source: Bonanno, Game Theory (open access, UC Davis) Ch.7 Repeated games
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - GT-03
+- code: MI-17
+  title: How to solve a Cournot oligopoly problem
+  course: Intermediate Microeconomics
+  source: 'McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §17 Oligopoly: Cournot'
+  format: Worked problem ("how to solve")
+  target_minutes: 11
+  prereqs:
+  - MI-14
+  - GT-01
+- code: MA-18
+  title: 'The Mundell-Fleming model: the trilemma every central bank faces'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.25 Mundell-Fleming
+  format: Explainer
+  target_minutes: 14
+  prereqs:
+  - MA-13
+  - MA-18
+- code: EC-08
+  title: 'Correlation vs causation: the DAG way of thinking'
+  course: Econometrics
+  source: Huntington-Klein, The Effect (free online) Ch.5-6 Causality
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - EC-04
+- code: GT-08
+  title: 'Games with incomplete information: Bayesian Nash equilibrium'
+  course: Game Theory
+  source: Bonanno, Game Theory (open access, UC Davis) Ch.8 Bayesian games
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - GT-06
+- code: MI-18
+  title: How to solve a Stackelberg problem (and why moving first pays)
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §17.2 Stackelberg
+  format: Worked problem ("how to solve")
+  target_minutes: 9
+  prereqs:
+  - MI-17
+- code: MA-19
+  title: 'Bank runs and financial crises: the Diamond-Dybvig idea'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.26 Financial crises
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MA-09
+- code: EC-09
+  title: 'Potential outcomes and the randomised experiment: the gold standard'
+  course: Econometrics
+  source: 'Cunningham, Causal Inference: The Mixtape (free online) Ch.4 Potential outcomes'
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - EC-08
+- code: GT-09
+  title: 'Signalling games: why degrees exist (Spence)'
+  course: Game Theory
+  source: Bonanno, Game Theory (open access, UC Davis) Ch.9 Signalling
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - GT-08
+- code: MI-19
+  title: 'Bertrand competition: why two firms can be enough for competitive prices'
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §17.3 Bertrand
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MI-17
+- code: MA-20
+  title: 'Classical vs Keynesian: what they actually disagree about'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.14 Classical vs Keynesian
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MA-14
+- code: XC-04
+  title: Every IB Economics diagram in 15 minutes
+  course: Cross-course
+  source: Exam funnel
+  format: Anchor (ALL of…)
+  target_minutes: 15
+  prereqs:
+  - MI-01…MA-18
+- code: EC-10
+  title: Difference-in-differences, intuitively
+  course: Econometrics
+  source: Huntington-Klein, The Effect (free online) Ch.18 Difference-in-differences
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - EC-09
+- code: GT-10
+  title: 'Auctions: first-price, second-price and why you should bid your value'
+  course: Game Theory
+  source: Bonanno, Game Theory (open access, UC Davis) Ch.6 Auctions
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - GT-08
+- code: MI-20
+  title: Monopolistic competition in the short and long run
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §16 Monopolistic competition
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MI-14
+- code: MA-21
+  title: 'Real business cycle theory: recessions as rational responses?'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.11 Real business cycles
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MA-04
+- code: EC-11
+  title: 'Instrumental variables: finding a natural experiment inside your data'
+  course: Econometrics
+  source: Huntington-Klein, The Effect (free online) Ch.19 Instrumental variables
+  format: Explainer
+  target_minutes: 14
+  prereqs:
+  - EC-09
+- code: GT-11
+  title: 'Bargaining: the ultimatum game and the Nash bargaining solution'
+  course: Game Theory
+  source: Bonanno, Game Theory (open access, UC Davis) Ch.3 Bargaining
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - GT-04
+- code: MI-21
+  title: 'Externalities: the social cost curve and the Pigouvian tax'
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §7 Externalities
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MI-05
+- code: MA-22
+  title: Rational expectations and the Lucas critique
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.23 Expectations
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MA-15
+- code: EC-12
+  title: 'Regression discontinuity: when a cutoff is your experiment'
+  course: Econometrics
+  source: Huntington-Klein, The Effect (free online) Ch.20 Regression discontinuity
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - EC-09
+- code: GT-12
+  title: 'Cournot as a game: oligopoly through the Nash lens'
+  course: Game Theory
+  source: Bonanno, Game Theory (open access, UC Davis) Applications
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - GT-02
+  - MI-17
+- code: MI-22
+  title: 'The Coase theorem: when property rights fix externalities'
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §7.3 Coase
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MI-21
+- code: MA-23
+  title: 'Quantitative easing and the zero lower bound: what the Fed actually did'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.27 Zero lower bound
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MA-16
+- code: EC-13
+  title: 'Panel data and fixed effects: controlling for what you can''t see'
+  course: Econometrics
+  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.10 Panel data
+  format: Explainer
+  target_minutes: 14
+  prereqs:
+  - EC-04
+- code: GT-13
+  title: 'Evolutionary game theory: hawks, doves and stable strategies'
+  course: Game Theory
+  source: Bonanno, Game Theory (open access, UC Davis) Applications
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - GT-06
+- code: MI-23
+  title: Public goods and the free-rider problem
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §7.4 Public goods
+  format: Explainer
+  target_minutes: 7
+  prereqs:
+  - MI-21
+- code: MA-24
+  title: 'Why poor countries don''t always catch up: convergence and the Solow puzzle'
+  course: Intermediate Macroeconomics
+  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.5 Convergence
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MA-05
+- code: GT-14
+  title: ALL of Game Theory in 15 minutes
+  course: Game Theory
+  source: Bonanno, Game Theory (open access, UC Davis) (whole)
+  format: Anchor (ALL of…)
+  target_minutes: 15
+  prereqs:
+  - GT-01…GT-13
+- code: EC-14
+  title: 'Event studies and staggered treatment: the modern DiD problem'
+  course: Econometrics
+  source: Huntington-Klein, The Effect (free online) Ch.21 Event studies
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - EC-10
+  - EC-13
+- code: MI-24
+  title: 'Adverse selection and moral hazard: why used cars and insurance are hard'
+  course: Intermediate Microeconomics
+  source: 'McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §18 Information: adverse selection'
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - MI-01
+- code: EC-15
+  title: 'Probit and logit: regression when y is yes/no'
+  course: Econometrics
+  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.11 Binary outcomes
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - EC-04
+- code: MI-25
+  title: 'The Edgeworth box: general equilibrium in one picture'
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §13 General equilibrium
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MI-06
+- code: EC-16
+  title: 'Time series basics: stationarity, autocorrelation and spurious regression'
+  course: Econometrics
+  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.14 Time series
+  format: Explainer
+  target_minutes: 14
+  prereqs:
+  - EC-01
+- code: MI-26
+  title: Labour markets and the minimum wage, with and without monopsony
+  course: Intermediate Microeconomics
+  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §11 Factor markets
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MI-12
+- code: EC-17
+  title: ARIMA models, explained without the alphabet soup
+  course: Econometrics
+  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.14.4 ARIMA
+  format: Explainer
+  target_minutes: 14
+  prereqs:
+  - EC-16
+- code: MI-27
+  title: 'Comparative advantage: how to work out who should make what'
+  course: Intermediate Microeconomics
+  source: 'McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §4 Trade: comparative advantage'
+  format: Worked problem ("how to solve")
+  target_minutes: 9
+  prereqs:
+  - MI-03
+- code: EC-18
+  title: 'Cointegration and error correction: when two random walks move together'
+  course: Econometrics
+  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.16 Cointegration
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - EC-16
+- code: EC-19
+  title: 'Propensity score matching: comparing like with like'
+  course: Econometrics
+  source: 'Cunningham, Causal Inference: The Mixtape (free online) Ch.5 Matching'
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - EC-09
+- code: EC-20
+  title: Measurement error and attenuation bias
+  course: Econometrics
+  source: Huntington-Klein, The Effect (free online) Ch.13 Measurement error
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - EC-04
+- code: EC-21
+  title: Sample selection bias (and the Heckman fix)
+  course: Econometrics
+  source: Huntington-Klein, The Effect (free online) Ch.9 Selection
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - EC-08
+- code: EC-22
+  title: Your first regression in R and Python, side by side
+  course: Econometrics
+  source: 'Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Appendix: software'
+  format: Worked problem ("how to solve")
+  target_minutes: 11
+  prereqs:
+  - EC-01
+- code: EC-23
+  title: 'Synthetic control: building a counterfactual country'
+  course: Econometrics
+  source: Huntington-Klein, The Effect (free online) Ch.22 Synthetic control
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - EC-10
+- code: EC-24
+  title: 'Frisch-Waugh-Lovell: what a coefficient really is in multiple regression'
+  course: Econometrics
+  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.4 Regression anatomy
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - EC-04
+- code: EC-26
+  title: 'Functional form and specification errors: when the model is wrong, not the data'
+  course: Econometrics
+  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.7 Specification
+  format: Explainer
+  target_minutes: 9
+  prereqs:
+  - EC-04
+- code: XC-02
+  title: 'Supply and demand in 5 levels: high school to PhD'
+  course: Cross-course
+  source: 5-levels format
+  format: Explainer
+  target_minutes: 11
+  prereqs:
+  - MI-01
+- code: XC-03
+  title: How Solow discovered that capital isn't what makes countries rich
+  course: Cross-course
+  source: History-of-an-idea format
+  format: Explainer
+  target_minutes: 18
+  prereqs:
+  - MA-04
+- code: EC-25
+  title: ALL of Econometrics in 20 minutes
+  course: Econometrics
+  source: 'Cunningham, Causal Inference: The Mixtape (free online) (whole)'
+  format: Anchor (ALL of…)
+  target_minutes: 20
+  prereqs:
+  - EC-01…EC-24
+- code: XC-01
+  title: The Entire Economics Degree, explained properly, in 30 minutes
+  course: Cross-course
+  source: Compression format
+  format: Anchor (ALL of…)
+  target_minutes: 30
+  prereqs:
+  - MI-28
+  - MA-26
+  - GT-14
+  - EC-25

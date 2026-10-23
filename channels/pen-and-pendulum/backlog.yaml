@@ -1,0 +1,814 @@
+# Generated from research/*_backlog.xlsx by `just fetch`.
+# Do not hand-edit; re-run the importer instead.
+- code: ME-01
+  title: 'Vectors: components, dot and cross product in one animation'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) Ch.2 Vectors
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs: []
+- code: EM-01
+  title: 'Coulomb''s law and superposition: solving multi-charge problems'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §5.1-5.3 Coulomb's law
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - ME-01
+- code: ME-02
+  title: 'The kinematic equations: where they come from (not just how to use them)'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) Ch.3 Motion along a straight line
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs: []
+- code: EM-02
+  title: 'The electric field: what it is, and the field of a line and a ring of charge'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §5.4-5.7 Electric field
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - EM-01
+- code: ME-03
+  title: Free fall and the velocity-time graph, visualised
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §3.5 Free fall
+  format: Explainer (one concept, one animation)
+  target_minutes: 6
+  prereqs:
+  - ME-02
+- code: EM-03
+  title: 'Gauss''s law: an intuitive picture, then the sphere, cylinder and plane'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) Ch.6 Gauss's law
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - EM-02
+  - MM-03
+- code: ME-04
+  title: 'Projectile motion from zero: one method for every question'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §4.3 Projectile motion
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - ME-02
+- code: EM-04
+  title: 'Electric potential vs potential energy vs voltage: the three things students mix up'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) Ch.7 Electric potential
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs:
+  - EM-02
+- code: ME-05
+  title: 'Why circular motion needs a force: centripetal acceleration derived'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §4.4 Uniform circular motion
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - ME-01
+- code: EM-05
+  title: 'Capacitors: capacitance, stored energy and dielectrics, derived'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) Ch.8 Capacitance
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - EM-04
+- code: ME-06
+  title: 'Relative velocity: the boat, the river and the frame of reference'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §4.5 Relative motion
+  format: Explainer (one concept, one animation)
+  target_minutes: 6
+  prereqs:
+  - ME-01
+- code: EM-06
+  title: Current, drift velocity and Ohm's law from the electron's point of view
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) Ch.9 Current & resistance
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs:
+  - EM-04
+- code: ME-07
+  title: 'Newton''s three laws, properly: what each one actually says'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) Ch.5 Newton's laws
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs: []
+- code: EM-07
+  title: 'Kirchhoff''s rules: solving any circuit with two equations'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §10.3 Kirchhoff's rules
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - EM-06
+- code: ME-08
+  title: 'Free-body diagrams: the five-step method that solves any force problem'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §5.7 Free-body diagrams
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - ME-07
+- code: EM-08
+  title: 'RC circuits: charging and discharging, the differential equation solved visually'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §10.5 RC circuits
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - EM-05
+  - EM-07
+- code: ME-09
+  title: Inclined planes and pulleys (Atwood machine), step by step
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §6.1 Inclined planes & pulleys
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - ME-08
+- code: EM-09
+  title: The magnetic force on a moving charge and why it does no work
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §11.1-11.3 Magnetic force
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs:
+  - EM-02
+- code: ME-10
+  title: 'Friction: static vs kinetic, and why the static value is a maximum'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §6.2 Friction
+  format: Explainer (one concept, one animation)
+  target_minutes: 6
+  prereqs:
+  - ME-08
+- code: EM-10
+  title: Torque on a current loop in a magnetic field (how a motor works)
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §11.4-11.5 Current loop
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - EM-09
+- code: ME-11
+  title: 'Banked curves, loops and conical pendulums: centripetal force problems'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §6.3 Centripetal force applications
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - ME-05
+  - ME-08
+- code: EM-11
+  title: 'The Biot-Savart law: the field of a straight wire and a loop, derived'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §12.2 Biot-Savart
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - EM-09
+  - MM-04
+- code: ME-12
+  title: 'Drag and terminal velocity: solving the differential equation visually'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §6.4 Drag & terminal velocity
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - ME-10
+- code: EM-12
+  title: 'Ampère''s law: the wire, the solenoid and the toroid'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §12.5-12.6 Ampère's law
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - EM-11
+- code: ME-13
+  title: Work and the work-energy theorem, derived from F = ma
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) Ch.7 Work and kinetic energy
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - ME-07
+- code: EM-13
+  title: 'Faraday''s law and Lenz''s law: electromagnetic induction in one animation'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §13.1-13.3 Faraday & Lenz
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs:
+  - EM-09
+- code: WO-01
+  title: 'Archimedes'' principle: the buoyant force derived, not memorised'
+  course: Fluids, Oscillations, Waves & Sound
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §14.1-14.4 Pressure & buoyancy
+  format: Derivation / worked problem
+  target_minutes: 6
+  prereqs:
+  - ME-07
+- code: TH-01
+  title: 'Conduction, convection and radiation: the three heat-transfer equations'
+  course: Thermodynamics
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §1.6 Heat transfer
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs: []
+- code: ME-14
+  title: 'Conservation of energy: the method that skips the forces entirely'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) Ch.8 Potential energy & conservation
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - ME-13
+- code: EM-14
+  title: 'Motional emf: the sliding rod, derived two ways'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §13.4 Motional emf
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - EM-13
+- code: WO-02
+  title: 'Bernoulli''s principle: what it really says (and what the aeroplane myth gets wrong)'
+  course: Fluids, Oscillations, Waves & Sound
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §14.5-14.6 Bernoulli
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs:
+  - ME-14
+- code: TH-02
+  title: 'Kinetic theory: deriving pressure and temperature from bouncing molecules'
+  course: Thermodynamics
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) Ch.2 Kinetic theory
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - ME-16
+- code: ME-15
+  title: 'Potential energy diagrams: reading stability off a curve'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §8.4 Potential energy diagrams
+  format: Explainer (one concept, one animation)
+  target_minutes: 6
+  prereqs:
+  - ME-14
+- code: EM-15
+  title: 'Generators, back emf and eddy currents: induction in the real world'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §13.6-13.7 Eddy currents & generators
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs:
+  - EM-13
+- code: WO-03
+  title: Viscosity, Reynolds number and the onset of turbulence
+  course: Fluids, Oscillations, Waves & Sound
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §14.7 Viscosity & turbulence
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs:
+  - WO-02
+- code: TH-03
+  title: 'The Maxwell-Boltzmann distribution: where the curve comes from'
+  course: Thermodynamics
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §2.4 Maxwell-Boltzmann
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - TH-02
+- code: ME-16
+  title: 'Momentum and impulse: why airbags work (F Δt = Δp)'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) Ch.9 Momentum & impulse
+  format: Explainer (one concept, one animation)
+  target_minutes: 6
+  prereqs:
+  - ME-07
+- code: EM-16
+  title: 'Inductance: self-inductance, the RL circuit and energy in a magnetic field'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) Ch.14 Inductance
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - EM-13
+- code: WO-04
+  title: 'Simple harmonic motion: the general equation, derived and animated'
+  course: Fluids, Oscillations, Waves & Sound
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §15.1-15.2 Simple harmonic motion
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - ME-14
+- code: TH-04
+  title: The first law of thermodynamics and the four named processes on a PV diagram
+  course: Thermodynamics
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) Ch.3 First law
+  format: Explainer (one concept, one animation)
+  target_minutes: 8
+  prereqs:
+  - TH-02
+- code: ME-17
+  title: 'Elastic vs inelastic collisions in 1D and 2D: one method'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §9.4-9.6 Collisions
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - ME-16
+- code: EM-17
+  title: 'LC oscillations: a circuit that behaves exactly like a mass on a spring'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §14.5-14.6 LC & RLC
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs:
+  - EM-16
+  - WO-04
+- code: WO-05
+  title: Why SHM is the shadow of circular motion (phasors explained)
+  course: Fluids, Oscillations, Waves & Sound
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §15.3 SHM & circular motion
+  format: Explainer (one concept, one animation)
+  target_minutes: 6
+  prereqs:
+  - WO-04
+- code: TH-05
+  title: Why Cp is bigger than Cv (and the equipartition theorem)
+  course: Thermodynamics
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §3.5 Heat capacities
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - TH-04
+- code: ME-18
+  title: 'Centre of mass: why the system moves as if it were one particle'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §9.6 Centre of mass
+  format: Explainer (one concept, one animation)
+  target_minutes: 6
+  prereqs:
+  - ME-16
+- code: EM-18
+  title: 'AC circuits: impedance, phasors and resonance without the panic'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) Ch.15 AC circuits
+  format: Derivation / worked problem
+  target_minutes: 9
+  prereqs:
+  - EM-17
+- code: WO-06
+  title: 'The pendulum: period, the small-angle approximation and when it fails'
+  course: Fluids, Oscillations, Waves & Sound
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §15.4 Pendulums
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - WO-04
+- code: TH-06
+  title: The Carnot cycle and the maximum efficiency of any engine
+  course: Thermodynamics
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §4.5 Carnot cycle
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - TH-04
+- code: ME-19
+  title: The rocket equation, derived from momentum conservation
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §9.7 Rocket propulsion
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - ME-16
+- code: EM-19
+  title: How a transformer works (and why the grid runs on AC)
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §15.6 Transformers
+  format: Explainer (one concept, one animation)
+  target_minutes: 6
+  prereqs:
+  - EM-13
+- code: WO-07
+  title: 'Damped oscillations: under-, over- and critically damped, visualised'
+  course: Fluids, Oscillations, Waves & Sound
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §15.5 Damped oscillations
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - WO-04
+- code: TH-07
+  title: 'Entropy: from dQ/T to counting microstates (S = k ln W)'
+  course: Thermodynamics
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §4.7-4.8 Entropy
+  format: Explainer (one concept, one animation)
+  target_minutes: 8
+  prereqs:
+  - TH-06
+- code: TH-08
+  title: ALL of Thermodynamics in 12 minutes
+  course: Thermodynamics
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) Ch.1-4 (whole)
+  format: Anchor (ALL of…)
+  target_minutes: 12
+  prereqs:
+  - TH-01…TH-07
+- code: OP-01
+  title: Snell's law and total internal reflection (how optical fibre works)
+  course: Optics
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §1.3-1.4 Refraction
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - WO-09
+- code: MP-01
+  title: Time dilation and length contraction from two postulates (the light clock)
+  course: Modern Physics (relativity, quantum, nuclear)
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §5.1-5.4 Special relativity I
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - ME-06
+- code: MM-01
+  title: 'Vectors, scalars and tensors: what a tensor actually is'
+  course: Maths methods for physics
+  source: OpenStax Calculus Vol. 3 Ch.2 Vectors in space (CC BY 4.0)
+  format: Explainer (one concept, one animation)
+  target_minutes: 8
+  prereqs:
+  - ME-01
+- code: ME-20
+  title: 'Rotational kinematics: every linear equation has a rotational twin'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §10.1-10.4 Rotational kinematics
+  format: Explainer (one concept, one animation)
+  target_minutes: 6
+  prereqs:
+  - ME-02
+- code: ME-21
+  title: 'Moment of inertia: what it is and how to calculate it for any shape'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §10.5 Moment of inertia
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - ME-20
+- code: EM-20
+  title: Maxwell's four equations, explained one picture at a time
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §16.1 Maxwell's equations
+  format: Explainer (one concept, one animation)
+  target_minutes: 9
+  prereqs:
+  - EM-03
+  - EM-12
+  - EM-13
+  - MM-04
+- code: WO-08
+  title: 'Resonance: forced oscillations and why the bridge fell'
+  course: Fluids, Oscillations, Waves & Sound
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §15.6 Forced oscillations & resonance
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs:
+  - WO-07
+- code: OP-02
+  title: 'Polarisation and Malus''s law: why sunglasses kill glare'
+  course: Optics
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §1.7 Polarisation
+  format: Explainer (one concept, one animation)
+  target_minutes: 6
+  prereqs:
+  - EM-21
+- code: MP-02
+  title: The Lorentz transformation, derived, and the spacetime diagram
+  course: Modern Physics (relativity, quantum, nuclear)
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §5.5-5.6 Lorentz transformation
+  format: Derivation / worked problem
+  target_minutes: 9
+  prereqs:
+  - MP-01
+- code: MM-02
+  title: 'Partial derivatives and the gradient: the direction of steepest ascent'
+  course: Maths methods for physics
+  source: OpenStax Calculus Vol. 3 Ch.4 Differentiation of functions of several variables
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs: []
+- code: ME-22
+  title: Torque and the rotational form of Newton's second law
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §10.6-10.7 Torque
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - ME-21
+- code: ME-23
+  title: 'Rolling without slipping: why a hoop loses the race to a sphere'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §11.1 Rolling motion
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs:
+  - ME-21
+- code: EM-21
+  title: 'How Maxwell''s equations predict light: the wave equation for E and B'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §16.2 EM waves
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - EM-20
+  - WO-09
+- code: WO-09
+  title: 'The wave equation: deriving y(x,t) and the speed of a wave on a string'
+  course: Fluids, Oscillations, Waves & Sound
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §16.1-16.3 Travelling waves
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - WO-04
+- code: OP-03
+  title: 'Spherical mirrors: ray diagrams and the mirror equation'
+  course: Optics
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §2.2 Mirrors
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs: []
+- code: MP-03
+  title: Relativistic momentum and E = mc², derived
+  course: Modern Physics (relativity, quantum, nuclear)
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §5.8-5.9 E = mc²
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - MP-02
+- code: MM-03
+  title: 'Divergence and curl: what the symbols mean, with fields you can see'
+  course: Maths methods for physics
+  source: OpenStax Calculus Vol. 3 §6.5 Divergence and curl
+  format: Explainer (one concept, one animation)
+  target_minutes: 8
+  prereqs:
+  - MM-02
+- code: ME-24
+  title: 'Conservation of angular momentum: the spinning skater, derived'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §11.2-11.3 Angular momentum
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - ME-22
+- code: ME-25
+  title: 'Gyroscopic precession: why the spinning wheel refuses to fall'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §11.4 Precession of a gyroscope
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs:
+  - ME-24
+- code: EM-22
+  title: 'The Poynting vector: where the energy in a circuit actually flows'
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) §16.3-16.4 Poynting vector
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs:
+  - EM-21
+- code: EM-23
+  title: ALL of Electrostatics & Circuits in 15 minutes
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) Ch.5-10 (whole)
+  format: Anchor (ALL of…)
+  target_minutes: 15
+  prereqs:
+  - EM-01…EM-08
+- code: EM-24
+  title: ALL of Magnetism & Induction in 15 minutes
+  course: Electricity & Magnetism
+  source: OpenStax University Physics Vol. 2 (CC BY 4.0) Ch.11-16 (whole)
+  format: Anchor (ALL of…)
+  target_minutes: 15
+  prereqs:
+  - EM-09…EM-22
+- code: XC-04
+  title: Everything about Electricity & Magnetism, explained slowly (2 hours, for sleep)
+  course: Cross-course
+  source: Sleep compilation
+  format: Sleep compilation (2 h, explained slowly)
+  target_minutes: 120
+  prereqs:
+  - EM-01…EM-24
+- code: WO-10
+  title: 'Standing waves: nodes, antinodes and harmonics, animated'
+  course: Fluids, Oscillations, Waves & Sound
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §16.5-16.6 Superposition & standing waves
+  format: Explainer (one concept, one animation)
+  target_minutes: 6
+  prereqs:
+  - WO-09
+- code: OP-04
+  title: 'Thin lenses: the lens equation, magnification and sign conventions'
+  course: Optics
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §2.4 Thin lenses
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - OP-03
+- code: MP-04
+  title: 'Blackbody radiation, the photoelectric effect and Compton scattering: how the photon was forced
+    on physics'
+  course: Modern Physics (relativity, quantum, nuclear)
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §6.1-6.3 Photons
+  format: Explainer (one concept, one animation)
+  target_minutes: 9
+  prereqs:
+  - WO-09
+- code: MM-04
+  title: Line and surface integrals, and why physicists need both
+  course: Maths methods for physics
+  source: OpenStax Calculus Vol. 3 §6.2-6.6 Line & surface integrals
+  format: Derivation / worked problem
+  target_minutes: 9
+  prereqs:
+  - MM-03
+- code: ME-26
+  title: 'Static equilibrium: ladders, beams and the two conditions'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) Ch.12 Static equilibrium
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - ME-22
+- code: ME-27
+  title: 'Orbits: how to find speed, period and energy of a satellite'
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §13.1-13.4 Gravitation & orbits
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - ME-05
+  - ME-14
+- code: WO-11
+  title: 'Beats: why two close frequencies pulse'
+  course: Fluids, Oscillations, Waves & Sound
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §17.6 Beats
+  format: Explainer (one concept, one animation)
+  target_minutes: 5
+  prereqs:
+  - WO-10
+- code: OP-05
+  title: 'Young''s double slit: deriving the fringe spacing'
+  course: Optics
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §3.1-3.2 Young's double slit
+  format: Derivation / worked problem
+  target_minutes: 7
+  prereqs:
+  - WO-10
+- code: MP-05
+  title: 'The Bohr model and de Broglie waves: why orbits are quantised'
+  course: Modern Physics (relativity, quantum, nuclear)
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §6.4-6.6 Bohr & de Broglie
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - MP-04
+  - ME-27
+- code: MM-05
+  title: 'Stokes'' theorem and the divergence theorem: Maxwell''s equations in two forms'
+  course: Maths methods for physics
+  source: OpenStax Calculus Vol. 3 §6.7-6.8 Stokes & divergence theorems
+  format: Derivation / worked problem
+  target_minutes: 9
+  prereqs:
+  - MM-04
+- code: ME-28
+  title: Kepler's three laws, derived from Newton's gravity
+  course: Mechanics
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §13.5 Kepler's laws
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - ME-24
+  - ME-27
+- code: XC-01
+  title: ALL of first-year Mechanics in 15 minutes
+  course: Cross-course
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) Ch.1-13 (whole)
+  format: Anchor (ALL of…)
+  target_minutes: 15
+  prereqs:
+  - ME-01…ME-28
+- code: WO-12
+  title: 'The Doppler effect: the formula derived in one picture'
+  course: Fluids, Oscillations, Waves & Sound
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) §17.7 Doppler effect
+  format: Derivation / worked problem
+  target_minutes: 6
+  prereqs:
+  - WO-09
+- code: XC-02
+  title: ALL of Oscillations, Waves & Sound in 12 minutes
+  course: Cross-course
+  source: OpenStax University Physics Vol. 1 (CC BY 4.0) Ch.14-17 (whole)
+  format: Anchor (ALL of…)
+  target_minutes: 12
+  prereqs:
+  - WO-01…WO-12
+- code: XC-03
+  title: Everything about first-year Mechanics, explained slowly (2 hours, for sleep)
+  course: Cross-course
+  source: Sleep compilation
+  format: Sleep compilation (2 h, explained slowly)
+  target_minutes: 120
+  prereqs:
+  - ME-01…ME-28
+  - XC-01
+- code: OP-06
+  title: 'Thin-film interference: why soap bubbles have colours'
+  course: Optics
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §3.4 Thin-film interference
+  format: Explainer (one concept, one animation)
+  target_minutes: 7
+  prereqs:
+  - OP-05
+- code: MP-06
+  title: The wave function and the uncertainty principle, without hand-waving
+  course: Modern Physics (relativity, quantum, nuclear)
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §7.1-7.2 Wave functions
+  format: Explainer (one concept, one animation)
+  target_minutes: 8
+  prereqs:
+  - MP-05
+  - WO-10
+- code: MM-06
+  title: The three differential equations in all of first-year physics (and how to solve each)
+  course: Maths methods for physics
+  source: OpenStax Calculus Vol. 2 Ch.7 / Differential equations
+  format: Derivation / worked problem
+  target_minutes: 9
+  prereqs:
+  - WO-04
+  - EM-08
+- code: OP-07
+  title: Single-slit diffraction and the diffraction grating, derived
+  course: Optics
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §4.1-4.4 Diffraction
+  format: Derivation / worked problem
+  target_minutes: 8
+  prereqs:
+  - OP-05
+- code: MP-07
+  title: The Schrödinger equation and the particle in a box, solved
+  course: Modern Physics (relativity, quantum, nuclear)
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §7.3-7.4 Schrödinger & particle in a box
+  format: Derivation / worked problem
+  target_minutes: 9
+  prereqs:
+  - MP-06
+  - MM-06
+- code: OP-08
+  title: 'The Rayleigh criterion: why telescopes need to be big'
+  course: Optics
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §4.5 Resolution
+  format: Explainer (one concept, one animation)
+  target_minutes: 6
+  prereqs:
+  - OP-07
+- code: MP-08
+  title: The quantum harmonic oscillator and quantum tunnelling
+  course: Modern Physics (relativity, quantum, nuclear)
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §7.5-7.6 QHO & tunnelling
+  format: Derivation / worked problem
+  target_minutes: 9
+  prereqs:
+  - MP-07
+  - WO-04
+- code: MP-09
+  title: 'The hydrogen atom: quantum numbers, orbitals and spin ½'
+  course: Modern Physics (relativity, quantum, nuclear)
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) §8.1-8.3 Hydrogen atom & spin
+  format: Explainer (one concept, one animation)
+  target_minutes: 9
+  prereqs:
+  - MP-07
+- code: MP-10
+  title: Radioactive decay, half-life, binding energy, fission and fusion
+  course: Modern Physics (relativity, quantum, nuclear)
+  source: OpenStax University Physics Vol. 3 (CC BY 4.0) Ch.10 Nuclear physics
+  format: Derivation / worked problem
+  target_minutes: 9
+  prereqs:
+  - MP-03
