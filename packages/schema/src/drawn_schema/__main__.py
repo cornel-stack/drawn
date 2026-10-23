@@ -21,6 +21,14 @@ def _cmd_import_backlogs(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_new_lesson(args: argparse.Namespace) -> int:
+    from drawn_schema.scaffold import new_lesson
+
+    path = new_lesson(args.repo_root, args.channel, args.code, force=args.force)
+    print(f"created {path}")
+    return 0
+
+
 def _cmd_lint(args: argparse.Namespace) -> int:
     exit_code = 0
     for path in args.lessons:
@@ -47,6 +55,13 @@ def main(argv: list[str] | None = None) -> int:
     imp = sub.add_parser("import-backlogs", help="build channels/*/backlog.yaml from xlsx")
     imp.add_argument("--repo-root", type=Path, default=Path.cwd())
     imp.set_defaults(func=_cmd_import_backlogs)
+
+    nl = sub.add_parser("new-lesson", help="scaffold a lesson YAML from its backlog row")
+    nl.add_argument("channel")
+    nl.add_argument("code")
+    nl.add_argument("--repo-root", type=Path, default=Path.cwd())
+    nl.add_argument("--force", action="store_true")
+    nl.set_defaults(func=_cmd_new_lesson)
 
     args = parser.parse_args(argv)
     return args.func(args)

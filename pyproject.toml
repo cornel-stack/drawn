@@ -25,7 +25,7 @@ drawn-finish = { workspace = true }
 
 [tool.uv.workspace]
 members = ["packages/*"]
-# packages/assemble is a Remotion (Node) package; it has no pyproject so uv skips it.
+exclude = ["packages/assemble"]  # Remotion (Node) package, not a Python one
 
 [dependency-groups]
 dev = [

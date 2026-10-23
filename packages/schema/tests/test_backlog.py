@@ -28,3 +28,14 @@ def test_parse_prereqs_comma_split():
 
 def test_parse_prereqs_keeps_range_tokens_verbatim():
     assert parse_prereqs("EM-01…EM-08") == ["EM-01…EM-08"]
+
+
+def test_parse_source_openstax():
+    from drawn_schema.scaffold import parse_source
+
+    s = "OpenStax University Physics Vol. 1 (CC BY 4.0) §11.4 Precession of a gyroscope"
+    out = parse_source(s)
+    assert out["license"] == "CC BY 4.0"
+    assert out["section"].startswith("§11.4")
+    assert "OpenStax University Physics Vol. 1" in out["book"]
+    assert "CC BY" not in out["book"]

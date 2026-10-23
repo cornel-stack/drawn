@@ -34,6 +34,9 @@ def build_props(repo_root: Path, lesson_path: Path, quality: str = "preview") ->
     channel = load_channel(repo_root, lesson.channel)
     width, height, fps = _DIMS[quality]
 
+    # Remotion renders with --public-dir pointed at the repo root, so asset
+    # paths here are repo-root-relative (POSIX) and resolved via staticFile.
+    rel = f"out/{lesson.channel}/{lesson.id}"
     scenes = []
     for scene in lesson.scenes:
         words = _scene_words(repo_root, lesson.channel, lesson.id, scene.id)
@@ -41,8 +44,8 @@ def build_props(repo_root: Path, lesson_path: Path, quality: str = "preview") ->
             {
                 "id": scene.id,
                 "kind": scene.kind,
-                "clip": f"scenes/{scene.id}.mp4",
-                "audio": f"audio/{scene.id}.wav",
+                "clip": f"{rel}/scenes/{scene.id}.mp4",
+                "audio": f"{rel}/audio/{scene.id}.wav",
                 "duration": float(words["duration"]),
                 "words": words.get("words", []),
             }
@@ -50,11 +53,13 @@ def build_props(repo_root: Path, lesson_path: Path, quality: str = "preview") ->
 
     props = {
         "lesson": {"id": lesson.id, "title": lesson.title, "channel": lesson.channel},
+        "format": "landscape",
         "channel": {
             "display_name": channel.display_name,
             "board": channel.board.model_dump(),
             "palette": channel.palette,
             "font_family": channel.font.handwriting,
+            "font_file": channel.font.file,
             "intro_seconds": channel.intro_seconds,
             "outro_seconds": channel.outro_seconds,
         },
