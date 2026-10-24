@@ -35,6 +35,48 @@ One YAML file per video at `channels/<name>/lessons/<CODE>.yaml`, validated by
 - Every `latex` item must have a `say`. Every `{id}` must resolve to an item in
   the same scene, and every item must be referenced exactly once.
 
+### Writing a lesson in practice (learned from LA-01, ME-01, MI-01)
+
+- **Pick the primitive first.** Each diagram scene runs one animation primitive
+  (`vectors`, `vectors3d`, `axes_plot`, `supply_demand`, `gyroscope`, `wheel`)
+  or a per-lesson `custom:` class in `lessons/<CODE>.py`. When a lesson needs a
+  primitive that is still a stub, build it **fully** — it is reused by dozens of
+  lessons. Every non-end scene carries an `animation` block except `derivation`,
+  where the hand writing the steps is itself the motion.
+- **Draw before you operate.** A step that uses something (`components`,
+  `dot_product`, `cross`, `add_tip_to_tail`, `shift`, `intersect`) must appear
+  in the narration *after* the `draw`/`plot` step that created it, or it fails at
+  render (e.g. `KeyError`). Order the `{id}`s accordingly.
+- **First `{id}` within ~3 s.** The pacing check fails a 2D scene whose first
+  visual is more than 3 s into the narration (≈ 8 spoken words). Open every
+  diagram scene with a draw/plot placeholder.
+- **Nothing static > 3 s.** The render engine fills every gap with motion (3D
+  camera drift, continued primitive motion, or a gentle pulse of the active 2D
+  item) and pads the tail the same way — never a frozen frame. So the only real
+  pacing risk is a long lead-in (above).
+- **Colour discipline.** One accent per quantity across the whole lesson; a
+  formula's sub-parts match the diagram via `tex_colors`. Base ink is white on
+  the black board; `palette`/`accents` entries are accent colours only.
+- **Composition.** Diagram scenes carry their formula/label at the **top**; the
+  diagram fills the rest. Keep at most ~4 formula or ~6 text lines on screen.
+
+### Word budget in practice
+
+The linter enforces `target_minutes × 145` words, ±15 %. But **Kokoro speaks at
+~175 wpm, not 145**, so a 7-minute lesson (≈ 1015-word budget) renders to about
+5:50 of audio. Write to the **upper half** of the band to land near the target
+length; LA-01/ME-01 came in ~860–910 words (7 min) and MI-01 ~1120 (9 min).
+
+### Pronunciation (`channels/<name>/pronounce.yaml`)
+
+A `map:` of symbol/term → spoken form, applied to both `say` fields and the
+narration before synthesis (e.g. `"\\omega": "omega"`, `"\\times": "cross"`,
+`"ceteris paribus": "keteris paribus"`). Longest match wins; alphabetic terms
+are word-bounded. Still write every `say` in plain spoken words — the map is the
+safety net and the place to fix whatever the voice mangles. The linter **warns**
+about any speakable LaTeX symbol (Greek letters, operators) used with no entry,
+so keep each channel's map complete as new symbols appear.
+
 ## Engineering rules
 
 - **Pin versions.** Python via uv (`uv.lock` committed), Node 22 LTS (`.nvmrc`
