@@ -167,11 +167,14 @@ class Gyroscope(Primitive):
                 movers.append(getattr(self, attr))
         group = _vgroup(*movers)
         if orbit:
-            self.scene.begin_ambient_camera_rotation(rate=0.15)
-        self.scene.play(_grow_create(self.scene, cone), run_time=min(1.0, run_time * 0.3))
+            self.scene.begin_ambient_camera_rotation(rate=0.12)
+        # consume exactly run_time: cone draw + precession sweep sum to run_time
+        cone_t = run_time * 0.3
+        sweep_t = run_time - cone_t
+        self.scene.play(_grow_create(self.scene, cone), run_time=cone_t)
         self.scene.play(
             Rotate(group, angle=2 * np.pi * turns, axis=UP, about_point=self.pivot),
-            run_time=max(0.5, run_time * 0.7),
+            run_time=sweep_t,
         )
         if orbit:
             self.scene.stop_ambient_camera_rotation()

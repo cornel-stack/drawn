@@ -97,12 +97,14 @@ class BoardSceneMixin:
             frame_width=self._fw(),
             frame_height=self._fh(),
         )
-        # a scene that also runs an animation keeps its written text in the
-        # lower third so the diagram has the rest of the frame to itself
+        # keep written text out of the diagram's way: diagram scenes carry
+        # their formula/label at the TOP (filling the space above the diagram);
+        # other animated scenes keep text in the lower third.
         if d.scene.animation is not None:
-            from manim import DOWN
+            from manim import DOWN, UP
 
-            group.to_edge(DOWN, buff=self._fh() * style.SAFE_MARGIN_FRAC)
+            edge = UP if d.scene.kind == "diagram" else DOWN
+            group.to_edge(edge, buff=self._fh() * style.SAFE_MARGIN_FRAC)
         self._board_group = group
         out = []
         for item, mob in mobs:
@@ -200,8 +202,41 @@ class BoardSceneMixin:
                 consumed = max(0.5, slot)
                 primitive.run_step(payload.action, payload.params, run_time=consumed)
             t += consumed
-        if total > t:
-            self.wait(total - t)
+        remaining = total - t
+        if remaining > 0.05:
+            self._pad(remaining, primitive, visible)
+
+    def _pad(self, remaining: float, primitive, visible: list) -> None:
+        """Fill the tail of a scene with meaningful motion — never a frozen frame.
+
+        3D: a slow camera drift. A primitive that is still moving (spin/precess):
+        keep running it. Otherwise: a gentle breathing pulse of the active item.
+        """
+        if self.data.is_3d:
+            from manim import DEGREES
+
+            self.move_camera(theta=self.camera.get_theta() + 14 * DEGREES, run_time=remaining)
+        elif primitive is not None and primitive.continuous_spans():
+            self.wait(remaining)  # the primitive keeps moving on its own
+        elif visible:
+            self._pulse(visible[-1][0], remaining)
+        else:
+            self.wait(remaining)
+
+    def _pulse(self, mob, remaining: float) -> None:
+        import math
+
+        from manim import UpdateFromAlphaFunc
+
+        base_h = mob.height
+        base_c = mob.get_center()
+        cycles = max(1.0, remaining / 1.6)
+
+        def _f(m, alpha):
+            m.scale_to_fit_height(base_h * (1 + 0.03 * math.sin(alpha * 2 * math.pi * cycles)))
+            m.move_to(base_c)
+
+        self.play(UpdateFromAlphaFunc(mob, _f), run_time=remaining)
 
     def _write_one(self, mob, item, slot: float, visible: list) -> float:
         """Write `mob` with the hand; return the time actually consumed.
