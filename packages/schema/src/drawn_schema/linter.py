@@ -90,13 +90,16 @@ def _check_scene_placeholders(scene: Scene, result: LintResult) -> None:
             )
 
 
-def _spoken_narration(scene: Scene) -> str:
+def _spoken_narration(scene: Scene, pronounce_map: dict | None = None) -> str:
+    from drawn_schema import pronounce as _pron
+
     spoken = dict(scene.placeholders())
-    return substitute(scene.narration, spoken)
+    text = substitute(scene.narration, spoken)
+    return _pron.apply(text, pronounce_map or {})
 
 
-def _check_word_budget(lesson: Lesson, result: LintResult) -> None:
-    total = sum(count_words(_spoken_narration(s)) for s in lesson.scenes)
+def _check_word_budget(lesson: Lesson, result: LintResult, pronounce_map: dict) -> None:
+    total = sum(count_words(_spoken_narration(s, pronounce_map)) for s in lesson.scenes)
     budget = lesson.word_budget
     lo = round(budget * (1 - WORD_BUDGET_TOLERANCE))
     hi = round(budget * (1 + WORD_BUDGET_TOLERANCE))
@@ -124,6 +127,19 @@ def _check_animations(lesson: Lesson, repo_root: Path | None, result: LintResult
                 f"scene {scene.id!r}: animation custom="
                 f"{scene.animation.custom!r} but {custom_module} does not exist"
             )
+
+
+def _check_pronounce(lesson: Lesson, pronounce_map: dict, result: LintResult) -> None:
+    from drawn_schema import pronounce as _pron
+
+    latex_strings = [
+        item.latex for s in lesson.scenes for item in s.board if item.is_latex
+    ]
+    for sym in sorted(_pron.missing_symbols(latex_strings, pronounce_map)):
+        result.warn(
+            f"LaTeX symbol {sym!r} has no entry in "
+            f"channels/{lesson.channel}/pronounce.yaml"
+        )
 
 
 def _check_licence(lesson: Lesson, result: LintResult) -> None:
@@ -229,10 +245,17 @@ def lint_lesson(data: dict, repo_root: Path | None = None) -> LintResult:
             result.error(f"{loc}: {err['msg']}")
         return result  # cannot run semantic checks on an invalid structure
 
+    pronounce_map = {}
+    if repo_root is not None:
+        from drawn_schema import pronounce as _pron
+
+        pronounce_map = _pron.load_pronounce(repo_root, lesson.channel)
+
     for scene in lesson.scenes:
         _check_scene_placeholders(scene, result)
     _check_animations(lesson, repo_root, result)
-    _check_word_budget(lesson, result)
+    _check_pronounce(lesson, pronounce_map, result)
+    _check_word_budget(lesson, result, pronounce_map)
     _check_licence(lesson, result)
     _check_latex(lesson, result)
     _check_backlog(lesson, repo_root, result)

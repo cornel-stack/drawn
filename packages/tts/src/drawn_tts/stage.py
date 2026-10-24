@@ -38,12 +38,16 @@ class SceneTTS:
     skipped: bool
 
 
-def _scene_hash(scene: Scene, channel: ChannelConfig, service_name: str) -> str:
+def _scene_hash(
+    scene: Scene, channel: ChannelConfig, service_name: str, pronounce_map: dict
+) -> str:
     payload = {
         "narration": scene.narration,
         "items": [[it.id, it.spoken] for it in scene.board],
+        "steps": [[s.id, s.spoken] for s in (scene.animation.steps if scene.animation else [])],
         "voice": channel.voice.model_dump(),
         "service": service_name,
+        "pronounce": pronounce_map,
         "sr": SAMPLE_RATE,
     }
     blob = json.dumps(payload, sort_keys=True, ensure_ascii=False).encode()
@@ -95,13 +99,16 @@ def run_tts(
     data = yaml.safe_load(Path(lesson_path).read_text())
     lesson = Lesson.model_validate(data)
     channel = load_channel(repo_root, lesson.channel)
+    from drawn_schema import pronounce as _pron
+
+    pronounce_map = _pron.load_pronounce(Path(repo_root), lesson.channel)
     service = make_service(channel.voice)
 
     results: list[SceneTTS] = []
     for scene in lesson.scenes:
         wav = paths.scene_wav(repo_root, lesson.channel, lesson.id, scene.id)
         wj = paths.scene_words(repo_root, lesson.channel, lesson.id, scene.id)
-        want_hash = _scene_hash(scene, channel, service.name)
+        want_hash = _scene_hash(scene, channel, service.name, pronounce_map)
 
         if not force and wav.is_file() and wj.is_file():
             try:
@@ -115,7 +122,7 @@ def run_tts(
             except (json.JSONDecodeError, KeyError):
                 pass
 
-        words, _ = build_spoken(scene)
+        words, _ = build_spoken(scene, pronounce_map)
         text = " ".join(words).strip()
 
         if not text:
@@ -126,7 +133,7 @@ def run_tts(
             transcribed = transcribe_words(wav, model_size=model_size)
 
         duration = wav_duration(wav)
-        starts = item_write_starts(scene, words, transcribed, duration)
+        starts = item_write_starts(scene, words, transcribed, duration, pronounce_map)
 
         wj.parent.mkdir(parents=True, exist_ok=True)
         wj.write_text(

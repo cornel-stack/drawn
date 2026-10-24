@@ -32,12 +32,19 @@ class Word:
     end: float
 
 
-def build_spoken(scene: Scene) -> tuple[list[str], dict[str, int]]:
+def build_spoken(
+    scene: Scene, pronounce_map: dict | None = None
+) -> tuple[list[str], dict[str, int]]:
     """Return (spoken words, {item_id: first-word index}) for a scene.
 
     Covers board items and animation steps (both use the {id} system).
+    Pronunciation is applied per-part (before splitting) so item start indices
+    stay correct even when a replacement changes the word count.
     """
-    spoken_map = dict(scene.placeholders())
+    from drawn_schema import pronounce as _pron
+
+    pronounce_map = pronounce_map or {}
+    spoken_map = {k: _pron.apply(v, pronounce_map) for k, v in scene.placeholders()}
     words: list[str] = []
     item_start: dict[str, int] = {}
     # re.split with a capturing group interleaves the captured ids at odd indices.
@@ -47,12 +54,12 @@ def build_spoken(scene: Scene) -> tuple[list[str], dict[str, int]]:
             item_start[part] = len(words)  # where this item's words begin
             words.extend(spoken_map.get(part, "").split())
         else:
-            words.extend(part.split())
+            words.extend(_pron.apply(part, pronounce_map).split())
     return words, item_start
 
 
-def spoken_text(scene: Scene) -> str:
-    words, _ = build_spoken(scene)
+def spoken_text(scene: Scene, pronounce_map: dict | None = None) -> str:
+    words, _ = build_spoken(scene, pronounce_map)
     return " ".join(words)
 
 
@@ -72,10 +79,11 @@ def _intended_to_actual(intended: list[str], actual: list[Word]) -> dict[int, in
 
 
 def item_write_starts(
-    scene: Scene, intended: list[str], actual: list[Word], duration: float
+    scene: Scene, intended: list[str], actual: list[Word], duration: float,
+    pronounce_map: dict | None = None,
 ) -> dict[str, float]:
     """Resolve each board item's write-start time in seconds."""
-    _, item_index = build_spoken(scene)
+    _, item_index = build_spoken(scene, pronounce_map)
     mapping = _intended_to_actual(intended, actual)
     starts: dict[str, float] = {}
     for item_id, idx in item_index.items():
