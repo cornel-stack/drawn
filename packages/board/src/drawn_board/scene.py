@@ -16,7 +16,7 @@ from drawn_schema.channel import ChannelConfig
 from drawn_schema.lesson import Lesson, Scene
 
 from drawn_board import layout, style
-from drawn_board.hand import HandFollower, path_point
+from drawn_board.hand import HandFollower
 from drawn_board.wobble import apply_wobble
 
 
@@ -211,14 +211,15 @@ class BoardSceneMixin:
         clock advances by exactly what this consumes, keeping the clip in sync
         with the audio.
         """
-        from manim import ValueTracker, Write
+        from manim import UpdateFromAlphaFunc, Write
 
         self._retire_if_full(mob, item, visible)
         if self.data.is_3d:
             self.add_fixed_in_frame_mobjects(mob)
 
-        glyphs = max(1, len(mob.family_members_with_points()))
-        want = glyphs * style.WRITE_SECONDS_PER_GLYPH
+        glyphs = mob.family_members_with_points()
+        n = max(1, len(glyphs))
+        want = n * style.WRITE_SECONDS_PER_GLYPH
         want = max(style.WRITE_MIN_SECONDS, min(style.WRITE_MAX_SECONDS, want))
 
         enter = min(style.HAND_ENTER_SECONDS, slot * 0.18) if slot > 0 else style.HAND_ENTER_SECONDS
@@ -226,12 +227,24 @@ class BoardSceneMixin:
         avail = (slot - enter - lift) if slot > 0 else want
         wdur = want if avail <= 0 else max(0.4, min(want, avail))
 
-        self.hand.enter(self, path_point(mob, 0.0), run_time=enter)
-        tracker = ValueTracker(0.0)
-        updater = self.hand.follow_updater(mob, tracker)
-        self.hand.mobject.add_updater(updater)
-        self.play(Write(mob), tracker.animate.set_value(1.0), run_time=wdur)
-        self.hand.mobject.remove_updater(updater)
+        tip_off = self.hand.tip_offset
+        centers = [g.get_center() for g in glyphs]
+
+        def _follow(hand, alpha):
+            # pen sits on the glyph currently being revealed by Write (which
+            # staggers glyph-by-glyph), so the tip stays with the ink frontier
+            f = min(max(alpha, 0.0), 1.0) * (n - 1)
+            i = int(f)
+            j = min(i + 1, n - 1)
+            target = centers[i] + (centers[j] - centers[i]) * (f - i)
+            hand.move_to(target - tip_off)
+
+        self.hand.enter(self, centers[0], run_time=enter)
+        self.play(
+            Write(mob),
+            UpdateFromAlphaFunc(self.hand.mobject, _follow),
+            run_time=wdur,
+        )
         self.hand.lift(self, run_time=lift)
         visible.append((mob, item))
         return enter + wdur + lift
