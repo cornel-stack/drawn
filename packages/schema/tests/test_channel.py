@@ -19,3 +19,16 @@ def test_channel_config_loads_and_font_exists(name):
     assert cfg.board.style in ("paper", "board")
     assert (root / cfg.font.file).is_file()
     assert cfg.voice.kokoro_voice and cfg.voice.edge_voice
+
+
+def test_resolve_color():
+    root = _repo_root()
+    cfg = load_channel(root, "pen-and-pendulum")
+    assert cfg.board.background == "#000000"
+    assert cfg.board.ink == "#ffffff"
+    assert cfg.resolve_color("blue") == cfg.accents["blue"]
+    assert cfg.resolve_color("#123456") == "#123456"
+    assert cfg.resolve_color(None) == cfg.board.ink
+    import pytest as _pytest
+    with _pytest.raises(ValueError):
+        cfg.resolve_color("chartreuse")

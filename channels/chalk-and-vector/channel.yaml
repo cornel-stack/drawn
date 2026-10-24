@@ -1,15 +1,23 @@
 name: chalk-and-vector
 display_name: "Chalk & Vector"
 board:
-  style: board          # dark chalkboard
-  background: "#13211c"  # deep slate-green board
-  ink: "#f3f1e7"         # chalk white
-  accent: "#ffd24a"      # chalk yellow
+  style: board           # pure black board, white ink (Phase 1.5 legibility bar)
+  background: "#000000"
+  ink: "#ffffff"
+  accent: "#5aa9ff"       # default accent (blue)
+# Palette entries are ACCENTS ONLY (vectors, highlights, boxes) — never base ink.
 palette:
-  - "#f3f1e7"            # chalk white
+  - "#5aa9ff"            # blue
   - "#ffd24a"            # yellow
-  - "#7fd1ff"            # blue chalk
-  - "#ff8f8f"            # red chalk
+  - "#5fd38a"            # green
+  - "#ff6b6b"            # red
+accents:
+  blue: "#5aa9ff"
+  orange: "#ff9f43"
+  green: "#5fd38a"
+  red: "#ff6b6b"
+  purple: "#c08cff"
+  yellow: "#ffd24a"
 font:
   handwriting: Kalam
   file: assets/fonts/Kalam-Regular.ttf

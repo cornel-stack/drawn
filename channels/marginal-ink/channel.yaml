@@ -1,15 +1,23 @@
 name: marginal-ink
 display_name: "Marginal Ink"
 board:
-  style: paper          # off-white paper
-  background: "#f7f3ea"  # warm off-white
-  ink: "#242321"         # near-black ink
-  accent: "#0f7b8a"      # teal
+  style: board           # pure black board, white ink (Phase 1.5 legibility bar)
+  background: "#000000"
+  ink: "#ffffff"
+  accent: "#5fd38a"       # default accent (green)
+# Palette entries are ACCENTS ONLY (vectors, highlights, boxes) — never base ink.
 palette:
-  - "#242321"            # ink
-  - "#0f7b8a"            # teal
-  - "#b5532a"            # terracotta
-  - "#4a5a3b"            # olive
+  - "#5fd38a"            # green
+  - "#5aa9ff"            # blue
+  - "#ff9f43"            # orange
+  - "#ff6b6b"            # red
+accents:
+  blue: "#5aa9ff"
+  orange: "#ff9f43"
+  green: "#5fd38a"
+  red: "#ff6b6b"
+  purple: "#c08cff"
+  yellow: "#ffd24a"
 font:
   handwriting: Kalam
   file: assets/fonts/Kalam-Regular.ttf

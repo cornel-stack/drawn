@@ -1,15 +1,23 @@
 name: pen-and-pendulum
 display_name: "Pen & Pendulum"
 board:
-  style: paper          # cream paper
-  background: "#f4ecd8"  # aged paper
-  ink: "#1b2a4a"         # dark ink-blue
-  accent: "#c2462f"      # red pen
+  style: board           # pure black board, white ink (Phase 1.5 legibility bar)
+  background: "#000000"
+  ink: "#ffffff"
+  accent: "#ff9f43"       # default accent (orange)
+# Palette entries are ACCENTS ONLY (vectors, highlights, boxes) — never base ink.
 palette:
-  - "#1b2a4a"            # ink blue
-  - "#c2462f"            # red
-  - "#2e7d57"            # green
-  - "#8a6d3b"            # sepia
+  - "#5aa9ff"            # blue
+  - "#ff9f43"            # orange
+  - "#5fd38a"            # green
+  - "#ff6b6b"            # red
+accents:
+  blue: "#5aa9ff"
+  orange: "#ff9f43"
+  green: "#5fd38a"
+  red: "#ff6b6b"
+  purple: "#c08cff"
+  yellow: "#ffd24a"
 font:
   handwriting: Kalam
   file: assets/fonts/Kalam-Regular.ttf

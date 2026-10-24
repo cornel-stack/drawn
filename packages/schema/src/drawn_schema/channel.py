@@ -17,9 +17,9 @@ class BoardStyle(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     style: Literal["paper", "board"]
-    background: str  # hex, e.g. "#f4ecd8"
-    ink: str  # primary writing colour
-    accent: str  # highlight / underline colour
+    background: str  # hex; black (#000000) for every channel in Phase 1.5
+    ink: str  # primary writing colour; white (#FFFFFF)
+    accent: str  # default accent (used when an item/step names no colour)
 
 
 class FontConfig(BaseModel):
@@ -45,10 +45,30 @@ class ChannelConfig(BaseModel):
     display_name: str
     board: BoardStyle
     palette: list[str]
+    # Named accent colours (e.g. blue, orange). Items/steps reference these by
+    # name so a named quantity keeps one colour across the whole lesson.
+    accents: dict[str, str] = {}
     font: FontConfig
     voice: VoiceConfig
     intro_seconds: float = 2.0
     outro_seconds: float = 3.0
+
+    def resolve_color(self, color: str | None) -> str:
+        """Resolve a colour reference to a hex string.
+
+        ``None`` → the white ink; a known accent name → its hex; a hex string
+        (``#rrggbb``) → itself.
+        """
+        if not color:
+            return self.board.ink
+        if color.startswith("#"):
+            return color
+        if color in self.accents:
+            return self.accents[color]
+        raise ValueError(
+            f"unknown colour {color!r}; use a hex value or one of "
+            f"{sorted(self.accents)}"
+        )
 
 
 def load_channel(repo_root: Path, name: str) -> ChannelConfig:
