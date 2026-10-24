@@ -93,6 +93,9 @@ scenes:
         latex: "\\Omega = \\dfrac{r m g}{I\\omega}"
         say: "capital omega equals r m g over I omega"
         color: green
+        tex_colors:
+          "r m g": orange     # the torque, same colour as the tau arrow
+          "I\\omega": blue     # the angular momentum, same colour as L
       - id: takeaway
         text: "faster spin, slower precession"
         color: yellow

@@ -135,17 +135,39 @@ class BoardSceneMixin:
             from manim import MathTex
 
             tex = item.latex or ""
-            if "=" in tex:
+            if item.tex_colors:
+                m = self._coloured_formula(tex, item.tex_colors, color)
+            elif "=" in tex:
                 lhs, rhs = tex.split("=", 1)
                 m = MathTex(lhs, "=", rhs, color=color, font_size=style.FORMULA_FONT_SIZE)
                 m._equals_glyph = m[1]  # the isolated '=' submobject
+                m.set_stroke(color, width=style.GLYPH_STROKE_WIDTH)
             else:
                 m = MathTex(tex, color=color, font_size=style.FORMULA_FONT_SIZE)
-            m.set_stroke(color, width=style.GLYPH_STROKE_WIDTH)
+                m.set_stroke(color, width=style.GLYPH_STROKE_WIDTH)
         else:
             m = self._text(item.text, color, style.TEXT_FONT_SIZE)
         apply_wobble(m, seed=seed)
         return m
+
+    def _coloured_formula(self, tex: str, tex_colors: dict, base_color: str):
+        """One MathTex with per-substring colours via \\textcolor + \\definecolor.
+
+        Kept as a single valid expression (unlike arg-splitting, which breaks
+        \\dfrac bracing since Manim compiles each arg separately).
+        """
+        from manim import MathTex, TexTemplate
+
+        tmpl = TexTemplate()
+        tmpl.add_to_preamble(r"\usepackage{xcolor}")
+        wrapped = tex
+        for i, (sub, col) in enumerate(tex_colors.items()):
+            name = f"drawnaccent{i}"
+            hexv = self.data.channel.resolve_color(col).lstrip("#").upper()
+            tmpl.add_to_preamble(f"\\definecolor{{{name}}}{{HTML}}{{{hexv}}}")
+            wrapped = wrapped.replace(sub, f"\\textcolor{{{name}}}{{{sub}}}", 1)
+        return MathTex(wrapped, tex_template=tmpl, color=base_color,
+                       font_size=style.FORMULA_FONT_SIZE)
 
     def _text(self, text: str, color: str, font_size: int):
         from manim import Text

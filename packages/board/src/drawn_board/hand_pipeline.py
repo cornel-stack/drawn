@@ -30,7 +30,12 @@ def anchors_path(repo_root: Path) -> Path:
 
 
 def _detect_tip(png_path: Path) -> tuple[float, float]:
-    """Top-left extreme opaque pixel, as (nx, ny) fractions."""
+    """Pen-tip anchor as (nx, ny) fractions.
+
+    For a right hand writing, the nib is the left-most opaque extreme (the pen
+    points down-left, hand to the right). Take the left-most opaque column and
+    the median row within it. Override with ``set_tip`` if it misses.
+    """
     import numpy as np
     from PIL import Image
 
@@ -39,10 +44,12 @@ def _detect_tip(png_path: Path) -> tuple[float, float]:
     ys, xs = np.where(a > 32)
     if len(xs) == 0:
         return (0.12, 0.08)
-    score = xs.astype(int) + ys.astype(int)  # minimise row+col -> top-left
-    i = int(np.argmin(score))
     h, w = a.shape
-    return (round(float(xs[i]) / w, 4), round(float(ys[i]) / h, 4))
+    xmin = xs.min()
+    band = xs <= xmin + max(2, int(0.01 * w))  # left-most ~1% of width
+    tip_x = float(xs[band].mean())
+    tip_y = float(np.median(ys[band]))
+    return (round(tip_x / w, 4), round(tip_y / h, 4))
 
 
 def _autocrop(im):

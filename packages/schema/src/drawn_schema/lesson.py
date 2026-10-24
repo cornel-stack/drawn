@@ -39,6 +39,8 @@ class BoardItem(BaseModel):
     text: str | None = None
     say: str | None = None
     color: str | None = None
+    # optional per-substring colours for a latex item, e.g. {"r m g": "orange"}
+    tex_colors: dict[str, str] | None = None
 
     @model_validator(mode="after")
     def _check_shape(self) -> BoardItem:

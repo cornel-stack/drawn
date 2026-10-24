@@ -2,10 +2,9 @@
   "write": {
     "image": "assets/hand/hand_write.png",
     "tip": [
-      0.0957,
-      0.0714
+      0.0231,
+      0.2662
     ]
   },
-  "height_frac": 0.4,
-  "_fallback": true
+  "height_frac": 0.4
 }

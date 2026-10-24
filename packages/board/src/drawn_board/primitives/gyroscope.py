@@ -16,8 +16,11 @@ import numpy as np
 
 from drawn_board.primitives.base import Primitive, register, step
 
-_AXLE_LEN = 2.6
-_WHEEL_R = 1.1
+_AXLE_LEN = 3.0
+_WHEEL_R = 1.45
+_L_EXTRA = 1.2        # how far L reaches beyond the pivot
+_ARROW = dict(thickness=0.035, base_radius=0.14, height=0.34)
+_LABEL_SIZE = 44
 
 
 @register("gyroscope")
@@ -31,7 +34,7 @@ class Gyroscope(Primitive):
 
         ink = self.color(None)
         # pivot left of centre so the axle+wheel assembly sits centred
-        self.pivot = np.array([-1.3, 0.2, 0.0])
+        self.pivot = np.array([-1.5, 0.4, 0.0])
 
         # stand: a short vertical post the axle pivots on
         self.stand = Line(self.pivot + np.array([0, -1.6, 0]), self.pivot, color=ink,
@@ -77,55 +80,72 @@ class Gyroscope(Primitive):
         self._spin_rate = float(rate)
         self.scene.wait(run_time)
 
-    # -- vector builders (each scene is self-contained) --------------------
+    # -- vector + label builders (each scene is self-contained) ------------
+
+    def _arrow(self, start, end, color):
+        from manim import Arrow3D
+
+        return Arrow3D(start, end, color=self.color(color), **_ARROW)
+
+    def _label(self, tex, point, color, add=True):
+        from manim import MathTex
+
+        label = MathTex(tex, color=self.color(color), font_size=_LABEL_SIZE)
+        label.move_to(point)
+        if add:
+            # keep text facing the camera at its 3D position
+            self.scene.add_fixed_orientation_mobjects(label)
+        return label
+
+    @property
+    def _L_tip(self):
+        return self.pivot + np.array([_AXLE_LEN + _L_EXTRA, 0, 0])
 
     def _make_L(self, color="blue"):
-        from manim import Arrow3D
-
-        return Arrow3D(self.pivot, self.pivot + np.array([_AXLE_LEN + 0.9, 0, 0]),
-                       color=self.color(color))
+        return self._arrow(self.pivot, self._L_tip, color)
 
     def _make_torque(self, color="orange"):
-        from manim import Arrow3D
-
-        g = Arrow3D(self.wheel_center, self.wheel_center + np.array([0, -1.3, 0]),
-                    color=self.color(None))
-        tau = Arrow3D(self.wheel_center, self.wheel_center + np.array([0, 0, -1.3]),
-                      color=self.color(color))
+        g = self._arrow(self.wheel_center, self.wheel_center + np.array([0, -1.5, 0]), None)
+        tau = self._arrow(self.wheel_center, self.wheel_center + np.array([0, 0, -1.6]), color)
         return g, tau
 
-    def _ensure_L(self):
+    def _ensure_L(self, color="blue"):
         if not hasattr(self, "L"):
-            self.L = self._make_L()
+            self.L = self._make_L(color)
             self.scene.add(self.L)
+            self._label(r"\vec{L}", self._L_tip + np.array([0.35, 0.45, 0]), color)
 
-    def _ensure_torque(self):
+    def _ensure_torque(self, color="orange"):
         if not hasattr(self, "tau"):
-            self.gravity, self.tau = self._make_torque()
+            self.gravity, self.tau = self._make_torque(color)
             self.scene.add(self.gravity, self.tau)
 
     @step
     def draw_L(self, run_time: float, color: str = "blue", **_):
         self.L = self._make_L(color)
         self.scene.play(_grow(self.scene, self.L), run_time=run_time)
+        self._label(r"\vec{L}", self._L_tip + np.array([0.35, 0.45, 0]), color)
 
     @step
     def draw_torque(self, run_time: float, color: str = "orange", **_):
         self._ensure_L()  # L stays on screen from the previous scene
         self.gravity, self.tau = self._make_torque(color)
         self.scene.play(_grow(self.scene, self.gravity), run_time=run_time * 0.5)
+        self._label(r"m\vec{g}", self.wheel_center + np.array([0.1, -1.9, 0]), None)
         self.scene.play(_grow(self.scene, self.tau), run_time=run_time * 0.5)
+        self._label(r"\vec{\tau}", self.wheel_center + np.array([0.2, 0.1, -2.0]), color)
 
     @step
     def add_dL(self, run_time: float, color: str = "orange", **_):
         """Show dL = tau dt as a small increment at L's tip, then nudge L."""
-        from manim import UP, Arrow3D, Rotate
+        from manim import UP, Rotate
 
         self._ensure_L()
         self._ensure_torque()
-        tip = self.pivot + np.array([_AXLE_LEN + 0.9, 0, 0])
-        dL = Arrow3D(tip, tip + np.array([0, 0, -0.9]), color=self.color(color))
+        tip = self._L_tip
+        dL = self._arrow(tip, tip + np.array([0, 0, -1.1]), color)
         self.scene.play(_grow(self.scene, dL), run_time=run_time * 0.5)
+        self._label(r"d\vec{L}", tip + np.array([0.3, 0.0, -1.4]), color)
         group = _vgroup(self.L, self.assembly, dL)
         self.scene.play(Rotate(group, angle=np.deg2rad(18), axis=UP,
                               about_point=self.pivot), run_time=run_time * 0.5)
