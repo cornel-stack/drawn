@@ -98,10 +98,11 @@ scenes:
   - id: s4
     kind: diagram
     narration: >
-      Now add two vectors. Geometrically, slide the second arrow so its tail
-      sits on the first one's tip, {drawC}, and the sum is the single arrow from
-      the very start to the very end, {drawD}, {addCD}. That is the nose to tail
-      rule, and it is exactly how displacements and forces combine. With
+      Here are two vectors, {drawC} and {drawD}. To add them geometrically,
+      slide the second arrow so its tail sits on the first one's tip, and the
+      sum is the single arrow from the very start to the very end, {addCD}. That
+      is the nose to tail rule, and it is exactly how displacements and forces
+      combine. With
       components it is even easier: the sum's horizontal part is just the two
       horizontal parts added, and likewise for the vertical, {sumEq}. The
       picture and the arithmetic always agree, which is the whole point of
@@ -130,10 +131,10 @@ scenes:
   - id: s5
     kind: diagram
     narration: >
-      The first product of two vectors asks how much they point the same way.
-      Draw them from a shared corner, {drawE}, {drawF}, and drop one onto the
-      other, {dotG}: the shaded stretch is the projection, how much of the
-      second lies along the first. Multiply that projection by the first vector's
+      Here are two vectors from a shared corner, {drawE} and {drawF}. The first
+      product asks how much they point the same way, so drop one onto the other,
+      {dotG}: the shaded stretch is the projection, how much of the second lies
+      along the first. Multiply that projection by the first vector's
       length and you get the dot product, {dotEq}. It equals the two magnitudes
       times the cosine of the angle between them, and in components it is simply
       the matching parts multiplied and summed. The answer is a single number, a

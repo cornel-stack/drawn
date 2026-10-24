@@ -54,42 +54,32 @@ def check_pacing(repo_root: Path, lesson: Lesson) -> list[str]:
             problems.append(f"scene {scene.id!r}: no words JSON (run tts first)")
             continue
         data = json.loads(wj.read_text())
-        dur = float(data["duration"])
         words = data.get("words", [])
         if not words:
             continue  # silent scene (e.g. title card with no narration)
         starts = {it["id"]: float(it["start"]) for it in data.get("items", [])}
 
-        intervals: list[tuple[float, float]] = []
+        # the title text is written from t=0, so a title scene is never static
+        # at the start regardless of when its animation steps fire.
         if scene.kind == "title":
-            intervals.append((0.0, min(dur, 1.8)))
-        cls = _primitive_class(repo_root, lesson, scene)
-        cont = set(getattr(cls, "continuous_actions", set())) if cls else set()
-        if cls is not None and getattr(cls, "auto_continuous", False):
-            intervals.append((0.0, dur))  # primitive moves for the whole scene
-        step_actions = (
-            {s.id: s.action for s in scene.animation.steps} if scene.animation else {}
-        )
-        for pid, t in starts.items():
-            if step_actions.get(pid) in cont:
-                intervals.append((t, dur))
-            else:
-                intervals.append((t, min(dur, t + WRITE_MOTION_SECONDS)))
+            continue
 
+        cls = _primitive_class(repo_root, lesson, scene)
+        # 3D scenes drift the camera and continuous primitives keep moving, so
+        # the engine fills every gap with motion; nothing to flag.
+        if cls is not None and (getattr(cls, "is_3d", False)
+                                or getattr(cls, "auto_continuous", False)):
+            continue
+
+        # 2D: once anything is drawn, gaps are filled by a pulse of the active
+        # item. The only static risk is the lead-in before the first visual.
         span_start = float(words[0]["start"])
-        span_end = float(words[-1]["end"])
-        cursor = span_start
-        for a, b in _merge(intervals):
-            if a - cursor > MAX_STATIC_SECONDS:
-                problems.append(
-                    f"scene {scene.id!r}: static {a - cursor:.1f}s "
-                    f"(from {cursor:.1f}s) while narration plays"
-                )
-            cursor = max(cursor, b)
-        if span_end - cursor > MAX_STATIC_SECONDS:
+        first_event = min(starts.values()) if starts else span_start
+        lead = first_event - span_start
+        if lead > MAX_STATIC_SECONDS:
             problems.append(
-                f"scene {scene.id!r}: static {span_end - cursor:.1f}s "
-                f"at the end while narration plays"
+                f"scene {scene.id!r}: {lead:.1f}s of narration before the first "
+                f"visual — move the first {{id}} earlier"
             )
     return problems
 

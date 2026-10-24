@@ -191,7 +191,8 @@ class BoardSceneMixin:
         n = len(events)
         for i, (kind, start, payload, item) in enumerate(events):
             if start > t:
-                self.wait(start - t)
+                # fill the gap before this event with motion, not a frozen hold
+                self._fill(start - t, primitive, visible)
                 t = start
             next_start = events[i + 1][1] if i + 1 < n else total
             slot = max(0.0, next_start - t)
@@ -204,24 +205,27 @@ class BoardSceneMixin:
             t += consumed
         remaining = total - t
         if remaining > 0.05:
-            self._pad(remaining, primitive, visible)
+            self._fill(remaining, primitive, visible)
 
-    def _pad(self, remaining: float, primitive, visible: list) -> None:
-        """Fill the tail of a scene with meaningful motion — never a frozen frame.
+    def _fill(self, dur: float, primitive, visible: list) -> None:
+        """Fill `dur` with meaningful motion — never a frozen hold.
 
-        3D: a slow camera drift. A primitive that is still moving (spin/precess):
-        keep running it. Otherwise: a gentle breathing pulse of the active item.
+        3D: a slow ambient camera rotation. A primitive still moving on its own
+        (spin/precess): let it run. 2D: a gentle breathing pulse of the active
+        item. Falls back to a plain wait only before anything is on screen.
         """
+        if dur <= 0.05:
+            return
         if self.data.is_3d:
-            from manim import DEGREES
-
-            self.move_camera(theta=self.camera.get_theta() + 14 * DEGREES, run_time=remaining)
+            self.begin_ambient_camera_rotation(rate=0.08)
+            self.wait(dur)
+            self.stop_ambient_camera_rotation()
         elif primitive is not None and primitive.continuous_spans():
-            self.wait(remaining)  # the primitive keeps moving on its own
+            self.wait(dur)  # the primitive keeps moving on its own
         elif visible:
-            self._pulse(visible[-1][0], remaining)
+            self._pulse(visible[-1][0], dur)
         else:
-            self.wait(remaining)
+            self.wait(dur)
 
     def _pulse(self, mob, remaining: float) -> None:
         import math
