@@ -77,36 +77,55 @@ class Gyroscope(Primitive):
         self._spin_rate = float(rate)
         self.scene.wait(run_time)
 
-    @step
-    def draw_L(self, run_time: float, color: str = "blue", **_):
+    # -- vector builders (each scene is self-contained) --------------------
+
+    def _make_L(self, color="blue"):
         from manim import Arrow3D
 
-        self.L = Arrow3D(self.pivot, self.pivot + np.array([_AXLE_LEN + 0.9, 0, 0]),
-                        color=self.color(color))
+        return Arrow3D(self.pivot, self.pivot + np.array([_AXLE_LEN + 0.9, 0, 0]),
+                       color=self.color(color))
+
+    def _make_torque(self, color="orange"):
+        from manim import Arrow3D
+
+        g = Arrow3D(self.wheel_center, self.wheel_center + np.array([0, -1.3, 0]),
+                    color=self.color(None))
+        tau = Arrow3D(self.wheel_center, self.wheel_center + np.array([0, 0, -1.3]),
+                      color=self.color(color))
+        return g, tau
+
+    def _ensure_L(self):
+        if not hasattr(self, "L"):
+            self.L = self._make_L()
+            self.scene.add(self.L)
+
+    def _ensure_torque(self):
+        if not hasattr(self, "tau"):
+            self.gravity, self.tau = self._make_torque()
+            self.scene.add(self.gravity, self.tau)
+
+    @step
+    def draw_L(self, run_time: float, color: str = "blue", **_):
+        self.L = self._make_L(color)
         self.scene.play(_grow(self.scene, self.L), run_time=run_time)
 
     @step
     def draw_torque(self, run_time: float, color: str = "orange", **_):
-        from manim import Arrow3D
-
-        g = Arrow3D(self.wheel_center, self.wheel_center + np.array([0, -1.3, 0]),
-                   color=self.color(None))
-        tau = Arrow3D(self.wheel_center, self.wheel_center + np.array([0, 0, -1.3]),
-                     color=self.color(color))
-        self.gravity = g
-        self.tau = tau
-        self.scene.play(_grow(self.scene, g), run_time=run_time * 0.5)
-        self.scene.play(_grow(self.scene, tau), run_time=run_time * 0.5)
+        self._ensure_L()  # L stays on screen from the previous scene
+        self.gravity, self.tau = self._make_torque(color)
+        self.scene.play(_grow(self.scene, self.gravity), run_time=run_time * 0.5)
+        self.scene.play(_grow(self.scene, self.tau), run_time=run_time * 0.5)
 
     @step
     def add_dL(self, run_time: float, color: str = "orange", **_):
         """Show dL = tau dt as a small increment at L's tip, then nudge L."""
         from manim import UP, Arrow3D, Rotate
 
+        self._ensure_L()
+        self._ensure_torque()
         tip = self.pivot + np.array([_AXLE_LEN + 0.9, 0, 0])
         dL = Arrow3D(tip, tip + np.array([0, 0, -0.9]), color=self.color(color))
         self.scene.play(_grow(self.scene, dL), run_time=run_time * 0.5)
-        # rotate L and the assembly a little about the vertical to show the turn
         group = _vgroup(self.L, self.assembly, dL)
         self.scene.play(Rotate(group, angle=np.deg2rad(18), axis=UP,
                               about_point=self.pivot), run_time=run_time * 0.5)
@@ -115,6 +134,7 @@ class Gyroscope(Primitive):
     def precess(self, run_time: float, turns: float = 1.0, orbit: bool = True, **_):
         from manim import UP, Circle, DashedVMobject, Rotate
 
+        self._ensure_L()
         # the cone the axle sweeps: a dashed circle in the x-z plane at the tip
         cone = DashedVMobject(
             Circle(radius=_AXLE_LEN, color=self.color("blue"), stroke_width=3)
