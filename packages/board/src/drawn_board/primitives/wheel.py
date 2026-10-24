@@ -17,7 +17,7 @@ class Wheel(Primitive):
     """
 
     is_3d = False
-    continuous_actions = {"start_spin"}
+    continuous_actions = {"appear", "start_spin"}
 
     def build(self) -> None:
         import numpy as np
@@ -39,21 +39,26 @@ class Wheel(Primitive):
         self.wheel = VGroup(rim, hub, spokes).move_to(pos)
         self._spin_rate = 0.0
 
-    @step
-    def appear(self, run_time: float, **_):
-        from manim import Create
-
-        self.scene.play(Create(self.wheel), run_time=run_time)
-
-    @step
-    def start_spin(self, run_time: float, rate: float = 4.0, **_):
-        """Begin a continuous spin that persists for the rest of the scene."""
-        self._spin_rate = float(rate)
-
+    def _spin_updater(self):
         def _spin(mob, dt):
             mob.rotate(self._spin_rate * dt)
 
-        self.wheel.add_updater(_spin)
-        # mark continuous motion from now until a large time (scene end clamps it)
+        return _spin
+
+    @step
+    def appear(self, run_time: float, rate: float = 4.0, **_):
+        """Draw the wheel and immediately start spinning (continuous motion)."""
+        from manim import Create
+
+        self.scene.play(Create(self.wheel), run_time=run_time)
+        self._spin_rate = float(rate)
+        self.wheel.add_updater(self._spin_updater())
+        self.mark_continuous(0.0, 1e9)
+
+    @step
+    def start_spin(self, run_time: float, rate: float = 4.0, **_):
+        """Begin/accelerate a continuous spin that persists to the scene end."""
+        self._spin_rate = float(rate)
+        self.wheel.add_updater(self._spin_updater())
         self.mark_continuous(0.0, 1e9)
         self.scene.wait(run_time)

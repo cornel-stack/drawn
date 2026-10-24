@@ -15,9 +15,9 @@ scenes:
   - id: s1
     kind: title
     narration: >
-      A bicycle wheel spins on the end of its axle, {wheelOn}, and instead of
-      toppling it simply hangs there and slowly turns, {wheelGo}. The reason is
-      one of the most beautiful arguments in all of mechanics.
+      A bicycle wheel spins fast on the end of its axle, {wheelOn}, and instead
+      of toppling over it simply hangs there and slowly turns. The reason is one
+      of the most beautiful arguments in all of mechanics.
     animation:
       primitive: wheel
       params:
@@ -26,8 +26,7 @@ scenes:
         color: blue
         position: [4.6, -2.3]
       steps:
-        - {id: wheelOn, action: appear}
-        - {id: wheelGo, action: start_spin, params: {rate: 5.0}}
+        - {id: wheelOn, action: appear, params: {rate: 5.0}}
 
   - id: s2
     kind: diagram
@@ -78,23 +77,17 @@ scenes:
         - {id: precess, action: precess, params: {turns: 1.0}}
 
   - id: s6
-    kind: derivation
+    kind: diagram
     narration: >
-      Put numbers to it. The torque has size r m g, and it turns an angular
-      momentum of size I omega. Set the little sideways piece, {vdL}, against
-      the momentum itself, {vL}, and the precession rate drops out, {omega}. A
-      faster spin gives slower precession, {takeaway}. Next, in ME-26, rolling
-      without slipping.
+      As it keeps circling, {precess6}, put some numbers to it. The torque has
+      size r m g, and it turns an angular momentum of size I omega. Divide the
+      one by the other and the precession rate drops straight out, {omega}. So
+      the faster it spins, the slower it precesses, {takeaway}. Next, in ME-26,
+      rolling without slipping.
     animation:
-      primitive: vectors
-      params:
-        origin: [-1.6, 1.3]
-        vectors:
-          L:  {to: [3.0, 0.0], color: blue, label: "L"}
-          dL: {to: [0.0, -1.4], color: orange, label: "dL"}
+      primitive: gyroscope
       steps:
-        - {id: vL, action: draw, params: {name: L}}
-        - {id: vdL, action: draw, params: {name: dL}}
+        - {id: precess6, action: precess, params: {turns: 2.0, orbit: true}}
     board:
       - id: omega
         latex: "\\Omega = \\dfrac{r m g}{I\\omega}"

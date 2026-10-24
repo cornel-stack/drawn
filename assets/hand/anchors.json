@@ -1,0 +1,11 @@
+{
+  "write": {
+    "image": "assets/hand/hand_write.png",
+    "tip": [
+      0.0957,
+      0.0714
+    ]
+  },
+  "height_frac": 0.4,
+  "_fallback": true
+}

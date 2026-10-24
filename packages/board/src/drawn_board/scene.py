@@ -43,13 +43,15 @@ class BoardSceneMixin:
         self.camera.background_color = d.channel.board.background
         self.ink = d.channel.board.ink
         self.font_family = d.channel.font.handwriting
-        self.use_hand = not d.is_3d
+        self.use_hand = True
 
         if d.is_3d:
-            self.set_camera_orientation(phi=68 * DEGREES, theta=-50 * DEGREES)
+            self.set_camera_orientation(phi=68 * DEGREES, theta=-50 * DEGREES, zoom=1.15)
 
-        if self.use_hand:
-            self.hand = HandFollower(d.repo_root, self._fh())
+        self.hand = HandFollower(d.repo_root, self._fh())
+        if d.is_3d:
+            self.add_fixed_in_frame_mobjects(self.hand.mobject)
+        else:
             self.add(self.hand.mobject)
 
         if d.scene.kind == "end":
@@ -95,9 +97,9 @@ class BoardSceneMixin:
             frame_width=self._fw(),
             frame_height=self._fh(),
         )
-        # a 2D scene that also runs an animation keeps its text in the lower
-        # third so the diagram has the top of the frame to itself
-        if d.scene.animation is not None and not d.is_3d:
+        # a scene that also runs an animation keeps its written text in the
+        # lower third so the diagram has the rest of the frame to itself
+        if d.scene.animation is not None:
             from manim import DOWN
 
             group.to_edge(DOWN, buff=self._fh() * style.SAFE_MARGIN_FRAC)
@@ -173,7 +175,8 @@ class BoardSceneMixin:
                 self._write_one(payload, item, span, visible)
                 t = start + min(span, _write_budget(span))
             else:
-                wdur = min(span, 1.2)
+                # animation steps fill their span (precession etc. need time)
+                wdur = max(0.5, span)
                 primitive.run_step(payload.action, payload.params, run_time=wdur)
                 t = start + wdur
         if total > t:
@@ -183,21 +186,18 @@ class BoardSceneMixin:
         from manim import ValueTracker, Write
 
         self._retire_if_full(mob, item, visible)
+        if self.data.is_3d:
+            self.add_fixed_in_frame_mobjects(mob)
 
-        if self.use_hand:
-            enter = min(0.3, span * 0.2)
-            wdur = max(0.3, span - 2 * enter)
-            self.hand.enter(self, path_point(mob, 0.0), run_time=enter)
-            tracker = ValueTracker(0.0)
-            updater = self.hand.follow_updater(mob, tracker)
-            self.hand.mobject.add_updater(updater)
-            self.play(Write(mob), tracker.animate.set_value(1.0), run_time=wdur)
-            self.hand.mobject.remove_updater(updater)
-            self.hand.lift(self, run_time=enter)
-        else:
-            if self.data.is_3d:
-                self.add_fixed_in_frame_mobjects(mob)
-            self.play(Write(mob), run_time=min(span, 1.1))
+        enter = min(0.3, span * 0.2)
+        wdur = max(0.3, span - 2 * enter)
+        self.hand.enter(self, path_point(mob, 0.0), run_time=enter)
+        tracker = ValueTracker(0.0)
+        updater = self.hand.follow_updater(mob, tracker)
+        self.hand.mobject.add_updater(updater)
+        self.play(Write(mob), tracker.animate.set_value(1.0), run_time=wdur)
+        self.hand.mobject.remove_updater(updater)
+        self.hand.lift(self, run_time=enter)
         visible.append((mob, item))
 
     def _retire_if_full(self, mob, item, visible: list):

@@ -30,7 +30,8 @@ class Gyroscope(Primitive):
         from manim import RIGHT, UP, Circle, Dot3D, Line, VGroup
 
         ink = self.color(None)
-        self.pivot = np.array([0.0, 0.0, 0.0])
+        # pivot left of centre so the axle+wheel assembly sits centred
+        self.pivot = np.array([-1.3, 0.2, 0.0])
 
         # stand: a short vertical post the axle pivots on
         self.stand = Line(self.pivot + np.array([0, -1.6, 0]), self.pivot, color=ink,
