@@ -31,28 +31,45 @@ const buildCues = (words: Word[]): Cue[] => {
 
 export const Captions: React.FC<{words: Word[]; color: string}> = ({words, color}) => {
   const frame = useCurrentFrame();
-  const {fps, width} = useVideoConfig();
+  const {fps, width, height} = useVideoConfig();
   const t = frame / fps;
   const cues = buildCues(words);
   const active = cues.find((c) => t >= c.start && t <= c.end + 0.15);
-  if (!active) return null;
+  // A solid caption bar pinned to the bottom ~14% of the frame. The diagram
+  // layer (Manim) keeps its content above this band, so they never collide.
+  const barH = Math.round(height * 0.14);
+  if (!active) {
+    return (
+      <AbsoluteFill style={{justifyContent: "flex-end"}}>
+        <div style={{height: barH, background: "#0a0a0a", borderTop: "2px solid #222"}} />
+      </AbsoluteFill>
+    );
+  }
   return (
-    <AbsoluteFill style={{justifyContent: "flex-end", alignItems: "center", padding: "0 0 48px"}}>
+    <AbsoluteFill style={{justifyContent: "flex-end"}}>
       <div
         style={{
-          maxWidth: width * 0.8,
-          textAlign: "center",
-          fontFamily: "sans-serif",
-          fontSize: Math.round(width / 34),
-          lineHeight: 1.3,
-          color: "#ffffff",
-          background: "rgba(0,0,0,0.55)",
-          padding: "10px 22px",
-          borderRadius: 10,
-          borderBottom: `4px solid ${color}`,
+          height: barH,
+          width: "100%",
+          background: "#0a0a0a",
+          borderTop: `3px solid ${color}`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        {active.text}
+        <div
+          style={{
+            maxWidth: width * 0.86,
+            textAlign: "center",
+            fontFamily: "sans-serif",
+            fontSize: Math.round(width / 42),
+            lineHeight: 1.25,
+            color: "#ffffff",
+          }}
+        >
+          {active.text}
+        </div>
       </div>
     </AbsoluteFill>
   );

@@ -106,7 +106,7 @@ scenes:
     animation:
       primitive: vectors
       params:
-        axes: {x: [-1, 4, 1], y: [-2, 4, 1], x_length: 6.0, y_length: 5.0, center: [-0.3, -0.4, 0]}
+        axes: {x: [-1, 4, 1], y: [-2, 4, 1], x_length: 6.0, y_length: 4.2, center: [-0.3, 0.4, 0]}
         vectors:
           A: {to: [2, 2], color: orange, label: "2a1"}
           B: {to: [1, -1], color: blue, label: "a2"}

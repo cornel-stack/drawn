@@ -38,11 +38,12 @@ class Vectors(Primitive):
                 x_range=axes_cfg.get("x", [-1, 5, 1]),
                 y_range=axes_cfg.get("y", [-1, 4, 1]),
                 x_length=axes_cfg.get("x_length", 7.5),
-                y_length=axes_cfg.get("y_length", 5.0),
+                y_length=axes_cfg.get("y_length", 4.4),
                 axis_config={"color": self.color(None), "stroke_width": 3,
                              "include_ticks": True, "tip_width": 0.18, "tip_height": 0.18},
             )
-            self.axes.move_to(axes_cfg.get("center", [0, -0.4, 0]))
+            # sit above the bottom caption band (~14 % of the frame)
+            self.axes.move_to(axes_cfg.get("center", [0, 0.5, 0]))
             self._c2p = self.axes.c2p
             self.scene.add(self.axes)
         else:

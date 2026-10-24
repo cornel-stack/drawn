@@ -37,11 +37,12 @@ class SupplyDemand(Primitive):
 
         self.axes = Axes(
             x_range=[0, self.q_max, 1], y_range=[0, self.p_max, 1],
-            x_length=8.2, y_length=5.4,
+            x_length=8.0, y_length=4.6,
             axis_config={"color": self.color(None), "stroke_width": 3,
                          "include_ticks": True, "tip_width": 0.16, "tip_height": 0.16},
         )
-        self.axes.move_to([0, -0.5, 0])
+        # sit above the bottom caption band (~14 % of the frame)
+        self.axes.move_to([0, 0.5, 0])
         self.scene.add(self.axes)
         self.scene.add(self._axis_label("Q", self.axes.x_axis.get_end(), _right()))
         self.scene.add(self._axis_label("P", self.axes.y_axis.get_end(), _up()))
