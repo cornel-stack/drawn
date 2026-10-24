@@ -20,6 +20,19 @@ from drawn_board.quality import quality_config
 from drawn_board.scene import RenderData, make_lesson_scene
 
 
+def _scene_is_3d(repo_root: Path, lesson: Lesson, scene) -> bool:
+    if scene.animation is None:
+        return False
+    from drawn_board.primitives.base import get_primitive, load_custom
+
+    anim = scene.animation
+    if anim.custom:
+        cls = load_custom(repo_root, lesson.channel, lesson.id, anim.custom)
+    else:
+        cls = get_primitive(anim.primitive)
+    return bool(getattr(cls, "is_3d", False))
+
+
 def _load_words(repo_root: Path, channel: str, code: str, scene_id: str) -> dict:
     wj = paths.scene_words(repo_root, channel, code, scene_id)
     if not wj.is_file():
@@ -58,6 +71,7 @@ def render_scene(
         channel=channel,
         duration=float(words["duration"]),
         item_starts={it["id"]: float(it["start"]) for it in words.get("items", [])},
+        is_3d=_scene_is_3d(repo_root, lesson, scene),
     )
 
     register_handwriting_font(repo_root, channel.font.file)

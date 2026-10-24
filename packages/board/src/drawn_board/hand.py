@@ -1,40 +1,38 @@
-"""The hand that follows the pen tip as things are written.
+"""The hand that writes: a transparent PNG whose pen tip follows the stroke.
 
-The hand is a transparent PNG; its config (``assets/hand/hand.yaml``) records
-the pen-tip location as normalised image coordinates so swapping in a real
-photo is a one-file change: drop the PNG in and set ``tip``/``scale``.
+Config lives in ``assets/hand/anchors.json`` (written by the hand pipeline):
+
+    {"write": {"image": "...png", "tip": [nx, ny]},
+     "rest":  {"image": "...png", "tip": [nx, ny]},   # optional
+     "height_frac": 0.40}
+
+``tip`` is the pen-tip pixel as a fraction of the image (x from left, y from
+top). The follower keeps the tip on the current stroke's frontier, enters from
+the bottom-right before an item, lifts away when it finishes, and offsets the
+palm below/right so it never covers the writing.
 """
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from pathlib import Path
 
-import yaml
-
-DEFAULT_HAND_CONFIG = "assets/hand/hand.yaml"
+ANCHORS_JSON = "assets/hand/anchors.json"
+# How far down-right the hand sits off its pen tip is derived from the tip
+# anchor, so the palm never covers the fresh ink.
+ENTER_OFFSET = (2.2, -1.6)  # units, relative to tip, when entering/resting
+LIFT_SECONDS = 0.3
+ROTATE_MAX_DEG = 5.0
 
 
 @dataclass
-class HandConfig:
-    image: str  # path relative to repo root
-    tip: tuple[float, float]  # (x from left, y from top), normalised 0..1
-    scale: float  # rendered height in Manim units
-
-    @classmethod
-    def load(cls, repo_root: Path, rel: str = DEFAULT_HAND_CONFIG) -> HandConfig:
-        data = yaml.safe_load((Path(repo_root) / rel).read_text())
-        tx, ty = data["tip"]
-        return cls(image=data["image"], tip=(float(tx), float(ty)), scale=float(data["scale"]))
+class HandPose:
+    image: str
+    tip: tuple[float, float]
 
 
 def path_point(mobject, alpha: float):
-    """Approximate the pen position at fraction ``alpha`` of drawing ``mobject``.
-
-    Uses the mobject's ordered family points, which track drawing order closely
-    enough for Write() — and unlike ``point_from_proportion`` it works for both
-    MathTex and multi-glyph Text.
-    """
     import numpy as np
 
     pts = mobject.get_all_points()
@@ -46,34 +44,71 @@ def path_point(mobject, alpha: float):
 
 
 class HandFollower:
-    """Wraps the hand ImageMobject and keeps its pen tip on a target point."""
+    def __init__(self, repo_root: Path, frame_height: float):
+        from drawn_board.hand_pipeline import ensure_hand
 
-    def __init__(self, repo_root: Path, config: HandConfig | None = None):
+        repo_root = Path(repo_root)
+        anchors_path = ensure_hand(repo_root)  # builds a fallback if needed
+        data = json.loads(anchors_path.read_text())
+        self._write = HandPose(data["write"]["image"], tuple(data["write"]["tip"]))
+        self.height_frac = float(data.get("height_frac", 0.40))
+        self.repo_root = repo_root
+        self.frame_height = frame_height
+        self._build()
+
+    def _build(self):
+        import numpy as np
         from manim import ImageMobject
 
-        self.config = config or HandConfig.load(repo_root)
-        image_path = (Path(repo_root) / self.config.image).resolve()
-        self.mobject = ImageMobject(str(image_path))
-        self.mobject.height = self.config.scale
-        self._compute_tip_offset()
-
-    def _compute_tip_offset(self):
-        import numpy as np
-
-        w = self.mobject.width
-        h = self.mobject.height
-        nx, ny = self.config.tip
-        # offset from the image centre to the pen tip (y up in Manim)
+        img = (self.repo_root / self._write.image).resolve()
+        self.mobject = ImageMobject(str(img))
+        self.mobject.height = self.height_frac * self.frame_height
+        # a small static tilt reads as a natural pen angle
+        self.mobject.rotate(np.deg2rad(-ROTATE_MAX_DEG))
+        w, h = self.mobject.width, self.mobject.height
+        nx, ny = self._write.tip
         self.tip_offset = np.array([(nx - 0.5) * w, (0.5 - ny) * h, 0.0])
+        self.mobject.set_opacity(0.0)
+
+    # -- placement ---------------------------------------------------------
+
+    def _center_for_tip(self, point):
+        return point - self.tip_offset
 
     def place_tip_at(self, point) -> None:
-        self.mobject.move_to(point - self.tip_offset)
+        self.mobject.move_to(self._center_for_tip(point))
+
+    def enter(self, scene, point, run_time: float = LIFT_SECONDS) -> None:
+        import numpy as np
+
+        start = self._center_for_tip(point) + np.array([*ENTER_OFFSET, 0.0])
+        self.mobject.move_to(start).set_opacity(0.0)
+        target = self._center_for_tip(point)
+        self.mobject.generate_target()
+        self.mobject.target.move_to(target).set_opacity(1.0)
+        from manim import MoveToTarget
+
+        scene.play(MoveToTarget(self.mobject), run_time=run_time)
+
+    def lift(self, scene, run_time: float = LIFT_SECONDS) -> None:
+        import numpy as np
+
+        shift = np.array([ENTER_OFFSET[0] * 0.5, ENTER_OFFSET[1] * 0.5, 0.0])
+        self.mobject.generate_target()
+        self.mobject.target.shift(shift).set_opacity(0.0)
+        from manim import MoveToTarget
+
+        scene.play(MoveToTarget(self.mobject), run_time=run_time)
 
     def follow_updater(self, mobject, tracker):
-        """Return an updater that keeps the pen tip on mobject's drawing frontier."""
+        """Keep the pen tip on the current stroke's frontier."""
+        base_offset = self.tip_offset.copy()
 
-        def _update(hand_mob):
+        def _update(hand):
             target = path_point(mobject, tracker.get_value())
-            hand_mob.move_to(target - self.tip_offset)
+            hand.move_to(target - base_offset)
 
         return _update
+
+    def imports_ok(self) -> bool:
+        return True

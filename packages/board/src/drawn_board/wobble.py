@@ -1,14 +1,21 @@
-"""Slight path wobble so strokes look hand-drawn rather than vector-perfect."""
+"""Path wobble, capped to <= 1 px at 1080p (Phase 1.5: effectively off).
+
+The hand-drawn feel comes from the stroke-by-stroke Write animation and the
+hand — not from distorting glyphs, which hurt legibility.
+"""
 
 from __future__ import annotations
 
+from drawn_board.style import WOBBLE_AMPLITUDE_UNITS
 
-def apply_wobble(mobject, amplitude: float = 0.015, seed: int = 0) -> None:
-    """Jitter every anchor/control point of a VMobject family in the xy plane.
+# Hard cap: 1 px at 1080p = 8/1080 units.
+_MAX_AMPLITUDE = 8.0 / 1080.0
 
-    Amplitude is in Manim units; keep it small (a fraction of a glyph) so text
-    stays legible. Deterministic given ``seed`` so renders are reproducible.
-    """
+
+def apply_wobble(mobject, amplitude: float = WOBBLE_AMPLITUDE_UNITS, seed: int = 0) -> None:
+    amplitude = min(amplitude, _MAX_AMPLITUDE)
+    if amplitude <= 0:
+        return
     import numpy as np
 
     rng = np.random.default_rng(seed)
@@ -17,5 +24,5 @@ def apply_wobble(mobject, amplitude: float = 0.015, seed: int = 0) -> None:
         if len(pts) == 0:
             continue
         noise = rng.normal(scale=amplitude, size=pts.shape)
-        noise[:, 2] = 0.0  # keep flat in z
+        noise[:, 2] = 0.0
         sub.set_points(pts + noise)

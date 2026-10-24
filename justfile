@@ -17,9 +17,9 @@ setup:
 setup-lite:
     uv sync
 
-# (re)generate the placeholder hand PNG if assets/hand is empty
-hand:
-    uv run python -m drawn_board.make_placeholder_hand {{repo}}
+# build the hand asset: cut out assets/hand/raw/*.jpg with rembg, or a fallback
+hand *FLAGS:
+    uv run python -m drawn_board.hand_pipeline {{repo}} {{FLAGS}}
 
 # run all python tests
 test:
@@ -41,8 +41,12 @@ lint channel code:
 tts channel code *FLAGS:
     uv run python -m drawn_tts {{repo}}/channels/{{channel}}/lessons/{{code}}.yaml --repo-root {{repo}} {{FLAGS}}
 
+# pacing check: fail if the timeline has a static gap > 3s (needs tts first)
+check channel code:
+    uv run python -m drawn_board.timeline {{repo}}/channels/{{channel}}/lessons/{{code}}.yaml --repo-root {{repo}}
+
 # render Manim scene clips (quality: preview|final)
-render channel code quality="preview" *FLAGS:
+render-scenes channel code quality="preview" *FLAGS:
     uv run python -m drawn_board {{repo}}/channels/{{channel}}/lessons/{{code}}.yaml --repo-root {{repo}} --quality {{quality}} {{FLAGS}}
 
 # stitch clips + audio + captions with Remotion, plus the thumbnail Still
@@ -56,9 +60,17 @@ finish channel code:
     uv run python -m drawn_finish finish {{repo}}/channels/{{channel}}/lessons/{{code}}.yaml --repo-root {{repo}}
 
 # full preview pipeline at 480p15 -> out/<channel>/<code>/video.mp4
-preview channel code: (lint channel code) (tts channel code) (render channel code "preview") (assemble channel code "preview") (finish channel code)
+preview channel code: (lint channel code) (tts channel code) (check channel code) (render-scenes channel code "preview") (assemble channel code "preview") (finish channel code)
     @echo "preview ready: out/{{channel}}/{{code}}/video.mp4"
 
-# full build at 1080p30
-build channel code: (lint channel code) (tts channel code) (render channel code "final") (assemble channel code "final") (finish channel code)
-    @echo "build ready: out/{{channel}}/{{code}}/video.mp4"
+# full build/review pipeline at 1080p30 -> out/<channel>/<code>/video.mp4
+render channel code: (lint channel code) (tts channel code) (check channel code) (render-scenes channel code "final") (assemble channel code "final") (finish channel code)
+    @echo "render ready (1080p30): out/{{channel}}/{{code}}/video.mp4"
+
+# alias kept for symmetry
+build channel code: (render channel code)
+
+# contact sheet for quick legibility/composition review
+sheet channel code:
+    uv run python -m drawn_finish sheet {{repo}}/channels/{{channel}}/lessons/{{code}}.yaml --repo-root {{repo}}
+    @echo "sheet: out/{{channel}}/{{code}}/sheet.png"

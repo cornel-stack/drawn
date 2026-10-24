@@ -20,6 +20,24 @@ def _cmd_props(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_sheet(args: argparse.Namespace) -> int:
+    import yaml
+    from drawn_schema import paths
+    from drawn_schema.lesson import Lesson
+
+    from drawn_finish.sheet import build_sheet
+
+    lesson = Lesson.model_validate(yaml.safe_load(args.lesson.read_text()))
+    out_dir = paths.lesson_out_dir(args.repo_root.resolve(), lesson.channel, lesson.id)
+    video = out_dir / "video.mp4"
+    if not video.is_file():
+        print(f"error: {video} not found; build the lesson first")
+        return 1
+    sheet = build_sheet(video, out_dir / "sheet.png")
+    print(f"sheet: {sheet}")
+    return 0
+
+
 def _cmd_finish(args: argparse.Namespace) -> int:
     run_finish(args.repo_root, args.lesson)
     return 0
@@ -39,6 +57,11 @@ def main(argv: list[str] | None = None) -> int:
     f.add_argument("lesson", type=Path)
     f.add_argument("--repo-root", type=Path, default=Path.cwd())
     f.set_defaults(func=_cmd_finish)
+
+    s = sub.add_parser("sheet", help="write a contact sheet (1 frame / 5s, 4 cols)")
+    s.add_argument("lesson", type=Path)
+    s.add_argument("--repo-root", type=Path, default=Path.cwd())
+    s.set_defaults(func=_cmd_sheet)
 
     args = parser.parse_args(argv)
     return args.func(args)

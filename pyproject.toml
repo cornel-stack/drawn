@@ -56,6 +56,9 @@ media = [
     # Image.fromarray(mode="RGBA"), which Pillow >=11 rejects. Pin below that.
     "pillow>=10,<11",
     "soundfile>=0.12",
+    # Background removal for the hand-photo pipeline (lazy-imported; only used
+    # by `just hand` when assets/hand/raw/*.jpg are present).
+    "rembg>=2.0",
 ]
 
 [tool.ruff]

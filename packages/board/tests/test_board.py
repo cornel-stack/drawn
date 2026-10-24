@@ -1,12 +1,10 @@
 import pytest
-from drawn_board.hand import HandConfig
 from drawn_board.quality import QUALITIES, quality_config
 
 
 def test_quality_presets():
     assert quality_config("preview") == {"pixel_width": 854, "pixel_height": 480, "frame_rate": 15}
-    assert quality_config("final")["pixel_width"] == 1920
-    assert quality_config("final")["frame_rate"] == 30
+    assert quality_config("final") == {"pixel_width": 1920, "pixel_height": 1080, "frame_rate": 30}
     assert set(QUALITIES) == {"preview", "final"}
 
 
@@ -15,14 +13,24 @@ def test_unknown_quality_raises():
         quality_config("ultra")
 
 
-def test_hand_config_parsing(tmp_path):
-    (tmp_path / "assets").mkdir()
-    cfg_dir = tmp_path / "assets" / "hand"
-    cfg_dir.mkdir()
-    (cfg_dir / "hand.yaml").write_text(
-        "image: assets/hand/placeholder-hand.png\ntip: [0.08, 0.06]\nscale: 1.7\n"
-    )
-    cfg = HandConfig.load(tmp_path, "assets/hand/hand.yaml")
-    assert cfg.image == "assets/hand/placeholder-hand.png"
-    assert cfg.tip == (0.08, 0.06)
-    assert cfg.scale == 1.7
+def test_hand_fallback_generates(tmp_path):
+    from drawn_board.hand_pipeline import ensure_hand
+
+    ap = ensure_hand(tmp_path)
+    assert ap.is_file()
+    import json
+
+    data = json.loads(ap.read_text())
+    assert (tmp_path / data["write"]["image"]).is_file()
+    nx, ny = data["write"]["tip"]
+    assert 0 <= nx <= 1 and 0 <= ny <= 1
+
+
+def test_primitive_registry_has_core_and_stubs():
+    from drawn_board.primitives.base import get_primitive
+
+    assert get_primitive("gyroscope").is_3d is True
+    assert get_primitive("vectors").is_3d is False
+    stub = get_primitive("pendulum")
+    with pytest.raises(NotImplementedError):
+        stub(None, None, {}).build()
