@@ -52,12 +52,12 @@ def _lesson_scene_base():
         # -- scene kinds ---------------------------------------------------
 
         def _title(self):
-            from manim import Line, VGroup
+            from manim import DL, DR, Line, VGroup
 
             d = self.data
             title = self._text(d.lesson.title, self.ink)
             title.scale_to_fit_width(min(title.width, self._fw() * 0.82))
-            rule = Line(title.get_corner_dl(), title.get_corner_dr(), color=self.accent)
+            rule = Line(title.get_corner(DL), title.get_corner(DR), color=self.accent)
             rule.next_to(title, direction=_down(), buff=0.3)
             group = VGroup(title, rule).move_to(_origin())
             self._write_sequence([(0.0, group)], d.duration)

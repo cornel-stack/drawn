@@ -74,10 +74,15 @@ class KokoroSpeechService(SpeechService):
         pipeline = self._pipeline_lazy()
         chunks = []
         try:
-            for _graphemes, _phonemes, audio in pipeline(
+            for result in pipeline(
                 text, voice=self.voice.kokoro_voice, speed=self.voice.speed
             ):
-                chunks.append(audio)
+                # kokoro yields (graphemes, phonemes, audio) tuples or Result
+                # objects across versions; the audio may be a torch tensor.
+                audio = result[-1] if isinstance(result, tuple) else result.audio
+                if hasattr(audio, "detach"):
+                    audio = audio.detach().cpu().numpy()
+                chunks.append(np.asarray(audio, dtype=np.float32))
         except Exception as exc:  # noqa: BLE001
             raise SpeechServiceError(f"kokoro synthesis failed: {exc}") from exc
         if not chunks:
