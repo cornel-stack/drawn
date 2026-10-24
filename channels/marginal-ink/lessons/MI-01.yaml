@@ -187,8 +187,9 @@ scenes:
   - id: s8
     kind: diagram
     narration: >
-      The same logic runs on the supply side, {drawS8} {drawD8} {eq8}. Suppose a
-      better technology lowers production costs. Sellers will now offer more at
+      On the supply side, {drawS8} {drawD8} {eq8}, the very same logic runs.
+      Suppose a better technology lowers production costs. Sellers will now offer
+      more at
       every price, so the supply curve shifts outward to the right, {shift8}, and
       the equilibrium slides down along the demand curve: the price falls and the
       quantity traded rises. Notice the discipline — we moved one curve, held the

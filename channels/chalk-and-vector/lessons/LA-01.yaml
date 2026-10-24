@@ -62,9 +62,9 @@ scenes:
   - id: s3
     kind: diagram
     narration: >
-      The row picture also shows, at a glance, when a system misbehaves. Suppose
-      two equations describe parallel lines, {parA} {parB}: they never meet, so
-      the system has no solution at all. And if the two equations secretly
+      Watch two parallel lines, {parA} {parB}. The row picture also shows, at a
+      glance, when a system misbehaves: lines like these never meet, so the
+      system has no solution at all. And if the two equations secretly
       describe the very same line, then every point on it solves both, and there
       are infinitely many solutions. So a two by two system has exactly three
       fates — one crossing, no crossing, or complete overlap — and which one you
@@ -88,14 +88,15 @@ scenes:
   - id: s4
     kind: diagram
     narration: >
-      The second picture is cleverer. Read the system down its columns instead
-      of across its rows. The left-hand sides are built from two column vectors,
-      one per unknown, and we ask: what combination of those columns lands on
-      the right-hand side? Here the question becomes, how much of the first
-      column, {colA}, and how much of the second, {colB}, must we add to reach
-      the target vector b, {colSum}? The answer, two of the first plus one of
-      the second, is the same solution as before — and now it means a recipe for
-      building b out of the columns, {colEq}. This is the column picture, and it
+      Columns next, {colA} {colB}. The second picture is cleverer: it reads the
+      same system down its columns instead of across its rows. The left-hand
+      sides are built from two column vectors, one for each unknown, and we ask a
+      single question — what combination of those columns lands on the
+      right-hand side? That is, how much of the first and how much of the second
+      must we add to reach the target vector b, {colSum}? The answer, two of the
+      first plus one of the second, is the same solution as before — and now it
+      means a recipe for building b out of the columns, {colEq}. This is the
+      column picture, and it
       is the doorway to everything linear algebra does with vectors. Asking which
       targets b are reachable at all is asking which vectors the columns can
       build between them — their span — and asking whether the recipe is unique
