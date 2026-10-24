@@ -19,19 +19,17 @@ MAX_STATIC_SECONDS = 3.0
 WRITE_MOTION_SECONDS = 1.2
 
 
-def _continuous_actions(repo_root: Path, lesson: Lesson, scene) -> set[str]:
+def _primitive_class(repo_root: Path, lesson: Lesson, scene):
     if scene.animation is None:
-        return set()
+        return None
     from drawn_board.primitives.base import get_primitive, load_custom
 
     try:
         if scene.animation.custom:
-            cls = load_custom(repo_root, lesson.channel, lesson.id, scene.animation.custom)
-        else:
-            cls = get_primitive(scene.animation.primitive)
-        return set(getattr(cls, "continuous_actions", set()))
+            return load_custom(repo_root, lesson.channel, lesson.id, scene.animation.custom)
+        return get_primitive(scene.animation.primitive)
     except Exception:  # noqa: BLE001
-        return set()
+        return None
 
 
 def _merge(intervals: list[tuple[float, float]]) -> list[tuple[float, float]]:
@@ -65,7 +63,10 @@ def check_pacing(repo_root: Path, lesson: Lesson) -> list[str]:
         intervals: list[tuple[float, float]] = []
         if scene.kind == "title":
             intervals.append((0.0, min(dur, 1.8)))
-        cont = _continuous_actions(repo_root, lesson, scene)
+        cls = _primitive_class(repo_root, lesson, scene)
+        cont = set(getattr(cls, "continuous_actions", set())) if cls else set()
+        if cls is not None and getattr(cls, "auto_continuous", False):
+            intervals.append((0.0, dur))  # primitive moves for the whole scene
         step_actions = (
             {s.id: s.action for s in scene.animation.steps} if scene.animation else {}
         )

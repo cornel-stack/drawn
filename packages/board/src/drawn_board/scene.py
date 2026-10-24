@@ -95,6 +95,12 @@ class BoardSceneMixin:
             frame_width=self._fw(),
             frame_height=self._fh(),
         )
+        # a 2D scene that also runs an animation keeps its text in the lower
+        # third so the diagram has the top of the frame to itself
+        if d.scene.animation is not None and not d.is_3d:
+            from manim import DOWN
+
+            group.to_edge(DOWN, buff=self._fh() * style.SAFE_MARGIN_FRAC)
         self._board_group = group
         out = []
         for item, mob in mobs:

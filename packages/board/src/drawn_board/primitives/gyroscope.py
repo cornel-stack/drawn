@@ -24,9 +24,10 @@ _WHEEL_R = 1.1
 class Gyroscope(Primitive):
     is_3d = True
     continuous_actions = {"spin_up", "precess"}
+    auto_continuous = True  # the wheel spins from build(), so motion is constant
 
     def build(self) -> None:
-        from manim import UP, Circle, Dot3D, Line, VGroup
+        from manim import RIGHT, UP, Circle, Dot3D, Line, VGroup
 
         ink = self.color(None)
         self.pivot = np.array([0.0, 0.0, 0.0])
@@ -56,15 +57,9 @@ class Gyroscope(Primitive):
         # assembly that precesses together
         self.assembly = VGroup(self.axle, self.wheel)
         self.scene.add(self.stand, self.pivot_dot, self.assembly)
-        self._spin_rate = 0.0
 
-    # -- steps -------------------------------------------------------------
-
-    @step
-    def spin_up(self, run_time: float, rate: float = 6.0, **_):
-        from manim import RIGHT
-
-        self._spin_rate = float(rate)
+        # the wheel spins continuously from the start (auto_continuous)
+        self._spin_rate = 7.0
         center = self.wheel_center
 
         def _spin(mob, dt):
@@ -72,6 +67,13 @@ class Gyroscope(Primitive):
 
         self.wheel.add_updater(_spin)
         self.mark_continuous(0.0, 1e9)
+
+    # -- steps -------------------------------------------------------------
+
+    @step
+    def spin_up(self, run_time: float, rate: float = 9.0, **_):
+        """Visibly ramp the spin (motion is already continuous from build)."""
+        self._spin_rate = float(rate)
         self.scene.wait(run_time)
 
     @step
