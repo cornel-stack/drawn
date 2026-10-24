@@ -69,6 +69,16 @@ class Vectors(Primitive):
         lbl = Text(text, font=self.channel.font.handwriting, weight="BOLD",
                    font_size=LABEL_FONT_SIZE, color=self.color(color),
                    stroke_width=GLYPH_STROKE_WIDTH, stroke_color=self.color(color))
+        return self._place(lbl, point, direction)
+
+    def _mlabel(self, tex, point, color, direction=None):
+        """A maths label (subscripts, Greek) via MathTex."""
+        from manim import MathTex
+
+        lbl = MathTex(tex, color=self.color(color), font_size=LABEL_FONT_SIZE + 6)
+        return self._place(lbl, point, direction)
+
+    def _place(self, lbl, point, direction):
         if direction is not None:
             lbl.next_to(point, direction=direction, buff=0.18)
         else:
@@ -106,8 +116,8 @@ class Vectors(Primitive):
         guide = DashedLine(foot_x, tip, color=self.color(None), stroke_width=2)
         ax = self._arrow(self.origin, foot_x, cx)
         ay = self._arrow(foot_x, tip, cy)
-        lx = self._label("A_x", foot_x, cx, direction=_down())
-        ly = self._label("A_y", (foot_x + tip) / 2, cy, direction=_right())
+        lx = self._mlabel("A_x", foot_x, cx, direction=_down())
+        ly = self._mlabel("A_y", (foot_x + tip) / 2, cy, direction=_right())
         self.scene.play(_create(guide), run_time=run_time * 0.25)
         self.scene.play(GrowArrow(ax), Write(lx), run_time=run_time * 0.4)
         self.scene.play(GrowArrow(ay), Write(ly), run_time=run_time * 0.35)
@@ -134,7 +144,7 @@ class Vectors(Primitive):
         arc = Angle(Line(va.get_start(), va.get_end()),
                     Line(vb.get_start(), vb.get_end()),
                     radius=0.8, color=self.color(color))
-        theta = self._label(r"\theta", arc.point_from_proportion(0.5), color)
+        theta = self._mlabel(r"\theta", arc.point_from_proportion(0.5) + np.array([0.25, 0.1, 0]), color)
         # projection of b's tip onto a's direction
         d = va.get_end() - va.get_start()
         d = d / np.linalg.norm(d)

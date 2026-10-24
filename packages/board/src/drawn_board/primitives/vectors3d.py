@@ -80,4 +80,4 @@ class Vectors3D(Primitive):
                                 color=self.color(color), stroke_width=4)
         self.scene.play(Create(curl), run_time=run_time * 0.4)
         self.scene.play(Create(arrow), run_time=run_time * 0.6)
-        self._label(label, c * 1.12, color)
+        # the top formula already names A×B; a 3D label here collides with it
