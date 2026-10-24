@@ -32,6 +32,14 @@ WOBBLE_AMPLITUDE_UNITS = 0.0
 # Vertical gap between stacked items (units).
 STACK_BUFF = 0.45
 
+# Writing pace. The pen traces at a human speed: time scales with how much is
+# being written (glyph count), clamped. Hand and ink are locked to this.
+WRITE_SECONDS_PER_GLYPH = 0.22
+WRITE_MIN_SECONDS = 1.2
+WRITE_MAX_SECONDS = 4.0
+HAND_ENTER_SECONDS = 0.35
+HAND_LIFT_SECONDS = 0.35
+
 
 def usable_width(frame_width: float) -> float:
     return frame_width * (1 - 2 * SAFE_MARGIN_FRAC)

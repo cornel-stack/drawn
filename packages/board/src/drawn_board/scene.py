@@ -188,39 +188,53 @@ class BoardSceneMixin:
         visible: list = []
         n = len(events)
         for i, (kind, start, payload, item) in enumerate(events):
-            start = max(start, t)
             if start > t:
                 self.wait(start - t)
+                t = start
             next_start = events[i + 1][1] if i + 1 < n else total
-            span = max(0.3, next_start - start)
+            slot = max(0.0, next_start - t)
             if kind == "write":
-                self._write_one(payload, item, span, visible)
-                t = start + min(span, _write_budget(span))
+                consumed = self._write_one(payload, item, slot, visible)
             else:
-                # animation steps fill their span (precession etc. need time)
-                wdur = max(0.5, span)
-                primitive.run_step(payload.action, payload.params, run_time=wdur)
-                t = start + wdur
+                # animation steps fill their slot (precession needs the time)
+                consumed = max(0.5, slot)
+                primitive.run_step(payload.action, payload.params, run_time=consumed)
+            t += consumed
         if total > t:
             self.wait(total - t)
 
-    def _write_one(self, mob, item, span: float, visible: list):
+    def _write_one(self, mob, item, slot: float, visible: list) -> float:
+        """Write `mob` with the hand; return the time actually consumed.
+
+        The pen traces at a human pace (scaled by glyph count) and the hand is
+        locked to the same duration, so the ink never outruns the pen. The
+        clock advances by exactly what this consumes, keeping the clip in sync
+        with the audio.
+        """
         from manim import ValueTracker, Write
 
         self._retire_if_full(mob, item, visible)
         if self.data.is_3d:
             self.add_fixed_in_frame_mobjects(mob)
 
-        enter = min(0.3, span * 0.2)
-        wdur = max(0.3, span - 2 * enter)
+        glyphs = max(1, len(mob.family_members_with_points()))
+        want = glyphs * style.WRITE_SECONDS_PER_GLYPH
+        want = max(style.WRITE_MIN_SECONDS, min(style.WRITE_MAX_SECONDS, want))
+
+        enter = min(style.HAND_ENTER_SECONDS, slot * 0.18) if slot > 0 else style.HAND_ENTER_SECONDS
+        lift = min(style.HAND_LIFT_SECONDS, slot * 0.18) if slot > 0 else style.HAND_LIFT_SECONDS
+        avail = (slot - enter - lift) if slot > 0 else want
+        wdur = want if avail <= 0 else max(0.4, min(want, avail))
+
         self.hand.enter(self, path_point(mob, 0.0), run_time=enter)
         tracker = ValueTracker(0.0)
         updater = self.hand.follow_updater(mob, tracker)
         self.hand.mobject.add_updater(updater)
         self.play(Write(mob), tracker.animate.set_value(1.0), run_time=wdur)
         self.hand.mobject.remove_updater(updater)
-        self.hand.lift(self, run_time=enter)
+        self.hand.lift(self, run_time=lift)
         visible.append((mob, item))
+        return enter + wdur + lift
 
     def _retire_if_full(self, mob, item, visible: list):
         from manim import FadeOut
@@ -251,10 +265,6 @@ class BoardSceneMixin:
         from manim import config
 
         return config.frame_height
-
-
-def _write_budget(span: float) -> float:
-    return max(0.3, min(1.1, span * 0.8))
 
 
 def _down():
