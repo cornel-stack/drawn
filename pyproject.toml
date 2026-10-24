@@ -41,24 +41,33 @@ dev = [
     "pytest>=8",
     "ruff>=0.6",
 ]
-# Heavy render/synthesis runtime, installed by `just setup` (and in CI).
-# Kept out of the default sync so the schema/linter test loop stays fast.
-media = [
-    "manim>=0.18.1",
-    "manim-voiceover>=0.3.7",
+# Split so each CI job installs only what it needs (the tts job skips Manim/TeX;
+# the render job skips Kokoro/whisper). `media` is everything, for local work.
+tts = [
     "kokoro>=0.9",
     "torch>=2.2",       # CPU build via the pytorch-cpu index (see tool.uv.sources)
     "edge-tts>=6.1",
     "faster-whisper>=1.0",
     # faster-whisper 1.2.x calls av.open(metadata_errors=...), removed in PyAV 14.
     "av>=11,<14",
+    "soundfile>=0.12",
+]
+render = [
+    "manim>=0.18.1",
+    "manim-voiceover>=0.3.7",
     # Manim 0.22's ImageMobject compositing passes a float64 array to
     # Image.fromarray(mode="RGBA"), which Pillow >=11 rejects. Pin below that.
     "pillow>=10,<11",
-    "soundfile>=0.12",
-    # Background removal for the hand-photo pipeline (lazy-imported; only used
-    # by `just hand` when assets/hand/raw/*.jpg are present).
+]
+# Background removal for the hand-photo pipeline (lazy-imported; `just hand`).
+hand = [
     "rembg>=2.0",
+    "pillow>=10,<11",
+]
+media = [
+    {include-group = "tts"},
+    {include-group = "render"},
+    {include-group = "hand"},
 ]
 
 [tool.ruff]

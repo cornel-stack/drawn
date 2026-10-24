@@ -454,6 +454,10 @@ dev = [
     { name = "pytest" },
     { name = "ruff" },
 ]
+hand = [
+    { name = "pillow" },
+    { name = "rembg" },
+]
 media = [
     { name = "av" },
     { name = "edge-tts" },
@@ -463,6 +467,20 @@ media = [
     { name = "manim-voiceover" },
     { name = "pillow" },
     { name = "rembg" },
+    { name = "soundfile" },
+    { name = "torch", version = "2.14.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform == 'darwin'" },
+    { name = "torch", version = "2.14.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform != 'darwin'" },
+]
+render = [
+    { name = "manim" },
+    { name = "manim-voiceover" },
+    { name = "pillow" },
+]
+tts = [
+    { name = "av" },
+    { name = "edge-tts" },
+    { name = "faster-whisper" },
+    { name = "kokoro" },
     { name = "soundfile" },
     { name = "torch", version = "2.14.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform == 'darwin'" },
     { name = "torch", version = "2.14.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform != 'darwin'" },
@@ -482,6 +500,10 @@ dev = [
     { name = "pytest", specifier = ">=8" },
     { name = "ruff", specifier = ">=0.6" },
 ]
+hand = [
+    { name = "pillow", specifier = ">=10,<11" },
+    { name = "rembg", specifier = ">=2.0" },
+]
 media = [
     { name = "av", specifier = ">=11,<14" },
     { name = "edge-tts", specifier = ">=6.1" },
@@ -491,6 +513,19 @@ media = [
     { name = "manim-voiceover", specifier = ">=0.3.7" },
     { name = "pillow", specifier = ">=10,<11" },
     { name = "rembg", specifier = ">=2.0" },
+    { name = "soundfile", specifier = ">=0.12" },
+    { name = "torch", specifier = ">=2.2", index = "https://download.pytorch.org/whl/cpu" },
+]
+render = [
+    { name = "manim", specifier = ">=0.18.1" },
+    { name = "manim-voiceover", specifier = ">=0.3.7" },
+    { name = "pillow", specifier = ">=10,<11" },
+]
+tts = [
+    { name = "av", specifier = ">=11,<14" },
+    { name = "edge-tts", specifier = ">=6.1" },
+    { name = "faster-whisper", specifier = ">=1.0" },
+    { name = "kokoro", specifier = ">=0.9" },
     { name = "soundfile", specifier = ">=0.12" },
     { name = "torch", specifier = ">=2.2", index = "https://download.pytorch.org/whl/cpu" },
 ]

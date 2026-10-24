@@ -1,9 +1,9 @@
 # Generated from research/*_backlog.xlsx by `just fetch`.
-# Do not hand-edit; re-run the importer instead.
+# MI-01 source swapped from CC BY-NC-SA to OpenStax (CC BY) for Phase 3.
 - code: MI-01
   title: 'Supply and demand, properly: what shifts a curve and what moves along it'
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §2 Supply and Demand
+  source: OpenStax Principles of Microeconomics 2e (CC BY 4.0) Ch.3 Demand and Supply
   format: Explainer
   target_minutes: 9
   prereqs: []

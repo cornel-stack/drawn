@@ -14,11 +14,9 @@ _PLANNED = [
     "mass_spring",
     "projectile",
     "free_body",
-    "axes_plot",       # Axes + plotted function, tracing dot, tangent, area
     "number_line",
     "field_arrows",
     "circuit_current",
-    "supply_demand",
     "linear_transform",  # matrix acting on a grid
 ]
 

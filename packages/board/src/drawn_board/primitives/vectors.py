@@ -144,7 +144,8 @@ class Vectors(Primitive):
         arc = Angle(Line(va.get_start(), va.get_end()),
                     Line(vb.get_start(), vb.get_end()),
                     radius=0.8, color=self.color(color))
-        theta = self._mlabel(r"\theta", arc.point_from_proportion(0.5) + np.array([0.25, 0.1, 0]), color)
+        theta_pt = arc.point_from_proportion(0.5) + np.array([0.25, 0.1, 0])
+        theta = self._mlabel(r"\theta", theta_pt, color)
         # projection of b's tip onto a's direction
         d = va.get_end() - va.get_start()
         d = d / np.linalg.norm(d)

@@ -1,0 +1,30 @@
+name: ci
+
+# Fast checks on every push/PR: unit tests, lint, and lesson validation.
+# Full 1080p renders run via the manual `render` workflow.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: System deps (for Manim-backed tests)
+        run: sudo apt-get update && sudo apt-get install -y build-essential pkg-config libcairo2-dev libpango1.0-dev
+      - run: uv sync --group render
+      - name: Ruff
+        run: uv run ruff check packages
+      - name: Tests
+        run: uv run pytest -q
+      - name: Lint all lessons
+        run: |
+          shopt -s nullglob
+          for f in channels/*/lessons/*.yaml; do
+            uv run python -m drawn_schema lint "$f"
+          done
