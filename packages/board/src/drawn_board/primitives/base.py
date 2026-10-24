@@ -77,9 +77,26 @@ def register(name: str):
     return deco
 
 
+def _import_optional() -> None:
+    """Import real primitive modules that supersede planned stubs, if present."""
+    for mod in ("axes_plot", "supply_demand", "linear_system"):
+        try:
+            __import__(f"drawn_board.primitives.{mod}")
+        except ModuleNotFoundError:
+            pass
+
+
 def get_primitive(name: str) -> type[Primitive]:
-    # import side-effect modules so registrations happen
-    from drawn_board.primitives import gyroscope, stubs, vectors, wheel  # noqa: F401
+    # import side-effect modules so registrations happen. `stubs` is imported
+    # first so real modules below override the planned-stub registration.
+    from drawn_board.primitives import (  # noqa: F401
+        gyroscope,
+        stubs,  # noqa: F401
+        vectors,
+        vectors3d,
+        wheel,
+    )
+    _import_optional()
 
     if name not in _REGISTRY:
         raise ValueError(
