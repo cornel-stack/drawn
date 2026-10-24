@@ -1,0 +1,182 @@
+# LA-01: What a system of linear equations really is (3 pictures beat 3 formulas).
+# Hefferon, Linear Algebra §1.I.1 Gauss's Method (CC BY-SA). ~7 minutes.
+# Colour discipline: equation one / column one = orange, two = blue, solution = green.
+schema_version: 1
+id: LA-01
+channel: chalk-and-vector
+title: "What a system of linear equations really is"
+target_minutes: 7
+source:
+  book: "Hefferon, Linear Algebra"
+  section: "§1.I.1 Gauss's Method"
+  license: "CC BY-SA 3.0"
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A system of linear equations looks like a wall of symbols, {seed}, and it
+      is tempting to treat it as pure bookkeeping. But every such system can be
+      seen in three different pictures, and the pictures explain far more than
+      the formulas ever do. One tells you when a solution exists, another tells
+      you what the solution means, and the third tells you how to compute it.
+      Let us meet all three with a single small example and watch them agree.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [-2, 6, 1]
+        y: [-3, 5, 1]
+      steps:
+        - {id: seed, action: plot_line, params: {name: s, a: 1, b: 1, c: 3, color: orange}}
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Take two equations in two unknowns, {rowA}: x plus y equals three, and x
+      minus y equals one. The first picture reads each equation on its own.
+      Every pair of x and y that satisfies x plus y equals three lies on a
+      straight line, and the second equation draws a line of its own, {rowB}. A
+      pair that solves the whole system must sit on both lines at once, so the
+      solution is exactly where the two lines cross, {rowX}. Here they meet at x
+      equals two, y equals one. This is the row picture: one line per equation,
+      and the solution is their intersection. The word linear is doing real work
+      here: each unknown appears only on its own, never squared, never
+      multiplied by another, never buried inside a function. That modest rule is
+      exactly what forces the graph to be a straight line rather than some
+      curve, and it is why the whole subject is so beautifully well-behaved.
+      With three unknowns each equation would instead describe a flat plane, and
+      the solution would be where the planes meet.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [-2, 6, 1]
+        y: [-3, 5, 1]
+        x_label: "x"
+        y_label: "y"
+      steps:
+        - {id: rowA, action: plot_line, params: {name: L1, a: 1, b: 1, c: 3, color: orange, label: "x+y=3"}}
+        - {id: rowB, action: plot_line, params: {name: L2, a: 1, b: -1, c: 1, color: blue, label: "x-y=1"}}
+        - {id: rowX, action: intersect, params: {line1: L1, line2: L2, color: green, label: "(2,1)"}}
+    board: []
+
+  - id: s3
+    kind: diagram
+    narration: >
+      The row picture also shows, at a glance, when a system misbehaves. Suppose
+      two equations describe parallel lines, {parA} {parB}: they never meet, so
+      the system has no solution at all. And if the two equations secretly
+      describe the very same line, then every point on it solves both, and there
+      are infinitely many solutions. So a two by two system has exactly three
+      fates — one crossing, no crossing, or complete overlap — and which one you
+      are in is obvious the moment you draw the lines. No amount of staring at
+      the raw numbers makes that as clear as the picture does. The same three
+      fates survive into higher dimensions: three planes in space might pierce
+      at a single point, or share a whole line, or have no common point
+      whatsoever. A system with at least one solution we call consistent, and
+      one with none inconsistent, and the row picture is simply the honest
+      geometry behind those words.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [-2, 6, 1]
+        y: [-3, 5, 1]
+      steps:
+        - {id: parA, action: plot_line, params: {name: P1, a: 1, b: 1, c: 2, color: orange, label: "x+y=2"}}
+        - {id: parB, action: plot_line, params: {name: P2, a: 1, b: 1, c: 5, color: blue, label: "x+y=5"}}
+    board: []
+
+  - id: s4
+    kind: diagram
+    narration: >
+      The second picture is cleverer. Read the system down its columns instead
+      of across its rows. The left-hand sides are built from two column vectors,
+      one per unknown, and we ask: what combination of those columns lands on
+      the right-hand side? Here the question becomes, how much of the first
+      column, {colA}, and how much of the second, {colB}, must we add to reach
+      the target vector b, {colSum}? The answer, two of the first plus one of
+      the second, is the same solution as before — and now it means a recipe for
+      building b out of the columns, {colEq}. This is the column picture, and it
+      is the doorway to everything linear algebra does with vectors. Asking which
+      targets b are reachable at all is asking which vectors the columns can
+      build between them — their span — and asking whether the recipe is unique
+      is asking whether the columns point in genuinely different directions. Two
+      questions that looked like pure arithmetic become questions about shape,
+      and that shift is the whole reason the column picture is worth the effort.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-1, 4, 1], y: [-2, 4, 1], x_length: 6.0, y_length: 5.0, center: [-0.3, -0.4, 0]}
+        vectors:
+          A: {to: [2, 2], color: orange, label: "2a1"}
+          B: {to: [1, -1], color: blue, label: "a2"}
+      steps:
+        - {id: colA, action: draw, params: {name: A}}
+        - {id: colB, action: draw, params: {name: B}}
+        - {id: colSum, action: add_tip_to_tail, params: {a: A, b: B, result: b, color: green}}
+    board:
+      - id: colEq
+        latex: "x\\,\\vec{a}_1 + y\\,\\vec{a}_2 = \\vec{b}"
+        say: "x times a one plus y times a two equals b"
+        color: green
+
+  - id: s5
+    kind: derivation
+    narration: >
+      The third picture is the method that actually solves the thing, and it is
+      just disciplined bookkeeping. Write the two equations, {g1} {g2}. Gauss's
+      idea is to remove one unknown by combining rows: subtract the first
+      equation from the second, and the x terms cancel, leaving minus two y
+      equals minus two, {g3}. That immediately gives y equals one, {g4}. Put
+      that back into the first equation and x equals two, {g5}. Every linear
+      system, however large, falls to this same routine — eliminate downward to
+      a staircase, then substitute back upward. Only three moves are ever
+      allowed: swap two equations, multiply an equation through by a non-zero
+      number, or add a multiple of one equation to another. Each of the three
+      leaves the solution set untouched, which is the quiet reason the whole
+      method is trustworthy — we are not changing the problem, only rewriting it
+      into a shape we can read off. The pictures tell you what the answer means;
+      Gauss's method is how you reliably find it.
+    board:
+      - id: g1
+        latex: "x + y = 3"
+        say: "x plus y equals three"
+        color: orange
+      - id: g2
+        latex: "x - y = 1"
+        say: "x minus y equals one"
+        color: blue
+      - id: g3
+        latex: "-2y = -2"
+        say: "minus two y equals minus two"
+        color: yellow
+      - id: g4
+        latex: "y = 1"
+        say: "y equals one"
+        color: green
+      - id: g5
+        latex: "x = 2"
+        say: "x equals two"
+        color: green
+
+  - id: s6
+    kind: summary
+    narration: >
+      So one system, three pictures, {recap}: rows are lines that cross at the
+      solution; columns are vectors we combine to reach the target; and Gauss's
+      method is the elimination that computes it. Keep all three in mind and a
+      wall of symbols turns into something you can genuinely see and understand.
+      Next, in DE-01, we ask what a differential equation really is, and why
+      physics is written in them.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [-2, 6, 1]
+        y: [-3, 5, 1]
+      steps:
+        - {id: recap, action: plot_line, params: {name: r, a: 1, b: 1, c: 3, color: orange}}
+    board: []
+
+  - id: s7
+    kind: end
+    narration: ""
+    board: []

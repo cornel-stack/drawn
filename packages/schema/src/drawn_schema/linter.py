@@ -111,8 +111,10 @@ def _check_word_budget(lesson: Lesson, result: LintResult, pronounce_map: dict) 
 
 
 def _check_animations(lesson: Lesson, repo_root: Path | None, result: LintResult) -> None:
-    non_end = [s for s in lesson.scenes if s.kind != "end"]
-    for scene in non_end:
+    # derivation scenes are hand-written step by step (the hand is the moving
+    # object), so they need no separate animation block.
+    needs_anim = [s for s in lesson.scenes if s.kind not in ("end", "derivation")]
+    for scene in needs_anim:
         if scene.animation is None:
             result.warn(
                 f"scene {scene.id!r} ({scene.kind}) has no animation block; "
