@@ -33,8 +33,11 @@ class Word:
 
 
 def build_spoken(scene: Scene) -> tuple[list[str], dict[str, int]]:
-    """Return (spoken words, {item_id: first-word index}) for a scene."""
-    spoken_map = {item.id: item.spoken for item in scene.board}
+    """Return (spoken words, {item_id: first-word index}) for a scene.
+
+    Covers board items and animation steps (both use the {id} system).
+    """
+    spoken_map = dict(scene.placeholders())
     words: list[str] = []
     item_start: dict[str, int] = {}
     # re.split with a capturing group interleaves the captured ids at odd indices.

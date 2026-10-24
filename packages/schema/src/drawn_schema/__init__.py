@@ -9,6 +9,8 @@ from drawn_schema.channel import (
 )
 from drawn_schema.lesson import (
     SCHEMA_VERSION,
+    Animation,
+    AnimationStep,
     BoardItem,
     Lesson,
     Scene,
@@ -19,6 +21,8 @@ from drawn_schema.placeholders import PLACEHOLDER_RE, iter_placeholders, substit
 
 __all__ = [
     "SCHEMA_VERSION",
+    "Animation",
+    "AnimationStep",
     "BoardItem",
     "Lesson",
     "Scene",

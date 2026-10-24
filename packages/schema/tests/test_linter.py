@@ -120,3 +120,58 @@ def test_deepcopy_isolation():
     a = valid_lesson()
     b = copy.deepcopy(a)
     assert a == b
+
+
+def _diagram_lesson() -> dict:
+    # target 1 min -> budget 145 (123-167). 140 filler + step/item says.
+    filler = " ".join(["alpha"] * 140)
+    return {
+        "schema_version": 1,
+        "id": "ME-25",
+        "channel": "pen-and-pendulum",
+        "title": "Demo",
+        "target_minutes": 1,
+        "source": {"book": "OpenStax", "section": "§1", "license": "CC BY 4.0"},
+        "scenes": [
+            {
+                "id": "s1",
+                "kind": "diagram",
+                "narration": f"{filler} draw {{spin}} then {{L}}",
+                "board": [
+                    {"id": "L", "latex": r"\vec L = I\vec\omega", "say": "L equals I omega",
+                     "color": "blue"},
+                ],
+                "animation": {
+                    "primitive": "gyroscope",
+                    "params": {"spin": "ccw"},
+                    "steps": [
+                        {"id": "spin", "action": "start_spin"},
+                    ],
+                },
+            }
+        ],
+    }
+
+
+def test_animation_step_is_valid_placeholder():
+    result = lint_lesson(_diagram_lesson())
+    assert result.ok, result.errors
+
+
+def test_animation_step_must_be_referenced_once():
+    data = _diagram_lesson()
+    data["scenes"][0]["narration"] = " ".join(["alpha"] * 140) + " draw {L}"  # drop {spin}
+    result = lint_lesson(data)
+    assert any("spin" in e and "never" in e for e in result.errors)
+
+
+def test_animation_requires_exactly_one_of_primitive_custom():
+    data = _diagram_lesson()
+    data["scenes"][0]["animation"]["custom"] = "Thing"  # now both set
+    result = lint_lesson(data)
+    assert not result.ok
+
+
+def test_item_color_accepted():
+    data = _diagram_lesson()
+    assert lint_lesson(data).ok

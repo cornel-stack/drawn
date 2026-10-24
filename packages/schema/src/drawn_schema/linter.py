@@ -60,10 +60,11 @@ class LintResult:
 
 
 def _check_scene_placeholders(scene: Scene, result: LintResult) -> None:
-    ids = [item.id for item in scene.board]
+    # Board items and animation steps share one {id} namespace.
+    ids = [pid for pid, _ in scene.placeholders()]
     dupes = [i for i, n in Counter(ids).items() if n > 1]
     for i in dupes:
-        result.error(f"scene {scene.id!r}: duplicate board item id {i!r}")
+        result.error(f"scene {scene.id!r}: duplicate placeholder id {i!r}")
 
     id_set = set(ids)
     refs = list(iter_placeholders(scene.narration))
@@ -73,24 +74,24 @@ def _check_scene_placeholders(scene: Scene, result: LintResult) -> None:
         if ref not in id_set:
             result.error(
                 f"scene {scene.id!r}: narration references {{{ref}}} "
-                f"but no board item has that id"
+                f"but no board item or animation step has that id"
             )
     for item_id in ids:
         n = ref_counts.get(item_id, 0)
         if n == 0:
             result.error(
-                f"scene {scene.id!r}: board item {item_id!r} is never "
+                f"scene {scene.id!r}: {item_id!r} is never "
                 f"referenced as {{{item_id}}} in the narration"
             )
         elif n > 1:
             result.error(
-                f"scene {scene.id!r}: board item {item_id!r} is referenced "
+                f"scene {scene.id!r}: {item_id!r} is referenced "
                 f"{n} times; each item must be referenced exactly once"
             )
 
 
 def _spoken_narration(scene: Scene) -> str:
-    spoken = {item.id: item.spoken for item in scene.board}
+    spoken = dict(scene.placeholders())
     return substitute(scene.narration, spoken)
 
 
@@ -104,6 +105,25 @@ def _check_word_budget(lesson: Lesson, result: LintResult) -> None:
             f"narration is {total} words; target {lesson.target_minutes} min "
             f"gives a budget of {budget} (allowed {lo}–{hi})"
         )
+
+
+def _check_animations(lesson: Lesson, repo_root: Path | None, result: LintResult) -> None:
+    non_end = [s for s in lesson.scenes if s.kind != "end"]
+    for scene in non_end:
+        if scene.animation is None:
+            result.warn(
+                f"scene {scene.id!r} ({scene.kind}) has no animation block; "
+                f"every non-end scene should carry an animated diagram"
+            )
+    if repo_root is None:
+        return
+    custom_module = repo_root / "channels" / lesson.channel / "lessons" / f"{lesson.id}.py"
+    for scene in lesson.scenes:
+        if scene.animation and scene.animation.custom and not custom_module.is_file():
+            result.error(
+                f"scene {scene.id!r}: animation custom="
+                f"{scene.animation.custom!r} but {custom_module} does not exist"
+            )
 
 
 def _check_licence(lesson: Lesson, result: LintResult) -> None:
@@ -211,6 +231,7 @@ def lint_lesson(data: dict, repo_root: Path | None = None) -> LintResult:
 
     for scene in lesson.scenes:
         _check_scene_placeholders(scene, result)
+    _check_animations(lesson, repo_root, result)
     _check_word_budget(lesson, result)
     _check_licence(lesson, result)
     _check_latex(lesson, result)
