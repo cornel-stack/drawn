@@ -110,9 +110,10 @@ scenes:
   - id: s5
     kind: diagram
     narration: >
-      Here is the distinction that trips everyone up. Suppose the price alone
-      changes, {drawS5} {drawD5}. Then nothing about buyers' underlying wants has
-      altered; we simply slide to a new spot on the very same demand curve,
+      Here are the two curves once more, {drawS5} {drawD5}, and the distinction
+      that trips everyone up. Suppose the price alone changes. Then nothing about
+      buyers' underlying wants has altered; we simply slide to a new spot on the
+      very same demand curve,
       {move5}. That is a change in the quantity demanded, a movement along the
       curve. The curve has not moved an inch. Price and quantity are partners on
       a fixed line, and travelling along that line is not the same as redrawing

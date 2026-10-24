@@ -65,17 +65,18 @@ scenes:
   - id: s3
     kind: diagram
     narration: >
-      Because the two components meet at a right angle, {splitB}, the arrow and
-      its shadows form a right-angled triangle. Pythagoras then hands us the
-      magnitude straight away, {magEq}: the length is the square root of the sum
-      of the squared components. The direction comes from the same triangle: the
-      tangent of the angle is the vertical part over the horizontal part,
-      {dirEq}. So from two numbers we recover both how long the arrow is and
-      which way it leans, and from a length and an angle we can go back the
-      other way. A quick example: components of three across and four up give a
-      length of exactly five, since nine plus sixteen is twenty-five. Magnitude
-      and direction, components and angle: two languages for the one arrow,
-      {drawB}, and fluent physics means switching between them without thinking.
+      Take that arrow once more, {drawB}. Because its two components meet at a
+      right angle, {splitB}, the arrow and its shadows form a right-angled
+      triangle. Pythagoras then hands us the magnitude straight away, {magEq}:
+      the length is the square root of the sum of the squared components. The
+      direction comes from the same triangle: the tangent of the angle is the
+      vertical part over the horizontal part, {dirEq}. So from two numbers we
+      recover both how long the arrow is and which way it leans, and from a
+      length and an angle we can go back the other way. A quick example:
+      components of three across and four up give a length of exactly five,
+      since nine plus sixteen is twenty-five. Magnitude and direction,
+      components and angle are two languages for the one arrow, and fluent
+      physics means switching between them without thinking.
     animation:
       primitive: vectors
       params:

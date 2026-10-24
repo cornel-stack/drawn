@@ -141,9 +141,13 @@ class SupplyDemand(Primitive):
         old = self._lines[curve]
         self.scene.play(old.animate.become(new), run_time=run_time * 0.6)
         self._lines[curve] = new
-        q, p = self._equilibrium()
-        self.scene.play(self._eq_dot.animate.move_to(self.axes.c2p(q, p)),
-                        run_time=run_time * 0.4)
+        # if an equilibrium dot was marked, slide it to the new crossing
+        if getattr(self, "_eq_dot", None) is not None:
+            q, p = self._equilibrium()
+            self.scene.play(self._eq_dot.animate.move_to(self.axes.c2p(q, p)),
+                            run_time=run_time * 0.4)
+        else:
+            self.scene.wait(run_time * 0.4)
 
     @step
     def move_along(self, run_time: float, curve: str = "demand", to_q: float = 5.0,
