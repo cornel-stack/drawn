@@ -123,8 +123,8 @@ scenes:
   - id: s5
     kind: derivation
     narration: >
-      The third picture is the method that actually solves the thing, and it is
-      just disciplined bookkeeping. Write the two equations, {g1} {g2}. Gauss's
+      Write the two equations down, {g1} {g2}. The third picture is the method
+      that actually solves them, and it is just disciplined bookkeeping. Gauss's
       idea is to remove one unknown by combining rows: subtract the first
       equation from the second, and the x terms cancel, leaving minus two y
       equals minus two, {g3}. That immediately gives y equals one, {g4}. Put

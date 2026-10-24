@@ -165,10 +165,10 @@ scenes:
   - id: s6
     kind: diagram
     narration: >
-      The second product asks something different: how much the two vectors fail
-      to point the same way. Place them in a plane, {drawH}, {drawI}, and the
-      cross product is a brand new vector standing straight up out of that plane,
-      {crossJ}. Its length is the two magnitudes times the sine of the angle, the
+      Place two vectors in a plane, {drawH} {drawI}. The second product asks
+      something different from the first: how much they fail to point the same
+      way. Its answer, the cross product, is a brand new vector standing straight
+      up out of that plane, {crossJ}. Its length is the two magnitudes times the sine of the angle, the
       area of the parallelogram they span, {crossEq}. Its direction follows the
       right-hand rule: curl your fingers from the first vector to the second and
       your thumb points the way. Unlike the dot product, the result is itself a

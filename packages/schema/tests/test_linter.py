@@ -175,3 +175,18 @@ def test_animation_requires_exactly_one_of_primitive_custom():
 def test_item_color_accepted():
     data = _diagram_lesson()
     assert lint_lesson(data).ok
+
+
+def test_leadin_warning():
+    data = valid_lesson()
+    # {L} is after 140 filler words -> long lead-in (warning, not error)
+    result = lint_lesson(data)
+    assert result.ok, result.errors
+    assert any("words before the first" in w for w in result.warnings)
+
+
+def test_no_leadin_warning_when_early():
+    data = valid_lesson()
+    data["scenes"][0]["narration"] = "{L} " + " ".join(["alpha"] * 142) + " {tau}"
+    result = lint_lesson(data)
+    assert not any("words before the first" in w for w in result.warnings)

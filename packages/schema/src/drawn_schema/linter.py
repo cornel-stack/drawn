@@ -40,7 +40,12 @@ from drawn_schema.lesson import (
     Lesson,
     Scene,
 )
-from drawn_schema.placeholders import count_words, iter_placeholders, substitute
+from drawn_schema.placeholders import (
+    PLACEHOLDER_RE,
+    count_words,
+    iter_placeholders,
+    substitute,
+)
 
 
 @dataclass
@@ -88,6 +93,27 @@ def _check_scene_placeholders(scene: Scene, result: LintResult) -> None:
                 f"scene {scene.id!r}: {item_id!r} is referenced "
                 f"{n} times; each item must be referenced exactly once"
             )
+
+
+# ~words spoken in 3 s at Kokoro's ~175 wpm; past this the board sits empty too
+# long before the first draw. A pre-flight estimate; the render's pacing check
+# (which uses real word timings, and exempts 3D/continuous scenes) is final.
+_MAX_LEADIN_WORDS = 9
+
+
+def _check_leadin(scene: Scene, result: LintResult) -> None:
+    if scene.kind in ("title", "end"):
+        return
+    match = PLACEHOLDER_RE.search(scene.narration)
+    if match is None:
+        return
+    lead_words = count_words(scene.narration[: match.start()])
+    if lead_words > _MAX_LEADIN_WORDS:
+        result.warn(
+            f"scene {scene.id!r}: ~{lead_words} words before the first "
+            f"{{{match.group(1)}}} — open the scene with a draw/plot so the "
+            f"board isn't empty for several seconds"
+        )
 
 
 def _spoken_narration(scene: Scene, pronounce_map: dict | None = None) -> str:
@@ -255,6 +281,7 @@ def lint_lesson(data: dict, repo_root: Path | None = None) -> LintResult:
 
     for scene in lesson.scenes:
         _check_scene_placeholders(scene, result)
+        _check_leadin(scene, result)
     _check_animations(lesson, repo_root, result)
     _check_pronounce(lesson, pronounce_map, result)
     _check_word_budget(lesson, result, pronounce_map)
