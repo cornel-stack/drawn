@@ -15,19 +15,8 @@ scenes:
   - id: s1
     kind: title
     narration: >
-      A system of linear equations looks like a wall of symbols, {seed}, and it
-      is tempting to treat it as pure bookkeeping. But every such system can be
-      seen in three different pictures, and the pictures explain far more than
-      the formulas ever do. One tells you when a solution exists, another tells
-      you what the solution means, and the third tells you how to compute it.
-      Let us meet all three with a single small example and watch them agree.
-    animation:
-      primitive: axes_plot
-      params:
-        x: [-2, 6, 1]
-        y: [-3, 5, 1]
-      steps:
-        - {id: seed, action: plot_line, params: {name: s, a: 1, b: 1, c: 3, color: orange}}
+      A system of linear equations looks like a wall of symbols, but it can be
+      seen in three different pictures.
 
   - id: s2
     kind: diagram

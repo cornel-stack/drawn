@@ -15,19 +15,12 @@ scenes:
   - id: s1
     kind: title
     narration: >
-      Supply and demand is the first model every economist learns, {drawD1}, and
-      also the one most often used sloppily. The whole payoff is a single
-      distinction done cleanly: when does a curve simply move along itself, and
-      when does the entire curve shift? Confuse the two and you will reach the
-      wrong conclusion about prices, policies and firms; keep them apart and a
-      surprising amount of economics falls into place. Get this right and
-      markets start to make sense.
-    animation:
-      primitive: supply_demand
-      params:
-        demand: {a: 8.0, b: 0.8}
-      steps:
-        - {id: drawD1, action: draw_demand, params: {color: orange}}
+      Supply and demand is the first model every economist learns, and also the
+      one most often used sloppily. The whole payoff is a single distinction
+      done cleanly: when a curve simply moves along itself, and when the entire
+      curve shifts. Confuse the two and you reach the wrong conclusion about
+      prices, policies and firms; keep them apart and a surprising amount of
+      economics falls into place.
 
   - id: s2
     kind: diagram

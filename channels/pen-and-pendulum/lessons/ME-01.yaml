@@ -15,19 +15,8 @@ scenes:
   - id: s1
     kind: title
     narration: >
-      Almost everything in physics carries both a size and a direction, {drawA1}
-      — a push, a velocity, an electric field. We hold that idea in a single
-      object called a vector, and just three operations on vectors unlock most
-      of mechanics. Let us build them from the ground up.
-    animation:
-      primitive: vectors
-      params:
-        origin: [3.1, -1.5]
-        scale: 0.6
-        vectors:
-          A1: {to: [3.0, 2.2], color: blue, label: "A"}
-      steps:
-        - {id: drawA1, action: draw, params: {name: A1}}
+      Almost everything in physics carries both a size and a direction: a push,
+      a velocity, an electric field.
 
   - id: s2
     kind: diagram
