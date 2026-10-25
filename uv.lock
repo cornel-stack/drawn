@@ -579,16 +579,20 @@ name = "drawn-schema"
 version = "0.1.0"
 source = { editable = "packages/schema" }
 dependencies = [
+    { name = "numpy" },
     { name = "openpyxl" },
     { name = "pydantic" },
     { name = "pyyaml" },
+    { name = "sympy" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "numpy", specifier = ">=1.26" },
     { name = "openpyxl", specifier = ">=3.1" },
     { name = "pydantic", specifier = ">=2.7" },
     { name = "pyyaml", specifier = ">=6" },
+    { name = "sympy", specifier = ">=1.12" },
 ]
 
 [[package]]

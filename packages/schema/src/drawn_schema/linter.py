@@ -124,22 +124,41 @@ def _spoken_narration(scene: Scene, pronounce_map: dict | None = None) -> str:
     return _pron.apply(text, pronounce_map or {})
 
 
-def _check_word_budget(lesson: Lesson, result: LintResult, pronounce_map: dict) -> None:
-    total = sum(count_words(_spoken_narration(s, pronounce_map)) for s in lesson.scenes)
-    budget = lesson.word_budget
-    lo = round(budget * (1 - WORD_BUDGET_TOLERANCE))
-    hi = round(budget * (1 + WORD_BUDGET_TOLERANCE))
-    if not (lo <= total <= hi):
+def _scene_seconds(scene: Scene, pronounce_map: dict) -> float:
+    """Estimated spoken time: words at the kind's wpm + explicit + equation pauses."""
+    from drawn_schema.lesson import (
+        EQUATION_POST_PAUSE,
+        EQUATION_PRE_PAUSE,
+        wpm_for_kind,
+    )
+    from drawn_schema.placeholders import PAUSE_RE
+
+    words = count_words(_spoken_narration(scene, pronounce_map))
+    speech = words / wpm_for_kind(scene.kind) * 60.0
+    pauses = sum(float(m.group(1)) for m in PAUSE_RE.finditer(scene.narration))
+    pauses += scene.equation_count() * (EQUATION_PRE_PAUSE + EQUATION_POST_PAUSE)
+    return speech + pauses
+
+
+def _check_runtime(lesson: Lesson, result: LintResult, pronounce_map: dict) -> None:
+    est = sum(_scene_seconds(s, pronounce_map) for s in lesson.scenes)
+    est_min = est / 60.0
+    target = lesson.target_minutes
+    lo = target * (1 - WORD_BUDGET_TOLERANCE)
+    hi = target * (1 + WORD_BUDGET_TOLERANCE)
+    if not (lo <= est_min <= hi):
         result.error(
-            f"narration is {total} words; target {lesson.target_minutes} min "
-            f"gives a budget of {budget} (allowed {lo}–{hi})"
+            f"estimated runtime {est_min:.1f} min (speech + pauses at per-kind "
+            f"wpm); target {target} min allows {lo:.1f}–{hi:.1f} min"
         )
 
 
 def _check_animations(lesson: Lesson, repo_root: Path | None, result: LintResult) -> None:
-    # derivation scenes are hand-written step by step (the hand is the moving
-    # object), so they need no separate animation block.
-    needs_anim = [s for s in lesson.scenes if s.kind not in ("end", "derivation")]
+    # title/end are full-frame cards; derivation and problem scenes are
+    # hand-written step by step (the hand is the moving object). None of these
+    # need a separate animation block.
+    _no_anim = ("title", "end", "derivation", "problem")
+    needs_anim = [s for s in lesson.scenes if s.kind not in _no_anim]
     for scene in needs_anim:
         if scene.animation is None:
             result.warn(
@@ -168,6 +187,69 @@ def _check_pronounce(lesson: Lesson, pronounce_map: dict, result: LintResult) ->
             f"LaTeX symbol {sym!r} has no entry in "
             f"channels/{lesson.channel}/pronounce.yaml"
         )
+    # named laws / proper nouns in narration (capitalised, not sentence-initial)
+    narration = "\n".join(s.narration for s in lesson.scenes)
+    for name in sorted(_pron.proper_nouns(narration)):
+        if name.lower() not in {k.lower() for k in pronounce_map}:
+            result.warn(
+                f"proper noun {name!r} has no entry in "
+                f"channels/{lesson.channel}/pronounce.yaml (check its pronunciation)"
+            )
+
+
+# Phrases banned outright — narrative/hype framing has no place in the script.
+_BANNED = [
+    "imagine", "journey", "story", "magic", "magical", "let's dive in",
+    "dive in", "in this video", "hey guys", "let's get started", "buckle up",
+    "fasten your seat", "mind-blowing", "mind blowing", "awesome", "amazing",
+]
+
+
+def _check_tone(scene: Scene, result: LintResult) -> None:
+    low = scene.narration.lower()
+    for phrase in _BANNED:
+        if phrase in low:
+            result.error(
+                f"scene {scene.id!r}: banned framing {phrase!r} — write plainly "
+                f"and declaratively, as an expert would"
+            )
+    questions = scene.narration.count("?")
+    if questions > 1:
+        result.warn(
+            f"scene {scene.id!r}: {questions} questions — avoid rhetorical "
+            f"questions as filler; prefer declarative statements"
+        )
+
+
+def _check_problems(lesson: Lesson, result: LintResult) -> None:
+    import math
+
+    import numpy as np
+
+    for scene in lesson.scenes:
+        if scene.check is None:
+            continue
+        ns = {"__builtins__": {}, "np": np, "numpy": np, "math": math, "pi": math.pi,
+              "sqrt": math.sqrt, "sin": math.sin, "cos": math.cos, "tan": math.tan,
+              "abs": abs, "min": min, "max": max, "pow": pow}
+        try:
+            import sympy  # noqa: F401
+
+            ns["sympy"] = sympy
+        except ImportError:
+            pass
+        try:
+            got = float(eval(scene.check.expr, ns))  # noqa: S307 (authored, no builtins)
+        except Exception as exc:  # noqa: BLE001
+            result.error(f"scene {scene.id!r}: check expr failed to evaluate ({exc})")
+            continue
+        want = scene.check.value
+        denom = abs(want) if want else 1.0
+        if abs(got - want) / denom > scene.check.tol:
+            result.error(
+                f"scene {scene.id!r}: check recomputed {got:.4g} but answer is "
+                f"{want:.4g} (tol {scene.check.tol:.0%})"
+            )
 
 
 def _check_licence(lesson: Lesson, result: LintResult) -> None:
@@ -282,9 +364,11 @@ def lint_lesson(data: dict, repo_root: Path | None = None) -> LintResult:
     for scene in lesson.scenes:
         _check_scene_placeholders(scene, result)
         _check_leadin(scene, result)
+        _check_tone(scene, result)
     _check_animations(lesson, repo_root, result)
     _check_pronounce(lesson, pronounce_map, result)
-    _check_word_budget(lesson, result, pronounce_map)
+    _check_problems(lesson, result)
+    _check_runtime(lesson, result, pronounce_map)
     _check_licence(lesson, result)
     _check_latex(lesson, result)
     _check_backlog(lesson, repo_root, result)
