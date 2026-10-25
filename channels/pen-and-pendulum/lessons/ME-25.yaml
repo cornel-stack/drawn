@@ -29,9 +29,11 @@ scenes:
       rests on two results from rotational motion. First, a rigid body spinning
       about a fixed axis has angular momentum {Leq}, the product of its moment
       of inertia and its spin rate, and this vector points along the spin axis
-      in the sense given by the right-hand rule. Because the wheel here spins
-      fast, its angular momentum is large and points straight out along the
-      axle, away from the pivot, {drawL}. {pause:0.8} Second, a torque is what
+      in the sense given by the right-hand rule: curl the fingers of your right
+      hand the way the rim turns, and your thumb points along the angular
+      momentum. Because the wheel here spins fast and carries its mass out at
+      the rim, its angular momentum is large, and it points straight out along
+      the axle, away from the pivot, {drawL}. {pause:0.8} Second, a torque is what
       changes angular momentum: the torque equals the rate of change of the
       angular momentum vector. Hold on to that word vector — the direction of
       the change will matter even more than its size, as we are about to see.
@@ -116,7 +118,11 @@ scenes:
       momentum on the bottom, {hl:Omega}, and therefore slower precession — the
       harder you spin the wheel, the more lazily it swings around. {pause:0.8}
       Finally, one full turn of the axle takes a period of two pi divided by the
-      precession rate, {Teq}.
+      precession rate, {Teq}. {pause:0.8} The same mechanism runs on the largest
+      scale. The Earth is a slightly squashed gyroscope, and the gravity of the
+      Sun and Moon pulls on its equatorial bulge, exerting a small torque. Its
+      spin axis precesses too — one slow circle every twenty-six thousand years,
+      gradually changing which star we call the pole star.
     board:
       - id: dphi
         latex: "d\\phi = \\dfrac{dL}{L}"
@@ -146,7 +152,10 @@ scenes:
       arm times weight, over I omega, {step3}. {pause:1.0} The period is two pi
       divided by that, which comes out at about forty-four seconds, {answer}. A
       slow, stately turn — exactly what you see when the wheel hangs from its
-      rope.
+      rope. {pause:0.6} And notice what cancels: the weight that drives the
+      precession and the inertia that resists it both grow in step with the
+      mass, so a heavier wheel of the same size and spin precesses at exactly
+      the same rate.
     board:
       - id: statement
         text: "A bicycle wheel spins on a horizontal axle, hung from a rope at one end."

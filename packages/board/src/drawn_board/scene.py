@@ -378,7 +378,7 @@ class BoardSceneMixin:
 
         color = self.data.channel.resolve_color(self.data.channel.board.ink)
         sym = MathTex(entry.sym, color=color, font_size=style.LABEL_FONT_SIZE)
-        unit = f"  [{entry.unit}]" if entry.unit else ""
+        unit = f"  [{_superscript(entry.unit)}]" if entry.unit else ""
         text = self._text(f": {entry.name}{unit}", color, style.LABEL_FONT_SIZE - 6)
         return VGroup(sym, text).arrange(_right(), buff=0.12)
 
@@ -414,6 +414,20 @@ class BoardSceneMixin:
         from manim import config
 
         return config.frame_height
+
+
+_SUPERS = str.maketrans("0123456789+-", "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻")
+
+
+def _superscript(unit: str) -> str:
+    """Render ``^2`` style exponents in a unit string as unicode superscripts.
+
+    The symbol legend is written in the handwriting font (not MathTex), so a
+    literal caret looks wrong; ``kg m^2/s`` becomes ``kg m²/s``.
+    """
+    import re
+
+    return re.sub(r"\^(-?\d+)", lambda m: m.group(1).translate(_SUPERS), unit)
 
 
 def _down():
