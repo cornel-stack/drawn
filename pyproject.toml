@@ -59,6 +59,10 @@ render = [
     # Image.fromarray(mode="RGBA"), which Pillow >=11 rejects. Pin below that.
     "pillow>=10,<11",
 ]
+# Open-textbook download + per-section text extraction (`just sources`).
+sources = [
+    "pymupdf>=1.24",
+]
 # Background removal for the hand-photo pipeline (lazy-imported; `just hand`).
 hand = [
     "rembg>=2.0",
@@ -68,6 +72,7 @@ media = [
     {include-group = "tts"},
     {include-group = "render"},
     {include-group = "hand"},
+    {include-group = "sources"},
 ]
 
 [tool.ruff]

@@ -29,6 +29,12 @@ def _cmd_new_lesson(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_sources(args: argparse.Namespace) -> int:
+    from drawn_schema.sources import run_sources
+
+    return run_sources(args.repo_root, only=args.book)
+
+
 def _cmd_lint(args: argparse.Namespace) -> int:
     exit_code = 0
     for path in args.lessons:
@@ -62,6 +68,11 @@ def main(argv: list[str] | None = None) -> int:
     nl.add_argument("--repo-root", type=Path, default=Path.cwd())
     nl.add_argument("--force", action="store_true")
     nl.set_defaults(func=_cmd_new_lesson)
+
+    src = sub.add_parser("sources", help="download + extract open-textbook sources")
+    src.add_argument("--repo-root", type=Path, default=Path.cwd())
+    src.add_argument("--book", default=None, help="limit to one book id")
+    src.set_defaults(func=_cmd_sources)
 
     args = parser.parse_args(argv)
     return args.func(args)

@@ -29,6 +29,10 @@ test:
 fetch:
     uv run python -m drawn_schema import-backlogs --repo-root {{repo}}
 
+# download + extract the open textbooks named in sources/manifest.yaml
+sources *FLAGS:
+    uv run --group sources python -m drawn_schema sources --repo-root {{repo}} {{FLAGS}}
+
 # scaffold a new lesson from its backlog row
 new-lesson channel code:
     uv run python -m drawn_schema new-lesson {{channel}} {{code}} --repo-root {{repo}}

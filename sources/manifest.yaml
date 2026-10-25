@@ -1,0 +1,86 @@
+# Open textbooks the lessons draw on. `just sources` downloads every book with
+# `auto: true` into sources/<id>.pdf (gitignored), verifies its sha256, and
+# extracts per-section text into sources/text/<id>/<section>.md with pymupdf.
+#
+# sha256 is the integrity pin: once set, a download that does not match is
+# rejected. Leave it empty for a new book and the first `just sources` run fills
+# it in (and prints it) so the pin is recorded on the next commit.
+#
+# Only the OpenStax volumes are fetched automatically for now. The author-hosted
+# PDFs (Hefferon, Trench, Garín-Lester-Sims, McAfee-Lewis, Bonanno, Hanck) are
+# listed with `auto: false` — their stable URLs are added when those channels
+# start rendering.
+
+books:
+  - id: university-physics-vol1
+    title: University Physics Volume 1
+    publisher: OpenStax
+    licence: CC BY 4.0
+    auto: true
+    url: https://assets.openstax.org/oscms-prodcms/media/documents/university-physics-volume-1_-_WEB.pdf
+    sha256: "93652b69c43197d10dc83438b813b5f7515e61e7ea4336da8636ff902cb4aba8"
+
+  - id: university-physics-vol2
+    title: University Physics Volume 2
+    publisher: OpenStax
+    licence: CC BY 4.0
+    auto: true
+    url: https://assets.openstax.org/oscms-prodcms/media/documents/university-physics-volume-2_-_WEB.pdf
+    sha256: "3f5d8d0e38ba663c84a036b54cf6087bc2836adca553cb7849f2c0e85e97a445"
+
+  - id: university-physics-vol3
+    title: University Physics Volume 3
+    publisher: OpenStax
+    licence: CC BY 4.0
+    auto: true
+    url: https://assets.openstax.org/oscms-prodcms/media/documents/university-physics-volume-3_-_WEB.pdf
+    sha256: "311c6beb70bb9cc6073d40a6085d290a82afde2b38e9aaf672ccb6de0542541b"
+
+  # --- author-hosted, added when those channels render (auto: false) ----------
+  - id: hefferon-linear-algebra
+    title: Linear Algebra
+    publisher: Jim Hefferon
+    licence: CC BY-SA 3.0
+    auto: false
+    url: ""
+    sha256: ""
+
+  - id: trench-elementary-ode
+    title: Elementary Differential Equations
+    publisher: William F. Trench
+    licence: CC BY-NC-SA 3.0
+    auto: false
+    url: ""
+    sha256: ""
+
+  - id: garin-lester-sims-macro
+    title: Intermediate Macroeconomics
+    publisher: Garín, Lester & Sims
+    licence: CC BY-NC-SA 4.0
+    auto: false
+    url: ""
+    sha256: ""
+
+  - id: mcafee-lewis-economic-analysis
+    title: Introduction to Economic Analysis
+    publisher: McAfee & Lewis
+    licence: CC BY-NC-SA 3.0
+    auto: false
+    url: ""
+    sha256: ""
+
+  - id: bonanno-game-theory
+    title: Game Theory
+    publisher: Giacomo Bonanno
+    licence: CC BY-NC-SA 4.0
+    auto: false
+    url: ""
+    sha256: ""
+
+  - id: hanck-econometrics-r
+    title: Introduction to Econometrics with R
+    publisher: Hanck et al.
+    licence: CC BY-NC-SA 4.0
+    auto: false
+    url: ""
+    sha256: ""
