@@ -1,106 +1,192 @@
-# ME-25: Gyroscopic precession — Phase 1.5 bar.
-# Black board, white ink, coloured accents (L=blue, tau/dL=orange, Omega=green).
-# Every non-end scene is animated; ~2 minutes.
+# ME-25: Gyroscopic precession — why a spinning wheel turns instead of falling.
+# OpenStax University Physics Vol. 1 §11.4 (CC BY 4.0). ~7 minutes.
+# Colour discipline: L = blue, torque/dL = orange, precession Omega = green.
+# Full Phase 1.6 lesson: title card, stated prerequisites, derivation with
+# symbol legends and read-holds, one worked problem with a numeric check.
 schema_version: 1
 id: ME-25
 channel: pen-and-pendulum
-title: "Gyroscopic precession: why the spinning wheel refuses to fall"
-target_minutes: 2
+title: "Gyroscopic precession: why a spinning wheel turns instead of falling"
+target_minutes: 7
 source:
   book: "OpenStax University Physics Vol. 1"
-  section: "§11.4 Precession of a gyroscope"
+  section: "§11.4 Precession of a Gyroscope"
   license: "CC BY 4.0"
+  file: "university-physics-vol1/094-11-4-precession-of-a-gyroscope.md"
+  pages: "549-553"
 
 scenes:
   - id: s1
     kind: title
     narration: >
-      A bicycle wheel spins fast on the end of its axle, {wheelOn}, and instead
-      of toppling over it simply hangs there and slowly turns. The reason is one
-      of the most beautiful arguments in all of mechanics.
-    animation:
-      primitive: wheel
-      params:
-        radius: 0.9
-        spokes: 8
-        color: blue
-        position: [4.6, -2.3]
-      steps:
-        - {id: wheelOn, action: appear, params: {rate: 5.0}}
+      A spinning bicycle wheel, hung by a rope from one end of its axle, does
+      not topple. The axle stays level and swings slowly around instead.
 
   - id: s2
     kind: diagram
     narration: >
-      Set the wheel spinning fast about its axle. Because it spins it carries
-      angular momentum: a vector pointing straight along the axle, {showL}. The
-      faster the spin, the longer that arrow. Hold that picture — a spinning
-      wheel is really an arrow of angular momentum.
+      Picture the wheel spinning quickly about its axle, {spin}. This lesson
+      rests on two results from rotational motion. First, a rigid body spinning
+      about a fixed axis has angular momentum {Leq}, the product of its moment
+      of inertia and its spin rate, and this vector points along the spin axis
+      in the sense given by the right-hand rule. Because the wheel here spins
+      fast, its angular momentum is large and points straight out along the
+      axle, away from the pivot, {drawL}. {pause:0.8} Second, a torque is what
+      changes angular momentum: the torque equals the rate of change of the
+      angular momentum vector. Hold on to that word vector — the direction of
+      the change will matter even more than its size, as we are about to see.
     animation:
       primitive: gyroscope
       steps:
-        - {id: showL, action: draw_L, params: {color: blue}}
+        - {id: spin, action: spin_up, params: {rate: 9.0}}
+        - {id: drawL, action: draw_L, params: {color: blue}}
+    board:
+      - id: Leq
+        latex: "\\vec{L} = I\\vec{\\omega}"
+        say: "L equals I omega"
+        color: blue
+        legend:
+          - {sym: "\\vec{L}", name: "angular momentum", unit: "kg m^2/s"}
+          - {sym: "I", name: "moment of inertia", unit: "kg m^2"}
+          - {sym: "\\vec{\\omega}", name: "spin rate", unit: "rad/s"}
 
   - id: s3
     kind: diagram
     narration: >
-      Now let gravity act. It pulls down on the wheel's centre of mass, out at
-      the far end of the axle. About the pivot that downward pull makes a
-      torque, {showTau}, and crucially this torque points horizontally, at right
-      angles to the angular momentum, not downwards.
+      Now let gravity act, {drawTau}. The wheel's weight pulls down at its
+      centre of mass, a distance r along the axle from the pivot. That weight,
+      acting through the lever arm, produces a torque about the pivot, and its
+      size is the lever arm times the weight, {tauMag}. {pause:1.0} The
+      direction is the crucial part: this torque is horizontal, at a right angle
+      to the axle, and therefore at a right angle to the angular momentum too.
+      {pause:0.6} And by the law relating the two, {tauLaw}, the change in the
+      angular momentum must point the same way as the torque — sideways, not
+      downward.
     animation:
       primitive: gyroscope
       steps:
-        - {id: showTau, action: draw_torque, params: {color: orange}}
+        - {id: drawTau, action: draw_torque, params: {color: orange}}
+    board:
+      - id: tauMag
+        latex: "\\tau = r M g"
+        say: "tau equals r M g"
+        color: orange
+        legend:
+          - {sym: "\\tau", name: "torque", unit: "N m"}
+          - {sym: "r", name: "pivot to centre of mass", unit: "m"}
+          - {sym: "M", name: "wheel mass", unit: "kg"}
+          - {sym: "g", name: "gravity", unit: "m/s^2"}
+      - id: tauLaw
+        latex: "\\vec{\\tau} = \\dfrac{d\\vec{L}}{dt}"
+        say: "tau equals d L by d t"
+        color: orange
 
   - id: s4
     kind: diagram
     narration: >
-      Torque is the rate of change of angular momentum, so in a small time it
-      adds a little sideways piece to our arrow, {addDL}. The arrow does not
-      grow or shrink; it is only nudged sideways, swinging towards a new
-      direction in the horizontal plane.
+      Watch the tip of the angular momentum arrow, {dLstep}. In a short time the
+      change added on is a small horizontal nudge, pointing along the torque,
+      {dLeq}. Because this nudge is at a right angle to the arrow, {hl:dLeq}, it
+      cannot lengthen or shorten the angular momentum — it can only swing its
+      direction. {pause:1.0} So the axle does not drop. It turns in the
+      horizontal plane, and keeps turning, {prec}. This steady turning of the
+      spin axis, always chasing the torque and never catching it, is what we
+      call precession.
     animation:
       primitive: gyroscope
       steps:
-        - {id: addDL, action: add_dL, params: {color: orange}}
+        - {id: dLstep, action: add_dL, params: {color: orange}}
+        - {id: prec, action: precess, params: {turns: 1.0}}
+    board:
+      - id: dLeq
+        latex: "d\\vec{L} = \\vec{\\tau}\\, dt \\perp \\vec{L}"
+        say: "d L equals tau d t, perpendicular to L"
+        color: orange
 
   - id: s5
-    kind: diagram
+    kind: derivation
     narration: >
-      Repeat that nudge moment after moment and the axle swings steadily around
-      the vertical, tracing out a cone, {precess}. This slow circling is
-      precession: the wheel never falls because its fall is forever being turned
-      into a turn.
-    animation:
-      primitive: gyroscope
-      steps:
-        - {id: precess, action: precess, params: {turns: 1.0}}
+      Put a number on it, {dphi}. In that short time the arrow turns through a
+      tiny angle, the length of the sideways nudge divided by the length of the
+      angular momentum. {pause:1.2} Divide by the time and the left side becomes
+      the precession rate, while the right side becomes the torque over the
+      angular momentum; substituting r M g for the torque and I omega for the
+      angular momentum gives the result in measurable quantities, {Omega}.
+      {pause:1.2} Read what it says: a faster spin means a larger angular
+      momentum on the bottom, {hl:Omega}, and therefore slower precession — the
+      harder you spin the wheel, the more lazily it swings around. {pause:0.8}
+      Finally, one full turn of the axle takes a period of two pi divided by the
+      precession rate, {Teq}.
+    board:
+      - id: dphi
+        latex: "d\\phi = \\dfrac{dL}{L}"
+        say: "d phi equals d L over L"
+        color: green
+      - id: Omega
+        latex: "\\Omega = \\dfrac{d\\phi}{dt} = \\dfrac{\\tau}{L} = \\dfrac{rMg}{I\\omega}"
+        say: "capital omega equals d phi by d t, equals tau over L, equals r M g over I omega"
+        color: green
+        legend:
+          - {sym: "\\Omega", name: "precession rate", unit: "rad/s"}
+          - {sym: "\\omega", name: "spin rate", unit: "rad/s"}
+      - id: Teq
+        latex: "T = \\dfrac{2\\pi}{\\Omega} = \\dfrac{2\\pi I\\omega}{rMg}"
+        say: "T equals two pi over omega, equals two pi I omega over r M g"
+        color: green
 
   - id: s6
-    kind: diagram
+    kind: problem
     narration: >
-      As it keeps circling, {precess6}, put some numbers to it. The torque has
-      size r m g, and it turns an angular momentum of size I omega. Divide the
-      one by the other and the precession rate drops straight out, {omega}. So
-      the faster it spins, the slower it precesses, {takeaway}. Next, in ME-26,
-      rolling without slipping.
-    animation:
-      primitive: gyroscope
-      steps:
-        - {id: precess6, action: precess, params: {turns: 2.0, orbit: true}}
+      Take a real wheel. {statement} We are given its mass, radius, spin rate
+      and the distance from the rope to its centre, {given}, and we want the
+      precession period, {find}. First, model the wheel as a hoop, so its moment
+      of inertia is the mass times the radius squared, {step1}. {pause:0.8}
+      Next, the spin rate in radians per second is two pi times twelve turns a
+      second, {step2}. {pause:0.8} Put these into the precession rate: the lever
+      arm times weight, over I omega, {step3}. {pause:1.0} The period is two pi
+      divided by that, which comes out at about forty-four seconds, {answer}. A
+      slow, stately turn — exactly what you see when the wheel hangs from its
+      rope.
     board:
-      - id: omega
-        latex: "\\Omega = \\dfrac{r m g}{I\\omega}"
-        say: "capital omega equals r m g over I omega"
+      - id: statement
+        text: "A bicycle wheel spins on a horizontal axle, hung from a rope at one end."
+      - id: given
+        latex: "M = 2.0\\,\\text{kg},\\; R = 0.33\\,\\text{m},\\; f = 12\\,\\text{rev/s},\\; r = 0.12\\,\\text{m}"
+        say: "mass two kilograms, radius nought point three three metres, twelve revolutions per second, lever arm nought point one two metres"
+        role: given
+      - id: find
+        text: "Find the precession period T."
+        role: find
+      - id: step1
+        latex: "I = M R^2 = 0.22\\,\\text{kg·m}^2"
+        say: "I equals M R squared, about nought point two two kilogram metres squared"
+        role: step
+        color: blue
+      - id: step2
+        latex: "\\omega = 2\\pi f = 75\\,\\text{rad/s}"
+        say: "omega equals two pi f, about seventy-five radians per second"
+        role: step
+        color: blue
+      - id: step3
+        latex: "\\Omega = \\dfrac{rMg}{I\\omega} = 0.14\\,\\text{rad/s}"
+        say: "capital omega equals r M g over I omega, about nought point one four radians per second"
+        role: step
         color: green
-        tex_colors:
-          "r m g": orange     # the torque, same colour as the tau arrow
-          "I\\omega": blue     # the angular momentum, same colour as L
-      - id: takeaway
-        text: "faster spin, slower precession"
-        color: yellow
+      - id: answer
+        latex: "T = \\dfrac{2\\pi}{\\Omega} \\approx 44\\,\\text{s}"
+        say: "T equals two pi over omega, about forty-four seconds"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "2*math.pi / ( (0.12*2.0*9.8) / (2.0*0.33**2 * 2*math.pi*12) )"
+      value: 43.9
+      unit: "s"
+      tol: 0.03
 
   - id: s7
     kind: end
-    narration: ""
-    board: []
+    narration: >
+      In one line: gravity's torque is perpendicular to the spin, so it turns
+      the axis rather than dropping it, at the rate r M g over I omega. Next,
+      ME-26: rolling without slipping.

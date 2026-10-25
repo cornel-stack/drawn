@@ -196,8 +196,14 @@ def _check_pronounce(lesson: Lesson, pronounce_map: dict, result: LintResult) ->
             f"LaTeX symbol {sym!r} has no entry in "
             f"channels/{lesson.channel}/pronounce.yaml"
         )
-    # named laws / proper nouns in narration (capitalised, not sentence-initial)
-    narration = "\n".join(s.narration for s in lesson.scenes)
+    # named laws / proper nouns in narration (capitalised, not sentence-initial).
+    # Strip {id} placeholders and {pause}/{hl} tokens first so their ids are not
+    # mistaken for words (and so sentence boundaries survive).
+    from drawn_schema.placeholders import PLACEHOLDER_RE, strip_control
+
+    narration = "\n".join(
+        PLACEHOLDER_RE.sub(" ", strip_control(s.narration)) for s in lesson.scenes
+    )
     for name in sorted(_pron.proper_nouns(narration)):
         if name.lower() not in {k.lower() for k in pronounce_map}:
             result.warn(
