@@ -18,16 +18,32 @@ from collections.abc import Iterator, Mapping
 PLACEHOLDER_RE = re.compile(r"\{([A-Za-z0-9_]+)\}")
 #: Matches an explicit pause token ``{pause:1.5}`` — silence, not a word.
 PAUSE_RE = re.compile(r"\{pause:\s*([0-9]*\.?[0-9]+)\s*\}")
+#: Matches a highlight token ``{hl:id}`` — re-emphasise an already-drawn item.
+HL_RE = re.compile(r"\{hl:([A-Za-z0-9_]+)\}")
 
 
 def iter_placeholders(narration: str) -> Iterator[str]:
-    """Yield placeholder ids in the order they appear (duplicates included)."""
-    for match in PLACEHOLDER_RE.finditer(narration):
+    """Yield placeholder ids in the order they appear (duplicates included).
+
+    Pause and highlight control tokens are skipped — they are not board items.
+    """
+    for match in PLACEHOLDER_RE.finditer(strip_control(narration)):
         yield match.group(1)
 
 
+def iter_highlights(narration: str) -> Iterator[str]:
+    """Yield highlight ids (``{hl:id}``) in order."""
+    for match in HL_RE.finditer(narration):
+        yield match.group(1)
+
+
+def strip_control(text: str) -> str:
+    """Remove ``{pause:N}`` and ``{hl:id}`` tokens (silence / emphasis markers)."""
+    return HL_RE.sub(" ", PAUSE_RE.sub(" ", text))
+
+
+# kept for callers that only care about pauses
 def strip_pauses(text: str) -> str:
-    """Remove ``{pause:N}`` tokens (they are silence, handled by the TTS stage)."""
     return PAUSE_RE.sub(" ", text)
 
 
@@ -42,7 +58,7 @@ def substitute(narration: str, spoken: Mapping[str, str]) -> str:
     def repl(match: re.Match[str]) -> str:
         return spoken.get(match.group(1), match.group(0))
 
-    out = PLACEHOLDER_RE.sub(repl, strip_pauses(narration))
+    out = PLACEHOLDER_RE.sub(repl, strip_control(narration))
     return re.sub(r"\s+", " ", out).strip()
 
 

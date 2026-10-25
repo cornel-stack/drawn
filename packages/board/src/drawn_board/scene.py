@@ -28,6 +28,7 @@ class RenderData:
     channel: ChannelConfig
     duration: float
     item_starts: dict[str, float] = field(default_factory=dict)
+    highlights: list[tuple[str, float]] = field(default_factory=list)
     is_3d: bool = False
 
 
@@ -211,8 +212,10 @@ class BoardSceneMixin:
     def _run_timeline(self, written, steps, primitive, total: float):
         events = [("write", s, mob, item) for (s, mob, item) in written]
         events += [("step", s, step, None) for (s, step) in steps]
+        events += [("hl", s, hid, None) for (hid, s) in self.data.highlights]
         events.sort(key=lambda e: e[1])
 
+        mob_by_id: dict[str, object] = {}
         t = 0.0
         visible: list = []
         last_eq = False
@@ -226,7 +229,12 @@ class BoardSceneMixin:
             slot = max(0.0, next_start - t)
             if kind == "write":
                 consumed = self._write_one(payload, item, slot, visible)
+                if item is not None:
+                    mob_by_id[item.id] = payload
                 last_eq = bool(item and getattr(item, "is_equation", False))
+            elif kind == "hl":
+                consumed = self._highlight_one(mob_by_id.get(payload), slot)
+                last_eq = False
             else:
                 # animation steps fill their slot (precession needs the time)
                 consumed = max(0.5, slot)
@@ -236,6 +244,16 @@ class BoardSceneMixin:
         remaining = total - t
         if remaining > 0.05:
             self._fill(remaining, primitive, visible, read_hold=last_eq)
+
+    def _highlight_one(self, mob, slot: float) -> float:
+        """Re-emphasise an already-drawn item as the narration refers to it."""
+        if mob is None:
+            return 0.0
+        from manim import Indicate
+
+        dur = min(0.9, slot) if slot > 0.05 else 0.9
+        self.play(Indicate(mob, scale_factor=1.12), run_time=dur)
+        return dur
 
     def _fill(self, dur: float, primitive, visible: list, read_hold: bool = False) -> None:
         """Fill `dur` — motion, unless it is reading time after an equation.

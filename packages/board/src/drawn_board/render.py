@@ -71,6 +71,7 @@ def render_scene(
         channel=channel,
         duration=float(words["duration"]),
         item_starts={it["id"]: float(it["start"]) for it in words.get("items", [])},
+        highlights=[(h["id"], float(h["start"])) for h in words.get("highlights", [])],
         is_3d=_scene_is_3d(repo_root, lesson, scene),
     )
 

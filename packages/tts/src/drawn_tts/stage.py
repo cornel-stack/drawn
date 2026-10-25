@@ -128,13 +128,13 @@ def run_tts(
             except (json.JSONDecodeError, KeyError):
                 pass
 
-        segments, anchors = build_segments(scene, pronounce_map)
+        segments, anchors, hl_anchors = build_segments(scene, pronounce_map)
         if not any(s.kind == "speech" and s.text.strip() for s in segments):
             _write_silence(wav, _silence_seconds(scene, channel))
-            words, starts, duration = [], {}, wav_duration(wav)
+            words, starts, highlights, duration = [], {}, [], wav_duration(wav)
         else:
-            service, words, starts, duration = _synth_scene(
-                segments, anchors, wav, channel, service, model_size
+            service, words, starts, highlights, duration = _synth_scene(
+                segments, anchors, hl_anchors, wav, channel, service, model_size
             )
 
         wj.parent.mkdir(parents=True, exist_ok=True)
@@ -154,6 +154,10 @@ def run_tts(
                         {"id": iid, "start": round(start, 4)}
                         for iid, start in starts.items()
                     ],
+                    "highlights": [
+                        {"id": hid, "start": round(start, 4)}
+                        for hid, start in highlights
+                    ],
                 },
                 indent=2,
             )
@@ -164,7 +168,7 @@ def run_tts(
     return results
 
 
-def _synth_scene(segments, anchors, wav, channel, service, model_size):
+def _synth_scene(segments, anchors, hl_anchors, wav, channel, service, model_size):
     """Synthesise speech segments, splice in silences, align, build timeline."""
     import tempfile
 
@@ -198,7 +202,7 @@ def _synth_scene(segments, anchors, wav, channel, service, model_size):
     audio = np.concatenate(audio_parts) if audio_parts else np.zeros(1, dtype=np.float32)
     wav.parent.mkdir(parents=True, exist_ok=True)
     sf.write(str(wav), audio, SAMPLE_RATE)
-    words, starts, total = assemble_timeline(
-        segments, seg_words, seg_maps, seg_durations, anchors
+    words, starts, highlights, total = assemble_timeline(
+        segments, seg_words, seg_maps, seg_durations, anchors, hl_anchors
     )
-    return service, words, starts, total
+    return service, words, starts, highlights, total

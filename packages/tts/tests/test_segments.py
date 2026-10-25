@@ -9,7 +9,7 @@ def _scene() -> Scene:
         {
             "id": "s1",
             "kind": "derivation",
-            "narration": "First {step} then write {eq} done {pause:1.5} end {label}",
+            "narration": "First {step} then write {eq} done {pause:1.5} end {hl:eq} {label}",
             "board": [
                 {"id": "eq", "latex": "x = 1", "say": "x equals one"},
                 {"id": "label", "text": "note", "say": "a note"},
@@ -23,7 +23,7 @@ def _scene() -> Scene:
 
 
 def test_build_segments_structure():
-    segs, anchors = build_segments(_scene())
+    segs, anchors, hl_anchors = build_segments(_scene())
     kinds = [(s.kind, s.text or round(s.seconds, 2)) for s in segs]
     assert kinds == [
         ("speech", "First then write"),
@@ -37,6 +37,8 @@ def test_build_segments_structure():
     assert anchors["step"] == (0, 1)   # 'then'
     assert anchors["eq"] == (2, 0)     # start of the equation speech segment
     assert anchors["label"] == (6, 1)  # 'a'
+    # {hl:eq} sits just before 'a note' → anchors to the last speech segment at 'end'
+    assert hl_anchors == [("eq", 6, 1)]
 
 
 def _words(text, times):
@@ -48,7 +50,7 @@ def _ident(n):
 
 
 def test_assemble_timeline_offsets_and_equation_pause():
-    segs, anchors = build_segments(_scene())
+    segs, anchors, hl_anchors = build_segments(_scene())
     seg_words = [
         _words("First then write", [0.0, 0.5, 1.0]),
         None,
@@ -61,7 +63,9 @@ def test_assemble_timeline_offsets_and_equation_pause():
     seg_maps = [_ident(3), None, _ident(3), None, _ident(1), None, _ident(3)]
     seg_durations = [1.5, EQUATION_PRE_PAUSE, 1.2, EQUATION_POST_PAUSE, 0.4, 1.5, 1.2]
 
-    words, starts, total = assemble_timeline(segs, seg_words, seg_maps, seg_durations, anchors)
+    words, starts, highlights, total = assemble_timeline(
+        segs, seg_words, seg_maps, seg_durations, anchors, hl_anchors
+    )
 
     assert round(total, 2) == 8.0
     # the equation's write-start lands AFTER the 1.2 s pre-pause (1.5 + 1.2)
@@ -70,3 +74,5 @@ def test_assemble_timeline_offsets_and_equation_pause():
     assert round(starts["label"], 2) == 7.2
     # a word in the last speech segment is shifted by the full cumulative offset
     assert round(words[-1].start, 2) == 7.6
+    # {hl:eq} re-emphasises the equation at 'a' in the final segment (7.2 s)
+    assert [(h, round(t, 2)) for h, t in highlights] == [("eq", 7.2)]

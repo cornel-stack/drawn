@@ -41,13 +41,15 @@ class Segment:
     seconds: float = 0.0
 
 
-# Matches a pause token or an {id} placeholder, in order.
-_SEG_RE = re.compile(r"\{pause:\s*([0-9]*\.?[0-9]+)\s*\}|\{([A-Za-z0-9_]+)\}")
+# Matches a pause, a highlight, or an {id} placeholder, in order.
+_SEG_RE = re.compile(
+    r"\{pause:\s*([0-9]*\.?[0-9]+)\s*\}|\{hl:([A-Za-z0-9_]+)\}|\{([A-Za-z0-9_]+)\}"
+)
 
 
 def build_segments(
     scene: Scene, pronounce_map: dict | None = None
-) -> tuple[list[Segment], dict[str, tuple[int, int]]]:
+) -> tuple[list[Segment], dict[str, tuple[int, int]], list[tuple[str, int, int]]]:
     """Split a scene's narration into speech/silence segments.
 
     Equation items get a silence of ``EQUATION_PRE_PAUSE`` before their spoken
@@ -64,8 +66,10 @@ def build_segments(
 
     segments: list[Segment] = []
     anchors: dict[str, tuple[int, int]] = {}
+    hl_anchors: list[tuple[str, int, int]] = []
     cur: list[str] = []
     pending: list[tuple[str, int]] = []  # inline items awaiting their segment index
+    pending_hl: list[tuple[str, int]] = []
 
     def flush() -> None:
         if cur:
@@ -73,7 +77,10 @@ def build_segments(
             segments.append(Segment("speech", text=" ".join(cur)))
             for pid, off in pending:
                 anchors[pid] = (idx, off)
+            for hid, off in pending_hl:
+                hl_anchors.append((hid, idx, off))
             pending.clear()
+            pending_hl.clear()
             cur.clear()
 
     pos = 0
@@ -82,8 +89,10 @@ def build_segments(
         if m.group(1) is not None:  # {pause:N}
             flush()
             segments.append(Segment("silence", seconds=float(m.group(1))))
+        elif m.group(2) is not None:  # {hl:id} — emphasise at this moment
+            pending_hl.append((m.group(2), len(cur)))
         else:  # {id}
-            pid = m.group(2)
+            pid = m.group(3)
             sub = spoken.get(pid, "")
             if is_eq.get(pid):
                 flush()
@@ -97,10 +106,11 @@ def build_segments(
         pos = m.end()
     cur.extend(_pron.apply(scene.narration[pos:], pm).split())
     flush()
-    # any inline items with no trailing speech segment anchor to the end
     for pid, off in pending:
         anchors[pid] = (len(segments), off)
-    return segments, anchors
+    for hid, off in pending_hl:
+        hl_anchors.append((hid, len(segments), off))
+    return segments, anchors, hl_anchors
 
 
 def assemble_timeline(
@@ -109,7 +119,8 @@ def assemble_timeline(
     seg_maps: list[dict[int, int] | None],
     seg_durations: list[float],
     anchors: dict[str, tuple[int, int]],
-) -> tuple[list[Word], dict[str, float], float]:
+    hl_anchors: list[tuple[str, int, int]] | None = None,
+) -> tuple[list[Word], dict[str, float], list[tuple[str, float]], float]:
     """Lay segments on a global timeline; return (words, item-starts, total).
 
     ``seg_words``/``seg_maps`` are per-speech-segment: the aligned actual words
@@ -129,15 +140,16 @@ def assemble_timeline(
         cursor += seg_durations[i]
     total = cursor
 
-    starts: dict[str, float] = {}
-    for pid, (seg_idx, off) in anchors.items():
+    def _anchor_time(seg_idx: int, off: int) -> float:
         if seg_idx < len(segments) and seg_words[seg_idx]:
             amap = seg_maps[seg_idx] or {}
             aidx = _nearest(off, amap, len(seg_words[seg_idx]))
-            starts[pid] = seg_words[seg_idx][aidx].start + seg_start[seg_idx]
-        else:
-            starts[pid] = seg_start[seg_idx] if seg_idx < len(seg_start) else total
-    return words, starts, total
+            return seg_words[seg_idx][aidx].start + seg_start[seg_idx]
+        return seg_start[seg_idx] if seg_idx < len(seg_start) else total
+
+    starts = {pid: _anchor_time(seg_idx, off) for pid, (seg_idx, off) in anchors.items()}
+    hl_starts = [(hid, _anchor_time(seg_idx, off)) for hid, seg_idx, off in (hl_anchors or [])]
+    return words, starts, hl_starts, total
 
 
 def _nearest(off: int, amap: dict[int, int], n_actual: int) -> int:

@@ -75,6 +75,15 @@ def _check_scene_placeholders(scene: Scene, result: LintResult) -> None:
     refs = list(iter_placeholders(scene.narration))
     ref_counts = Counter(refs)
 
+    from drawn_schema.placeholders import iter_highlights
+
+    for hid in iter_highlights(scene.narration):
+        if hid not in id_set:
+            result.error(
+                f"scene {scene.id!r}: highlight {{hl:{hid}}} references {hid!r} "
+                f"but no board item or step has that id"
+            )
+
     for ref in ref_counts:
         if ref not in id_set:
             result.error(
