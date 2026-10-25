@@ -21,7 +21,7 @@ from difflib import SequenceMatcher
 from functools import lru_cache
 from pathlib import Path
 
-from drawn_schema.lesson import Scene
+from drawn_schema.lesson import EQUATION_POST_PAUSE, EQUATION_PRE_PAUSE, Scene
 from drawn_schema.placeholders import PLACEHOLDER_RE
 
 
@@ -30,6 +30,133 @@ class Word:
     word: str
     start: float
     end: float
+
+
+@dataclass
+class Segment:
+    """One chunk of a scene's audio: either speech to synthesise or silence."""
+
+    kind: str  # "speech" | "silence"
+    text: str = ""
+    seconds: float = 0.0
+
+
+# Matches a pause token or an {id} placeholder, in order.
+_SEG_RE = re.compile(r"\{pause:\s*([0-9]*\.?[0-9]+)\s*\}|\{([A-Za-z0-9_]+)\}")
+
+
+def build_segments(
+    scene: Scene, pronounce_map: dict | None = None
+) -> tuple[list[Segment], dict[str, tuple[int, int]]]:
+    """Split a scene's narration into speech/silence segments.
+
+    Equation items get a silence of ``EQUATION_PRE_PAUSE`` before their spoken
+    text (its own speech segment) and ``EQUATION_POST_PAUSE`` after, giving the
+    pen time to write and the viewer time to read. ``{pause:N}`` tokens become
+    silence. Returns the segment list and, per placeholder id, the
+    ``(speech-segment index, intended-word offset)`` of where it begins.
+    """
+    from drawn_schema import pronounce as _pron
+
+    pm = pronounce_map or {}
+    spoken = {pid: _pron.apply(say, pm) for pid, say in scene.placeholders()}
+    is_eq = {it.id: it.is_equation for it in scene.board}
+
+    segments: list[Segment] = []
+    anchors: dict[str, tuple[int, int]] = {}
+    cur: list[str] = []
+    pending: list[tuple[str, int]] = []  # inline items awaiting their segment index
+
+    def flush() -> None:
+        if cur:
+            idx = len(segments)
+            segments.append(Segment("speech", text=" ".join(cur)))
+            for pid, off in pending:
+                anchors[pid] = (idx, off)
+            pending.clear()
+            cur.clear()
+
+    pos = 0
+    for m in _SEG_RE.finditer(scene.narration):
+        cur.extend(_pron.apply(scene.narration[pos:m.start()], pm).split())
+        if m.group(1) is not None:  # {pause:N}
+            flush()
+            segments.append(Segment("silence", seconds=float(m.group(1))))
+        else:  # {id}
+            pid = m.group(2)
+            sub = spoken.get(pid, "")
+            if is_eq.get(pid):
+                flush()
+                segments.append(Segment("silence", seconds=EQUATION_PRE_PAUSE))
+                anchors[pid] = (len(segments), 0)
+                segments.append(Segment("speech", text=sub))
+                segments.append(Segment("silence", seconds=EQUATION_POST_PAUSE))
+            else:
+                pending.append((pid, len(cur)))
+                cur.extend(sub.split())
+        pos = m.end()
+    cur.extend(_pron.apply(scene.narration[pos:], pm).split())
+    flush()
+    # any inline items with no trailing speech segment anchor to the end
+    for pid, off in pending:
+        anchors[pid] = (len(segments), off)
+    return segments, anchors
+
+
+def assemble_timeline(
+    segments: list[Segment],
+    seg_words: list[list[Word] | None],
+    seg_maps: list[dict[int, int] | None],
+    seg_durations: list[float],
+    anchors: dict[str, tuple[int, int]],
+) -> tuple[list[Word], dict[str, float], float]:
+    """Lay segments on a global timeline; return (words, item-starts, total).
+
+    ``seg_words``/``seg_maps`` are per-speech-segment: the aligned actual words
+    (times relative to the segment) and the intended→actual index map.
+    ``seg_durations`` is each segment's wall-clock length (measured wav for
+    speech, the pause length for silence). Pure arithmetic — unit-tested without
+    any audio.
+    """
+    cursor = 0.0
+    seg_start: list[float] = []
+    words: list[Word] = []
+    for i, seg in enumerate(segments):
+        seg_start.append(cursor)
+        if seg.kind == "speech" and seg_words[i]:
+            for w in seg_words[i]:
+                words.append(Word(w.word, w.start + cursor, w.end + cursor))
+        cursor += seg_durations[i]
+    total = cursor
+
+    starts: dict[str, float] = {}
+    for pid, (seg_idx, off) in anchors.items():
+        if seg_idx < len(segments) and seg_words[seg_idx]:
+            amap = seg_maps[seg_idx] or {}
+            aidx = _nearest(off, amap, len(seg_words[seg_idx]))
+            starts[pid] = seg_words[seg_idx][aidx].start + seg_start[seg_idx]
+        else:
+            starts[pid] = seg_start[seg_idx] if seg_idx < len(seg_start) else total
+    return words, starts, total
+
+
+def _nearest(off: int, amap: dict[int, int], n_actual: int) -> int:
+    probe = off
+    while probe not in amap and probe < off + 50:
+        probe += 1
+    if probe in amap:
+        return min(amap[probe], n_actual - 1)
+    probe = off - 1
+    while probe not in amap and probe > off - 50:
+        probe -= 1
+    if probe in amap:
+        return min(amap[probe], n_actual - 1)
+    return min(off, n_actual - 1) if n_actual else 0
+
+
+def intended_to_actual(intended: list[str], actual: list[Word]) -> dict[int, int]:
+    """Public: map intended word indices to actual-word indices (difflib)."""
+    return _intended_to_actual(intended, actual)
 
 
 def build_spoken(

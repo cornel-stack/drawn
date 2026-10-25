@@ -19,7 +19,12 @@ from drawn_schema import paths
 from drawn_schema.channel import ChannelConfig, load_channel
 from drawn_schema.lesson import Lesson, Scene
 
-from drawn_tts.align import build_spoken, item_write_starts, transcribe_words
+from drawn_tts.align import (
+    assemble_timeline,
+    build_segments,
+    intended_to_actual,
+    transcribe_words,
+)
 from drawn_tts.service import (
     SAMPLE_RATE,
     SpeechService,
@@ -44,6 +49,7 @@ def _scene_hash(
     payload = {
         "narration": scene.narration,
         "items": [[it.id, it.spoken] for it in scene.board],
+        "equations": [it.id for it in scene.board if it.is_equation],
         "steps": [[s.id, s.spoken] for s in (scene.animation.steps if scene.animation else [])],
         "voice": channel.voice.model_dump(),
         "service": service_name,
@@ -122,18 +128,14 @@ def run_tts(
             except (json.JSONDecodeError, KeyError):
                 pass
 
-        words, _ = build_spoken(scene, pronounce_map)
-        text = " ".join(words).strip()
-
-        if not text:
+        segments, anchors = build_segments(scene, pronounce_map)
+        if not any(s.kind == "speech" and s.text.strip() for s in segments):
             _write_silence(wav, _silence_seconds(scene, channel))
-            transcribed = []
+            words, starts, duration = [], {}, wav_duration(wav)
         else:
-            service = _synth_with_fallback(service, text, wav, channel)
-            transcribed = transcribe_words(wav, model_size=model_size)
-
-        duration = wav_duration(wav)
-        starts = item_write_starts(scene, words, transcribed, duration, pronounce_map)
+            service, words, starts, duration = _synth_scene(
+                segments, anchors, wav, channel, service, model_size
+            )
 
         wj.parent.mkdir(parents=True, exist_ok=True)
         wj.write_text(
@@ -146,7 +148,7 @@ def run_tts(
                     "sample_rate": SAMPLE_RATE,
                     "words": [
                         {"word": w.word, "start": round(w.start, 4), "end": round(w.end, 4)}
-                        for w in transcribed
+                        for w in words
                     ],
                     "items": [
                         {"id": iid, "start": round(start, 4)}
@@ -156,7 +158,47 @@ def run_tts(
                 indent=2,
             )
         )
-        print(f"  {scene.id}: {duration:.2f}s, {len(transcribed)} words")
+        print(f"  {scene.id}: {duration:.2f}s, {len(words)} words, {len(segments)} segments")
         results.append(SceneTTS(scene.id, wav, wj, duration, skipped=False))
 
     return results
+
+
+def _synth_scene(segments, anchors, wav, channel, service, model_size):
+    """Synthesise speech segments, splice in silences, align, build timeline."""
+    import tempfile
+
+    import numpy as np
+    import soundfile as sf
+
+    audio_parts: list = []
+    seg_words: list = []
+    seg_maps: list = []
+    seg_durations: list = []
+    with tempfile.TemporaryDirectory() as tmp:
+        for i, seg in enumerate(segments):
+            if seg.kind == "silence":
+                audio_parts.append(np.zeros(int(SAMPLE_RATE * seg.seconds), dtype=np.float32))
+                seg_words.append(None)
+                seg_maps.append(None)
+                seg_durations.append(seg.seconds)
+                continue
+            seg_wav = Path(tmp) / f"seg{i}.wav"
+            service = _synth_with_fallback(service, seg.text, seg_wav, channel)
+            a, _sr = sf.read(str(seg_wav))
+            a = np.asarray(a, dtype=np.float32)
+            if a.ndim > 1:
+                a = a.mean(axis=1)
+            audio_parts.append(a)
+            actual = transcribe_words(seg_wav, model_size=model_size)
+            seg_words.append(actual)
+            seg_maps.append(intended_to_actual(seg.text.split(), actual))
+            seg_durations.append(len(a) / SAMPLE_RATE)
+
+    audio = np.concatenate(audio_parts) if audio_parts else np.zeros(1, dtype=np.float32)
+    wav.parent.mkdir(parents=True, exist_ok=True)
+    sf.write(str(wav), audio, SAMPLE_RATE)
+    words, starts, total = assemble_timeline(
+        segments, seg_words, seg_maps, seg_durations, anchors
+    )
+    return service, words, starts, total
