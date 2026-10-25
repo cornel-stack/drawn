@@ -35,6 +35,18 @@ def _cmd_sources(args: argparse.Namespace) -> int:
     return run_sources(args.repo_root, only=args.book)
 
 
+def _cmd_factcheck(args: argparse.Namespace) -> int:
+    from drawn_schema.review import run_factcheck
+
+    return run_factcheck(args.repo_root, args.channel, args.code)
+
+
+def _cmd_factcheck_gate(args: argparse.Namespace) -> int:
+    from drawn_schema.review import gate
+
+    return gate(args.repo_root, args.channel, args.code)
+
+
 def _cmd_lint(args: argparse.Namespace) -> int:
     exit_code = 0
     for path in args.lessons:
@@ -73,6 +85,18 @@ def main(argv: list[str] | None = None) -> int:
     src.add_argument("--repo-root", type=Path, default=Path.cwd())
     src.add_argument("--book", default=None, help="limit to one book id")
     src.set_defaults(func=_cmd_sources)
+
+    fc = sub.add_parser("factcheck", help="scaffold/validate a lesson's review.md")
+    fc.add_argument("channel")
+    fc.add_argument("code")
+    fc.add_argument("--repo-root", type=Path, default=Path.cwd())
+    fc.set_defaults(func=_cmd_factcheck)
+
+    fg = sub.add_parser("factcheck-gate", help="fail unless the review.md is complete")
+    fg.add_argument("channel")
+    fg.add_argument("code")
+    fg.add_argument("--repo-root", type=Path, default=Path.cwd())
+    fg.set_defaults(func=_cmd_factcheck_gate)
 
     args = parser.parse_args(argv)
     return args.func(args)

@@ -231,34 +231,14 @@ def _check_tone(scene: Scene, result: LintResult) -> None:
 
 
 def _check_problems(lesson: Lesson, result: LintResult) -> None:
-    import math
-
-    import numpy as np
+    from drawn_schema.checks import eval_check
 
     for scene in lesson.scenes:
         if scene.check is None:
             continue
-        ns = {"__builtins__": {}, "np": np, "numpy": np, "math": math, "pi": math.pi,
-              "sqrt": math.sqrt, "sin": math.sin, "cos": math.cos, "tan": math.tan,
-              "abs": abs, "min": min, "max": max, "pow": pow}
-        try:
-            import sympy  # noqa: F401
-
-            ns["sympy"] = sympy
-        except ImportError:
-            pass
-        try:
-            got = float(eval(scene.check.expr, ns))  # noqa: S307 (authored, no builtins)
-        except Exception as exc:  # noqa: BLE001
-            result.error(f"scene {scene.id!r}: check expr failed to evaluate ({exc})")
-            continue
-        want = scene.check.value
-        denom = abs(want) if want else 1.0
-        if abs(got - want) / denom > scene.check.tol:
-            result.error(
-                f"scene {scene.id!r}: check recomputed {got:.4g} but answer is "
-                f"{want:.4g} (tol {scene.check.tol:.0%})"
-            )
+        res = eval_check(scene.check.expr, scene.check.value, scene.check.tol)
+        if not res.ok:
+            result.error(f"scene {scene.id!r}: {res.message}")
 
 
 def _check_licence(lesson: Lesson, result: LintResult) -> None:

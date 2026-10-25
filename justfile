@@ -41,6 +41,14 @@ new-lesson channel code:
 lint channel code:
     uv run python -m drawn_schema lint {{repo}}/channels/{{channel}}/lessons/{{code}}.yaml
 
+# fact-check a lesson: scaffold/validate channels/<ch>/lessons/<CODE>.review.md
+factcheck channel code:
+    uv run python -m drawn_schema factcheck {{channel}} {{code}} --repo-root {{repo}}
+
+# render gate: refuse unless the lesson's review.md is complete
+factcheck-gate channel code:
+    uv run python -m drawn_schema factcheck-gate {{channel}} {{code}} --repo-root {{repo}}
+
 # synthesise per-scene audio + word timestamps
 tts channel code *FLAGS:
     uv run python -m drawn_tts {{repo}}/channels/{{channel}}/lessons/{{code}}.yaml --repo-root {{repo}} {{FLAGS}}
@@ -68,7 +76,8 @@ preview channel code: (lint channel code) (tts channel code) (check channel code
     @echo "preview ready: out/{{channel}}/{{code}}/video.mp4"
 
 # full build/review pipeline at 1080p30 -> out/<channel>/<code>/video.mp4
-render channel code: (lint channel code) (tts channel code) (check channel code) (render-scenes channel code "final") (assemble channel code "final") (finish channel code)
+# gated on a complete fact-check review (just factcheck) before anything renders.
+render channel code: (lint channel code) (factcheck-gate channel code) (tts channel code) (check channel code) (render-scenes channel code "final") (assemble channel code "final") (finish channel code)
     @echo "render ready (1080p30): out/{{channel}}/{{code}}/video.mp4"
 
 # alias kept for symmetry
