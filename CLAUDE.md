@@ -106,4 +106,16 @@ so keep each channel's map complete as new symbols appear.
 ## Task runner
 
 `just` drives everything; the same recipes run locally and in CI:
-`just lint | tts | render | preview | build | fetch | new-lesson`.
+`just lint | tts | render | preview | build | fetch | new-lesson | check | sheet`.
+
+Full 1080p renders are heavy, so they run in **GitHub Actions**, not on the
+laptop:
+
+- `just render-ci <channel> <CODE>` triggers the `render` workflow (lint → tts →
+  per-scene matrix → assemble → artifact).
+- `just pull <channel> <CODE>` downloads that run's finished `video.mp4` (plus
+  `sheet.png`, `thumbnail.png`, `meta.md`, `captions.srt`) into
+  `out/<channel>/<CODE>/` so you have the video locally.
+
+Locally, only the light stages are run: writing/editing, `just lint`, and the
+lead-in/word-budget checks. Avoid running `tts`/`render` on the laptop.

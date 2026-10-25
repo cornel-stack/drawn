@@ -70,6 +70,27 @@ render channel code: (lint channel code) (tts channel code) (check channel code)
 # alias kept for symmetry
 build channel code: (render channel code)
 
+# pull a lesson's finished video from the latest CI render into out/<channel>/<code>/
+pull channel code:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    repo="$(gh repo view --json nameWithOwner -q .nameWithOwner)"
+    name="video-{{channel}}-{{code}}"
+    aid="$(gh api "repos/$repo/actions/artifacts?per_page=100&name=$name" \
+        --jq '[.artifacts[] | select(.expired==false)] | sort_by(.created_at) | last | .id')"
+    if [ -z "$aid" ] || [ "$aid" = "null" ]; then
+        echo "no artifact '$name' found — run 'just render-ci {{channel}} {{code}}' first"; exit 1
+    fi
+    out="{{repo}}/out/{{channel}}/{{code}}"; mkdir -p "$out"
+    gh api "repos/$repo/actions/artifacts/$aid/zip" > "$out/.artifact.zip"
+    ( cd "$out" && python3 -m zipfile -e .artifact.zip . && rm -f .artifact.zip )
+    echo "pulled -> $out/video.mp4 (+ sheet.png, thumbnail.png, meta.md, captions.srt)"
+
+# trigger a CI render of a lesson (GitHub Actions); then `just pull` the result
+render-ci channel code quality="final":
+    gh workflow run render.yml -f channel={{channel}} -f lesson={{code}} -f quality={{quality}}
+    @echo "triggered; watch with: gh run watch \$(gh run list --workflow=render.yml -L1 --json databaseId -q '.[0].databaseId')"
+
 # contact sheet for quick legibility/composition review
 sheet channel code:
     uv run python -m drawn_finish sheet {{repo}}/channels/{{channel}}/lessons/{{code}}.yaml --repo-root {{repo}}
