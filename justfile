@@ -53,6 +53,11 @@ factcheck-gate channel code:
 tts channel code *FLAGS:
     uv run python -m drawn_tts {{repo}}/channels/{{channel}}/lessons/{{code}}.yaml --repo-root {{repo}} {{FLAGS}}
 
+# speak a channel's whole pronunciation map into one wav for review
+pronounce-check channel:
+    uv run --group tts python -m drawn_tts.pronounce_check {{channel}} --repo-root {{repo}}
+    @echo "listen: out/{{channel}}/_pronounce/pronounce-check.wav"
+
 # pacing check: fail if the timeline has a static gap > 3s (needs tts first)
 check channel code:
     uv run python -m drawn_board.timeline {{repo}}/channels/{{channel}}/lessons/{{code}}.yaml --repo-root {{repo}}
