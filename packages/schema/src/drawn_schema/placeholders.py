@@ -16,6 +16,8 @@ from collections.abc import Iterator, Mapping
 
 #: Matches ``{id}`` where id is a run of word characters.
 PLACEHOLDER_RE = re.compile(r"\{([A-Za-z0-9_]+)\}")
+#: Matches an explicit pause token ``{pause:1.5}`` — silence, not a word.
+PAUSE_RE = re.compile(r"\{pause:\s*([0-9]*\.?[0-9]+)\s*\}")
 
 
 def iter_placeholders(narration: str) -> Iterator[str]:
@@ -24,18 +26,23 @@ def iter_placeholders(narration: str) -> Iterator[str]:
         yield match.group(1)
 
 
+def strip_pauses(text: str) -> str:
+    """Remove ``{pause:N}`` tokens (they are silence, handled by the TTS stage)."""
+    return PAUSE_RE.sub(" ", text)
+
+
 def substitute(narration: str, spoken: Mapping[str, str]) -> str:
     """Replace every ``{id}`` with ``spoken[id]``.
 
-    Unknown ids are left untouched (the linter reports them separately).
-    Whitespace left by empty substitutions is collapsed so the word count is
-    accurate.
+    Unknown ids are left untouched (the linter reports them separately). Pause
+    tokens are stripped. Whitespace left by empty substitutions is collapsed so
+    the word count is accurate.
     """
 
     def repl(match: re.Match[str]) -> str:
         return spoken.get(match.group(1), match.group(0))
 
-    out = PLACEHOLDER_RE.sub(repl, narration)
+    out = PLACEHOLDER_RE.sub(repl, strip_pauses(narration))
     return re.sub(r"\s+", " ", out).strip()
 
 

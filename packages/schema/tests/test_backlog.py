@@ -39,3 +39,9 @@ def test_parse_source_openstax():
     assert out["section"].startswith("§11.4")
     assert "OpenStax University Physics Vol. 1" in out["book"]
     assert "CC BY" not in out["book"]
+
+
+def test_pause_token_stripped():
+    from drawn_schema.placeholders import count_words, strip_pauses, substitute
+    assert strip_pauses("hold {pause:1.5} on").split() == ["hold", "on"]
+    assert count_words(substitute("a {x} {pause:2} b", {"x": "X"})) == 3
