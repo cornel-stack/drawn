@@ -91,7 +91,7 @@ scenes:
       direction. {pause:1.0} So the axle does not drop. It turns in the
       horizontal plane, and keeps turning, {prec}. This steady turning of the
       spin axis, always chasing the torque and never catching it, is what we
-      call precession.
+      call precession. Now let us put a number on it.
     animation:
       primitive: gyroscope
       steps:
@@ -106,9 +106,9 @@ scenes:
   - id: s5
     kind: derivation
     narration: >
-      Put a number on it, {dphi}. In that short time the arrow turns through a
-      tiny angle, the length of the sideways nudge divided by the length of the
-      angular momentum. {pause:1.2} Divide by the time and the left side becomes
+      First, {dphi}. In that short time the arrow turns through a tiny angle: the
+      length of the sideways nudge divided by the length of the angular
+      momentum. {pause:1.2} Divide by the time and the left side becomes
       the precession rate, while the right side becomes the torque over the
       angular momentum; substituting r M g for the torque and I omega for the
       angular momentum gives the result in measurable quantities, {Omega}.
