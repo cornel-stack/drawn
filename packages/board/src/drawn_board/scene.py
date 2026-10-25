@@ -54,6 +54,9 @@ class BoardSceneMixin:
         else:
             self.add(self.hand.mobject)
 
+        if d.scene.kind == "title":
+            self._title_card()
+            return
         if d.scene.kind == "end":
             self._end()
             return
@@ -81,11 +84,8 @@ class BoardSceneMixin:
         return prim
 
     def _written_mobjects(self):
-        """Return [(start, mobject, item)] for written board items / title."""
+        """Return [(start, mobject, item)] for written board items."""
         d = self.data
-        if d.scene.kind == "title":
-            return [(0.0, self._title_group(), None)]
-
         mobs = []
         for i, item in enumerate(d.scene.board):
             mobs.append((item, self._item_mobject(item, i)))
@@ -105,6 +105,13 @@ class BoardSceneMixin:
 
             edge = UP if d.scene.kind == "diagram" else DOWN
             group.to_edge(edge, buff=self._fh() * style.SAFE_MARGIN_FRAC)
+        else:
+            # board / derivation / problem: centre in the region above the
+            # bottom caption band (~14 %), scaled to fit it.
+            usable = self._fh() * 0.74
+            if group.height > usable:
+                group.scale_to_fit_height(usable)
+            group.move_to([0, self._fh() * 0.07, 0])
         self._board_group = group
         out = []
         for item, mob in mobs:
@@ -120,8 +127,12 @@ class BoardSceneMixin:
             out.append((d.item_starts.get(s.id, 0.0), s))
         return out
 
-    def _title_group(self):
-        from manim import DL, DR, Line, VGroup
+    def _title_card(self):
+        """A full-frame title card: title large, channel name small, then held.
+
+        Nothing else is drawn; the next scene starts on a cleared board.
+        """
+        from manim import DL, DR, FadeIn, Line, VGroup
 
         d = self.data
         title = self._text(d.lesson.title, self.ink, style.TITLE_FONT_SIZE)
@@ -129,7 +140,18 @@ class BoardSceneMixin:
         rule = Line(title.get_corner(DL), title.get_corner(DR),
                     color=d.channel.resolve_color(d.channel.board.accent))
         rule.next_to(title, direction=_down(), buff=0.3)
-        return VGroup(title, rule).move_to(_origin())
+        name = self._text(d.channel.display_name,
+                          d.channel.resolve_color(d.channel.board.accent),
+                          style.TEXT_FONT_SIZE)
+        name.next_to(rule, direction=_down(), buff=0.5)
+        VGroup(title, rule, name).move_to(_origin())
+
+        slot = min(max(d.duration * 0.55, 1.5), 3.2)
+        consumed = self._write_one(title, None, slot, [])
+        self.play(FadeIn(rule), FadeIn(name), run_time=0.5)
+        consumed += 0.5
+        if d.duration > consumed:
+            self.wait(d.duration - consumed)
 
     def _item_mobject(self, item, seed: int):
         color = self.data.channel.resolve_color(item.color)
@@ -150,6 +172,11 @@ class BoardSceneMixin:
         else:
             m = self._text(item.text, color, style.TEXT_FONT_SIZE)
         apply_wobble(m, seed=seed)
+        if item.box:
+            from manim import SurroundingRectangle, VGroup
+
+            rect = SurroundingRectangle(m, color=color, buff=0.18, corner_radius=0.08)
+            m = VGroup(m, rect)
         return m
 
     def _coloured_formula(self, tex: str, tex_colors: dict, base_color: str):
@@ -188,33 +215,40 @@ class BoardSceneMixin:
 
         t = 0.0
         visible: list = []
+        last_eq = False
         n = len(events)
         for i, (kind, start, payload, item) in enumerate(events):
             if start > t:
-                # fill the gap before this event with motion, not a frozen hold
-                self._fill(start - t, primitive, visible)
+                # a gap right after an equation is reading time: hold it static
+                self._fill(start - t, primitive, visible, read_hold=last_eq)
                 t = start
             next_start = events[i + 1][1] if i + 1 < n else total
             slot = max(0.0, next_start - t)
             if kind == "write":
                 consumed = self._write_one(payload, item, slot, visible)
+                last_eq = bool(item and getattr(item, "is_equation", False))
             else:
                 # animation steps fill their slot (precession needs the time)
                 consumed = max(0.5, slot)
                 primitive.run_step(payload.action, payload.params, run_time=consumed)
+                last_eq = False
             t += consumed
         remaining = total - t
         if remaining > 0.05:
-            self._fill(remaining, primitive, visible)
+            self._fill(remaining, primitive, visible, read_hold=last_eq)
 
-    def _fill(self, dur: float, primitive, visible: list) -> None:
-        """Fill `dur` with meaningful motion — never a frozen hold.
+    def _fill(self, dur: float, primitive, visible: list, read_hold: bool = False) -> None:
+        """Fill `dur` — motion, unless it is reading time after an equation.
 
         3D: a slow ambient camera rotation. A primitive still moving on its own
         (spin/precess): let it run. 2D: a gentle breathing pulse of the active
-        item. Falls back to a plain wait only before anything is on screen.
+        item. Reading time just after an equation (<=2.6 s) stays static so the
+        viewer can read it. A plain wait only before anything is on screen.
         """
         if dur <= 0.05:
+            return
+        if read_hold and dur <= 2.6:
+            self.wait(dur)  # reading time, deliberately static
             return
         if self.data.is_3d:
             self.begin_ambient_camera_rotation(rate=0.08)
@@ -285,12 +319,57 @@ class BoardSceneMixin:
             run_time=wdur,
         )
         self.hand.lift(self, run_time=lift)
+        extra = 0.0
+        if item is not None and getattr(item, "legend", None):
+            extra = self._reveal_legend(item, mob)
         visible.append((mob, item))
-        return enter + wdur + lift
+        return enter + wdur + lift + extra
+
+    def _reveal_legend(self, item, mob) -> float:
+        """Fade in a small symbol legend beside the equation. Returns time used."""
+        from manim import RIGHT, FadeIn
+
+        legend = self._legend_mobject(item)
+        if legend is None:
+            return 0.0
+        legend.next_to(mob, RIGHT, buff=0.5)
+        if self.data.is_3d:
+            self.add_fixed_in_frame_mobjects(legend)
+        # keep it on screen within the frame
+        half_w = self._fw() * (0.5 - style.SAFE_MARGIN_FRAC)
+        if legend.get_right()[0] > half_w:
+            from manim import DOWN
+
+            legend.next_to(mob, DOWN, buff=0.35)
+        self.play(FadeIn(legend), run_time=0.5)
+        return 0.5
+
+    def _legend_mobject(self, item):
+        from manim import VGroup
+
+        rows = []
+        for entry in item.legend:
+            rows.append(self._legend_row(entry))
+        if not rows:
+            return None
+        group = VGroup(*rows).arrange(_down(), aligned_edge=_left(), buff=0.18)
+        return group.scale_to_fit_height(min(group.height, self._fh() * 0.5))
+
+    def _legend_row(self, entry):
+        from manim import MathTex, VGroup
+
+        color = self.data.channel.resolve_color(self.data.channel.board.ink)
+        sym = MathTex(entry.sym, color=color, font_size=style.LABEL_FONT_SIZE)
+        unit = f"  [{entry.unit}]" if entry.unit else ""
+        text = self._text(f": {entry.name}{unit}", color, style.LABEL_FONT_SIZE - 6)
+        return VGroup(sym, text).arrange(_right(), buff=0.12)
 
     def _retire_if_full(self, mob, item, visible: list):
         from manim import FadeOut
 
+        # a worked problem keeps its whole working on screen (scaled to fit)
+        if self.data.scene.kind == "problem":
+            return
         is_formula = item is not None and getattr(item, "is_latex", False)
         cap = style.MAX_FORMULA_LINES if is_formula else style.MAX_TEXT_LINES
         while len(visible) >= cap:
@@ -329,6 +408,18 @@ def _origin():
     from manim import ORIGIN
 
     return ORIGIN
+
+
+def _left():
+    from manim import LEFT
+
+    return LEFT
+
+
+def _right():
+    from manim import RIGHT
+
+    return RIGHT
 
 
 def make_lesson_scene(data: RenderData):
