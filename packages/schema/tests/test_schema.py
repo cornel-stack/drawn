@@ -70,10 +70,12 @@ def test_problem_requires_check_and_answer():
     }
     assert Lesson.model_validate(base)  # ok
     import copy
-    no_check = copy.deepcopy(base); del no_check["scenes"][0]["check"]
+    no_check = copy.deepcopy(base)
+    del no_check["scenes"][0]["check"]
     with pytest.raises(ValidationError):
         Lesson.model_validate(no_check)
-    no_ans = copy.deepcopy(base); no_ans["scenes"][0]["board"][0]["role"] = "step"
+    no_ans = copy.deepcopy(base)
+    no_ans["scenes"][0]["board"][0]["role"] = "step"
     with pytest.raises(ValidationError):
         Lesson.model_validate(no_ans)
 
