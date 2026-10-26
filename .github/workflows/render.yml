@@ -77,29 +77,33 @@ jobs:
   render:
     needs: [plan, tts]
     runs-on: ubuntu-latest
+    # Manim + a full TeX Live are baked into this pinned image, so each scene
+    # job skips the ~8-minute TeX reinstall + Manim build that dominated the old
+    # wall-clock. Digest below == manimcommunity/manim:v0.19.1, matching the
+    # manim version pinned in uv.lock.
+    container:
+      image: manimcommunity/manim@sha256:95a2eb56e3e7519b310625a650c2ff20327b6437faced318c823a58401b70312
+      options: --user root
     strategy:
       fail-fast: false
       matrix:
         scene: ${{ fromJson(needs.plan.outputs.scenes) }}
+    env:
+      # import our src packages without an editable build (manim/numpy/pillow are
+      # already in the image); only the two light pure-Python deps are installed.
+      PYTHONPATH: ${{ github.workspace }}/packages/schema/src:${{ github.workspace }}/packages/board/src:${{ github.workspace }}/packages/cache/src
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
-        with:
-          enable-cache: true
-      - name: System deps (Manim + TeX)
-        run: |
-          sudo apt-get update && sudo apt-get install -y \
-            build-essential pkg-config libcairo2-dev libpango1.0-dev \
-            texlive-xetex texlive-latex-extra texlive-fonts-recommended dvisvgm ffmpeg
-      - run: uv sync --group render
+      - name: Python deps (manim + TeX already in the image)
+        run: pip install --no-cache-dir pydantic pyyaml
       - uses: actions/download-artifact@v4
         with:
           name: tts
           path: out/${{ env.CH }}/${{ env.CODE }}
       - name: Render scene ${{ matrix.scene }}
         run: |
-          uv run python -m drawn_board channels/$CH/lessons/$CODE.yaml \
-            --repo-root "$PWD" --quality "$Q" --scene "${{ matrix.scene }}"
+          python -m drawn_board channels/$CH/lessons/$CODE.yaml \
+            --repo-root "$GITHUB_WORKSPACE" --quality "$Q" --scene "${{ matrix.scene }}"
       - uses: actions/upload-artifact@v4
         with:
           name: clip-${{ matrix.scene }}
