@@ -25,13 +25,13 @@ scenes:
   - id: s2
     kind: diagram
     narration: >
-      Here is a small system, {eq1} and {eq2}. Linear means each unknown appears
-      only on its own, to the first power — no squares, no products, no sines.
-      The first picture is the row picture: read each equation as a line in the
-      plane. Plot the first, {lineA}; every point on it satisfies that one
-      equation. Plot the second, {lineB}. A solution must satisfy both at once,
-      so it has to lie on both lines — and two lines in a plane meet at a single
-      point, {cross}. Reading off that crossing gives x equals two, y equals one.
+      Here is the row picture, {lineA}. That line is the first equation of a
+      small system, {eq1}: every point on it satisfies that one equation. Linear
+      means each unknown appears only on its own, to the first power — no
+      squares, no products, no sines. Plot the second equation as a line too,
+      {lineB}, {eq2}. A solution must satisfy both at once, so it has to lie on
+      both lines — and two lines in a plane meet at a single point, {cross}.
+      Reading off that crossing gives x equals two, y equals one.
       The first picture already tells us something the symbols hid: a solution
       exists, and because the lines are not parallel, it is the only one. Had the
       two lines come out parallel, they would never meet, and the system would
@@ -61,16 +61,16 @@ scenes:
   - id: s3
     kind: diagram
     narration: >
-      The second picture is the column picture. Stack the coefficients into
-      columns and the very same system becomes a vector equation: x times the
-      first column plus y times the second column equals the right-hand side,
-      {vecEq}. Draw the two coefficient columns as arrows, {cols}, and draw the
-      target on the right as its own arrow, {bvec}. Now the question changes
-      shape entirely. Instead of asking where two lines meet, we ask: how much
-      of each column vector do we combine to reach the target? Take two of the
-      first column and one of the second, laid tip to tail, {comb}, and they land
-      exactly on the target. So x equals two, y equals one — the same answer, now
-      read as a recipe for building one vector out of two others. This picture
+      Now the column picture, {cols}. Those two arrows are the coefficient
+      columns, read straight off the system. Stacked this way, the very same
+      system becomes a vector equation, {vecEq}: x times the first column plus y
+      times the second column equals the right-hand side. Draw the target on the
+      right as its own arrow, {bvec}. Now the question changes shape entirely.
+      Instead of asking where two lines meet, we ask: how much of each column
+      vector do we combine to reach the target? Take two of the first column and
+      one of the second, laid tip to tail, {comb}, and they land exactly on the
+      target. So x equals two, y equals one — the same answer, now read as a
+      recipe for building one vector out of two others. This picture
       has its own test for solvability. If the target pointed somewhere the two
       columns could never reach between them, there would be no solution; but
       because these two columns point in genuinely different directions, their
@@ -96,10 +96,10 @@ scenes:
   - id: s4
     kind: derivation
     narration: >
-      The third picture is the algebra, and it is the one that actually computes.
-      The tool is Gauss's method, built from three operations that never change a
-      system's solutions, {ops}: swap two rows, multiply a row by a non-zero
-      number, or add a multiple of one row to another. Each of the three is
+      The third picture is the algebra, {ops}. It is the one that actually
+      computes. Gauss's method is built from three operations that never change a
+      system's solutions: swap two rows, multiply a row by a non-zero number, or
+      add a multiple of one row to another. Each of the three is
       reversible, so none can gain or lose a solution — it only rewrites the same
       system in a simpler form. We use them to remove unknowns one at a time,
       driving the system towards a triangular shape we can read from the bottom
