@@ -78,9 +78,13 @@ scenes:
       equals one — the same solution, expressed as a combination of vectors. This
       view answers two further questions directly. Which targets can be reached?
       Exactly those that the columns can combine to produce, called their span.
-      And when is the solution unique? When the two columns point in different
-      directions. The row picture and the column picture describe the same
-      system from two sides.
+      Because these two columns point in different directions, their combinations
+      cover the entire plane, so every target has a solution. Were the two columns
+      parallel, their combinations would only reach points along a single line,
+      and most targets would have no solution at all. And when is the solution
+      unique? Again, when the columns point in different directions, so that each
+      target is built in exactly one way. The row picture and the column picture
+      describe the same system from two sides.
     animation:
       primitive: linear_transform
       params:
@@ -103,7 +107,12 @@ scenes:
       The third picture is the algebra, {ops}. Gauss's method solves a system
       using three row operations, each of which leaves the solution set
       unchanged: swap two equations, multiply an equation by a non-zero number,
-      or add a multiple of one equation to another. The strategy is to eliminate
+      or add a multiple of one equation to another. Each is safe for a clear
+      reason. Swapping two equations only reorders the same system. Multiplying
+      an equation by a non-zero number keeps the same solutions, because both
+      sides scale together. And adding a multiple of one equation to another
+      loses nothing, because any values satisfying both originals also satisfy
+      their combination. The strategy is to eliminate
       one unknown at a time. To remove x, subtract: twice the second equation
       minus the first cancels the x terms and leaves {elim}. {pause:0.4} So y
       equals one. Substitute this into the first equation, {back}, which gives x
