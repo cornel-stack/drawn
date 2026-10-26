@@ -67,9 +67,12 @@ scenes:
       quantity. It is the one price where the plans of buyers and the plans of
       sellers agree. {pause:0.8} Away from it the market is restless. Set the
       price too high and sellers bring more than buyers will take — a surplus —
-      and the price is bid down. Set it too low and buyers want more than sellers
-      supply — a shortage — and the price is pushed up. Only at the crossing do
-      those pressures vanish.
+      and competing sellers cut the price until the extra goods clear. Set it too
+      low and buyers want more than sellers supply — a shortage — and competing
+      buyers bid the price up until the queue disappears. Notice that no planner
+      arranges any of this: the surplus or the shortage is itself the signal, and
+      the price is what moves in response. Only at the crossing do both pressures
+      vanish, and the market comes to rest.
     animation:
       primitive: supply_demand
       params:
@@ -120,11 +123,16 @@ scenes:
       curve — and it carries the market to a new equilibrium, at a higher price
       and a higher quantity. The same shift follows from a change in tastes, in
       the price of a substitute or complement, in expectations, or in the number
-      of buyers. {pause:1.0} So the rule is exact. A change in the good's own
-      price moves you along a fixed curve. A change in anything else — income,
-      tastes, related prices, expectations — shifts the whole curve to a new
-      position. Confuse the two and you will predict the wrong direction for
-      price; keep them apart and the model works every time.
+      of buyers. {pause:1.0} Supply behaves the same way, by its own symmetric
+      list. A change in the good's own price moves you along the supply curve;
+      but a change in input prices, in technology, in taxes, or in the number of
+      sellers shifts the whole supply curve. A frost that kills half the orange
+      crop shifts the supply of juice to the left, and the price climbs; a cheaper
+      production method shifts it right, and the price falls. {pause:0.8} So the
+      rule is exact, and it is the same for both curves. A change in the good's
+      own price moves you along a fixed curve. A change in anything else shifts
+      the whole curve to a new position. Confuse the two and you will predict the
+      wrong direction for price; keep them apart and the model works every time.
     animation:
       primitive: supply_demand
       params:
