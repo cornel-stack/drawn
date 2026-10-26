@@ -38,7 +38,12 @@ scenes:
       have no solution at all. Had they come out as the very same line, every
       point on it would work, and there would be infinitely many. So the row
       picture does not just solve this system; it shows, at a glance, which of
-      the three possibilities you are in.
+      the three possibilities you are in. A system with at least one solution we
+      call consistent, and one with none inconsistent — names for what the
+      geometry makes obvious. And the same three fates survive into higher
+      dimensions: with three unknowns each equation is a flat plane instead of a
+      line, and the solution is where the planes meet — at a point, along a whole
+      line, or nowhere at all.
     animation:
       primitive: axes_plot
       params:
@@ -105,10 +110,14 @@ scenes:
       driving the system towards a triangular shape we can read from the bottom
       up. Take twice the second equation minus the first to eliminate x, and only
       y survives, {elim}. {pause:1.2} That gives y equals one at once. Substitute
-      back into the second equation, {back}, and x equals two. {pause:1.0} The
-      method never guesses and always terminates, and here all three pictures
-      agree on the same solution, {soln} — the lines cross there, the columns
-      combine there, and the elimination lands there.
+      back into the second equation, {back}, and x equals two. {pause:1.0} What
+      makes this a genuine algorithm, not a trick, is that it never stalls: with
+      more unknowns you simply keep clearing the leading variable out of every
+      lower equation until the system stands in a staircase, then climb back up
+      substituting as you go. A thousand equations in a thousand unknowns fall to
+      exactly this routine. The method never guesses and always terminates, and
+      here all three pictures agree on the same solution, {soln} — the lines
+      cross there, the columns combine there, and the elimination lands there.
     board:
       - id: ops
         text: "Row operations: swap; scale by a non-zero; add a multiple of another row."

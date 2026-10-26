@@ -134,9 +134,21 @@ def assemble_timeline(
     words: list[Word] = []
     for i, seg in enumerate(segments):
         seg_start.append(cursor)
-        if seg.kind == "speech" and seg_words[i]:
-            for w in seg_words[i]:
-                words.append(Word(w.word, w.start + cursor, w.end + cursor))
+        if seg.kind == "speech" and seg.text.strip() and seg_words[i]:
+            # Caption from the INTENDED words (seg.text), timed by the aligned
+            # whisper words. Whisper tends to hallucinate filler tokens ("Yeah",
+            # "I") at silence boundaries; the intended text never contains them,
+            # so the captions stay faithful to the narration.
+            intended = seg.text.split()
+            amap = seg_maps[i] or {}
+            aw = seg_words[i]
+            n = len(aw)
+            times = [aw[_nearest(j, amap, n)].start + cursor for j in range(len(intended))]
+            seg_end = cursor + seg_durations[i]
+            for j, tok in enumerate(intended):
+                start = times[j]
+                end = times[j + 1] if j + 1 < len(times) else min(start + 0.4, seg_end)
+                words.append(Word(tok, start, max(start, end)))
         cursor += seg_durations[i]
     total = cursor
 
