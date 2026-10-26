@@ -36,14 +36,25 @@ books:
     url: https://assets.openstax.org/oscms-prodcms/media/documents/university-physics-volume-3_-_WEB.pdf
     sha256: "311c6beb70bb9cc6073d40a6085d290a82afde2b38e9aaf672ccb6de0542541b"
 
+  # Economics: OpenStax Principles of Economics 3e is CC BY 4.0, so it can back a
+  # monetised channel. McAfee & Lewis (CC BY-NC-SA) is kept for topic order only,
+  # never as a lesson `source`.
+  - id: principles-economics-3e
+    title: Principles of Economics 3e
+    publisher: OpenStax
+    licence: CC BY 4.0
+    auto: true
+    url: https://assets.openstax.org/oscms-prodcms/media/documents/principles-economics-3e_-_WEB.pdf
+    sha256: "2d2e7549e13a1975965bfb14a577a3d7935173ff10ca2e1d953815560590a4eb"
+
   # --- author-hosted, added when those channels render (auto: false) ----------
   - id: hefferon-linear-algebra
     title: Linear Algebra
     publisher: Jim Hefferon
     licence: CC BY-SA 3.0
-    auto: false
-    url: ""
-    sha256: ""
+    auto: true
+    url: https://jheffero.w3.uvm.edu/linearalgebra/book.pdf
+    sha256: "5240f2782e645bc6351ad9eba69d8c19500142a5cca9c90450c17b3765a1a400"
 
   - id: trench-elementary-ode
     title: Elementary Differential Equations

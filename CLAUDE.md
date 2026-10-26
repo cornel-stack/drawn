@@ -24,7 +24,9 @@ GitHub Actions on a public repo. No paid APIs, no cloud storage, no YouTube API.
   "story", "magic(al)", "dive in", "in this video", "hey guys", "buckle up",
   "mind-blowing", "awesome", "amazing". Rhetorical questions are discouraged —
   the linter warns when a scene has more than one "?".
-- End every lesson with a **one-line summary** and the **next lesson's code**.
+- End every lesson with a **one-line summary** and a pointer to the next lesson
+  **by its title** ("Next: …"). **Never speak a lesson code** in narration — the
+  code is metadata and lives only in `meta.md`.
 - Narration is plain prose; the linter enforces a **runtime estimate** (words at
   the per-kind wpm + explicit pauses + equation holds) within ±15 % of
   `target_minutes` — not a raw word count. Explainer prose ≈ 140 wpm; derivation

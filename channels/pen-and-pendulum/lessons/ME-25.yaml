@@ -197,5 +197,6 @@ scenes:
     kind: end
     narration: >
       In one line: gravity's torque is perpendicular to the spin, so it turns
-      the axis rather than dropping it, at the rate r M g over I omega. Next,
-      ME-26: rolling without slipping.
+      the axis rather than dropping it, at the rate r M g over I omega. Next:
+      static equilibrium — the ladders and beams that refuse to move, and the
+      two conditions that keep them still.
