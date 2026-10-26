@@ -30,7 +30,10 @@ scenes:
       quantity is on the horizontal axis and price on the vertical. The curve
       slopes downward: as the price rises, the quantity demanded falls, because
       buyers economise or switch to substitutes. This is the law of demand,
-      {demandEq}. {pause:0.4} Two terms must be distinguished carefully. Demand
+      {demandEq}. To read the curve, pick any price on the vertical axis, move
+      horizontally to the curve, then down to the quantity axis: that is the
+      quantity demanded at that price. A higher price gives a point further up
+      and to the left; a lower price, further down and to the right. {pause:0.4} Two terms must be distinguished carefully. Demand
       refers to the entire curve — the full schedule of price and quantity pairs.
       Quantity demanded refers to a single point on that curve: the amount bought
       at one specific price. The curve is drawn holding every other influence
@@ -72,7 +75,11 @@ scenes:
       quantity. {pause:0.4} At any other price, the market adjusts. Above the equilibrium, quantity supplied exceeds quantity
       demanded: a surplus, which drives the price down. Below the equilibrium,
       quantity demanded exceeds quantity supplied: a shortage, which drives the
-      price up. The price stops changing only at the equilibrium.
+      price up. For instance, at a price well above the equilibrium, quantity
+      supplied might be eight units while quantity demanded is only four; that
+      surplus of four units pushes the price down, and it keeps falling until the
+      gap closes at the crossing. The price stops changing only at the
+      equilibrium.
     animation:
       primitive: supply_demand
       params:
@@ -102,7 +109,9 @@ scenes:
       demanded, or a movement along the curve. Price and quantity are the two
       variables the curve relates, so changing the price simply moves the point
       along the existing curve. Buyers' underlying willingness to pay is
-      unchanged.
+      unchanged. For example, if a tax raises the price, the point slides up and
+      to the left along the demand curve to a smaller quantity; remove the tax
+      and it slides back down. The curve itself never moves.
     animation:
       primitive: supply_demand
       params:
