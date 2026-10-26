@@ -148,6 +148,28 @@ class LinearTransform(Primitive):
         yc = self._arrow(end[0], end[1], c2_color, x0=start[0], y0=start[1])
         self.scene.play(GrowArrow(yc), run_time=run_time * 0.5)
 
+    @step
+    def span_demo(self, run_time: float, matrix=None, color: str = "green", **_):
+        """Dot the plane with reachable points to show the columns span it."""
+        from manim import Dot, VGroup
+
+        m = np.array(matrix, dtype=float) if matrix is not None else self.matrix
+        dots = VGroup()
+        for x in (-1.0, 0.0, 1.0, 2.0):
+            for y in (-1.0, 0.0, 1.0, 2.0):
+                px = x * m[0, 0] + y * m[0, 1]
+                py = x * m[1, 0] + y * m[1, 1]
+                if self.xr[0] <= px <= self.xr[1] and self.yr[0] <= py <= self.yr[1]:
+                    dots.add(Dot(self._pt(px, py), radius=0.045,
+                                 color=self.color(color), fill_opacity=0.6))
+        self.scene.play(_fade_in(self.scene, dots), run_time=run_time)
+
+
+def _fade_in(scene, mob):
+    from manim import FadeIn
+
+    return FadeIn(mob)
+
 
 def _down():
     from manim import DOWN

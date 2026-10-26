@@ -25,32 +25,30 @@ scenes:
   - id: s2
     kind: diagram
     narration: >
-      This is the row picture, {lineA}. Each equation in the system is drawn as
-      a line. This first line is the equation {eq1}, and every point on it is a
-      pair of values that satisfies that equation. A term is called linear when
-      each unknown appears only to the first power — not squared, not multiplied
-      by another unknown, not inside a function — and that is exactly what makes
-      each equation a straight line. To plot such a line, two points are enough.
-      For this first equation, set x to zero: two times zero minus y equals
-      three, so y is minus three. Then set y to zero: two x equals three, so x is
-      one and a half. Mark those two points and join them. Now draw the second
-      equation, {lineB},
-      {eq2}. A solution must satisfy both equations at once, so it must lie on
-      both lines. Two non-parallel lines meet at exactly one point, {cross},
-      here at x equals two and y equals one. The row picture also shows how many
-      solutions a system has. If the two lines are parallel, they never meet, and
-      there is no solution. If they are the same line, every point satisfies
-      both, and there are infinitely many solutions. A system with at least one
-      solution is called consistent; one with no solution is inconsistent. The
-      same classification holds with more unknowns: with three unknowns each
-      equation is a plane, and the solution is where the planes meet — at a
-      point, along a line, or nowhere.
+      This is the row picture, {eq1}. To draw this equation as a line, plot two
+      points. Setting x to zero gives y equals minus three — the point {markP1}.
+      Setting y to zero gives x equals one and a half — the point {markP2}. Join
+      them to get the line, {lineA}. Every point on that line satisfies the
+      equation, and because each unknown appears only to the first power — not
+      squared, not multiplied by another, not inside a function — the graph is a
+      straight line. Now the second equation, {eq2}, drawn as its own line,
+      {lineB}. A solution must satisfy both equations at once, so it lies where
+      the two lines cross, {cross}, here at x equals two and y equals one. The
+      row picture also shows how many solutions a system has. If the two lines
+      are parallel, they never meet: no solution. If they are the same line,
+      every point satisfies both: infinitely many solutions. A system with at
+      least one solution is called consistent; one with none, inconsistent. The
+      same holds with more unknowns: with three unknowns each equation is a
+      plane, and the solution is where the planes meet — at a point, along a
+      line, or nowhere.
     animation:
       primitive: axes_plot
       params:
         x: [-2, 5, 1]
-        y: [-2, 5, 1]
+        y: [-3, 5, 1]
       steps:
+        - {id: markP1, action: mark_point, params: {x: 0, y: -3, color: blue, label: "(0,-3)"}}
+        - {id: markP2, action: mark_point, params: {x: 1.5, y: 0, color: blue, label: "(1.5,0)"}}
         - {id: lineA, action: plot_line, params: {name: LA, a: 2, b: -1, c: 3, color: blue}}
         - {id: lineB, action: plot_line, params: {name: LB, a: 1, b: 1, c: 3, color: orange}}
         - {id: cross, action: intersect, params: {line1: LA, line2: LB, color: green}}
@@ -79,12 +77,12 @@ scenes:
       view answers two further questions directly. Which targets can be reached?
       Exactly those that the columns can combine to produce, called their span.
       Because these two columns point in different directions, their combinations
-      cover the entire plane, so every target has a solution. Were the two columns
-      parallel, their combinations would only reach points along a single line,
-      and most targets would have no solution at all. And when is the solution
-      unique? Again, when the columns point in different directions, so that each
-      target is built in exactly one way. The row picture and the column picture
-      describe the same system from two sides.
+      reach every point in the plane, {spanDots}, so every target has a solution.
+      Were the two columns parallel, their combinations would only reach points
+      along a single line, and most targets would have no solution at all. And
+      when is the solution unique? Again, when the columns point in different
+      directions, so that each target is built in exactly one way. The row
+      picture and the column picture describe the same system from two sides.
     animation:
       primitive: linear_transform
       params:
@@ -95,6 +93,7 @@ scenes:
         - {id: cols, action: columns, params: {c1_color: blue, c2_color: orange, labels: ["c_1", "c_2"]}}
         - {id: bvec, action: vector, params: {x: 3, y: 3, color: green, label: "b"}}
         - {id: comb, action: combo, params: {x: 2, y: 1, c1_color: blue, c2_color: orange}}
+        - {id: spanDots, action: span_demo, params: {color: green}}
     board:
       - id: vecEq
         latex: "x\\begin{pmatrix}2\\\\1\\end{pmatrix} + y\\begin{pmatrix}-1\\\\1\\end{pmatrix} = \\begin{pmatrix}3\\\\3\\end{pmatrix}"
@@ -114,13 +113,16 @@ scenes:
       loses nothing, because any values satisfying both originals also satisfy
       their combination. The strategy is to eliminate
       one unknown at a time. To remove x, subtract: twice the second equation
-      minus the first cancels the x terms and leaves {elim}. {pause:0.4} So y
+      minus the first cancels the x terms and leaves {elim}. So y
       equals one. Substitute this into the first equation, {back}, which gives x
-      equals two. {pause:0.4} The method generalises to any size. With more
+      equals two. The method generalises to any size. With more
       unknowns, eliminate the leading variable from each lower equation until the
       system is triangular, then substitute back upward. It always terminates and
-      returns every solution. All three pictures agree on the same result,
-      {soln}.
+      returns every solution, and it is exactly the procedure a computer uses to
+      solve thousands of equations at once. All three pictures agree on the same
+      result, {soln}: the lines cross there, the columns combine there, and the
+      elimination lands there. You can confirm it by substitution — two times two
+      minus one is three, and two plus one is three — so both equations hold.
     board:
       - id: ops
         text: "Row operations: swap; scale by a non-zero; add a multiple of another row."
@@ -144,10 +146,10 @@ scenes:
     narration: >
       Now a worked example. {statement} Two equations are given, {given}; find
       their solution. {find} Eliminate x by subtracting twice the first equation
-      from the second, {step1}. {pause:0.4} The x terms cancel, leaving minus
-      three y equals minus nine, so y equals three, {step2}. {pause:0.4}
+      from the second, {step1}. The x terms cancel, leaving minus
+      three y equals minus nine, so y equals three, {step2}.
       Substitute into the first equation: x plus three equals two, {step3}.
-      {pause:0.4} The solution is x equals minus one, y equals three, {answer}.
+      The solution is x equals minus one, y equals three, {answer}.
       It is worth checking: minus one plus three is two, and twice minus one
       minus three is minus five. Both equations hold, so the solution is correct.
     board:

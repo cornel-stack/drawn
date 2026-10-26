@@ -160,6 +160,33 @@ class SupplyDemand(Primitive):
             self.scene.wait(run_time * 0.4)
 
     @step
+    def show_gap(self, run_time: float, price: float = 6.0, color: str = "red",
+                 label: str = "surplus", **_):
+        """At a given price, mark the gap between quantity demanded and supplied.
+
+        A dashed line at the price, dots where it meets each curve, and a
+        double-arrow between them — the visible surplus (price above
+        equilibrium) or shortage (price below).
+        """
+        from manim import DashedLine, Dot, DoubleArrow, MathTex
+
+        qd = (self.a - price) / self.b if self.b else 0.0
+        qs = (price - self.c) / self.d if self.d else 0.0
+        qd = min(max(qd, 0.0), self.q_max)
+        qs = min(max(qs, 0.0), self.q_max)
+        pline = DashedLine(self.axes.c2p(0, price), self.axes.c2p(max(qd, qs), price),
+                           color=self.color(None), stroke_width=2)
+        dd = Dot(self.axes.c2p(qd, price), color=self.color("orange"), radius=0.08)
+        ds = Dot(self.axes.c2p(qs, price), color=self.color("blue"), radius=0.08)
+        arrow = DoubleArrow(self.axes.c2p(qd, price), self.axes.c2p(qs, price),
+                            color=self.color(color), buff=0.05, tip_length=0.18,
+                            stroke_width=5)
+        lbl = MathTex(rf"\text{{{label}}}", color=self.color(color),
+                      font_size=LABEL_FONT_SIZE).next_to(arrow, _up(), buff=0.12)
+        self.scene.play(_create(pline), _grow(dd), _grow(ds), run_time=run_time * 0.5)
+        self.scene.play(_grow(arrow), _write(lbl), run_time=run_time * 0.5)
+
+    @step
     def move_along(self, run_time: float, curve: str = "demand", to_q: float = 5.0,
                    color: str = "yellow", **_):
         """Slide a dot ALONG a fixed curve (a change in quantity demanded)."""
