@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import numpy as np
 
+from drawn_board import style
 from drawn_board.primitives.base import Primitive, register, step
 from drawn_board.style import LABEL_FONT_SIZE
 
@@ -39,12 +40,15 @@ class AxesPlot(Primitive):
         p = self.params
         self.axes = Axes(
             x_range=p.get("x", [-5, 5, 1]), y_range=p.get("y", [-4, 4, 1]),
-            x_length=p.get("x_length", 8.0), y_length=p.get("y_length", 4.6),
+            x_length=p.get("x_length", style.ANIM_WIDTH),
+            y_length=p.get("y_length", style.ANIM_HEIGHT),
             axis_config={"color": self.color(None), "stroke_width": 3,
-                         "include_ticks": True, "tip_width": 0.16, "tip_height": 0.16},
+                         "include_ticks": True, "tip_width": 0.16, "tip_height": 0.16,
+                         "font_size": 26, "include_numbers": True},
         )
-        # sit above the bottom caption band (~14 % of the frame)
-        self.axes.move_to(p.get("center", [0, 0.5, 0]))
+        # the animation lives in the lower region; the top band is kept clear for
+        # the scene's formula (see style.ANIM_CENTER / FORMULA_BAND_Y).
+        self.axes.move_to(p.get("center", style.ANIM_CENTER))
         self.scene.add(self.axes)
         if p.get("x_label"):
             self.scene.add(self._axis_label(p["x_label"], self.axes.x_axis.get_end(), _right()))

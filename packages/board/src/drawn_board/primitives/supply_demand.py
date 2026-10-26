@@ -7,8 +7,7 @@ idea of the lesson.
 
 from __future__ import annotations
 
-import numpy as np
-
+from drawn_board import style
 from drawn_board.primitives.base import Primitive, register, step
 from drawn_board.style import LABEL_FONT_SIZE
 
@@ -37,12 +36,14 @@ class SupplyDemand(Primitive):
 
         self.axes = Axes(
             x_range=[0, self.q_max, 1], y_range=[0, self.p_max, 1],
-            x_length=8.0, y_length=4.6,
+            x_length=style.ANIM_WIDTH, y_length=style.ANIM_HEIGHT,
             axis_config={"color": self.color(None), "stroke_width": 3,
-                         "include_ticks": True, "tip_width": 0.16, "tip_height": 0.16},
+                         "include_ticks": True, "tip_width": 0.16, "tip_height": 0.16,
+                         "font_size": 26, "include_numbers": True},
         )
-        # sit above the bottom caption band (~14 % of the frame)
-        self.axes.move_to([0, 0.5, 0])
+        # the animation lives in the lower region; the top band is left clear for
+        # the scene's formula so the two never overlap.
+        self.axes.move_to(style.ANIM_CENTER)
         self.scene.add(self.axes)
         self.scene.add(self._axis_label("Q", self.axes.x_axis.get_end(), _right()))
         self.scene.add(self._axis_label("P", self.axes.y_axis.get_end(), _up()))
@@ -57,20 +58,28 @@ class SupplyDemand(Primitive):
         return self.c + self.d * q
 
     def _clip(self, p_of_q, color):
+        """Draw the TRUE line P = p_of_q(Q), clipped to the axes box.
+
+        Clip along the line itself (find the Q-interval where 0 <= P <= p_max),
+        never by clamping P — clamping would bend the line to a wrong slope, so
+        the equilibrium dot would no longer sit on the drawn crossing.
+        """
         from manim import Line
 
-        qs = np.linspace(0, self.q_max, 2)
-        pts = []
-        for q in qs:
-            p = p_of_q(q)
-            if 0 <= p <= self.p_max:
-                pts.append(self.axes.c2p(q, p))
-        if len(pts) < 2:
-            # find where it crosses the box edges
-            q_lo, q_hi = 0, self.q_max
-            pts = [self.axes.c2p(q_lo, min(max(p_of_q(q_lo), 0), self.p_max)),
-                   self.axes.c2p(q_hi, min(max(p_of_q(q_hi), 0), self.p_max))]
-        return Line(pts[0], pts[-1], color=self.color(color), stroke_width=_CURVE_STROKE)
+        k = p_of_q(0.0)
+        m = p_of_q(1.0) - k  # slope dP/dQ (lines are straight)
+        lo, hi = 0.0, self.q_max
+        if abs(m) > 1e-9:
+            qa = (0.0 - k) / m            # Q where P hits the bottom edge (0)
+            qb = (self.p_max - k) / m     # Q where P hits the top edge (p_max)
+            lo = max(lo, min(qa, qb))
+            hi = min(hi, max(qa, qb))
+        lo = min(max(lo, 0.0), self.q_max)
+        hi = min(max(hi, 0.0), self.q_max)
+        if hi <= lo:
+            lo, hi = 0.0, self.q_max
+        return Line(self.axes.c2p(lo, p_of_q(lo)), self.axes.c2p(hi, p_of_q(hi)),
+                    color=self.color(color), stroke_width=_CURVE_STROKE)
 
     def _equilibrium(self):
         q = (self.a - self.c) / (self.b + self.d)
