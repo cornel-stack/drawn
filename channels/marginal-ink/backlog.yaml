@@ -3,21 +3,21 @@
 - code: MI-01
   title: 'Supply and demand, properly: what shifts a curve and what moves along it'
   course: Intermediate Microeconomics
-  source: OpenStax Principles of Microeconomics 2e (CC BY 4.0) Ch.3 Demand and Supply
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §3.2 Shifts in Demand and Supply for Goods and Services
   format: Explainer
   target_minutes: 9
   prereqs: []
 - code: MA-01
   title: 'GDP, properly: three ways to measure one number'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.1-2 Measurement
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §19.1 Measuring the Size of the Economy — GDP # [order: Garín Ch.1-2]
   format: Explainer
   target_minutes: 9
   prereqs: []
 - code: MI-02
   title: How to solve elasticity problems (point, arc, revenue test)
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §2.3 Elasticity
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §5.1 Price Elasticity of Demand and Price Elasticity of Supply # [order: McAfee §2.3]
   format: Worked problem ("how to solve")
   target_minutes: 9
   prereqs:
@@ -25,7 +25,7 @@
 - code: MA-02
   title: Inflation, the CPI and the GDP deflator (and why they disagree)
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.2 Prices
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §22.2 How to Measure Changes in the Cost of Living # [order: Garín Ch.2]
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -33,14 +33,14 @@
 - code: MI-03
   title: How to calculate opportunity cost (and why the PPF is curved)
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §2.1 Opportunity cost / PPF
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §2.2 The Production Possibilities Frontier and Social Choices # [order: McAfee §2.1]
   format: Worked problem ("how to solve")
   target_minutes: 7
   prereqs: []
 - code: MA-03
   title: The aggregate production function and diminishing returns to capital
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.4 Production function
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §20.3 Components of Economic Growth # [order: Garín Ch.4]
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -48,7 +48,7 @@
 - code: MI-04
   title: 'Consumer and producer surplus: how to calculate them from a graph'
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §2.5 Surplus
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §3.5 Demand, Supply, and Efficiency # [order: McAfee §2.5]
   format: Worked problem ("how to solve")
   target_minutes: 7
   prereqs:
@@ -56,7 +56,7 @@
 - code: MA-04
   title: 'The Solow growth model, part 1: the diagram and the steady state'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.5 Solow model
+  source: "FLAG: no CC BY/BY-SA source found — Solow growth model, steady state (intro-level OpenStax does not cover; original NC ref: Garín, Lester & Sims Ch.5)"
   format: Explainer
   target_minutes: 14
   prereqs:
@@ -64,7 +64,7 @@
 - code: MI-05
   title: 'Price ceilings, floors and taxes: who really pays?'
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §5 Government interventions
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §3.4 Price Ceilings and Price Floors # [order: McAfee §5]
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -72,7 +72,7 @@
 - code: MA-05
   title: 'Solow part 2: population, technology and the golden rule'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.5-6 Solow extensions
+  source: "FLAG: no CC BY/BY-SA source found — Solow model population/technology/golden rule (intro-level OpenStax does not cover; original NC ref: Garín, Lester & Sims Ch.5-6)"
   format: Explainer
   target_minutes: 14
   prereqs:
@@ -80,7 +80,7 @@
 - code: MI-06
   title: Indifference curves and the budget constraint, visualised
   course: Intermediate Microeconomics
-  source: 'McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §12 Consumer Theory: utility'
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) Appendix — What Is an Indifference Curve / Utility-Maximizing with Indifference Curves # [order: McAfee §12]
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -88,7 +88,7 @@
 - code: MA-06
   title: 'Growth accounting: how much of growth is capital, labour and ideas?'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.7 Growth accounting
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §20.2 Labor Productivity and Economic Growth # [order: Garín Ch.7]
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -96,8 +96,7 @@
 - code: MI-07
   title: Income vs substitution effects (the Slutsky decomposition, step by step)
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §12.3 Income & substitution
-    effects
+  source: "FLAG: no CC BY/BY-SA source found — Slutsky decomposition (formal income/substitution) (intro-level OpenStax does not cover; original NC ref: McAfee & Lewis §12.3)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -105,7 +104,7 @@
 - code: MA-07
   title: 'Consumption smoothing: the two-period model and permanent income'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.9 Consumption
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) Appendix — Indifference Curves with Labor-Leisure and Intertemporal Choices # [order: Garín Ch.9]
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -113,7 +112,7 @@
 - code: MI-29
   title: 'The labour-leisure choice: why higher wages don''t always mean more work'
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §12.4 Labour supply
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) Appendix — Indifference Curves with Labor-Leisure and Intertemporal Choices # [order: McAfee §12.4]
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -121,7 +120,7 @@
 - code: MA-26
   title: 'Investment: Tobin''s q and the user cost of capital'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.8 Investment
+  source: "FLAG: no CC BY/BY-SA source found — Tobin's q and user cost of capital (intro-level OpenStax does not cover; original NC ref: Garín, Lester & Sims Ch.8)"
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -129,7 +128,7 @@
 - code: MI-30
   title: 'Saving and borrowing: the intertemporal budget constraint'
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §12.5 Intertemporal choice
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) Appendix — Indifference Curves with Labor-Leisure and Intertemporal Choices # [order: McAfee §12.5]
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -137,7 +136,7 @@
 - code: MA-08
   title: 'Unemployment: natural rate, cyclical and the labour market diagram'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.12 Labour market
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §21.3 What Causes Changes in Unemployment over the Short Run # [order: Garín Ch.12]
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -145,7 +144,7 @@
 - code: MI-08
   title: Marginal utility and why demand slopes down
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §12.1 Marginal utility
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §6.1 Consumption Choices # [order: McAfee §12.1]
   format: Explainer
   target_minutes: 7
   prereqs:
@@ -153,21 +152,21 @@
 - code: MA-09
   title: How banks create money (the balance-sheet version)
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.15 Money
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §27.4 How Banks Create Money # [order: Garín Ch.15]
   format: Explainer
   target_minutes: 9
   prereqs: []
 - code: MI-09
   title: How to calculate marginal, average and total cost (and draw the curves)
   course: Intermediate Microeconomics
-  source: 'McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §9 Producer Theory: cost curves'
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §7.3 Costs in the Short Run # [order: McAfee §9]
   format: Worked problem ("how to solve")
   target_minutes: 9
   prereqs: []
 - code: MA-10
   title: 'The IS curve, derived: goods-market equilibrium and the multiplier'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.16 The IS curve
+  source: "FLAG: no CC BY/BY-SA source found — IS curve derivation (formal) (intro-level OpenStax does not cover; original NC ref: Garín, Lester & Sims Ch.16)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -175,7 +174,7 @@
 - code: MI-10
   title: Economies of scale and the long-run average cost curve
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §9.3 Returns to scale
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §7.5 Costs in the Long Run # [order: McAfee §9.3]
   format: Explainer
   target_minutes: 7
   prereqs:
@@ -183,7 +182,7 @@
 - code: MA-11
   title: 'The LM curve, derived: money-market equilibrium'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.17 The LM curve
+  source: "FLAG: no CC BY/BY-SA source found — LM curve derivation (formal) (intro-level OpenStax does not cover; original NC ref: Garín, Lester & Sims Ch.17)"
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -191,7 +190,7 @@
 - code: MI-11
   title: 'Cobb-Douglas: the production function that runs economics'
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §9.1 Production functions
+  source: "FLAG: no CC BY/BY-SA source found — Cobb-Douglas production function (formal) (intro-level OpenStax does not cover; original NC ref: McAfee & Lewis §9.1)"
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -199,7 +198,7 @@
 - code: MA-12
   title: 'The IS-LM model: fiscal and monetary policy in one diagram'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.18 IS-LM
+  source: "FLAG: no CC BY/BY-SA source found — IS-LM model (formal) (intro-level OpenStax does not cover; original NC ref: Garín, Lester & Sims Ch.18)"
   format: Explainer
   target_minutes: 14
   prereqs:
@@ -208,14 +207,14 @@
 - code: GT-01
   title: 'Game theory from zero: payoff matrices and dominant strategies'
   course: Game Theory
-  source: Bonanno, Game Theory (open access, UC Davis) Ch.1 Strategic games
+  source: "FLAG: no CC BY/BY-SA source found — payoff matrices and dominant strategies (formal game theory) (intro-level OpenStax does not cover; original NC ref: Bonanno Ch.1)"
   format: Explainer
   target_minutes: 9
   prereqs: []
 - code: EC-01
   title: 'Simple linear regression: what OLS actually minimises (and why)'
   course: Econometrics
-  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.4 Simple regression
+  source: "FLAG: no CC BY/BY-SA source found — simple linear regression / OLS (econometrics) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Ch.4)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -223,7 +222,7 @@
 - code: MI-28
   title: ALL of Intermediate Microeconomics in 20 minutes
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) (whole)
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) Microeconomics chapters (Ch.3-18, whole) # [order: McAfee whole]
   format: Anchor (ALL of…)
   target_minutes: 20
   prereqs:
@@ -231,7 +230,7 @@
 - code: MI-12
   title: 'Perfect competition: profit maximisation and the shutdown rule'
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §10 Perfect competition
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §8.2 How Perfectly Competitive Firms Make Output Decisions # [order: McAfee §10]
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -239,7 +238,7 @@
 - code: MA-13
   title: 'The AD-AS model: demand and supply shocks, short run to long run'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.19 AD-AS
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §24.2 Building a Model of Aggregate Demand and Aggregate Supply # [order: Garín Ch.19]
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -247,7 +246,7 @@
 - code: GT-02
   title: How to find a Nash equilibrium in a 2×2 game
   course: Game Theory
-  source: Bonanno, Game Theory (open access, UC Davis) Ch.2 Nash equilibrium
+  source: "FLAG: no CC BY/BY-SA source found — Nash equilibrium in 2x2 games (formal game theory) (intro-level OpenStax does not cover; original NC ref: Bonanno Ch.2)"
   format: Worked problem ("how to solve")
   target_minutes: 9
   prereqs:
@@ -255,7 +254,7 @@
 - code: EC-02
   title: 'R² explained: what it measures and the three ways people misuse it'
   course: Econometrics
-  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.4.3 Goodness of fit
+  source: "FLAG: no CC BY/BY-SA source found — R-squared / goodness-of-fit (econometrics) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Ch.4.3)"
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -263,7 +262,7 @@
 - code: MI-13
   title: From short run to long run in perfect competition (why profits vanish)
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §10.3 Long run
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §8.3 Entry and Exit Decisions in the Long Run # [order: McAfee §10.3]
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -271,7 +270,7 @@
 - code: MA-14
   title: 'The Phillips curve: why it worked, broke, and came back'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.20 Phillips curve
+  source: "FLAG: no CC BY/BY-SA source found — expectations-augmented Phillips curve (formal) (intro-level OpenStax does not cover; original NC ref: Garín, Lester & Sims Ch.20)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -279,7 +278,7 @@
 - code: GT-03
   title: 'The prisoner''s dilemma: why rational players lose'
   course: Game Theory
-  source: Bonanno, Game Theory (open access, UC Davis) Ch.2 Prisoner's dilemma
+  source: "FLAG: no CC BY/BY-SA source found — prisoner's dilemma (formal game theory) (intro-level OpenStax does not cover; original NC ref: Bonanno Ch.2)"
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -287,7 +286,7 @@
 - code: EC-03
   title: Standard errors, t-tests and p-values in a regression table
   course: Econometrics
-  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.5 Inference
+  source: "FLAG: no CC BY/BY-SA source found — standard errors / t-tests / p-values in regression (econometrics) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Ch.5)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -295,7 +294,7 @@
 - code: MI-14
   title: 'Monopoly: how to find price, quantity and deadweight loss'
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §15 Monopoly
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §9.2 How a Profit-Maximizing Monopoly Chooses Output and Price # [order: McAfee §15]
   format: Worked problem ("how to solve")
   target_minutes: 11
   prereqs:
@@ -303,7 +302,7 @@
 - code: MA-15
   title: 'Monetary policy and the Taylor rule: how central banks set rates'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.21 Monetary policy
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §28.3 How a Central Bank Executes Monetary Policy # [order: Garín Ch.21]
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -311,7 +310,7 @@
 - code: GT-04
   title: Sequential games and backward induction (game trees)
   course: Game Theory
-  source: Bonanno, Game Theory (open access, UC Davis) Ch.3 Perfect information
+  source: "FLAG: no CC BY/BY-SA source found — sequential games / backward induction (formal game theory) (intro-level OpenStax does not cover; original NC ref: Bonanno Ch.3)"
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -319,7 +318,7 @@
 - code: EC-04
   title: Multiple regression and omitted variable bias, visualised
   course: Econometrics
-  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.6 Multiple regression
+  source: "FLAG: no CC BY/BY-SA source found — multiple regression / omitted variable bias (econometrics) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Ch.6)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -327,7 +326,7 @@
 - code: MA-25
   title: ALL of Intermediate Macroeconomics in 20 minutes
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) (whole)
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) Macroeconomics chapters (Ch.19-34, whole) # [order: Garín whole]
   format: Anchor (ALL of…)
   target_minutes: 20
   prereqs:
@@ -335,7 +334,7 @@
 - code: MI-15
   title: How to calculate deadweight loss (tax, monopoly, price control)
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §15.2 Deadweight loss
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §3.4 Price Ceilings and Price Floors / §9.2 Monopoly Output and Price # [order: McAfee §15.2]
   format: Worked problem ("how to solve")
   target_minutes: 7
   prereqs:
@@ -343,7 +342,7 @@
 - code: MA-16
   title: 'Fiscal policy, deficits and debt: the government budget constraint'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.22 Fiscal policy
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §30.3 Federal Deficits and the National Debt # [order: Garín Ch.22]
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -351,7 +350,7 @@
 - code: GT-05
   title: 'Subgame perfect equilibrium: the threats that aren''t credible'
   course: Game Theory
-  source: Bonanno, Game Theory (open access, UC Davis) Ch.4 Subgame perfection
+  source: "FLAG: no CC BY/BY-SA source found — subgame perfect equilibrium / credible threats (formal game theory) (intro-level OpenStax does not cover; original NC ref: Bonanno Ch.4)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -359,7 +358,7 @@
 - code: EC-05
   title: 'Multicollinearity: why your coefficients went crazy'
   course: Econometrics
-  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.6.4 Multicollinearity
+  source: "FLAG: no CC BY/BY-SA source found — multicollinearity (econometrics) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Ch.6.4)"
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -367,7 +366,7 @@
 - code: MI-16
   title: 'Price discrimination: why the same seat costs three prices'
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §15.4 Price discrimination
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §9.2 How a Profit-Maximizing Monopoly Chooses Output and Price # [order: McAfee §15.4]
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -375,7 +374,7 @@
 - code: MA-17
   title: Exchange rates and the balance of payments, explained
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.24 Open economy
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §23.1 Measuring Trade Balances / §29.1 How the Foreign Exchange Market Works # [order: Garín Ch.24]
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -383,7 +382,7 @@
 - code: GT-06
   title: 'Mixed strategies: how to solve for the probabilities'
   course: Game Theory
-  source: Bonanno, Game Theory (open access, UC Davis) Ch.5 Mixed strategies
+  source: "FLAG: no CC BY/BY-SA source found — mixed strategies (formal game theory) (intro-level OpenStax does not cover; original NC ref: Bonanno Ch.5)"
   format: Worked problem ("how to solve")
   target_minutes: 11
   prereqs:
@@ -391,7 +390,7 @@
 - code: EC-06
   title: Heteroskedasticity and robust standard errors
   course: Econometrics
-  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.5.4 Heteroskedasticity
+  source: "FLAG: no CC BY/BY-SA source found — heteroskedasticity / robust standard errors (econometrics) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Ch.5.4)"
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -399,7 +398,7 @@
 - code: EC-07
   title: 'Logs in regression: how to read elasticities and percent changes'
   course: Econometrics
-  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.8 Nonlinear
+  source: "FLAG: no CC BY/BY-SA source found — logs in regression / elasticities (econometrics) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Ch.8)"
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -407,7 +406,7 @@
 - code: GT-07
   title: 'Repeated games and tit-for-tat: how cooperation survives'
   course: Game Theory
-  source: Bonanno, Game Theory (open access, UC Davis) Ch.7 Repeated games
+  source: "FLAG: no CC BY/BY-SA source found — repeated games / tit-for-tat (formal game theory) (intro-level OpenStax does not cover; original NC ref: Bonanno Ch.7)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -415,7 +414,7 @@
 - code: MI-17
   title: How to solve a Cournot oligopoly problem
   course: Intermediate Microeconomics
-  source: 'McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §17 Oligopoly: Cournot'
+  source: "FLAG: no CC BY/BY-SA source found — Cournot oligopoly (formal game theory) (intro-level OpenStax does not cover; original NC ref: McAfee & Lewis §17)"
   format: Worked problem ("how to solve")
   target_minutes: 11
   prereqs:
@@ -424,7 +423,7 @@
 - code: MA-18
   title: 'The Mundell-Fleming model: the trilemma every central bank faces'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.25 Mundell-Fleming
+  source: "FLAG: no CC BY/BY-SA source found — Mundell-Fleming model / trilemma (formal) (intro-level OpenStax does not cover; original NC ref: Garín, Lester & Sims Ch.25)"
   format: Explainer
   target_minutes: 14
   prereqs:
@@ -441,7 +440,7 @@
 - code: GT-08
   title: 'Games with incomplete information: Bayesian Nash equilibrium'
   course: Game Theory
-  source: Bonanno, Game Theory (open access, UC Davis) Ch.8 Bayesian games
+  source: "FLAG: no CC BY/BY-SA source found — Bayesian Nash equilibrium / incomplete information (formal game theory) (intro-level OpenStax does not cover; original NC ref: Bonanno Ch.8)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -449,7 +448,7 @@
 - code: MI-18
   title: How to solve a Stackelberg problem (and why moving first pays)
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §17.2 Stackelberg
+  source: "FLAG: no CC BY/BY-SA source found — Stackelberg leadership (formal game theory) (intro-level OpenStax does not cover; original NC ref: McAfee & Lewis §17.2)"
   format: Worked problem ("how to solve")
   target_minutes: 9
   prereqs:
@@ -457,7 +456,7 @@
 - code: MA-19
   title: 'Bank runs and financial crises: the Diamond-Dybvig idea'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.26 Financial crises
+  source: "FLAG: no CC BY/BY-SA source found — Diamond-Dybvig bank runs (formal) (intro-level OpenStax does not cover; original NC ref: Garín, Lester & Sims Ch.26)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -473,7 +472,7 @@
 - code: GT-09
   title: 'Signalling games: why degrees exist (Spence)'
   course: Game Theory
-  source: Bonanno, Game Theory (open access, UC Davis) Ch.9 Signalling
+  source: "FLAG: no CC BY/BY-SA source found — signalling games / Spence (formal game theory) (intro-level OpenStax does not cover; original NC ref: Bonanno Ch.9)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -481,7 +480,7 @@
 - code: MI-19
   title: 'Bertrand competition: why two firms can be enough for competitive prices'
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §17.3 Bertrand
+  source: "FLAG: no CC BY/BY-SA source found — Bertrand competition (formal game theory) (intro-level OpenStax does not cover; original NC ref: McAfee & Lewis §17.3)"
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -489,7 +488,7 @@
 - code: MA-20
   title: 'Classical vs Keynesian: what they actually disagree about'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.14 Classical vs Keynesian
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §26.3 Balancing Keynesian and Neoclassical Models # [order: Garín Ch.14]
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -513,7 +512,7 @@
 - code: GT-10
   title: 'Auctions: first-price, second-price and why you should bid your value'
   course: Game Theory
-  source: Bonanno, Game Theory (open access, UC Davis) Ch.6 Auctions
+  source: "FLAG: no CC BY/BY-SA source found — auctions / first- and second-price bidding (formal game theory) (intro-level OpenStax does not cover; original NC ref: Bonanno Ch.6)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -521,7 +520,7 @@
 - code: MI-20
   title: Monopolistic competition in the short and long run
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §16 Monopolistic competition
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §10.1 Monopolistic Competition # [order: McAfee §16]
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -529,7 +528,7 @@
 - code: MA-21
   title: 'Real business cycle theory: recessions as rational responses?'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.11 Real business cycles
+  source: "FLAG: no CC BY/BY-SA source found — real business cycle theory (formal) (intro-level OpenStax does not cover; original NC ref: Garín, Lester & Sims Ch.11)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -545,7 +544,7 @@
 - code: GT-11
   title: 'Bargaining: the ultimatum game and the Nash bargaining solution'
   course: Game Theory
-  source: Bonanno, Game Theory (open access, UC Davis) Ch.3 Bargaining
+  source: "FLAG: no CC BY/BY-SA source found — ultimatum game / Nash bargaining (formal game theory) (intro-level OpenStax does not cover; original NC ref: Bonanno Ch.3)"
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -553,7 +552,7 @@
 - code: MI-21
   title: 'Externalities: the social cost curve and the Pigouvian tax'
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §7 Externalities
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §12.1 The Economics of Pollution # [order: McAfee §7]
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -561,7 +560,7 @@
 - code: MA-22
   title: Rational expectations and the Lucas critique
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.23 Expectations
+  source: "FLAG: no CC BY/BY-SA source found — rational expectations / Lucas critique (formal) (intro-level OpenStax does not cover; original NC ref: Garín, Lester & Sims Ch.23)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -577,7 +576,7 @@
 - code: GT-12
   title: 'Cournot as a game: oligopoly through the Nash lens'
   course: Game Theory
-  source: Bonanno, Game Theory (open access, UC Davis) Applications
+  source: "FLAG: no CC BY/BY-SA source found — Cournot as a game / Nash lens (formal game theory) (intro-level OpenStax does not cover; original NC ref: Bonanno Applications)"
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -586,7 +585,7 @@
 - code: MI-22
   title: 'The Coase theorem: when property rights fix externalities'
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §7.3 Coase
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §12.3 Market-Oriented Environmental Tools # [order: McAfee §7.3]
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -594,7 +593,7 @@
 - code: MA-23
   title: 'Quantitative easing and the zero lower bound: what the Fed actually did'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.27 Zero lower bound
+  source: "FLAG: no CC BY/BY-SA source found — quantitative easing / zero lower bound (formal) (intro-level OpenStax does not cover; original NC ref: Garín, Lester & Sims Ch.27)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -602,7 +601,7 @@
 - code: EC-13
   title: 'Panel data and fixed effects: controlling for what you can''t see'
   course: Econometrics
-  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.10 Panel data
+  source: "FLAG: no CC BY/BY-SA source found — panel data / fixed effects (econometrics) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Ch.10)"
   format: Explainer
   target_minutes: 14
   prereqs:
@@ -610,7 +609,7 @@
 - code: GT-13
   title: 'Evolutionary game theory: hawks, doves and stable strategies'
   course: Game Theory
-  source: Bonanno, Game Theory (open access, UC Davis) Applications
+  source: "FLAG: no CC BY/BY-SA source found — evolutionary game theory / hawks-doves (formal game theory) (intro-level OpenStax does not cover; original NC ref: Bonanno Applications)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -618,7 +617,7 @@
 - code: MI-23
   title: Public goods and the free-rider problem
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §7.4 Public goods
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §13.3 Public Goods # [order: McAfee §7.4]
   format: Explainer
   target_minutes: 7
   prereqs:
@@ -626,7 +625,7 @@
 - code: MA-24
   title: 'Why poor countries don''t always catch up: convergence and the Solow puzzle'
   course: Intermediate Macroeconomics
-  source: Garín, Lester & Sims, Intermediate Macroeconomics (free PDF) Ch.5 Convergence
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §20.4 Economic Convergence # [order: Garín Ch.5]
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -634,7 +633,7 @@
 - code: GT-14
   title: ALL of Game Theory in 15 minutes
   course: Game Theory
-  source: Bonanno, Game Theory (open access, UC Davis) (whole)
+  source: "FLAG: no CC BY/BY-SA source found — game theory survey (formal game theory, whole) (intro-level OpenStax does not cover; original NC ref: Bonanno whole)"
   format: Anchor (ALL of…)
   target_minutes: 15
   prereqs:
@@ -651,7 +650,7 @@
 - code: MI-24
   title: 'Adverse selection and moral hazard: why used cars and insurance are hard'
   course: Intermediate Microeconomics
-  source: 'McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §18 Information: adverse selection'
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §16.1 The Problem of Imperfect Information and Asymmetric Information # [order: McAfee §18]
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -659,7 +658,7 @@
 - code: EC-15
   title: 'Probit and logit: regression when y is yes/no'
   course: Econometrics
-  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.11 Binary outcomes
+  source: "FLAG: no CC BY/BY-SA source found — probit / logit (econometrics) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Ch.11)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -667,7 +666,7 @@
 - code: MI-25
   title: 'The Edgeworth box: general equilibrium in one picture'
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §13 General equilibrium
+  source: "FLAG: no CC BY/BY-SA source found — Edgeworth box / general equilibrium (intro-level OpenStax does not cover; original NC ref: McAfee & Lewis §13)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -675,7 +674,7 @@
 - code: EC-16
   title: 'Time series basics: stationarity, autocorrelation and spurious regression'
   course: Econometrics
-  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.14 Time series
+  source: "FLAG: no CC BY/BY-SA source found — time series / stationarity / spurious regression (econometrics) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Ch.14)"
   format: Explainer
   target_minutes: 14
   prereqs:
@@ -683,7 +682,7 @@
 - code: MI-26
   title: Labour markets and the minimum wage, with and without monopsony
   course: Intermediate Microeconomics
-  source: McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §11 Factor markets
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §14.2 Wages and Employment in an Imperfectly Competitive Labor Market # [order: McAfee §11]
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -691,7 +690,7 @@
 - code: EC-17
   title: ARIMA models, explained without the alphabet soup
   course: Econometrics
-  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.14.4 ARIMA
+  source: "FLAG: no CC BY/BY-SA source found — ARIMA models (econometrics) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Ch.14.4)"
   format: Explainer
   target_minutes: 14
   prereqs:
@@ -699,7 +698,7 @@
 - code: MI-27
   title: 'Comparative advantage: how to work out who should make what'
   course: Intermediate Microeconomics
-  source: 'McAfee & Lewis, Introduction to Economic Analysis (CC BY-NC-SA) §4 Trade: comparative advantage'
+  source: OpenStax Principles of Economics 3e (CC BY 4.0) §33.1 Absolute and Comparative Advantage # [order: McAfee §4]
   format: Worked problem ("how to solve")
   target_minutes: 9
   prereqs:
@@ -707,7 +706,7 @@
 - code: EC-18
   title: 'Cointegration and error correction: when two random walks move together'
   course: Econometrics
-  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.16 Cointegration
+  source: "FLAG: no CC BY/BY-SA source found — cointegration / error correction (econometrics) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Ch.16)"
   format: Explainer
   target_minutes: 11
   prereqs:
@@ -739,7 +738,7 @@
 - code: EC-22
   title: Your first regression in R and Python, side by side
   course: Econometrics
-  source: 'Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Appendix: software'
+  source: "FLAG: no CC BY/BY-SA source found — first regression in R/Python (econometrics software) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Appendix)"
   format: Worked problem ("how to solve")
   target_minutes: 11
   prereqs:
@@ -755,7 +754,7 @@
 - code: EC-24
   title: 'Frisch-Waugh-Lovell: what a coefficient really is in multiple regression'
   course: Econometrics
-  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.4 Regression anatomy
+  source: "FLAG: no CC BY/BY-SA source found — Frisch-Waugh-Lovell / regression anatomy (econometrics) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Ch.4)"
   format: Explainer
   target_minutes: 9
   prereqs:
@@ -763,7 +762,7 @@
 - code: EC-26
   title: 'Functional form and specification errors: when the model is wrong, not the data'
   course: Econometrics
-  source: Hanck et al., Introduction to Econometrics with R (CC BY-NC-SA) Ch.7 Specification
+  source: "FLAG: no CC BY/BY-SA source found — functional form / specification errors (econometrics) (intro-level OpenStax does not cover; original NC ref: Hanck et al. Ch.7)"
   format: Explainer
   target_minutes: 9
   prereqs:
