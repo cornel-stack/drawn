@@ -1,172 +1,181 @@
-# LA-01: What a system of linear equations really is (3 pictures beat 3 formulas).
-# Hefferon, Linear Algebra §1.I.1 Gauss's Method (CC BY-SA). ~7 minutes.
-# Colour discipline: equation one / column one = orange, two = blue, solution = green.
+# LA-01: What a system of linear equations really is — three pictures.
+# Hefferon, Linear Algebra §1.I.1 Gauss's Method (CC BY-SA 3.0). ~7 minutes.
+# Colour discipline: first equation / first column = blue; second = orange;
+# solution / result = green; the target vector b = orange.
 schema_version: 1
 id: LA-01
 channel: chalk-and-vector
-title: "What a system of linear equations really is"
+title: "What a system of linear equations really is (and why 3 pictures beat 3 formulas)"
 target_minutes: 7
 source:
-  book: "Hefferon, Linear Algebra"
+  book: "Linear Algebra (Jim Hefferon)"
   section: "§1.I.1 Gauss's Method"
   license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/001-solving-linear-systems.md"
+  pages: "11-44"
 
 scenes:
   - id: s1
     kind: title
     narration: >
-      A system of linear equations looks like a wall of symbols, but it can be
-      seen in three different pictures.
+      A system of linear equations looks like a wall of symbols. But the same
+      system can be seen in three different pictures, and the pictures explain
+      far more than the formulas do.
 
   - id: s2
     kind: diagram
     narration: >
-      Take two equations in two unknowns, {rowA}: x plus y equals three, and x
-      minus y equals one. The first picture reads each equation on its own.
-      Every pair of x and y that satisfies x plus y equals three lies on a
-      straight line, and the second equation draws a line of its own, {rowB}. A
-      pair that solves the whole system must sit on both lines at once, so the
-      solution is exactly where the two lines cross, {rowX}. Here they meet at x
-      equals two, y equals one. This is the row picture: one line per equation,
-      and the solution is their intersection. The word linear is doing real work
-      here: each unknown appears only on its own, never squared, never
-      multiplied by another, never buried inside a function. That modest rule is
-      exactly what forces the graph to be a straight line rather than some
-      curve, and it is why the whole subject is so beautifully well-behaved.
-      With three unknowns each equation would instead describe a flat plane, and
-      the solution would be where the planes meet.
+      Here is a small system, {eq1} and {eq2}. Linear means each unknown appears
+      only on its own, to the first power — no squares, no products, no sines.
+      The first picture is the row picture: read each equation as a line in the
+      plane. Plot the first, {lineA}; every point on it satisfies that one
+      equation. Plot the second, {lineB}. A solution must satisfy both at once,
+      so it has to lie on both lines — and two lines in a plane meet at a single
+      point, {cross}. Reading off that crossing gives x equals two, y equals one.
+      The first picture already tells us something the symbols hid: a solution
+      exists, and because the lines are not parallel, it is the only one. Had the
+      two lines come out parallel, they would never meet, and the system would
+      have no solution at all. Had they come out as the very same line, every
+      point on it would work, and there would be infinitely many. So the row
+      picture does not just solve this system; it shows, at a glance, which of
+      the three possibilities you are in.
     animation:
       primitive: axes_plot
       params:
-        x: [-2, 6, 1]
-        y: [-3, 5, 1]
-        x_label: "x"
-        y_label: "y"
+        x: [-2, 5, 1]
+        y: [-2, 5, 1]
       steps:
-        - {id: rowA, action: plot_line, params: {name: L1, a: 1, b: 1, c: 3, color: orange, label: "x+y=3"}}
-        - {id: rowB, action: plot_line, params: {name: L2, a: 1, b: -1, c: 1, color: blue, label: "x-y=1"}}
-        - {id: rowX, action: intersect, params: {line1: L1, line2: L2, color: green, label: "(2,1)"}}
-    board: []
+        - {id: lineA, action: plot_line, params: {name: LA, a: 2, b: -1, c: 3, color: blue}}
+        - {id: lineB, action: plot_line, params: {name: LB, a: 1, b: 1, c: 3, color: orange}}
+        - {id: cross, action: intersect, params: {line1: LA, line2: LB, color: green}}
+    board:
+      - id: eq1
+        latex: "2x - y = 3"
+        say: "two x minus y equals three"
+        color: blue
+      - id: eq2
+        latex: "x + y = 3"
+        say: "x plus y equals three"
+        color: orange
 
   - id: s3
     kind: diagram
     narration: >
-      Watch two parallel lines, {parA} {parB}. The row picture also shows, at a
-      glance, when a system misbehaves: lines like these never meet, so the
-      system has no solution at all. And if the two equations secretly
-      describe the very same line, then every point on it solves both, and there
-      are infinitely many solutions. So a two by two system has exactly three
-      fates — one crossing, no crossing, or complete overlap — and which one you
-      are in is obvious the moment you draw the lines. No amount of staring at
-      the raw numbers makes that as clear as the picture does. The same three
-      fates survive into higher dimensions: three planes in space might pierce
-      at a single point, or share a whole line, or have no common point
-      whatsoever. A system with at least one solution we call consistent, and
-      one with none inconsistent, and the row picture is simply the honest
-      geometry behind those words.
+      The second picture is the column picture. Stack the coefficients into
+      columns and the very same system becomes a vector equation: x times the
+      first column plus y times the second column equals the right-hand side,
+      {vecEq}. Draw the two coefficient columns as arrows, {cols}, and draw the
+      target on the right as its own arrow, {bvec}. Now the question changes
+      shape entirely. Instead of asking where two lines meet, we ask: how much
+      of each column vector do we combine to reach the target? Take two of the
+      first column and one of the second, laid tip to tail, {comb}, and they land
+      exactly on the target. So x equals two, y equals one — the same answer, now
+      read as a recipe for building one vector out of two others. This picture
+      has its own test for solvability. If the target pointed somewhere the two
+      columns could never reach between them, there would be no solution; but
+      because these two columns point in genuinely different directions, their
+      combinations sweep out the whole plane, so every target is reachable and
+      the recipe for it is unique. Lines crossing and vectors combining are the
+      same fact wearing two costumes.
     animation:
-      primitive: axes_plot
+      primitive: linear_transform
       params:
-        x: [-2, 6, 1]
-        y: [-3, 5, 1]
+        x_range: [-3, 5]
+        y_range: [-2, 4]
+        matrix: [[2, -1], [1, 1]]
       steps:
-        - {id: parA, action: plot_line, params: {name: P1, a: 1, b: 1, c: 2, color: orange, label: "x+y=2"}}
-        - {id: parB, action: plot_line, params: {name: P2, a: 1, b: 1, c: 5, color: blue, label: "x+y=5"}}
-    board: []
+        - {id: cols, action: columns, params: {c1_color: blue, c2_color: orange, labels: ["c_1", "c_2"]}}
+        - {id: bvec, action: vector, params: {x: 3, y: 3, color: green, label: "b"}}
+        - {id: comb, action: combo, params: {x: 2, y: 1, c1_color: blue, c2_color: orange}}
+    board:
+      - id: vecEq
+        latex: "x\\begin{pmatrix}2\\\\1\\end{pmatrix} + y\\begin{pmatrix}-1\\\\1\\end{pmatrix} = \\begin{pmatrix}3\\\\3\\end{pmatrix}"
+        say: "x times the column two, one, plus y times the column minus one, one, equals the column three, three"
+        color: green
 
   - id: s4
-    kind: diagram
-    narration: >
-      Columns next, {colA} {colB}. The second picture is cleverer: it reads the
-      same system down its columns instead of across its rows. The left-hand
-      sides are built from two column vectors, one for each unknown, and we ask a
-      single question — what combination of those columns lands on the
-      right-hand side? That is, how much of the first and how much of the second
-      must we add to reach the target vector b, {colSum}? The answer, two of the
-      first plus one of the second, is the same solution as before — and now it
-      means a recipe for building b out of the columns, {colEq}. This is the
-      column picture, and it
-      is the doorway to everything linear algebra does with vectors. Asking which
-      targets b are reachable at all is asking which vectors the columns can
-      build between them — their span — and asking whether the recipe is unique
-      is asking whether the columns point in genuinely different directions. Two
-      questions that looked like pure arithmetic become questions about shape,
-      and that shift is the whole reason the column picture is worth the effort.
-    animation:
-      primitive: vectors
-      params:
-        axes: {x: [-1, 4, 1], y: [-2, 4, 1], x_length: 6.0, y_length: 4.2, center: [-0.3, 0.4, 0]}
-        vectors:
-          A: {to: [2, 2], color: orange, label: "2a1"}
-          B: {to: [1, -1], color: blue, label: "a2"}
-      steps:
-        - {id: colA, action: draw, params: {name: A}}
-        - {id: colB, action: draw, params: {name: B}}
-        - {id: colSum, action: add_tip_to_tail, params: {a: A, b: B, result: b, color: green}}
-    board:
-      - id: colEq
-        latex: "x\\,\\vec{a}_1 + y\\,\\vec{a}_2 = \\vec{b}"
-        say: "x times a one plus y times a two equals b"
-        color: green
-
-  - id: s5
     kind: derivation
     narration: >
-      Write the two equations down, {g1} {g2}. The third picture is the method
-      that actually solves them, and it is just disciplined bookkeeping. Gauss's
-      idea is to remove one unknown by combining rows: subtract the first
-      equation from the second, and the x terms cancel, leaving minus two y
-      equals minus two, {g3}. That immediately gives y equals one, {g4}. Put
-      that back into the first equation and x equals two, {g5}. Every linear
-      system, however large, falls to this same routine — eliminate downward to
-      a staircase, then substitute back upward. Only three moves are ever
-      allowed: swap two equations, multiply an equation through by a non-zero
-      number, or add a multiple of one equation to another. Each of the three
-      leaves the solution set untouched, which is the quiet reason the whole
-      method is trustworthy — we are not changing the problem, only rewriting it
-      into a shape we can read off. The pictures tell you what the answer means;
-      Gauss's method is how you reliably find it.
+      The third picture is the algebra, and it is the one that actually computes.
+      The tool is Gauss's method, built from three operations that never change a
+      system's solutions, {ops}: swap two rows, multiply a row by a non-zero
+      number, or add a multiple of one row to another. Each of the three is
+      reversible, so none can gain or lose a solution — it only rewrites the same
+      system in a simpler form. We use them to remove unknowns one at a time,
+      driving the system towards a triangular shape we can read from the bottom
+      up. Take twice the second equation minus the first to eliminate x, and only
+      y survives, {elim}. {pause:1.2} That gives y equals one at once. Substitute
+      back into the second equation, {back}, and x equals two. {pause:1.0} The
+      method never guesses and always terminates, and here all three pictures
+      agree on the same solution, {soln} — the lines cross there, the columns
+      combine there, and the elimination lands there.
     board:
-      - id: g1
-        latex: "x + y = 3"
-        say: "x plus y equals three"
-        color: orange
-      - id: g2
-        latex: "x - y = 1"
-        say: "x minus y equals one"
+      - id: ops
+        text: "Row operations: swap; scale by a non-zero; add a multiple of another row."
         color: blue
-      - id: g3
-        latex: "-2y = -2"
-        say: "minus two y equals minus two"
-        color: yellow
-      - id: g4
-        latex: "y = 1"
-        say: "y equals one"
+      - id: elim
+        latex: "2(x+y) - (2x - y) = 2(3) - 3 \\;\\Rightarrow\\; 3y = 3"
+        say: "twice x plus y, minus two x minus y, equals twice three minus three, which gives three y equals three"
+        color: orange
+      - id: back
+        latex: "x + y = 3 \\;\\Rightarrow\\; x = 2"
+        say: "x plus y equals three, so x equals two"
+        color: orange
+      - id: soln
+        latex: "(x, y) = (2, 1)"
+        say: "x equals two, y equals one"
         color: green
-      - id: g5
-        latex: "x = 2"
-        say: "x equals two"
+        box: true
+
+  - id: s5
+    kind: problem
+    narration: >
+      Your turn, by elimination. {statement} We are given two equations, {given},
+      and we want their unique solution. {find} Eliminate x by subtracting twice
+      the first equation from the second, {step1}. {pause:0.8} The x terms cancel
+      and we are left with minus three y equals minus nine, so y equals three,
+      {step2}. {pause:0.8} Substitute back into the first equation, x plus three
+      equals two, {step3}. {pause:1.0} So the solution is x equals minus one, y
+      equals three, {answer} — the single point where these two lines cross.
+    board:
+      - id: statement
+        text: "Solve the system by Gauss's method."
+      - id: given
+        latex: "x + y = 2, \\qquad 2x - y = -5"
+        say: "x plus y equals two; two x minus y equals minus five"
+        role: given
+      - id: find
+        text: "Find the solution (x, y)."
+        role: find
+      - id: step1
+        latex: "(2x - y) - 2(x + y) = -5 - 2(2)"
+        say: "two x minus y, minus twice x plus y, equals minus five minus twice two"
+        role: step
+        color: blue
+      - id: step2
+        latex: "-3y = -9 \\;\\Rightarrow\\; y = 3"
+        say: "minus three y equals minus nine, so y equals three"
+        role: step
+      - id: step3
+        latex: "x + 3 = 2 \\;\\Rightarrow\\; x = -1"
+        say: "x plus three equals two, so x equals minus one"
+        role: step
+        color: blue
+      - id: answer
+        latex: "(x, y) = (-1, 3)"
+        say: "x equals minus one, y equals three"
+        role: answer
+        box: true
         color: green
+    check:
+      expr: "np.linalg.solve([[1, 1], [2, -1]], [2, -5])[0]"
+      value: -1.0
+      unit: ""
+      tol: 0.01
 
   - id: s6
-    kind: summary
-    narration: >
-      So one system, three pictures, {recap}: rows are lines that cross at the
-      solution; columns are vectors we combine to reach the target; and Gauss's
-      method is the elimination that computes it. Keep all three in mind and a
-      wall of symbols turns into something you can genuinely see and understand.
-      Next, in DE-01, we ask what a differential equation really is, and why
-      physics is written in them.
-    animation:
-      primitive: axes_plot
-      params:
-        x: [-2, 6, 1]
-        y: [-3, 5, 1]
-      steps:
-        - {id: recap, action: plot_line, params: {name: r, a: 1, b: 1, c: 3, color: orange}}
-    board: []
-
-  - id: s7
     kind: end
-    narration: ""
-    board: []
+    narration: >
+      In one line: a linear system is lines meeting, columns combining, and
+      elimination computing — one truth in three pictures. Next: the geometry of
+      n-space, where these arrows gain a length and an angle.

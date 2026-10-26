@@ -79,7 +79,7 @@ def register(name: str):
 
 def _import_optional() -> None:
     """Import real primitive modules that supersede planned stubs, if present."""
-    for mod in ("axes_plot", "supply_demand", "linear_system"):
+    for mod in ("axes_plot", "supply_demand", "linear_transform"):
         try:
             __import__(f"drawn_board.primitives.{mod}")
         except ModuleNotFoundError:

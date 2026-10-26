@@ -60,6 +60,7 @@ map:
   "\\vec": "vector"
   # named people and terms
   "Gauss": "gowss"
+  "Gauss's": "gowss-iz"
   "Gaussian": "gowss-ian"
   "Euler": "oiler"
   "Bernoulli": "ber-noo-lee"
