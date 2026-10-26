@@ -95,8 +95,8 @@ scenes:
   - id: s4
     kind: diagram
     narration: >
-      Consider first a change in the price of the good itself, {drawD3}, with
-      nothing else changing. Buyers adjust the quantity they purchase, moving to
+      First, change the price of the good itself, {drawD3}, with nothing else
+      changing. Buyers adjust the quantity they purchase, moving to
       a different point on the same curve, {slide}. The curve does not move; only
       the quantity demanded changes. This is called a change in quantity
       demanded, or a movement along the curve. Price and quantity are the two
@@ -115,8 +115,8 @@ scenes:
   - id: s5
     kind: diagram
     narration: >
-      Now consider a change in a factor other than the price, {drawD4} {drawS2}
-      {eq2}. Suppose buyers' incomes rise. At every price, they now demand more,
+      Now a shift, {drawD4} {drawS2} {eq2}. Change a factor other than the price
+      itself. Suppose buyers' incomes rise. At every price, they now demand more,
       so the entire demand curve moves to the right, {shiftD}. This is a change
       in demand — a shift of the whole curve — and it produces a new equilibrium
       at a higher price and a higher quantity. A shift also results from a change
