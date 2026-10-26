@@ -18,32 +18,33 @@ scenes:
   - id: s1
     kind: title
     narration: >
-      A system of linear equations looks like a wall of symbols. But the same
-      system can be seen in three different pictures, and the pictures explain
-      far more than the formulas do.
+      A system of linear equations can be read in three ways: as intersecting
+      lines, as a combination of vectors, and as an elimination procedure. This
+      lesson covers all three.
 
   - id: s2
     kind: diagram
     narration: >
-      Here is the row picture, {lineA}. That line is the first equation of a
-      small system, {eq1}: every point on it satisfies that one equation. Linear
-      means each unknown appears only on its own, to the first power — no
-      squares, no products, no sines. Plot the second equation as a line too,
-      {lineB}, {eq2}. A solution must satisfy both at once, so it has to lie on
-      both lines — and two lines in a plane meet at a single point, {cross}.
-      Reading off that crossing gives x equals two, y equals one.
-      The first picture already tells us something the symbols hid: a solution
-      exists, and because the lines are not parallel, it is the only one. Had the
-      two lines come out parallel, they would never meet, and the system would
-      have no solution at all. Had they come out as the very same line, every
-      point on it would work, and there would be infinitely many. So the row
-      picture does not just solve this system; it shows, at a glance, which of
-      the three possibilities you are in. A system with at least one solution we
-      call consistent, and one with none inconsistent — names for what the
-      geometry makes obvious. And the same three fates survive into higher
-      dimensions: with three unknowns each equation is a flat plane instead of a
-      line, and the solution is where the planes meet — at a point, along a whole
-      line, or nowhere at all.
+      This is the row picture, {lineA}. Each equation in the system is drawn as
+      a line. This first line is the equation {eq1}, and every point on it is a
+      pair of values that satisfies that equation. A term is called linear when
+      each unknown appears only to the first power — not squared, not multiplied
+      by another unknown, not inside a function — and that is exactly what makes
+      each equation a straight line. To plot such a line, two points are enough.
+      For this first equation, set x to zero: two times zero minus y equals
+      three, so y is minus three. Then set y to zero: two x equals three, so x is
+      one and a half. Mark those two points and join them. Now draw the second
+      equation, {lineB},
+      {eq2}. A solution must satisfy both equations at once, so it must lie on
+      both lines. Two non-parallel lines meet at exactly one point, {cross},
+      here at x equals two and y equals one. The row picture also shows how many
+      solutions a system has. If the two lines are parallel, they never meet, and
+      there is no solution. If they are the same line, every point satisfies
+      both, and there are infinitely many solutions. A system with at least one
+      solution is called consistent; one with no solution is inconsistent. The
+      same classification holds with more unknowns: with three unknowns each
+      equation is a plane, and the solution is where the planes meet — at a
+      point, along a line, or nowhere.
     animation:
       primitive: axes_plot
       params:
@@ -66,22 +67,20 @@ scenes:
   - id: s3
     kind: diagram
     narration: >
-      Now the column picture, {cols}. Those two arrows are the coefficient
-      columns, read straight off the system. Stacked this way, the very same
-      system becomes a vector equation, {vecEq}: x times the first column plus y
-      times the second column equals the right-hand side. Draw the target on the
-      right as its own arrow, {bvec}. Now the question changes shape entirely.
-      Instead of asking where two lines meet, we ask: how much of each column
-      vector do we combine to reach the target? Take two of the first column and
-      one of the second, laid tip to tail, {comb}, and they land exactly on the
-      target. So x equals two, y equals one — the same answer, now read as a
-      recipe for building one vector out of two others. This picture
-      has its own test for solvability. If the target pointed somewhere the two
-      columns could never reach between them, there would be no solution; but
-      because these two columns point in genuinely different directions, their
-      combinations sweep out the whole plane, so every target is reachable and
-      the recipe for it is unique. Lines crossing and vectors combining are the
-      same fact wearing two costumes.
+      Now the column picture, {cols}. Read the system down its columns instead
+      of across its rows: the coefficients of x form one vector, and the
+      coefficients of y form another. Written this way, the system is a single
+      vector equation, {vecEq}: x times the first column plus y times the second
+      column equals the right-hand side. Draw that right-hand side as a target
+      vector, {bvec}. The question is now which multiples of the two column
+      vectors add up to the target. Two of the first column plus one of the
+      second reach it exactly, {comb}, which again gives x equals two and y
+      equals one — the same solution, expressed as a combination of vectors. This
+      view answers two further questions directly. Which targets can be reached?
+      Exactly those that the columns can combine to produce, called their span.
+      And when is the solution unique? When the two columns point in different
+      directions. The row picture and the column picture describe the same
+      system from two sides.
     animation:
       primitive: linear_transform
       params:
@@ -101,23 +100,18 @@ scenes:
   - id: s4
     kind: derivation
     narration: >
-      The third picture is the algebra, {ops}. It is the one that actually
-      computes. Gauss's method is built from three operations that never change a
-      system's solutions: swap two rows, multiply a row by a non-zero number, or
-      add a multiple of one row to another. Each of the three is
-      reversible, so none can gain or lose a solution — it only rewrites the same
-      system in a simpler form. We use them to remove unknowns one at a time,
-      driving the system towards a triangular shape we can read from the bottom
-      up. Take twice the second equation minus the first to eliminate x, and only
-      y survives, {elim}. {pause:1.2} That gives y equals one at once. Substitute
-      back into the second equation, {back}, and x equals two. {pause:1.0} What
-      makes this a genuine algorithm, not a trick, is that it never stalls: with
-      more unknowns you simply keep clearing the leading variable out of every
-      lower equation until the system stands in a staircase, then climb back up
-      substituting as you go. A thousand equations in a thousand unknowns fall to
-      exactly this routine. The method never guesses and always terminates, and
-      here all three pictures agree on the same solution, {soln} — the lines
-      cross there, the columns combine there, and the elimination lands there.
+      The third picture is the algebra, {ops}. Gauss's method solves a system
+      using three row operations, each of which leaves the solution set
+      unchanged: swap two equations, multiply an equation by a non-zero number,
+      or add a multiple of one equation to another. The strategy is to eliminate
+      one unknown at a time. To remove x, subtract: twice the second equation
+      minus the first cancels the x terms and leaves {elim}. {pause:0.4} So y
+      equals one. Substitute this into the first equation, {back}, which gives x
+      equals two. {pause:0.4} The method generalises to any size. With more
+      unknowns, eliminate the leading variable from each lower equation until the
+      system is triangular, then substitute back upward. It always terminates and
+      returns every solution. All three pictures agree on the same result,
+      {soln}.
     board:
       - id: ops
         text: "Row operations: swap; scale by a non-zero; add a multiple of another row."
@@ -139,13 +133,14 @@ scenes:
   - id: s5
     kind: problem
     narration: >
-      Your turn, by elimination. {statement} We are given two equations, {given},
-      and we want their unique solution. {find} Eliminate x by subtracting twice
-      the first equation from the second, {step1}. {pause:0.8} The x terms cancel
-      and we are left with minus three y equals minus nine, so y equals three,
-      {step2}. {pause:0.8} Substitute back into the first equation, x plus three
-      equals two, {step3}. {pause:1.0} So the solution is x equals minus one, y
-      equals three, {answer} — the single point where these two lines cross.
+      Now a worked example. {statement} Two equations are given, {given}; find
+      their solution. {find} Eliminate x by subtracting twice the first equation
+      from the second, {step1}. {pause:0.4} The x terms cancel, leaving minus
+      three y equals minus nine, so y equals three, {step2}. {pause:0.4}
+      Substitute into the first equation: x plus three equals two, {step3}.
+      {pause:0.4} The solution is x equals minus one, y equals three, {answer}.
+      It is worth checking: minus one plus three is two, and twice minus one
+      minus three is minus five. Both equations hold, so the solution is correct.
     board:
       - id: statement
         text: "Solve the system by Gauss's method."
@@ -185,6 +180,7 @@ scenes:
   - id: s6
     kind: end
     narration: >
-      In one line: a linear system is lines meeting, columns combining, and
-      elimination computing — one truth in three pictures. Next: the geometry of
-      n-space, where these arrows gain a length and an angle.
+      To summarise: a linear system is three things at once — lines that
+      intersect, vectors that combine, and an elimination that computes the
+      result. Next: the geometry of n-dimensional space, where vectors gain a
+      length and an angle.

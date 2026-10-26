@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import numpy as np
 
+from drawn_board import style
 from drawn_board.primitives.base import Primitive, register, step
 from drawn_board.style import LABEL_FONT_SIZE
 
@@ -31,7 +32,9 @@ class LinearTransform(Primitive):
         self.xr = p.get("x_range", [-6, 6])
         self.yr = p.get("y_range", [-4, 4])
         xs, ys = self.xr[1] - self.xr[0], self.yr[1] - self.yr[0]
-        unit = min(9.0 / xs, 6.0 / ys)  # keep squares square, fit above captions
+        # keep grid squares square and fit the lower animation region, leaving the
+        # top band clear for the scene's formula.
+        unit = min(style.ANIM_WIDTH / xs, style.ANIM_HEIGHT / ys)
         self.plane = NumberPlane(
             x_range=[self.xr[0], self.xr[1], 1],
             y_range=[self.yr[0], self.yr[1], 1],
@@ -44,7 +47,7 @@ class LinearTransform(Primitive):
             },
             axis_config={"stroke_color": self.color(None), "stroke_width": 2.5},
         )
-        self.plane.move_to([0, 0.45, 0])
+        self.plane.move_to(style.ANIM_CENTER)
         self.scene.add(self.plane)
         self.matrix = np.array(p.get("matrix", [[1, 0], [0, 1]]), dtype=float)
         self._basis: dict = {}
