@@ -26,9 +26,12 @@ DEFAULT_WPM = 140
 WPM_BY_KIND = {"derivation": 125, "problem": 125}
 # Allowed fractional deviation from the estimated runtime before the linter fails.
 WORD_BUDGET_TOLERANCE = 0.15
-# Automatic silence (seconds) written into the audio around each equation.
-EQUATION_PRE_PAUSE = 1.2
-EQUATION_POST_PAUSE = 1.0
+# Automatic silence (seconds) written into the audio around each equation. Kept
+# short so the narration keeps flowing: a brief lead-in for the pen to reach the
+# board, then the voice reads the formula, then a short hold to take it in —
+# never a multi-second gap where the voice seems to go blank.
+EQUATION_PRE_PAUSE = 0.45
+EQUATION_POST_PAUSE = 0.6
 
 # Kept for backwards compatibility with older callers.
 WORDS_PER_MINUTE = DEFAULT_WPM

@@ -25,6 +25,16 @@ SAFE_MARGIN_FRAC = 0.05
 MAX_FORMULA_LINES = 4
 MAX_TEXT_LINES = 6
 
+# Diagram-scene layout. The frame is 8 units tall (y in [-4, 4]); the bottom
+# ~14 % is the caption band. A diagram scene's formula/legend sits in a top band
+# centred at FORMULA_BAND_Y, and the animation draws in the region below it
+# (centred at ANIM_CENTER, sized ANIM_WIDTH x ANIM_HEIGHT) so the two never
+# overlap.
+FORMULA_BAND_Y = 3.05
+ANIM_CENTER = (0.0, -0.95, 0.0)
+ANIM_WIDTH = 8.6
+ANIM_HEIGHT = 3.5
+
 # Path wobble capped to <= 1 px at 1080p (1 px = 8/1080 units ~ 0.0074).
 # Effectively off: legibility comes from Write + the hand, not glyph distortion.
 WOBBLE_AMPLITUDE_UNITS = 0.0
