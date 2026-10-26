@@ -88,14 +88,16 @@ jobs:
       fail-fast: false
       matrix:
         scene: ${{ fromJson(needs.plan.outputs.scenes) }}
-    env:
-      # import our src packages without an editable build (manim/numpy/pillow are
-      # already in the image); only the two light pure-Python deps are installed.
-      PYTHONPATH: ${{ github.workspace }}/packages/schema/src:${{ github.workspace }}/packages/board/src:${{ github.workspace }}/packages/cache/src
     steps:
       - uses: actions/checkout@v4
       - name: Python deps (manim + TeX already in the image)
-        run: pip install --no-cache-dir pydantic pyyaml
+        run: |
+          # manim/numpy/pillow are already in the image; add the two light pure-
+          # Python deps and put our src packages on PYTHONPATH (no editable build).
+          # $GITHUB_WORKSPACE is the in-container checkout path (/__w/...), unlike
+          # the ${{ github.workspace }} expression which is the host path.
+          pip install --no-cache-dir pydantic pyyaml
+          echo "PYTHONPATH=$GITHUB_WORKSPACE/packages/schema/src:$GITHUB_WORKSPACE/packages/board/src:$GITHUB_WORKSPACE/packages/cache/src" >> "$GITHUB_ENV"
       - uses: actions/download-artifact@v4
         with:
           name: tts
