@@ -25,7 +25,7 @@ scenes:
   - id: s2
     kind: diagram
     narration: >
-      This is the row picture, {eq1}. To draw this equation as a line, plot two
+      The row picture, {eq1}. To draw this equation as a line, plot two
       points. Setting x to zero gives y equals minus three — the point {markP1}.
       Setting y to zero gives x equals one and a half — the point {markP2}. Join
       them to get the line, {lineA}. Every point on that line satisfies the
@@ -103,7 +103,7 @@ scenes:
   - id: s4
     kind: derivation
     narration: >
-      The third picture is the algebra, {ops}. Gauss's method solves a system
+      Third, the algebra, {ops}. Gauss's method solves a system
       using three row operations, each of which leaves the solution set
       unchanged: swap two equations, multiply an equation by a non-zero number,
       or add a multiple of one equation to another. Each is safe for a clear
