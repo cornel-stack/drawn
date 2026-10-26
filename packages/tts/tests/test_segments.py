@@ -67,12 +67,13 @@ def test_assemble_timeline_offsets_and_equation_pause():
         segs, seg_words, seg_maps, seg_durations, anchors, hl_anchors
     )
 
-    assert round(total, 2) == 8.0
-    # the equation's write-start lands AFTER the 1.2 s pre-pause (1.5 + 1.2)
-    assert round(starts["eq"], 2) == 2.7
+    # total = 1.5 + PRE(0.45) + 1.2 + POST(0.6) + 0.4 + 1.5 + 1.2
+    assert round(total, 2) == 6.85
+    # the equation's write-start lands AFTER the pre-pause (1.5 + 0.45)
+    assert round(starts["eq"], 2) == 1.95
     assert round(starts["step"], 2) == 0.5
-    assert round(starts["label"], 2) == 7.2
+    assert round(starts["label"], 2) == 6.05
     # a word in the last speech segment is shifted by the full cumulative offset
-    assert round(words[-1].start, 2) == 7.6
-    # {hl:eq} re-emphasises the equation at 'a' in the final segment (7.2 s)
-    assert [(h, round(t, 2)) for h, t in highlights] == [("eq", 7.2)]
+    assert round(words[-1].start, 2) == 6.45
+    # {hl:eq} re-emphasises the equation at 'a' in the final segment
+    assert [(h, round(t, 2)) for h, t in highlights] == [("eq", 6.05)]
