@@ -28,3 +28,26 @@ jobs:
           for f in channels/*/lessons/*.yaml; do
             uv run python -m drawn_schema lint "$f"
           done
+
+  # Download + extract the open textbooks. PDFs are cached by the manifest's
+  # sha256 pins, so a given hash is fetched at most once across all runs.
+  sources:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Cache source PDFs
+        uses: actions/cache@v4
+        with:
+          path: sources/*.pdf
+          key: source-pdfs-${{ hashFiles('sources/manifest.yaml') }}
+      - run: uv sync --group sources
+      - name: Download + extract sources
+        run: uv run python -m drawn_schema sources --repo-root "$PWD"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sources-text
+          path: sources/text
+          retention-days: 7

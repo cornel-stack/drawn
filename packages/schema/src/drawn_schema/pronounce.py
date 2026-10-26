@@ -68,3 +68,24 @@ def missing_symbols(latex_strings: list[str], mapping: dict[str, str]) -> set[st
     for s in latex_strings:
         used |= speakable_symbols(s)
     return {sym for sym in used if sym not in mapping}
+
+
+# Capitalised words that are ordinary, not names to pronunciation-check.
+_NOT_NAMES = {
+    "I", "A", "An", "The", "This", "That", "These", "Those", "We", "You", "It",
+    "If", "So", "But", "And", "Or", "Now", "Here", "There", "When", "Then",
+    "British", "English", "Greek", "Latin", "GDP", "AP", "IB", "US", "UK",
+}
+_SENTENCE_SPLIT = re.compile(r"(?<=[.!?:;])\s+|\n+")
+_WORD = re.compile(r"[A-Za-z][A-Za-z'\-]+")
+
+
+def proper_nouns(narration: str) -> set[str]:
+    """Capitalised, non-sentence-initial words — likely names to pronounce-check."""
+    found: set[str] = set()
+    for sentence in _SENTENCE_SPLIT.split(narration):
+        words = _WORD.findall(sentence)
+        for w in words[1:]:  # skip the sentence-initial word
+            if w[0].isupper() and len(w) > 2 and w not in _NOT_NAMES:
+                found.add(w)
+    return found

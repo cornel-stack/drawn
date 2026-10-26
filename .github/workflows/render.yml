@@ -61,6 +61,8 @@ jobs:
       - run: uv sync --group tts
       - name: Lint
         run: uv run python -m drawn_schema lint channels/$CH/lessons/$CODE.yaml
+      - name: Fact-check gate
+        run: uv run python -m drawn_schema factcheck-gate $CH $CODE --repo-root "$PWD"
       - name: Synthesise audio + alignment
         run: uv run python -m drawn_tts channels/$CH/lessons/$CODE.yaml --repo-root "$PWD"
       - name: Pacing check

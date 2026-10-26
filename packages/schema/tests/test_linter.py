@@ -68,14 +68,14 @@ def test_word_budget_too_short_is_error():
     data = valid_lesson()
     data["scenes"][0]["narration"] = "{L} {tau}"
     result = lint_lesson(data)
-    assert any("budget" in e for e in result.errors)
+    assert any("runtime" in e for e in result.errors)
 
 
 def test_word_budget_too_long_is_error():
     data = valid_lesson()
     data["scenes"][0]["narration"] = " ".join(["alpha"] * 400) + " {L} {tau}"
     result = lint_lesson(data)
-    assert any("budget" in e for e in result.errors)
+    assert any("runtime" in e for e in result.errors)
 
 
 def test_nc_licence_is_warning_not_error():
@@ -190,3 +190,46 @@ def test_no_leadin_warning_when_early():
     data["scenes"][0]["narration"] = "{L} " + " ".join(["alpha"] * 142) + " {tau}"
     result = lint_lesson(data)
     assert not any("words before the first" in w for w in result.warnings)
+
+
+def test_tone_banned_phrase_is_error():
+    data = valid_lesson()
+    data["scenes"][0]["narration"] = "Imagine a journey " + " ".join(["alpha"] * 138) + " {L} {tau}"
+    result = lint_lesson(data)
+    assert any("banned framing" in e for e in result.errors)
+
+
+def test_tone_multiple_questions_is_warning():
+    data = valid_lesson()
+    data["scenes"][0]["narration"] = (
+        "Why this? And why that? " + " ".join(["alpha"] * 136) + " {L} {tau}"
+    )
+    result = lint_lesson(data)
+    assert result.ok, result.errors
+    assert any("questions" in w for w in result.warnings)
+
+
+def _problem_lesson(expr, value, tol=0.01):
+    filler = " ".join(["alpha"] * 110)
+    return {
+        "schema_version": 1, "id": "ME-01", "channel": "pen-and-pendulum",
+        "title": "t", "target_minutes": 1,
+        "source": {"book": "b", "section": "s", "license": "CC BY 4.0"},
+        "scenes": [{
+            "id": "p1", "kind": "problem",
+            "narration": f"{filler} the answer is {{ans}}",
+            "board": [{"id": "ans", "latex": "T = 2.5", "say": "T is two point five",
+                       "role": "answer", "box": True}],
+            "check": {"expr": expr, "value": value, "tol": tol},
+        }],
+    }
+
+
+def test_problem_check_pass():
+    result = lint_lesson(_problem_lesson("2.0 * pi * 0.3978", 2.5, tol=0.02))
+    assert result.ok, result.errors
+
+
+def test_problem_check_mismatch_is_error():
+    result = lint_lesson(_problem_lesson("3.9", 2.5))
+    assert any("check recomputed" in e for e in result.errors)

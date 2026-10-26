@@ -25,6 +25,6 @@ voice:
   service: kokoro
   kokoro_voice: bf_emma            # British female
   edge_voice: en-GB-SoniaNeural    # fallback
-  speed: 1.0
+  speed: 0.92
 intro_seconds: 2.0
 outro_seconds: 3.0
