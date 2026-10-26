@@ -21,7 +21,7 @@ from difflib import SequenceMatcher
 from functools import lru_cache
 from pathlib import Path
 
-from drawn_schema.lesson import EQUATION_POST_PAUSE, EQUATION_PRE_PAUSE, Scene
+from drawn_schema.lesson import Scene
 from drawn_schema.placeholders import PLACEHOLDER_RE
 
 
@@ -52,17 +52,16 @@ def build_segments(
 ) -> tuple[list[Segment], dict[str, tuple[int, int]], list[tuple[str, int, int]]]:
     """Split a scene's narration into speech/silence segments.
 
-    Equation items get a silence of ``EQUATION_PRE_PAUSE`` before their spoken
-    text (its own speech segment) and ``EQUATION_POST_PAUSE`` after, giving the
-    pen time to write and the viewer time to read. ``{pause:N}`` tokens become
-    silence. Returns the segment list and, per placeholder id, the
+    The whole narration — board items and formulae included — is one continuous
+    utterance; only an explicit ``{pause:N}`` token breaks it into separate
+    speech segments with silence between. This keeps the voice natural (no stall
+    around formulae). Returns the segment list and, per placeholder id, the
     ``(speech-segment index, intended-word offset)`` of where it begins.
     """
     from drawn_schema import pronounce as _pron
 
     pm = pronounce_map or {}
     spoken = {pid: _pron.apply(say, pm) for pid, say in scene.placeholders()}
-    is_eq = {it.id: it.is_equation for it in scene.board}
 
     segments: list[Segment] = []
     anchors: dict[str, tuple[int, int]] = {}
@@ -91,18 +90,14 @@ def build_segments(
             segments.append(Segment("silence", seconds=float(m.group(1))))
         elif m.group(2) is not None:  # {hl:id} — emphasise at this moment
             pending_hl.append((m.group(2), len(cur)))
-        else:  # {id}
+        else:  # {id} — every item (formulae included) is spoken inline, so the
+            # scene is one continuous utterance. Isolating a formula into its own
+            # synthesis + splice silence produced an unnatural stall around it;
+            # inline keeps Kokoro's prosody flowing through the formula.
             pid = m.group(3)
             sub = spoken.get(pid, "")
-            if is_eq.get(pid):
-                flush()
-                segments.append(Segment("silence", seconds=EQUATION_PRE_PAUSE))
-                anchors[pid] = (len(segments), 0)
-                segments.append(Segment("speech", text=sub))
-                segments.append(Segment("silence", seconds=EQUATION_POST_PAUSE))
-            else:
-                pending.append((pid, len(cur)))
-                cur.extend(sub.split())
+            pending.append((pid, len(cur)))
+            cur.extend(sub.split())
         pos = m.end()
     cur.extend(_pron.apply(scene.narration[pos:], pm).split())
     flush()

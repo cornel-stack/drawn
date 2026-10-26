@@ -32,8 +32,9 @@ scenes:
       buyers economise or switch to substitutes. This is the law of demand,
       {demandEq}. To read the curve, pick any price on the vertical axis, move
       horizontally to the curve, then down to the quantity axis: that is the
-      quantity demanded at that price. A higher price gives a point further up
-      and to the left; a lower price, further down and to the right. {pause:0.4} Two terms must be distinguished carefully. Demand
+      quantity demanded at that price. As the price falls, that point travels
+      down the curve to a larger quantity, {readPoint}. Two terms must be
+      distinguished carefully. Demand
       refers to the entire curve — the full schedule of price and quantity pairs.
       Quantity demanded refers to a single point on that curve: the amount bought
       at one specific price. The curve is drawn holding every other influence
@@ -49,6 +50,7 @@ scenes:
         supply: {c: 2.0, d: 1.0}
       steps:
         - {id: drawD, action: draw_demand, params: {color: orange}}
+        - {id: readPoint, action: move_along, params: {curve: demand, to_q: 6.0, color: yellow}}
     board:
       - id: demandEq
         latex: "Q_d = a - b\\,P"
@@ -65,21 +67,20 @@ scenes:
       Redraw the demand curve, {drawD2}, and add supply, {drawS}. A supply curve
       shows the quantity producers will offer at each price. It slopes upward: a
       higher price raises the profit from selling, so firms supply more,
-      {supplyEq}. {pause:0.4} On the same axes, the two curves cross once, {eq}.
+      {supplyEq}. On the same axes, the two curves cross once, {eq}.
       At that point, quantity demanded equals quantity supplied, {eqCond}. The
       corresponding price is the equilibrium price, and the quantity is the
       equilibrium quantity — the only price at which the amount buyers want and
       the amount sellers offer are equal. To read these values from the graph,
       locate the crossing point, then read across to the price axis for the
       equilibrium price and down to the quantity axis for the equilibrium
-      quantity. {pause:0.4} At any other price, the market adjusts. Above the equilibrium, quantity supplied exceeds quantity
+      quantity. At any other price, the market adjusts. Above the equilibrium, quantity supplied exceeds quantity
       demanded: a surplus, which drives the price down. Below the equilibrium,
       quantity demanded exceeds quantity supplied: a shortage, which drives the
-      price up. For instance, at a price well above the equilibrium, quantity
-      supplied might be eight units while quantity demanded is only four; that
-      surplus of four units pushes the price down, and it keeps falling until the
-      gap closes at the crossing. The price stops changing only at the
-      equilibrium.
+      price up. For instance, at a price of seven, sellers offer five units but
+      buyers want only one; that gap is the surplus, {showSurplus}, and it pushes
+      the price down, falling until the gap closes at the crossing. The price
+      stops changing only at the equilibrium.
     animation:
       primitive: supply_demand
       params:
@@ -89,6 +90,7 @@ scenes:
         - {id: drawD2, action: draw_demand, params: {color: orange}}
         - {id: drawS, action: draw_supply, params: {color: blue}}
         - {id: eq, action: equilibrium, params: {color: green}}
+        - {id: showSurplus, action: show_gap, params: {price: 7.0, color: red, label: surplus}}
     board:
       - id: supplyEq
         latex: "Q_s = c + d\\,P"
@@ -130,11 +132,11 @@ scenes:
       in demand — a shift of the whole curve — and it produces a new equilibrium
       at a higher price and a higher quantity. A shift also results from a change
       in tastes, in the price of a substitute or complement, in expectations, or
-      in the number of buyers. {pause:0.4} Supply follows the same rule. A change
+      in the number of buyers. Supply follows the same rule. A change
       in the good's own price is a movement along the supply curve, while a
       change in input prices, technology, taxes, or the number of sellers shifts
       the whole supply curve. For example, a poor harvest shifts the supply of a
-      crop to the left, raising its price. {pause:0.4} The distinction applies to
+      crop to the left, raising its price. The distinction applies to
       both curves: a change in the good's own price is a movement along a fixed
       curve, and a change in any other factor is a shift of the whole curve.
     animation:
@@ -154,10 +156,10 @@ scenes:
       Now a numerical example. {statement} A demand equation and a supply
       equation are given, {given}; find the equilibrium. {find} At equilibrium,
       the two quantities are equal, so set the right-hand sides equal, {step1}.
-      {pause:0.4} Collect the price terms on one side: one thousand and fifty
-      equals seven hundred and fifty times the price, {step2}. {pause:0.4} Divide
+      Collect the price terms on one side: one thousand and fifty
+      equals seven hundred and fifty times the price, {step2}. Divide
       to obtain the equilibrium price, one dollar and forty cents, {step3}.
-      {pause:0.4} Substitute this price into either equation to obtain the
+      Substitute this price into either equation to obtain the
       quantity, six hundred million gallons, {answer}. To check, substitute one
       dollar forty into the demand equation: thirteen hundred minus five hundred
       times one point four is six hundred, which agrees with the supply equation
