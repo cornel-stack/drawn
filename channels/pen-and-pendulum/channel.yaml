@@ -25,6 +25,6 @@ voice:
   service: kokoro
   kokoro_voice: bm_lewis           # British male
   edge_voice: en-GB-ThomasNeural   # fallback
-  speed: 0.92
+  speed: 0.85
 intro_seconds: 2.0
 outro_seconds: 3.0

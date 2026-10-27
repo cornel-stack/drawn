@@ -1,230 +1,212 @@
-# MI-01: Supply and demand — what shifts a curve vs moves along it.
-# OpenStax Principles of Microeconomics 2e Ch.3 (CC BY 4.0). ~9 minutes.
-# Colour discipline: demand=orange, supply=blue, equilibrium=green, change=yellow.
+# MI-01: Supply and demand — what shifts a curve and what moves along it.
+# OpenStax Principles of Economics 3e §3.1-3.2 (CC BY 4.0). ~7 minutes.
+# Colour discipline: demand = orange, supply = blue, equilibrium = green,
+# a movement along a curve = yellow.
 schema_version: 1
 id: MI-01
 channel: marginal-ink
-title: "Supply and demand: what shifts a curve, what moves along it"
-target_minutes: 9
+title: "Supply and demand, properly: what shifts a curve and what moves along it"
+target_minutes: 7
 source:
-  book: "OpenStax Principles of Microeconomics 2e"
-  section: "Ch.3 Demand and Supply"
+  book: "OpenStax Principles of Economics 3e"
+  section: "§3.1-3.2 Demand, Supply, Equilibrium, and Shifts"
   license: "CC BY 4.0"
+  file: "principles-economics-3e/027-3-2-shifts-in-demand-and-supply-for-goods-and-services.md"
+  pages: "64-79"
+thumbnail:
+  kicker: "Microeconomics"
+  hook: "The supply & demand trap"
+  keyword: "trap"
 
 scenes:
   - id: s1
     kind: title
     narration: >
-      Supply and demand is the first model every economist learns, and also the
-      one most often used sloppily. The whole payoff is a single distinction
-      done cleanly: when a curve simply moves along itself, and when the entire
-      curve shifts. Confuse the two and you reach the wrong conclusion about
-      prices, policies and firms; keep them apart and a surprising amount of
-      economics falls into place.
+      Supply and demand is the foundational model of microeconomics. Its central
+      lesson is a single distinction: what moves along a curve, and what shifts
+      the curve itself.
 
   - id: s2
     kind: diagram
     narration: >
-      Start with demand, {drawD}. The demand curve records, for each price, how
-      much buyers want to purchase over some period. It slopes downward for two
-      honest reasons: at a lower price each buyer tends to want more, and more
-      people find the good worth buying at all. That downward slope is the law
-      of demand, {lawD}, and it holds everything except the price itself fixed —
-      incomes, tastes, the prices of other goods, all held still. Economists
-      label that held-still clause with the Latin tag ceteris paribus, other
-      things equal. It is the small print that makes the picture honest. Two
-      quiet forces drive that slope: when a good gets cheaper it steals custom
-      from its substitutes, the substitution effect; and a lower price frees up
-      money to spend, the income effect. Picture petrol — let the pump price
-      fall and the motorways slowly fill, no change in anyone's character
-      required, only a change in price.
+      Begin with demand, {drawD}. A demand curve shows, for each price, the
+      quantity that buyers are willing and able to purchase. By convention,
+      quantity is on the horizontal axis and price on the vertical. The curve
+      slopes downward: as the price rises, the quantity demanded falls, because
+      buyers economise or switch to substitutes. This is the law of demand,
+      {demandEq}. To read the curve, pick any price on the vertical axis, move
+      horizontally to the curve, then down to the quantity axis: that is the
+      quantity demanded at that price. As the price falls, that point travels
+      down the curve to a larger quantity, {readPoint}. Two terms must be
+      distinguished carefully. Demand
+      refers to the entire curve — the full schedule of price and quantity pairs.
+      Quantity demanded refers to a single point on that curve: the amount bought
+      at one specific price. The curve is drawn holding every other influence
+      fixed. These other influences are called the determinants of demand:
+      buyers' income, their tastes, the prices of related goods, their
+      expectations, and the number of buyers. When the price changes, the point
+      moves along the curve; when a determinant changes, the whole curve shifts.
+      That difference is the core of this lesson.
     animation:
       primitive: supply_demand
       params:
-        demand: {a: 8.0, b: 0.8}
+        demand: {a: 8.0, b: 1.0}
+        supply: {c: 2.0, d: 1.0}
       steps:
         - {id: drawD, action: draw_demand, params: {color: orange}}
+        - {id: readPoint, action: move_along, params: {curve: demand, to_q: 6.0, color: yellow}}
     board:
-      - id: lawD
-        text: "Law of demand: price up, quantity demanded down"
+      - id: demandEq
+        latex: "Q_d = a - b\\,P"
+        say: "quantity demanded equals a minus b times price"
         color: orange
+        legend:
+          - {sym: "Q_d", name: "quantity demanded", unit: "units"}
+          - {sym: "P", name: "price", unit: "currency"}
+          - {sym: "b", name: "how strongly demand falls with price"}
 
   - id: s3
     kind: diagram
     narration: >
-      Now supply, {drawS}. The supply curve records, for each price, how much
-      sellers are willing to offer. It slopes upward, {lawS}, because a higher
-      price covers the rising cost of producing extra units and tempts more
-      firms into the market. Again everything else is held equal: the prices of
-      inputs, the technology, the number of sellers. Demand is about buyers and
-      supply is about sellers, and the market is simply the place where their
-      two intentions are forced to meet. The upward slope has its own quiet
-      logic: producing each extra unit tends to cost a little more than the
-      last, so sellers need a higher price to justify the effort, and a higher
-      price also lures new firms through the door. Think of farmers planting
-      more acres only when the crop price climbs enough to repay the extra land
-      and labour.
+      Redraw the demand curve, {drawD2}, and add supply, {drawS}. A supply curve
+      shows the quantity producers will offer at each price. It slopes upward: a
+      higher price raises the profit from selling, so firms supply more,
+      {supplyEq}. On the same axes, the two curves cross once, {eq}.
+      At that point, quantity demanded equals quantity supplied, {eqCond}. The
+      corresponding price is the equilibrium price, and the quantity is the
+      equilibrium quantity — the only price at which the amount buyers want and
+      the amount sellers offer are equal. To read these values from the graph,
+      locate the crossing point, then read across to the price axis for the
+      equilibrium price and down to the quantity axis for the equilibrium
+      quantity. At any other price, the market adjusts. Above the equilibrium, quantity supplied exceeds quantity
+      demanded: a surplus, which drives the price down. Below the equilibrium,
+      quantity demanded exceeds quantity supplied: a shortage, which drives the
+      price up. For instance, at a price of seven, sellers offer five units but
+      buyers want only one; that gap is the surplus, {showSurplus}, and it pushes
+      the price down, falling until the gap closes at the crossing. The price
+      stops changing only at the equilibrium.
     animation:
       primitive: supply_demand
       params:
-        supply: {c: 1.0, d: 0.7}
+        demand: {a: 8.0, b: 1.0}
+        supply: {c: 2.0, d: 1.0}
       steps:
+        - {id: drawD2, action: draw_demand, params: {color: orange}}
         - {id: drawS, action: draw_supply, params: {color: blue}}
+        - {id: eq, action: equilibrium, params: {color: green}}
+        - {id: showSurplus, action: show_gap, params: {price: 7.0, color: red, label: surplus}}
     board:
-      - id: lawS
-        text: "Law of supply: price up, quantity supplied up"
+      - id: supplyEq
+        latex: "Q_s = c + d\\,P"
+        say: "quantity supplied equals c plus d times price"
         color: blue
+      - id: eqCond
+        latex: "Q_d = Q_s"
+        say: "quantity demanded equals quantity supplied"
+        color: green
 
   - id: s4
     kind: diagram
     narration: >
-      Put both on the same axes, {drawS4} {drawD4}, and they cross at exactly one
-      point, {eq4}. That crossing is the equilibrium: the one price at which the
-      amount buyers want equals the amount sellers offer, with no shortage and no
-      glut. Above it, sellers flood the market and the surplus pushes the price
-      back down; below it, eager buyers compete and the shortage pushes the price
-      back up. The market is self-correcting, forever nudged toward that single
-      resting price and quantity. Suppose a shop prices its coffee too high:
-      unsold cups pile up, a surplus, and the only cure is to mark the price
-      down until the extra buyers appear. Price it too low and a queue forms out
-      the door, a shortage, and the price is bid back up. No planner arranges
-      this; the surplus or shortage is itself the signal, and the price does the
-      steering.
+      First, change the price of the good itself, {drawD3}, with nothing else
+      changing. Buyers adjust the quantity they purchase, moving to
+      a different point on the same curve, {slide}. The curve does not move; only
+      the quantity demanded changes. This is called a change in quantity
+      demanded, or a movement along the curve. Price and quantity are the two
+      variables the curve relates, so changing the price simply moves the point
+      along the existing curve. Buyers' underlying willingness to pay is
+      unchanged. For example, if a tax raises the price, the point slides up and
+      to the left along the demand curve to a smaller quantity; remove the tax
+      and it slides back down. The curve itself never moves.
     animation:
       primitive: supply_demand
       params:
-        demand: {a: 8.0, b: 0.8}
-        supply: {c: 1.0, d: 0.7}
+        demand: {a: 8.0, b: 1.0}
+        supply: {c: 2.0, d: 1.0}
       steps:
-        - {id: drawS4, action: draw_supply, params: {color: blue}}
-        - {id: drawD4, action: draw_demand, params: {color: orange}}
-        - {id: eq4, action: equilibrium, params: {color: green}}
+        - {id: drawD3, action: draw_demand, params: {color: orange}}
+        - {id: slide, action: move_along, params: {curve: demand, to_q: 6.0, color: yellow}}
 
   - id: s5
     kind: diagram
     narration: >
-      Here are the two curves once more, {drawS5} {drawD5}, and the distinction
-      that trips everyone up. Suppose the price alone changes. Then nothing about
-      buyers' underlying wants has altered; we simply slide to a new spot on the
-      very same demand curve,
-      {move5}. That is a change in the quantity demanded, a movement along the
-      curve. The curve has not moved an inch. Price and quantity are partners on
-      a fixed line, and travelling along that line is not the same as redrawing
-      it.
+      Now a shift, {drawD4} {drawS2} {eq2}. Change a factor other than the price
+      itself. Suppose buyers' incomes rise. At every price, they now demand more,
+      so the entire demand curve moves to the right, {shiftD}. This is a change
+      in demand — a shift of the whole curve — and it produces a new equilibrium
+      at a higher price and a higher quantity. A shift also results from a change
+      in tastes, in the price of a substitute or complement, in expectations, or
+      in the number of buyers. Supply follows the same rule. A change
+      in the good's own price is a movement along the supply curve, while a
+      change in input prices, technology, taxes, or the number of sellers shifts
+      the whole supply curve. For example, a poor harvest shifts the supply of a
+      crop to the left, raising its price. The distinction applies to
+      both curves: a change in the good's own price is a movement along a fixed
+      curve, and a change in any other factor is a shift of the whole curve.
     animation:
       primitive: supply_demand
       params:
-        demand: {a: 8.0, b: 0.8}
-        supply: {c: 1.0, d: 0.7}
+        demand: {a: 8.0, b: 1.0}
+        supply: {c: 2.0, d: 1.0}
       steps:
-        - {id: drawS5, action: draw_supply, params: {color: blue}}
-        - {id: drawD5, action: draw_demand, params: {color: orange}}
-        - {id: move5, action: move_along, params: {curve: demand, to_q: 7.0, color: yellow}}
+        - {id: drawD4, action: draw_demand, params: {color: orange}}
+        - {id: drawS2, action: draw_supply, params: {color: blue}}
+        - {id: eq2, action: equilibrium, params: {color: green}}
+        - {id: shiftD, action: shift, params: {curve: demand, by: 2.0, color: orange}}
 
   - id: s6
-    kind: diagram
+    kind: problem
     narration: >
-      Now change something other than the price, {drawS6} {drawD6} {eq6}. Say
-      incomes rise, so at every price buyers now want more. The entire demand
-      curve shifts outward to the right, {shift6}, and the equilibrium slides up
-      along the supply curve to a higher price and a larger quantity. This is a
-      change in demand, a shift of the whole curve, and it is a completely
-      different event from a slide along a fixed one. The rule is clean: a change
-      in price moves you along; a change in anything else shifts the curve.
-      Watch the language, because it carries the whole distinction. Economists
-      reserve the phrase change in demand for a shift of the entire curve, and
-      change in quantity demanded for a mere slide along it. They sound almost
-      identical and mean completely different things, and marking that
-      difference is half of a first exam in microeconomics.
-    animation:
-      primitive: supply_demand
-      params:
-        demand: {a: 7.0, b: 0.8}
-        supply: {c: 1.0, d: 0.7}
-      steps:
-        - {id: drawS6, action: draw_supply, params: {color: blue}}
-        - {id: drawD6, action: draw_demand, params: {color: orange}}
-        - {id: eq6, action: equilibrium, params: {color: green}}
-        - {id: shift6, action: shift, params: {curve: demand, by: 2.0, color: orange}}
+      Now a numerical example. {statement} A demand equation and a supply
+      equation are given, {given}; find the equilibrium. {find} At equilibrium,
+      the two quantities are equal, so set the right-hand sides equal, {step1}.
+      Collect the price terms on one side: one thousand and fifty
+      equals seven hundred and fifty times the price, {step2}. Divide
+      to obtain the equilibrium price, one dollar and forty cents, {step3}.
+      Substitute this price into either equation to obtain the
+      quantity, six hundred million gallons, {answer}. To check, substitute one
+      dollar forty into the demand equation: thirteen hundred minus five hundred
+      times one point four is six hundred, which agrees with the supply equation
+      and with the intersection drawn earlier.
+    board:
+      - id: statement
+        text: "A gasoline market, prices in dollars, quantities in millions of gallons."
+      - id: given
+        latex: "Q_d = 1300 - 500\\,P, \\qquad Q_s = 250 + 250\\,P"
+        say: "quantity demanded equals thirteen hundred minus five hundred P; quantity supplied equals two hundred fifty plus two hundred fifty P"
+        role: given
+      - id: find
+        text: "Find the equilibrium price and quantity."
+        role: find
+      - id: step1
+        latex: "1300 - 500\\,P = 250 + 250\\,P"
+        say: "thirteen hundred minus five hundred P equals two hundred fifty plus two hundred fifty P"
+        role: step
+        color: green
+      - id: step2
+        latex: "1050 = 750\\,P"
+        say: "one thousand and fifty equals seven hundred and fifty P"
+        role: step
+      - id: step3
+        latex: "P^{*} = \\dfrac{1050}{750} = 1.40"
+        say: "P star equals ten fifty over seven fifty, equals one point four zero"
+        role: step
+        color: green
+      - id: answer
+        latex: "P^{*} = \\$1.40, \\quad Q^{*} = 600"
+        say: "equilibrium price is one dollar forty, equilibrium quantity is six hundred million gallons"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(1300 - 250) / (500 + 250)"
+      value: 1.40
+      unit: "dollars"
+      tol: 0.01
 
   - id: s7
-    kind: diagram
-    narration: >
-      So what counts as something else, {drawS7} {drawD7}? For demand, five
-      usual suspects, {shifters}: buyers' incomes, their tastes, the prices of
-      related goods like substitutes and complements, their expectations about
-      the future, and the sheer number of buyers in the market. Any one of them
-      moving redraws the demand curve, {shift7}. For supply the list is its own:
-      input prices, technology, taxes, and the number of sellers. Memorising the
-      lists matters far less than the habit of asking, each time, has the price
-      changed, or has something else? A couple make the point. If coffee grows
-      fashionable, tastes shift demand right. If the price of tea, a substitute,
-      jumps, buyers switch across and the demand for coffee rises too — a
-      related price moving one market from inside another. Expectations count as
-      well: if shoppers expect prices to climb next month, some buy now, pulling
-      today's curve to the right.
-    animation:
-      primitive: supply_demand
-      params:
-        demand: {a: 7.5, b: 0.8}
-        supply: {c: 1.0, d: 0.7}
-      steps:
-        - {id: drawS7, action: draw_supply, params: {color: blue}}
-        - {id: drawD7, action: draw_demand, params: {color: orange}}
-        - {id: shift7, action: shift, params: {curve: demand, by: 1.5, color: orange}}
-    board:
-      - id: shifters
-        text: "Demand shifters: income, tastes, related prices, expectations, buyers"
-        color: yellow
-
-  - id: s8
-    kind: diagram
-    narration: >
-      On the supply side, {drawS8} {drawD8} {eq8}, the very same logic runs.
-      Suppose a better technology lowers production costs. Sellers will now offer
-      more at
-      every price, so the supply curve shifts outward to the right, {shift8}, and
-      the equilibrium slides down along the demand curve: the price falls and the
-      quantity traded rises. Notice the discipline — we moved one curve, held the
-      other still, and simply read off where the new crossing lands. That read-off
-      is most of applied microeconomics. And both curves can move at once: a
-      heatwave might lift the demand for ice cream while spoiling the cream that
-      supplies it. When that happens, split the problem — shift one curve, read
-      the result, then shift the other — rather than trying to picture both
-      jumping together. Patience with one move at a time is what keeps the
-      analysis honest.
-    animation:
-      primitive: supply_demand
-      params:
-        demand: {a: 8.0, b: 0.8}
-        supply: {c: 1.5, d: 0.7}
-      steps:
-        - {id: drawS8, action: draw_supply, params: {color: blue}}
-        - {id: drawD8, action: draw_demand, params: {color: orange}}
-        - {id: eq8, action: equilibrium, params: {color: green}}
-        - {id: shift8, action: shift, params: {curve: supply, by: -1.8, color: blue}}
-
-  - id: s9
-    kind: summary
-    narration: >
-      So: demand slopes down, {drawD9}, supply slopes up, {drawS9}, and they meet
-      at an equilibrium that clears the market, {recap}. A change in the price is
-      a movement along a curve; a change in anything else is a shift of the whole
-      curve. Hold that one distinction firmly and you will never again confuse a
-      change in quantity demanded with a change in demand. Next, in MA-01, we
-      scale up from one market to the whole economy and measure its output.
-    animation:
-      primitive: supply_demand
-      params:
-        demand: {a: 8.0, b: 0.8}
-        supply: {c: 1.0, d: 0.7}
-      steps:
-        - {id: drawD9, action: draw_demand, params: {color: orange}}
-        - {id: drawS9, action: draw_supply, params: {color: blue}}
-        - {id: recap, action: equilibrium, params: {color: green}}
-    board: []
-
-  - id: s10
     kind: end
-    narration: ""
-    board: []
+    narration: >
+      To summarise: a change in the good's own price is a movement along a curve;
+      a change in any other factor shifts the whole curve. Next: elasticity — how
+      strongly quantity responds to a change in price.

@@ -14,6 +14,10 @@ source:
   license: "CC BY 4.0"
   file: "university-physics-vol1/094-11-4-precession-of-a-gyroscope.md"
   pages: "549-553"
+thumbnail:
+  kicker: "Physics"
+  hook: "Why the wheel won't fall"
+  keyword: "won't fall"
 
 scenes:
   - id: s1

@@ -5,7 +5,7 @@ schema_version: 1
 id: ME-01
 channel: pen-and-pendulum
 title: "Vectors: components, dot and cross product"
-target_minutes: 7
+target_minutes: 6
 source:
   book: "OpenStax University Physics Vol. 1"
   section: "Ch.2 Vectors"
