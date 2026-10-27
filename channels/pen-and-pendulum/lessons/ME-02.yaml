@@ -1,0 +1,242 @@
+# ME-02: The kinematic equations — where they come from.
+# OpenStax University Physics Vol. 1 §3.4 (CC BY 4.0). ~7 minutes.
+# Colour discipline: velocity v = blue, acceleration/slope a = orange,
+# displacement/area x = green, initial values v0/x0 = yellow.
+schema_version: 1
+id: ME-02
+channel: pen-and-pendulum
+title: "The kinematic equations: where they come from (not just how to use them)"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 1"
+  section: "§3.4 Motion with Constant Acceleration"
+  license: "CC BY 4.0"
+  file: "university-physics-vol1/024-3-4-motion-with-constant-acceleration.md"
+  pages: "115-121"
+thumbnail:
+  kicker: "Mechanics"
+  hook: "One line hides three equations"
+  keyword: "three equations"
+publish:
+  title: "The Kinematic Equations, Derived: Slope and Area of the Velocity-Time Graph"
+  summary: >
+    The three constant-acceleration equations are not three facts to memorise —
+    they are two readings of a single straight line. We derive v = v0 + a t,
+    x = x0 + v0 t + half a t squared, and v squared = v0 squared + 2 a times the
+    change in x from the velocity-time graph: the slope is the acceleration, the
+    area underneath is the displacement. Two worked problems follow.
+  hashtags: ["#physics", "#kinematics", "#mechanics"]
+  tags:
+    - kinematics
+    - kinematic equations
+    - constant acceleration
+    - velocity time graph
+    - physics derivation
+    - mechanics
+    - OpenStax
+    - stopping distance
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Three equations describe motion at constant acceleration. They are usually
+      handed over to be memorised. They are really two readings of one straight
+      line, and this lesson shows where they come from.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Plot velocity against time, {plotV}. When the acceleration is constant, this
+      graph is a straight line, and that is the whole starting point. The line
+      crosses the vertical axis at the initial velocity, {markV0} — the speed at
+      time zero. Its slope is the acceleration: each second, the velocity climbs by
+      a fixed amount, a. A steeper line means a larger acceleration; a flat line
+      means none at all, so the speed would simply hold constant. The beauty of
+      the straight line is that this slope is the same everywhere along it, which
+      is exactly what constant acceleration means. Reading the slope straight off gives the first kinematic
+      equation, {vEq}: the final velocity is the initial velocity plus the
+      acceleration multiplied by the time elapsed. If the acceleration is negative,
+      the line slopes downward and the object slows.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 7, 1]
+        y: [0, 30, 5]
+        x_length: 8.2
+        y_length: 3.4
+        x_label: "t"
+        y_label: "v"
+      steps:
+        - {id: plotV, action: plot_line, params: {name: V, a: -3, b: 1, c: 8, color: blue, label: "v(t)"}}
+        - {id: markV0, action: mark_point, params: {x: 0, y: 8, color: yellow, label: "v_0"}}
+    board:
+      - id: vEq
+        latex: "v = v_0 + a\\,t"
+        say: "v equals v nought plus a times t"
+        color: blue
+        tex_colors:
+          "v_0": yellow
+          "a": orange
+        legend:
+          - {sym: "v", name: "final velocity", unit: "m/s"}
+          - {sym: "v_0", name: "initial velocity", unit: "m/s"}
+          - {sym: "a", name: "constant acceleration", unit: "m/s^2"}
+          - {sym: "t", name: "elapsed time", unit: "s"}
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Draw the same line again, {plotV2}. The displacement — how far the object
+      travels — is the area of the region beneath this line, {shade}. Why area?
+      Distance is average velocity times time, and for a straight line the average
+      velocity is simply the mean of the start and end values — travelling at that
+      average for the whole time covers exactly the same ground as the real,
+      steadily changing speed. The area splits neatly into two pieces that match
+      the physics. The rectangle is the distance
+      the object would cover at its initial speed alone: v nought times t. The
+      triangle sitting on top is the extra distance gained by speeding up: its
+      height is the velocity gained, a t, and its area is one half a t squared.
+      Rectangle plus triangle gives the second kinematic equation, {xEq}: position
+      is the start position, plus v nought t, plus one half a t squared.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 7, 1]
+        y: [0, 30, 5]
+        x_length: 8.2
+        y_length: 3.4
+        x_label: "t"
+        y_label: "v"
+      steps:
+        - {id: plotV2, action: plot_line, params: {name: V, a: -3, b: 1, c: 8, color: blue, label: "v(t)"}}
+        - {id: shade, action: area_under_line, params: {name: V, x0: 0, x1: 6, split: true, rect_color: yellow, tri_color: orange}}
+    board:
+      - id: xEq
+        latex: "x = x_0 + v_0\\,t + \\tfrac{1}{2}\\,a\\,t^2"
+        say: "x equals x nought plus v nought t plus one half a t squared"
+        color: green
+        tex_colors:
+          "v_0": yellow
+          "a": orange
+
+  - id: s4
+    kind: derivation
+    narration: >
+      Start from constant acceleration, {adef}. It means a is the change in
+      velocity over the time taken, so rearranging gives v equals v nought plus a
+      t — the first equation again, now from the definition rather than the graph.
+      Next, displacement is average velocity times time, and with a straight line
+      the average is the mean of the ends, {xder}; substitute v equals v nought
+      plus a t into that mean and simplify, and the second equation drops out. The
+      algebra is short: the average becomes v nought plus one half a t, and
+      multiplying through by t gives the v nought t and one half a t squared terms
+      directly. The third equation comes from removing time altogether. Solve the first equation for t,
+      substitute it into the second, and the t terms cancel to leave {velim}: v
+      squared equals v nought squared plus two a times the change in position. This
+      last one carries no time at all, which makes it the equation to reach for
+      whenever time is neither given nor wanted.
+    board:
+      - id: adef
+        latex: "a = \\dfrac{v - v_0}{t} \\;\\Rightarrow\\; v = v_0 + a\\,t"
+        say: "a equals v minus v nought over t, so v equals v nought plus a t"
+        color: orange
+      - id: xder
+        latex: "\\bar{v} = \\dfrac{v_0 + v}{2}, \\quad x - x_0 = \\bar{v}\\,t"
+        say: "average velocity is v nought plus v over two, and displacement is average velocity times t"
+        color: green
+      - id: velim
+        latex: "v^2 = v_0^2 + 2\\,a\\,(x - x_0)"
+        say: "v squared equals v nought squared plus two a times the change in x"
+        color: blue
+
+  - id: s5
+    kind: problem
+    narration: >
+      First worked example. {statement} The starting values are given, {given};
+      find the velocity and the distance after six seconds. {find} For the
+      velocity, use the first equation, {step1}: eight plus three times six is
+      twenty-six metres per second. For the distance, use the second, {step2}:
+      eight times six is forty-eight, plus one half of three times thirty-six is
+      fifty-four, giving one hundred and two metres, {answer}. As a check, the
+      average velocity is eight plus twenty-six over two, which is seventeen; times
+      six seconds is again one hundred and two metres — the area picture agrees.
+    board:
+      - id: statement
+        text: "A motorcycle accelerates steadily from a standing throttle."
+      - id: given
+        latex: "v_0 = 8\\ \\text{m/s}, \\quad a = 3\\ \\text{m/s}^2, \\quad t = 6\\ \\text{s}"
+        say: "v nought equals eight metres per second, a equals three metres per second squared, t equals six seconds"
+        role: given
+      - id: find
+        text: "Find the velocity v and the distance x."
+        role: find
+      - id: step1
+        latex: "v = 8 + 3(6) = 26\\ \\text{m/s}"
+        say: "v equals eight plus three times six, which is twenty-six metres per second"
+        role: step
+        color: blue
+      - id: step2
+        latex: "x = 8(6) + \\tfrac{1}{2}(3)(6)^2 = 102\\ \\text{m}"
+        say: "x equals eight times six plus one half times three times six squared, which is one hundred and two metres"
+        role: step
+        color: green
+      - id: answer
+        latex: "v = 26\\ \\text{m/s}, \\quad x = 102\\ \\text{m}"
+        say: "the velocity is twenty-six metres per second and the distance is one hundred and two metres"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "8*6 + 0.5*3*6**2"
+      value: 102
+      unit: "m"
+      tol: 0.01
+
+  - id: s6
+    kind: problem
+    narration: >
+      Now a second example. {statement2} A car brakes from twenty metres per
+      second to rest, {given2}; find the stopping distance, with no clock involved
+      anywhere. {find2} Because time is neither given nor asked for, reach for the
+      third equation,
+      {step3}: zero equals twenty squared plus two times minus five times the
+      distance. Rearranging, the distance is four hundred over ten, which is forty
+      metres, {answer2}. Notice the velocity enters squared — so doubling the speed
+      would roughly quadruple the stopping distance, which is exactly why speed
+      matters so much for braking.
+    board:
+      - id: statement2
+        text: "A car brakes to a stop under constant deceleration."
+      - id: given2
+        latex: "v_0 = 20\\ \\text{m/s}, \\quad v = 0, \\quad a = -5\\ \\text{m/s}^2"
+        say: "v nought equals twenty metres per second, final velocity zero, a equals minus five metres per second squared"
+        role: given
+      - id: find2
+        text: "Find the stopping distance."
+        role: find
+      - id: step3
+        latex: "0 = 20^2 + 2(-5)\\,\\Delta x \\;\\Rightarrow\\; \\Delta x = \\dfrac{400}{10}"
+        say: "zero equals twenty squared plus two times minus five times delta x, so delta x equals four hundred over ten"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "\\Delta x = 40\\ \\text{m}"
+        say: "the stopping distance is forty metres"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(0**2 - 20**2) / (2 * -5)"
+      value: 40
+      unit: "m"
+      tol: 0.01
+
+  - id: s7
+    kind: end
+    narration: >
+      To summarise: all three kinematic equations come from one straight
+      velocity-time line — its slope is the acceleration, the area beneath it is
+      the displacement, and eliminating time links speed to distance. Next: Free
+      fall and the velocity-time graph, visualised — the same straight line, but
+      now the slope is gravity.

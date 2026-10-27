@@ -1,0 +1,278 @@
+# MI-02: How to solve elasticity problems (point, arc, revenue test).
+# OpenStax Principles of Economics 3e §5.1, §5.3 (CC BY 4.0). ~9 minutes.
+# Colour discipline: demand curve = orange, the two points / price change = yellow,
+# elastic = green, inelastic = red, total revenue = purple.
+schema_version: 1
+id: MI-02
+channel: marginal-ink
+title: "How to solve elasticity problems (point, arc, revenue test)"
+target_minutes: 9
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§5.1 Price Elasticity of Demand and Supply; §5.3 Elasticity and Pricing"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/050-5-1-price-elasticity-of-demand-and-price-elasticity-of-supply.md"
+  pages: "110-125"
+thumbnail:
+  kicker: "Microeconomics"
+  hook: "Stop dropping the minus sign"
+  keyword: "minus sign"
+publish:
+  title: "How to Solve Any Elasticity Problem (Point, Arc & the Revenue Test)"
+  summary: >
+    Price elasticity of demand in three worked problems: the midpoint (arc)
+    method between two points, point elasticity from a demand equation, and the
+    total-revenue test that tells you whether a price rise makes or loses money.
+    We also settle the minus-sign convention everyone trips over.
+  hashtags: ["#economics", "#microeconomics", "#elasticity"]
+  tags:
+    - price elasticity of demand
+    - elasticity
+    - midpoint method
+    - arc elasticity
+    - point elasticity
+    - total revenue test
+    - microeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Elasticity measures how strongly buyers respond to a change in price. This
+      lesson is a toolkit: the arc method, point elasticity, and the revenue
+      test, each worked through on numbers.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Draw a demand curve, {drawD}. This builds on the previous lesson, where
+      price and quantity moved along it. Price elasticity of demand measures
+      responsiveness: it is the percentage change in the quantity demanded divided
+      by the percentage change in the price, {elaEq}. Slide down the curve from a
+      high price to a lower one, {slide}: quantity rises. Because price and
+      quantity always move in opposite directions along a demand curve, this ratio
+      comes out negative. By firm convention we report it as an absolute value and
+      drop the minus sign, {signNote}, and then compare its size to one, {regimes}.
+      If the percentage change in quantity is larger than the percentage change in
+      price, the number exceeds one and demand is elastic — buyers are very
+      responsive. Luxuries and goods with close substitutes tend to be elastic: if
+      one coffee shop raises its prices, many customers simply walk to the next. If
+      the ratio is smaller than one, demand is inelastic — buyers barely react.
+      Necessities and goods with few substitutes tend to be inelastic: petrol,
+      insulin, a commuter's only rail line. And exactly one is the knife-edge, called
+      unit elastic. That single comparison, bigger or smaller than one, is what
+      every elasticity problem is really asking.
+    animation:
+      primitive: supply_demand
+      params:
+        demand: {a: 8.0, b: 0.8}
+        supply: {c: 1.0, d: 0.7}
+      steps:
+        - {id: drawD, action: draw_demand, params: {color: orange}}
+        - {id: slide, action: move_along, params: {curve: demand, to_q: 7.0, color: yellow}}
+    board:
+      - id: elaEq
+        latex: "E = \\dfrac{\\%\\,\\Delta Q}{\\%\\,\\Delta P}"
+        say: "elasticity equals the percentage change in quantity, divided by the percentage change in price"
+        color: orange
+        legend:
+          - {sym: "\\%\\,\\Delta Q", name: "percentage change in quantity"}
+          - {sym: "\\%\\,\\Delta P", name: "percentage change in price"}
+      - id: signNote
+        text: "Report demand elasticity as an absolute value — drop the minus sign."
+        color: yellow
+      - id: regimes
+        text: "|E| > 1 elastic;   |E| = 1 unit;   |E| < 1 inelastic."
+        color: green
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Redraw the curve, {drawD2}, and mark two points on it, {pts}. To measure
+      elasticity between point A and point B, we must turn the jumps in quantity
+      and price into percentages — but percentages of what? If we divide by the
+      starting value, we get one answer going from A to B and a different answer
+      coming back. For instance, a rise from four to five is a twenty-five per cent
+      increase, but the fall from five back to four is only a twenty per cent
+      decrease — same two numbers, two different percentages. The fix is the
+      midpoint, or arc, method, {midEq}:
+      divide each change by the average of the two values, not the starting one.
+      The change in quantity over the average quantity, divided by the change in
+      price over the average price. Because the average is the same in both
+      directions, the elasticity between two points is now identical whether the
+      price rose or fell. That symmetry is the whole reason the midpoint method
+      exists, and it is the formula to use whenever a problem gives you two points.
+    animation:
+      primitive: supply_demand
+      params:
+        demand: {a: 8.0, b: 0.8}
+        supply: {c: 1.0, d: 0.7}
+      steps:
+        - {id: drawD2, action: draw_demand, params: {color: orange}}
+        - {id: pts, action: mark_points, params: {curve: demand, color: yellow, points: [{q: 2.0, label: "A"}, {q: 6.0, label: "B"}]}}
+    board:
+      - id: midEq
+        latex: "E = \\dfrac{\\dfrac{Q_2 - Q_1}{(Q_2 + Q_1)/2}}{\\dfrac{P_2 - P_1}{(P_1 + P_2)/2}}"
+        say: "elasticity equals the change in quantity over the average quantity, divided by the change in price over the average price"
+        color: yellow
+
+  - id: s4
+    kind: problem
+    narration: >
+      First problem: the arc method. {statement} On a bus route, a fare cut raises
+      ridership, {given}; find the elasticity and classify it. {find} The quantity
+      goes from seventy to one hundred and thirty, a change of sixty over an
+      average of one hundred — a sixty per cent rise, {step1}. The price goes from
+      twelve to eight, a change of minus four over an average of ten — a forty per
+      cent fall, {step2}. Divide: sixty per cent over minus forty per cent is minus
+      one point five, so the absolute value is one point five, {answer}. That is
+      greater than one, so demand on this route is elastic — the riders respond
+      strongly to the cheaper fare. And because we divided by averages, running the
+      calculation backwards, as a fare rise from eight to twelve, gives exactly the
+      same one point five; that reversibility is the whole point of the midpoint
+      method.
+    board:
+      - id: statement
+        text: "A bus fare is cut; weekly ridership (in thousands) rises."
+      - id: given
+        latex: "P_1=12,\\ Q_1=70 \\;\\to\\; P_2=8,\\ Q_2=130"
+        say: "price twelve, quantity seventy, moving to price eight, quantity one hundred and thirty"
+        role: given
+      - id: find
+        text: "Find |E| by the midpoint method and classify."
+        role: find
+      - id: step1
+        latex: "\\%\\,\\Delta Q = \\dfrac{130-70}{100} = +60\\%"
+        say: "percentage change in quantity is sixty over one hundred, a sixty per cent rise"
+        role: step
+        color: yellow
+      - id: step2
+        latex: "\\%\\,\\Delta P = \\dfrac{8-12}{10} = -40\\%"
+        say: "percentage change in price is minus four over ten, a forty per cent fall"
+        role: step
+        color: yellow
+      - id: answer
+        latex: "|E| = \\left|\\dfrac{60}{-40}\\right| = 1.5 \\;\\Rightarrow\\; \\text{elastic}"
+        say: "the absolute value of sixty over minus forty is one point five, which is elastic"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "abs(((130-70)/((130+70)/2)) / ((8-12)/((8+12)/2)))"
+      value: 1.5
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Second problem: point elasticity. {statement2} A demand equation is given,
+      {given2}; find the elasticity at a price of twenty. {find2} When the problem
+      hands you an equation rather than two points, use the point formula, {ptEq}:
+      elasticity is the slope of quantity with respect to price, which is minus b,
+      times price over quantity. Here b is four. First find the quantity at that
+      price, {step1b}: one hundred and twenty minus four times twenty is forty. Now
+      substitute, {answer2}: minus four times twenty over forty is minus two, so
+      the absolute value is two. Demand is elastic at this price — and note it
+      would be different at another price, because elasticity changes as you move
+      along a straight-line demand curve.
+    board:
+      - id: statement2
+        text: "Elasticity from a demand equation, at one price."
+      - id: given2
+        latex: "Q = 120 - 4P, \\qquad P = 20"
+        say: "quantity equals one hundred and twenty minus four P, at a price of twenty"
+        role: given
+      - id: find2
+        text: "Find |E| at P = 20 and classify."
+        role: find
+      - id: ptEq
+        latex: "E = \\dfrac{dQ}{dP}\\cdot\\dfrac{P}{Q} = -b\\,\\dfrac{P}{Q}"
+        say: "point elasticity equals the derivative of quantity with respect to price, times price over quantity, which is minus b times P over Q"
+        color: orange
+      - id: step1b
+        latex: "Q = 120 - 4(20) = 40"
+        say: "quantity is one hundred and twenty minus four times twenty, which is forty"
+        role: step
+        color: yellow
+      - id: answer2
+        latex: "|E| = \\left|{-4}\\cdot\\dfrac{20}{40}\\right| = 2 \\;\\Rightarrow\\; \\text{elastic}"
+        say: "minus four times twenty over forty is minus two, absolute value two, elastic"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(4*20)/(120-4*20)"
+      value: 2.0
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: problem
+    narration: >
+      Third problem: the revenue test. {drawD3} Total revenue is price times
+      quantity, {trEq} — the area of the rectangle under the chosen point on the
+      demand curve, {rbox}. The elasticity tells you which way that area moves when
+      price changes. {statement3} Using the same demand curve, a firm raises its
+      price from ten to eleven, {given3}; does revenue rise or fall? {find3} At a
+      price of ten, quantity is eighty and revenue is eight hundred. At eleven,
+      quantity falls to seventy-six, but revenue rises to eight hundred and
+      thirty-six, {step1c} — an increase of thirty-six, {answer3}. Revenue rose
+      because, around this price, demand is inelastic: the quantity fell by a
+      smaller percentage than the price rose. In the elastic region we met earlier,
+      the same price rise would have lost revenue. That is the revenue test, and it
+      is why a business cannot decide whether to raise prices without first knowing
+      the elasticity it faces. Where demand is inelastic, raising price raises
+      takings; where it is elastic, the smarter move is often to cut price and sell
+      far more. The rectangle under the curve captures it entirely: raising price
+      makes the rectangle taller but narrower, and the elasticity decides which of
+      those two effects wins out.
+    animation:
+      primitive: supply_demand
+      params:
+        demand: {a: 8.0, b: 0.8}
+        supply: {c: 1.0, d: 0.7}
+      steps:
+        - {id: drawD3, action: draw_demand, params: {color: orange}}
+        - {id: rbox, action: revenue_box, params: {curve: demand, q: 3.0, color: purple, label: "TR"}}
+    board:
+      - id: trEq
+        latex: "TR = P \\times Q"
+        say: "total revenue equals price times quantity"
+        color: purple
+      - id: statement3
+        text: "A price rise in the inelastic region."
+      - id: given3
+        latex: "Q = 120 - 4P: \\quad P = 10 \\;\\to\\; 11"
+        say: "with quantity one hundred and twenty minus four P, price rises from ten to eleven"
+        role: given
+      - id: find3
+        text: "Does total revenue rise or fall?"
+        role: find
+      - id: step1c
+        latex: "TR: 10\\times 80 = 800 \\;\\to\\; 11\\times 76 = 836"
+        say: "revenue goes from ten times eighty, eight hundred, to eleven times seventy-six, eight hundred and thirty-six"
+        role: step
+        color: purple
+      - id: answer3
+        latex: "\\Delta TR = +36 \\;\\Rightarrow\\; \\text{inelastic}"
+        say: "revenue rises by thirty-six, so demand here is inelastic"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "11*(120-4*11)"
+      value: 836
+      unit: "pounds"
+      tol: 0.01
+
+  - id: s7
+    kind: end
+    narration: >
+      To summarise: elasticity is percentage change in quantity over percentage
+      change in price; use the midpoint method between two points, the slope times
+      price over quantity at a single point, and the revenue test to see whether a
+      price rise gains or loses money. Keep the sign convention straight, and
+      always classify the answer against one. Next: how to calculate opportunity
+      cost, and why the production possibilities frontier is curved.
