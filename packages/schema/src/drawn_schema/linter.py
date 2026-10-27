@@ -110,18 +110,32 @@ def _check_scene_placeholders(scene: Scene, result: LintResult) -> None:
 _MAX_LEADIN_WORDS = 9
 
 
-def _check_leadin(scene: Scene, result: LintResult) -> None:
+def _check_leadin(scene: Scene, result: LintResult, speed: float = 1.0) -> None:
+    """Estimate when the first visual appears and mirror CI's 3s pacing gate.
+
+    The render's pacing check (post-TTS) fails a scene whose first ``{id}`` lands
+    more than 3 s into the audio. Estimate that time here from the recalibrated
+    speech rate so the failure surfaces at ``just lint`` instead of mid-render.
+    """
+    from drawn_schema.lesson import wpm_for_kind
+
     if scene.kind in ("title", "end"):
         return
     match = PLACEHOLDER_RE.search(scene.narration)
     if match is None:
         return
     lead_words = count_words(scene.narration[: match.start()])
-    if lead_words > _MAX_LEADIN_WORDS:
+    secs = lead_words / (wpm_for_kind(scene.kind) * speed) * 60.0
+    first = f"{{{match.group(1)}}}"
+    if secs > 3.0:
+        result.error(
+            f"scene {scene.id!r}: ~{secs:.1f}s before the first visual {first} "
+            f"(CI fails > 3s) — open the scene on a draw/plot within ~6 words"
+        )
+    elif secs > 2.4:
         result.warn(
-            f"scene {scene.id!r}: ~{lead_words} words before the first "
-            f"{{{match.group(1)}}} — open the scene with a draw/plot so the "
-            f"board isn't empty for several seconds"
+            f"scene {scene.id!r}: ~{secs:.1f}s before the first visual {first} — "
+            f"close to the 3s limit; move it earlier to be safe"
         )
 
 
@@ -133,8 +147,13 @@ def _spoken_narration(scene: Scene, pronounce_map: dict | None = None) -> str:
     return _pron.apply(text, pronounce_map or {})
 
 
-def _scene_seconds(scene: Scene, pronounce_map: dict) -> float:
-    """Estimated spoken time: words at the kind's wpm + explicit + equation pauses."""
+def _scene_seconds(scene: Scene, pronounce_map: dict, speed: float = 1.0) -> float:
+    """Estimated spoken time at the given voice speed.
+
+    Words at the kind's calibrated 1x rate (scaled by the channel's ``speed``),
+    plus explicit ``{pause:N}`` and the per-equation read-holds (which are 0 now
+    that formulae are spoken inline).
+    """
     from drawn_schema.lesson import (
         EQUATION_POST_PAUSE,
         EQUATION_PRE_PAUSE,
@@ -143,14 +162,28 @@ def _scene_seconds(scene: Scene, pronounce_map: dict) -> float:
     from drawn_schema.placeholders import PAUSE_RE
 
     words = count_words(_spoken_narration(scene, pronounce_map))
-    speech = words / wpm_for_kind(scene.kind) * 60.0
+    speech = words / (wpm_for_kind(scene.kind) * speed) * 60.0
     pauses = sum(float(m.group(1)) for m in PAUSE_RE.finditer(scene.narration))
     pauses += scene.equation_count() * (EQUATION_PRE_PAUSE + EQUATION_POST_PAUSE)
     return speech + pauses
 
 
-def _check_runtime(lesson: Lesson, result: LintResult, pronounce_map: dict) -> None:
-    est = sum(_scene_seconds(s, pronounce_map) for s in lesson.scenes)
+def _channel_speed(repo_root: Path | None, channel: str) -> float:
+    """The channel's Kokoro playback speed (for the runtime estimate)."""
+    if repo_root is None:
+        return 1.0
+    try:
+        from drawn_schema.channel import load_channel
+
+        return float(load_channel(repo_root, channel).voice.speed)
+    except Exception:  # noqa: BLE001 — estimate must never crash the linter
+        return 1.0
+
+
+def _check_runtime(
+    lesson: Lesson, result: LintResult, pronounce_map: dict, speed: float = 1.0
+) -> None:
+    est = sum(_scene_seconds(s, pronounce_map, speed) for s in lesson.scenes)
     est_min = est / 60.0
     target = lesson.target_minutes
     lo = target * (1 - WORD_BUDGET_TOLERANCE)
@@ -373,14 +406,15 @@ def lint_lesson(data: dict, repo_root: Path | None = None) -> LintResult:
 
         pronounce_map = _pron.load_pronounce(repo_root, lesson.channel)
 
+    speed = _channel_speed(repo_root, lesson.channel)
     for scene in lesson.scenes:
         _check_scene_placeholders(scene, result)
-        _check_leadin(scene, result)
+        _check_leadin(scene, result, speed)
         _check_tone(scene, result)
     _check_animations(lesson, repo_root, result)
     _check_pronounce(lesson, pronounce_map, result)
     _check_problems(lesson, result)
-    _check_runtime(lesson, result, pronounce_map)
+    _check_runtime(lesson, result, pronounce_map, speed)
     _check_thumbnail(lesson, result)
     _check_licence(lesson, result)
     _check_latex(lesson, result)

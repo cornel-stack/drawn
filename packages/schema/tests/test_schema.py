@@ -44,7 +44,7 @@ def test_word_budget_property():
             "scenes": [],
         }
     )
-    assert lesson.word_budget == 280  # 2 min x 140 wpm
+    assert lesson.word_budget == 380  # 2 min x 190 wpm
 
 
 def test_title_card_rejects_animation():

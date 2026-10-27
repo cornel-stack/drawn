@@ -2,9 +2,9 @@ import copy
 
 from drawn_schema.linter import lint_lesson
 
-# A minimal valid lesson. target_minutes 1 → budget 145, allowed 123–167.
-# Narration: 140 filler words + two placeholders whose `say` adds 4 words = 144.
-_FILLER = " ".join(["alpha"] * 140)
+# A minimal valid lesson. target_minutes 1 at ~190 wpm (speed 1.0) → ~190 words
+# for one minute, band 162–219. 186 filler + two placeholders (say adds 4) = 190.
+_FILLER = " ".join(["alpha"] * 186)
 
 
 def valid_lesson() -> dict:
@@ -19,7 +19,7 @@ def valid_lesson() -> dict:
             {
                 "id": "s1",
                 "kind": "board",
-                "narration": f"{_FILLER} {{L}} {{tau}}",
+                "narration": f"{{L}} {_FILLER} {{tau}}",
                 "board": [
                     {"id": "L", "latex": r"\vec{L} = I\vec{\omega}", "say": "L equals I omega"},
                     {"id": "tau", "latex": r"\tau", "say": "tau"},
@@ -124,7 +124,7 @@ def test_deepcopy_isolation():
 
 def _diagram_lesson() -> dict:
     # target 1 min -> budget 145 (123-167). 140 filler + step/item says.
-    filler = " ".join(["alpha"] * 140)
+    filler = " ".join(["alpha"] * 186)
     return {
         "schema_version": 1,
         "id": "ME-25",
@@ -136,7 +136,7 @@ def _diagram_lesson() -> dict:
             {
                 "id": "s1",
                 "kind": "diagram",
-                "narration": f"{filler} draw {{spin}} then {{L}}",
+                "narration": f"draw {{spin}} then {{L}} {filler}",
                 "board": [
                     {"id": "L", "latex": r"\vec L = I\vec\omega", "say": "L equals I omega",
                      "color": "blue"},
@@ -177,19 +177,18 @@ def test_item_color_accepted():
     assert lint_lesson(data).ok
 
 
-def test_leadin_warning():
+def test_leadin_error():
     data = valid_lesson()
-    # {L} is after 140 filler words -> long lead-in (warning, not error)
+    # {L} is now after all the filler -> first visual > 3s -> hard error (CI fails)
+    data["scenes"][0]["narration"] = f"{_FILLER} {{L}} {{tau}}"
     result = lint_lesson(data)
-    assert result.ok, result.errors
-    assert any("words before the first" in w for w in result.warnings)
+    assert any("before the first visual" in e for e in result.errors)
 
 
-def test_no_leadin_warning_when_early():
-    data = valid_lesson()
-    data["scenes"][0]["narration"] = "{L} " + " ".join(["alpha"] * 142) + " {tau}"
+def test_no_leadin_error_when_early():
+    data = valid_lesson()  # {L} is already first
     result = lint_lesson(data)
-    assert not any("words before the first" in w for w in result.warnings)
+    assert not any("before the first visual" in e for e in result.errors)
 
 
 def test_tone_banned_phrase_is_error():
@@ -202,7 +201,7 @@ def test_tone_banned_phrase_is_error():
 def test_tone_multiple_questions_is_warning():
     data = valid_lesson()
     data["scenes"][0]["narration"] = (
-        "Why this? And why that? " + " ".join(["alpha"] * 136) + " {L} {tau}"
+        "{L} Why this? And why that? " + " ".join(["alpha"] * 182) + " {tau}"
     )
     result = lint_lesson(data)
     assert result.ok, result.errors
@@ -210,14 +209,14 @@ def test_tone_multiple_questions_is_warning():
 
 
 def _problem_lesson(expr, value, tol=0.01):
-    filler = " ".join(["alpha"] * 110)
+    filler = " ".join(["alpha"] * 160)
     return {
         "schema_version": 1, "id": "ME-01", "channel": "pen-and-pendulum",
         "title": "t", "target_minutes": 1,
         "source": {"book": "b", "section": "s", "license": "CC BY 4.0"},
         "scenes": [{
             "id": "p1", "kind": "problem",
-            "narration": f"{filler} the answer is {{ans}}",
+            "narration": f"the answer is {{ans}} {filler}",
             "board": [{"id": "ans", "latex": "T = 2.5", "say": "T is two point five",
                        "role": "answer", "box": True}],
             "check": {"expr": expr, "value": value, "tol": tol},

@@ -20,10 +20,15 @@ SceneKind = Literal[
 
 BoardRole = Literal["statement", "given", "find", "step", "answer"]
 
-# Speaking pace by scene kind. Derivations and worked problems are slower so the
-# viewer can follow each line; explainers run at the normal pace.
-DEFAULT_WPM = 140
-WPM_BY_KIND = {"derivation": 125, "problem": 125}
+# Effective Kokoro speech rate (words/min) at playback speed 1.0, calibrated
+# against rendered lessons (MI-01, LA-01). The runtime estimate scales this by
+# the channel's voice ``speed`` so ``just lint`` predicts the final audio length
+# within a few seconds. Formula-heavy scenes (derivation/problem) read slower.
+DEFAULT_WPM = 190
+WPM_BY_KIND = {"derivation": 165, "problem": 165}
+# The speed each rate above was calibrated at (so an uncalibrated caller that
+# ignores channel speed still gets a sane number).
+CALIBRATION_SPEED = 1.0
 # Allowed fractional deviation from the estimated runtime before the linter fails.
 WORD_BUDGET_TOLERANCE = 0.15
 # Formulae are now spoken inline (no isolated synthesis, no splice silence), so
