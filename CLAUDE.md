@@ -187,6 +187,25 @@ block that the Remotion `Thumbnail` composition renders big and bold:
 The design adds accent shapes and an oversized faint "?" for energy. The linter
 **warns** when a lesson has no thumbnail hook (it falls back to the dull title)
 and when the hook runs long. Keep it high-contrast and legible at phone size.
+**Every lesson must have an interesting thumbnail — treat the hook as the most
+important line in the file.**
+
+### Publishing metadata (`publish:`)
+
+Every lesson carries a `publish:` block so the finished `meta.md` is a complete,
+paste-ready YouTube upload bundle — **no video ships without one**:
+
+- `title` — the click-ready YouTube title (≤ 100 chars; may differ from the
+  academic `title`).
+- `summary` — one to three sentences that open the description.
+- `hashtags` — 2–4 `#tags` shown above the title (each starts with `#`, no
+  spaces).
+- `tags` — the YouTube keyword tags (the metadata field).
+
+`meta.md` renders these as three pasteable sections — **Title**, **Description**
+(summary + auto chapters from scene boundaries + source attribution + hashtags),
+and **Tags**. Missing fields are derived from the lesson, and the linter warns
+when the `publish:` block is absent.
 
 ## Task runner
 

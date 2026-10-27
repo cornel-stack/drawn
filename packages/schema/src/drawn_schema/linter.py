@@ -269,6 +269,25 @@ def _check_tone(scene: Scene, result: LintResult) -> None:
         )
 
 
+def _check_publish(lesson: Lesson, result: LintResult) -> None:
+    """Every lesson needs YouTube publishing metadata (title/description/hashtags)."""
+    p = lesson.publish
+    if p is None:
+        result.warn(
+            "no 'publish' block — the upload bundle (meta.md) will fall back to "
+            "derived title/description/tags; add publish.title, publish.summary, "
+            "publish.hashtags and publish.tags for a proper YouTube listing"
+        )
+        return
+    if len(p.title) > 100:
+        result.error(f"publish.title is {len(p.title)} chars; YouTube caps titles at 100")
+    for h in p.hashtags:
+        if not h.startswith("#") or " " in h:
+            result.error(f"publish hashtag {h!r} must start with '#' and contain no spaces")
+    if p.hashtags and len(p.hashtags) > 5:
+        result.warn("more than 5 hashtags — YouTube ignores the extras; keep the best 2–4")
+
+
 def _check_thumbnail(lesson: Lesson, result: LintResult) -> None:
     """Every lesson needs a punchy thumbnail hook (not the dull full title)."""
     t = lesson.thumbnail
@@ -416,6 +435,7 @@ def lint_lesson(data: dict, repo_root: Path | None = None) -> LintResult:
     _check_problems(lesson, result)
     _check_runtime(lesson, result, pronounce_map, speed)
     _check_thumbnail(lesson, result)
+    _check_publish(lesson, result)
     _check_licence(lesson, result)
     _check_latex(lesson, result)
     _check_backlog(lesson, repo_root, result)

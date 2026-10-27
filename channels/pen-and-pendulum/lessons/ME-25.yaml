@@ -18,6 +18,23 @@ thumbnail:
   kicker: "Physics"
   hook: "Why the wheel won't fall"
   keyword: "won't fall"
+publish:
+  title: "Why a Spinning Wheel Won't Fall Over (Gyroscopic Precession)"
+  summary: >
+    A spinning bicycle wheel hung from a rope refuses to topple — it slowly
+    turns instead. Here is the physics: gravity's torque is perpendicular to the
+    spin, so it turns the axis rather than dropping it, and we derive the
+    precession rate and work a real example.
+  hashtags: ["#physics", "#gyroscope", "#angularmomentum"]
+  tags:
+    - gyroscopic precession
+    - angular momentum
+    - gyroscope
+    - torque
+    - rotational motion
+    - university physics
+    - OpenStax
+    - physics explained
 
 scenes:
   - id: s1

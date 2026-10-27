@@ -1,5 +1,5 @@
 from drawn_finish.captions import _fmt
-from drawn_finish.meta import _chapter_label, _tags, _timestamp
+from drawn_finish.meta import _chapter_label, _derive_tags, _timestamp
 from drawn_schema.lesson import Lesson
 
 
@@ -33,7 +33,7 @@ def _lesson() -> Lesson:
 
 
 def test_tags_drop_stopwords_and_include_book():
-    tags = _tags(_lesson())
+    tags = _derive_tags(_lesson())
     assert "OpenStax University Physics Vol. 1" in tags
     assert "precession" in tags
     assert "why" not in tags

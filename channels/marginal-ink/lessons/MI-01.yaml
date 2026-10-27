@@ -17,6 +17,22 @@ thumbnail:
   kicker: "Microeconomics"
   hook: "The supply & demand trap"
   keyword: "trap"
+publish:
+  title: "The Supply & Demand Trap Most Students Fall Into"
+  summary: >
+    Supply and demand is the first model every economist learns, and the one
+    most often misused. It all comes down to a single clean distinction: what
+    moves you along a curve versus what shifts the whole curve.
+  hashtags: ["#economics", "#microeconomics", "#supplyanddemand"]
+  tags:
+    - supply and demand
+    - microeconomics
+    - equilibrium
+    - demand curve
+    - supply curve
+    - economics explained
+    - OpenStax
+    - principles of economics
 
 scenes:
   - id: s1

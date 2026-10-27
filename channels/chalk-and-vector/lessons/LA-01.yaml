@@ -17,6 +17,23 @@ thumbnail:
   kicker: "Linear Algebra"
   hook: "3 pictures beat the formula"
   keyword: "3 pictures"
+publish:
+  title: "Linear Equations: 3 Pictures That Make It Finally Click"
+  summary: >
+    A system of linear equations can be read three ways — as intersecting lines,
+    as a combination of vectors, and as an elimination procedure. Each reveals
+    something the raw symbols hide, and together they make the whole subject
+    click.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - linear algebra
+    - systems of equations
+    - Gaussian elimination
+    - row picture
+    - column picture
+    - vectors
+    - mathematics
+    - Hefferon
 
 scenes:
   - id: s1

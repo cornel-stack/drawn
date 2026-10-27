@@ -159,6 +159,24 @@ class Source(BaseModel):
     pages: str | None = None  # e.g. "540-546"
 
 
+class Publish(BaseModel):
+    """Everything needed to post the finished video to YouTube.
+
+    Rendered into ``meta.md`` as a ready-to-paste bundle (title, description with
+    chapters + attribution + hashtags, and the keyword tags). ``title`` is the
+    click-ready YouTube title (not necessarily the academic lesson ``title``);
+    ``summary`` opens the description; ``hashtags`` show above the title;
+    ``tags`` are the YouTube keyword tags.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    title: str
+    summary: str
+    hashtags: list[str] = []
+    tags: list[str] = []
+
+
 class Check(BaseModel):
     """A numeric self-check for a worked problem.
 
@@ -242,6 +260,7 @@ class Lesson(BaseModel):
     target_minutes: float
     source: Source
     thumbnail: Thumbnail | None = None
+    publish: Publish | None = None
     scenes: list[Scene]
 
     @property
