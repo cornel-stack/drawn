@@ -60,7 +60,12 @@ def build_props(repo_root: Path, lesson_path: Path, quality: str = "preview") ->
         )
 
     props = {
-        "lesson": {"id": lesson.id, "title": lesson.title, "channel": lesson.channel},
+        "lesson": {
+            "id": lesson.id,
+            "title": lesson.title,
+            "channel": lesson.channel,
+            "thumbnail": _thumbnail(lesson),
+        },
         "format": "landscape",
         "channel": {
             "display_name": channel.display_name,
