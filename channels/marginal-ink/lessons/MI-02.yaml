@@ -167,8 +167,8 @@ scenes:
   - id: s5
     kind: problem
     narration: >
-      Second problem: point elasticity. {statement2} A demand equation is given,
-      {given2}; find the elasticity at a price of twenty. {find2} When the problem
+      Point elasticity next. {statement2} A demand equation is given, {given2};
+      find the elasticity at a price of twenty. {find2} When the problem
       hands you an equation rather than two points, use the point formula, {ptEq}:
       elasticity is the slope of quantity with respect to price, which is minus b,
       times price over quantity. Here b is four. First find the quantity at that

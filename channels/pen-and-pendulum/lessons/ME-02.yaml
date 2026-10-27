@@ -118,7 +118,6 @@ scenes:
         color: green
         tex_colors:
           "v_0": yellow
-          "a": orange
 
   - id: s4
     kind: derivation

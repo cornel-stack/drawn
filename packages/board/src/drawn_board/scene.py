@@ -190,13 +190,28 @@ class BoardSceneMixin:
 
         tmpl = TexTemplate()
         tmpl.add_to_preamble(r"\usepackage{xcolor}")
-        wrapped = tex
+        # Locate each substring's first occurrence in the ORIGINAL tex, then
+        # splice the \textcolor wrappers in a single pass. Replacing on a mutating
+        # string would let a later single-letter key (e.g. "a") match inside an
+        # already-injected colour name ("drawn-a-ccent0") and break the LaTeX.
+        spans = []
         for i, (sub, col) in enumerate(tex_colors.items()):
             name = f"drawnaccent{i}"
             hexv = self.data.channel.resolve_color(col).lstrip("#").upper()
             tmpl.add_to_preamble(f"\\definecolor{{{name}}}{{HTML}}{{{hexv}}}")
-            wrapped = wrapped.replace(sub, f"\\textcolor{{{name}}}{{{sub}}}", 1)
-        return MathTex(wrapped, tex_template=tmpl, color=base_color,
+            idx = tex.find(sub)
+            if idx >= 0:
+                spans.append((idx, idx + len(sub), sub, name))
+        spans.sort()
+        out, pos, last_end = [], 0, 0
+        for start, end, sub, name in spans:
+            if start < last_end:  # overlaps a prior wrap — skip
+                continue
+            out.append(tex[pos:start])
+            out.append(f"\\textcolor{{{name}}}{{{sub}}}")
+            pos, last_end = end, end
+        out.append(tex[pos:])
+        return MathTex("".join(out), tex_template=tmpl, color=base_color,
                        font_size=style.FORMULA_FONT_SIZE)
 
     def _text(self, text: str, color: str, font_size: int):
