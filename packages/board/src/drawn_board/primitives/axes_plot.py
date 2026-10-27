@@ -170,6 +170,40 @@ class AxesPlot(Primitive):
         self.scene.play(Create(line), run_time=run_time * 0.7)
 
     @step
+    def area_under_line(self, run_time: float, name: str = None, x0: float = 0.0,
+                        x1: float = 3.0, color: str = "green", split: bool = False,
+                        rect_color: str = "yellow", tri_color: str = "orange", **_):
+        """Shade the region under a plotted line `name` between x0 and x1.
+
+        For a velocity-time line this is the displacement. With ``split`` the
+        region is drawn as a rectangle (constant-velocity part) plus a triangle
+        (the part gained by accelerating), in two accents.
+        """
+        from manim import FadeIn, Polygon
+
+        line, a, b, c = self._lines[name]
+
+        def y(x):
+            return (c - a * x) / b
+
+        y0, y1 = y(x0), y(x1)
+        p00 = self.axes.c2p(x0, 0)
+        p10 = self.axes.c2p(x1, 0)
+        if not split:
+            poly = Polygon(p00, p10, self.axes.c2p(x1, y1), self.axes.c2p(x0, y0),
+                           color=self.color(color), fill_opacity=0.35, stroke_width=2)
+            self.scene.play(FadeIn(poly), run_time=run_time)
+            return
+        base = min(y0, y1)
+        rect = Polygon(p00, p10, self.axes.c2p(x1, base), self.axes.c2p(x0, base),
+                       color=self.color(rect_color), fill_opacity=0.35, stroke_width=2)
+        tri = Polygon(self.axes.c2p(x0, base), self.axes.c2p(x1, base),
+                      self.axes.c2p(x1, y1), self.axes.c2p(x0, y0),
+                      color=self.color(tri_color), fill_opacity=0.35, stroke_width=2)
+        self.scene.play(FadeIn(rect), run_time=run_time * 0.5)
+        self.scene.play(FadeIn(tri), run_time=run_time * 0.5)
+
+    @step
     def area(self, run_time: float, func: str = "parabola", x0: float = 0.0, x1: float = 3.0,
              color: str = "green", **_):
         from manim import Create

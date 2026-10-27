@@ -187,6 +187,48 @@ class SupplyDemand(Primitive):
         self.scene.play(_grow(arrow), _write(lbl), run_time=run_time * 0.5)
 
     @step
+    def mark_points(self, run_time: float, curve: str = "demand", points: list = None,
+                    color: str = "yellow", **_):
+        """Drop labelled dots at given quantities on a curve, with dashed guides."""
+        from manim import DashedLine, Dot, MathTex
+
+        p_of_q = self._demand_p if curve == "demand" else self._supply_p
+        pts = points or []
+        seg = run_time / max(len(pts), 1)
+        for spec in pts:
+            q = float(spec["q"])
+            p = p_of_q(q)
+            dot = Dot(self.axes.c2p(q, p), color=self.color(color), radius=0.09)
+            gx = DashedLine(self.axes.c2p(q, 0), self.axes.c2p(q, p),
+                            color=self.color(None), stroke_width=2)
+            gy = DashedLine(self.axes.c2p(0, p), self.axes.c2p(q, p),
+                            color=self.color(None), stroke_width=2)
+            anims = [_create(gx), _create(gy), _grow(dot)]
+            if spec.get("label"):
+                lbl = MathTex(spec["label"], color=self.color(color),
+                              font_size=LABEL_FONT_SIZE).next_to(dot, _up() + _right(), buff=0.12)
+                anims.append(_write(lbl))
+            self.scene.play(*anims, run_time=seg)
+
+    @step
+    def revenue_box(self, run_time: float, curve: str = "demand", q: float = 4.0,
+                    color: str = "purple", label: str = None, **_):
+        """Draw the total-revenue rectangle [0,Q] x [0,P] under a point on a curve."""
+        from manim import MathTex, Polygon
+
+        p_of_q = self._demand_p if curve == "demand" else self._supply_p
+        p = p_of_q(float(q))
+        box = Polygon(self.axes.c2p(0, 0), self.axes.c2p(q, 0),
+                      self.axes.c2p(q, p), self.axes.c2p(0, p),
+                      color=self.color(color), fill_opacity=0.3, stroke_width=3)
+        anims = [_fade_in(box)]
+        if label:
+            lbl = MathTex(label, color=self.color(color),
+                          font_size=LABEL_FONT_SIZE).move_to(self.axes.c2p(q / 2, p / 2))
+            anims.append(_write(lbl))
+        self.scene.play(*anims, run_time=run_time)
+
+    @step
     def move_along(self, run_time: float, curve: str = "demand", to_q: float = 5.0,
                    color: str = "yellow", **_):
         """Slide a dot ALONG a fixed curve (a change in quantity demanded)."""
@@ -211,6 +253,12 @@ def _grow(m):
     from manim import GrowFromCenter
 
     return GrowFromCenter(m)
+
+
+def _fade_in(m):
+    from manim import FadeIn
+
+    return FadeIn(m)
 
 
 def _write(m):
