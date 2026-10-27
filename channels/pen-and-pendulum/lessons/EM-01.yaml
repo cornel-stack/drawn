@@ -48,9 +48,9 @@ scenes:
   - id: s2
     kind: diagram
     narration: >
-      Here are two charges of the same sign, {placeA} and {placeB}. This lesson
-      builds on vectors from the previous one, so magnitude, direction and the
-      nose-to-tail sum should be familiar. Electric charge is a property of
+      Here are two like charges, {placeA} and {placeB}. This lesson builds on
+      vectors from the previous one, so magnitude, direction and the nose-to-tail
+      sum should be familiar. Electric charge is a property of
       matter, like mass, except that it comes in two kinds, labelled positive and
       negative. Like charges repel: each is pushed directly away from the other,
       {repel} {repelB}. Opposite charges instead attract, pulled directly toward
@@ -166,12 +166,12 @@ scenes:
   - id: s5
     kind: diagram
     narration: >
-      With more than two charges, use superposition, {superpos}: the net force on
-      one charge is the vector sum of the separate forces from each of the others,
-      each worked out from Coulomb's law as if the rest were absent. Take a
-      positive charge, {placeQ}, with a second positive charge above it, {place1},
-      and a negative charge to its right, {place2}. The upper charge repels it, so
-      that force points down, {fq1}. The charge on the right attracts it, so that
+      Take a positive charge, {placeQ}, with two others nearby: a positive charge
+      above it, {place1}, and a negative charge to its right, {place2}. With more
+      than two charges we use superposition, {superpos}: the net force on one
+      charge is the vector sum of the separate forces from each of the others,
+      each worked out from Coulomb's law as if the rest were absent. The upper
+      charge repels it, so that force points down, {fq1}. The charge on the right attracts it, so that
       force points right, {fq2}. Add the two nose to tail, and the net force is
       the single arrow from start to finish, {netF}. Because the parts here are
       perpendicular, the magnitude follows from Pythagoras and the direction from
