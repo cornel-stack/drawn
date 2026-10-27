@@ -211,6 +211,22 @@ class Scene(BaseModel):
         return sum(1 for it in self.board if it.is_equation)
 
 
+class Thumbnail(BaseModel):
+    """A click-worthy thumbnail: a short, punchy hook, not the full title.
+
+    ``hook`` is a provocative or curiosity-driven line of at most ~6 words (big
+    and bold on the thumbnail). ``keyword`` is a word or phrase inside the hook
+    rendered in the channel's accent colour for pop. ``kicker`` is a tiny label
+    above the hook (the topic, e.g. "MICROECONOMICS").
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    hook: str
+    keyword: str | None = None
+    kicker: str | None = None
+
+
 class Lesson(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -220,6 +236,7 @@ class Lesson(BaseModel):
     title: str
     target_minutes: float
     source: Source
+    thumbnail: Thumbnail | None = None
     scenes: list[Scene]
 
     @property

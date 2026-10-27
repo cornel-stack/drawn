@@ -13,6 +13,10 @@ source:
   license: "CC BY 4.0"
   file: "principles-economics-3e/027-3-2-shifts-in-demand-and-supply-for-goods-and-services.md"
   pages: "64-79"
+thumbnail:
+  kicker: "Microeconomics"
+  hook: "The supply & demand trap"
+  keyword: "trap"
 
 scenes:
   - id: s1

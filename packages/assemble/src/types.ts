@@ -26,8 +26,10 @@ export type Channel = {
   outro_seconds: number;
 };
 
+export type Thumb = {hook: string; keyword: string | null; kicker: string | null};
+
 export type LessonProps = {
-  lesson: {id: string; title: string; channel: string};
+  lesson: {id: string; title: string; channel: string; thumbnail?: Thumb};
   format: "landscape" | "shorts";
   channel: Channel;
   fps: number;
