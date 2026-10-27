@@ -1,0 +1,247 @@
+# MA-01: GDP — three ways to measure one number.
+# OpenStax Principles of Economics 3e §19.1 (CC BY 4.0). ~9 minutes.
+# Colour discipline: consumption C = orange, investment I = blue,
+# government G = purple, net exports NX = red, GDP total = green.
+# Figures are US 2020 (Table 19.1 / 19.2); the worked problem uses fresh numbers.
+schema_version: 1
+id: MA-01
+channel: marginal-ink
+title: "GDP, properly: three ways to measure one number"
+target_minutes: 9
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§19.1 Measuring the Size of the Economy — GDP"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/213-19-1-measuring-the-size-of-the-economy-gross-domestic-product.md"
+  pages: "449-457"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "One number, three ways"
+  keyword: "three ways"
+publish:
+  title: "GDP, Properly: The Three Ways to Measure One Number"
+  summary: >
+    GDP is the single number that sizes an entire economy — the market value of
+    all final goods and services a country produces in a year. There are three
+    independent routes to it: adding up spending, adding up production, and
+    adding up income. They all land on the same total, and this explains why.
+  hashtags: ["#economics", "#macroeconomics", "#GDP"]
+  tags:
+    - GDP
+    - macroeconomics
+    - gross domestic product
+    - expenditure approach
+    - national income
+    - net exports
+    - economics explained
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      One number is used to size an entire economy: gross domestic product. There
+      are three independent ways to arrive at it, and they all give the same
+      total.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Start with spending, {axisA}. Gross domestic product, GDP, is the market
+      value of all final goods and services produced within a country in a given
+      year. Read that definition slowly, because every word earns its place.
+      Market value means we add things up at the prices they sold for, so a
+      luxury car counts for more than a cheap one. A loaf of bread adds its small
+      price; a new house adds a large one; GDP simply sums every final good and
+      service at whatever the market actually paid for it. Final is the crucial word: we
+      count the finished car, but not, on top of it, the steel and the tyres that
+      went into it — the car's selling price already includes them, and counting
+      both would be double counting. Produced within a country means we count what
+      is made inside the borders, whoever owns the factory. And in a given year
+      means GDP is a flow, measured over time, not a stock of wealth. The most
+      direct way to measure it adds up everyone's spending on those final goods,
+      which economists split into four parts, {gdpEq}. The first and largest is
+      consumption — household spending on everything from food to haircuts to
+      cars. In a typical year it is about two-thirds of the whole economy, {segC}.
+      The second is investment: firms buying new capital goods — factories,
+      machinery, new housing. Note that investment here does not mean buying
+      shares or bonds; it means producing new productive equipment, and it runs
+      at roughly a sixth of GDP, {segI}. The third is government spending on goods
+      and services — roads, schools, defence — close to a fifth of the total,
+      {segG}. One subtlety: this counts only purchases of goods and services, not
+      transfer payments such as pensions or unemployment benefit, because no new
+      good or service is produced in return. The fourth part is net exports,
+      {segNX}: the value of exports minus the value of imports, {nxEq}. When a
+      country imports more than it exports, as America usually does, this term is
+      negative and pulls the total down a little. Add the four together and you
+      have GDP, {totGDP} — for America in twenty twenty, about twenty-one trillion
+      dollars, the largest national economy in the world.
+    animation:
+      primitive: bars
+      params:
+        value_max: 24.0
+        bar_width: 1.2
+      steps:
+        - {id: axisA, action: axis, params: {label: "US GDP, 2020 ($tn)"}}
+        - {id: segC, action: segment, params: {stack: m, value: 14.0, color: orange, label: "C", x: -2.4}}
+        - {id: segI, action: segment, params: {stack: m, value: 3.6, color: blue, label: "I"}}
+        - {id: segG, action: segment, params: {stack: m, value: 3.9, color: purple, label: "G"}}
+        - {id: segNX, action: segment, params: {stack: m, value: -0.6, color: red, label: "NX"}}
+        - {id: totGDP, action: total, params: {stack: m, color: green, label: "GDP", x: 1.8}}
+    board:
+      - id: gdpEq
+        latex: "\\text{GDP} = C + I + G + (X - M)"
+        say: "G D P equals consumption plus investment plus government spending plus exports minus imports"
+        color: green
+        legend:
+          - {sym: "C", name: "consumption (household spending)", unit: "$tn"}
+          - {sym: "I", name: "investment (new capital)", unit: "$tn"}
+          - {sym: "G", name: "government purchases", unit: "$tn"}
+          - {sym: "X - M", name: "net exports (exports minus imports)", unit: "$tn"}
+      - id: nxEq
+        latex: "NX = X - M"
+        say: "net exports equals exports minus imports"
+        color: red
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Measure one economy three ways, {axisB}. The first way we have just seen:
+      add up spending, consumption plus the other three components, {eC} {eRest}.
+      But there is a second, completely separate way — add up everything that is
+      produced, {pServ} {pRest}. When you do, the biggest share is a surprise to
+      many people: it is not manufactured goods but services — health care,
+      finance, education, retail — well over half of everything produced, with
+      physical goods and structures making up the rest. The remarkable fact is
+      that this production total comes out identical to the spending total. And
+      there is a third way still, {incAll}: add up all the income that production
+      pays out — wages and salaries to workers, interest and dividends to the
+      owners of capital, rent to landowners, and profit to entrepreneurs,
+      {incomeEq}. Why must these three agree? Because every single market
+      transaction has two sides at once. When you buy a ten-pound book, that is
+      ten pounds of spending, ten pounds of production, and ten pounds of income
+      to everyone who helped make and sell it — the same ten pounds, seen three
+      ways. So total spending equals total production equals total income,
+      {identEq}. The three columns here are sliced quite differently, yet every
+      one reaches the very same height, {gdpLevel}. This is more than a curiosity:
+      it lets statisticians measure GDP from income records, from production
+      surveys, and from spending data, and then cross-check the three against one
+      another. One number, three honest routes to it.
+    animation:
+      primitive: bars
+      params:
+        value_max: 24.0
+        bar_width: 1.0
+      steps:
+        - {id: axisB, action: axis, params: {}}
+        - {id: eC, action: segment, params: {stack: exp, value: 14.0, color: orange, x: -3.0, col_label: "Spending"}}
+        - {id: eRest, action: segment, params: {stack: exp, value: 6.9, color: blue}}
+        - {id: pServ, action: segment, params: {stack: prod, value: 12.7, color: green, x: 0.0, col_label: "Production"}}
+        - {id: pRest, action: segment, params: {stack: prod, value: 8.2, color: purple}}
+        - {id: incAll, action: segment, params: {stack: inc, value: 20.9, color: yellow, x: 3.0, col_label: "Income"}}
+        - {id: gdpLevel, action: level, params: {value: 20.9, color: red, label: "GDP"}}
+    board:
+      - id: incomeEq
+        latex: "\\text{GDP} = \\text{wages} + \\text{interest} + \\text{rent} + \\text{profit}"
+        say: "G D P also equals wages plus interest plus rent plus profit"
+        color: yellow
+      - id: identEq
+        latex: "\\text{GDP}_{\\text{spending}} = \\text{GDP}_{\\text{production}} = \\text{GDP}_{\\text{income}}"
+        say: "G D P by spending equals G D P by production equals G D P by income"
+        color: green
+
+  - id: s4
+    kind: diagram
+    narration: >
+      Here is the hard part, {axisC}: deciding what to leave out. Consider a
+      lorry. Its parts — the engine, the tyres, the steel — are intermediate
+      goods, bought by the manufacturer only to be built into the finished
+      vehicle. Suppose we counted the value of those parts, {segParts}, and then
+      also counted the value of the finished lorry, {segTruck}. We would have
+      counted the parts twice — once on their own and once again inside the lorry
+      — and so overstated the economy. To avoid that, statisticians include only
+      the final good, the lorry itself, {finalLvl}, whose price already contains
+      the value of everything built into it, {finalNote}. The same logic rules
+      out several other things. Used goods are not counted: a second-hand car was
+      already counted in the year it was first built. Purely financial swaps, such
+      as buying shares, are not counted, because nothing new is produced — the
+      money simply changes hands. Transfer payments — pensions, unemployment
+      benefit — are not counted either, because the person receiving them gives
+      back no good or service in return. And unpaid or hidden activity, from
+      housework to the black market, slips through the net entirely. GDP, in
+      short, is a careful count of newly produced final output, valued at market
+      prices, and nothing else.
+    animation:
+      primitive: bars
+      params:
+        value_max: 40.0
+        bar_width: 1.2
+      steps:
+        - {id: axisC, action: axis, params: {label: "value counted"}}
+        - {id: segParts, action: segment, params: {stack: w, value: 18.0, color: red, label: "parts", x: -2.2, col_label: "double-counted"}}
+        - {id: segTruck, action: segment, params: {stack: w, value: 30.0, color: orange, label: "lorry"}}
+        - {id: finalLvl, action: segment, params: {stack: r, value: 30.0, color: green, label: "lorry only", x: 1.8, col_label: "correct"}}
+    board:
+      - id: finalNote
+        text: "Count final goods only — never the intermediate parts as well."
+        color: green
+
+  - id: s5
+    kind: problem
+    narration: >
+      A worked example. {statement} Five figures are given, in billions of
+      dollars, {given}; find GDP. {find} First the net-export term, {step1}:
+      exports of one hundred and forty minus imports of one hundred and ninety is
+      minus fifty — a trade deficit, so it subtracts from the total. Now add the
+      four components, {step2}: nine hundred and twenty, plus three hundred and
+      ten, plus two hundred and eighty, minus fifty. That gives one thousand four
+      hundred and sixty billion dollars, {answer}. And notice the trap: if you
+      forgot that net exports were negative and simply added the first three
+      figures, you would wrongly report fifteen hundred and ten — overstating the
+      economy by fifty billion. Net exports are the one component that can come
+      out negative, and overlooking that sign is the single most common slip in
+      these calculations, so always compute exports minus imports first and carry
+      its sign through.
+    board:
+      - id: statement
+        text: "A small economy, all figures in billions of dollars."
+      - id: given
+        latex: "C=920,\\ I=310,\\ G=280,\\ X=140,\\ M=190"
+        say: "consumption nine hundred twenty, investment three hundred ten, government two hundred eighty, exports one hundred forty, imports one hundred ninety"
+        role: given
+      - id: find
+        text: "Find GDP by the expenditure approach."
+        role: find
+      - id: step1
+        latex: "X - M = 140 - 190 = -50"
+        say: "exports minus imports equals one hundred forty minus one hundred ninety, which is minus fifty"
+        role: step
+        color: red
+      - id: step2
+        latex: "\\text{GDP} = 920 + 310 + 280 + (-50)"
+        say: "G D P equals nine hundred twenty plus three hundred ten plus two hundred eighty minus fifty"
+        role: step
+        color: blue
+      - id: answer
+        latex: "\\text{GDP} = \\$1{,}460\\ \\text{billion}"
+        say: "G D P equals one thousand four hundred sixty billion dollars"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "920 + 310 + 280 + (140 - 190)"
+      value: 1460
+      unit: "billions of dollars"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: GDP is the market value of all final goods and services
+      produced within a country in a year, and spending, production and income are
+      three routes to the same total. One note on borders: GDP counts what is made
+      inside the country; the related measure GNP instead follows the country's
+      own people and firms wherever in the world they are. Whichever of the three
+      routes you take, and whichever border rule you use, the method is just a
+      careful, consistent count. Next: Inflation, the CPI and the GDP deflator —
+      and why they disagree.

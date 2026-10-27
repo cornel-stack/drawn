@@ -1,0 +1,261 @@
+# EM-01: Coulomb's law and superposition.
+# OpenStax University Physics Vol. 2 §5.1, §5.3 (CC BY 4.0). ~7 minutes.
+# Colour discipline: positive charge = red, negative charge = blue,
+# force from q1 = green, force from q2 = orange, net force = yellow,
+# boxed result = green.
+schema_version: 1
+id: EM-01
+channel: pen-and-pendulum
+title: "Coulomb's law and superposition: solving multi-charge problems"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "§5.1 Electric Charge; §5.3 Coulomb's Law"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/041-5-3-coulomb-s-law.md"
+  pages: "182-195"
+thumbnail:
+  kicker: "Electricity & Magnetism"
+  hook: "Forces add as arrows, not numbers"
+  keyword: "arrows, not numbers"
+publish:
+  title: "Coulomb's Law & Superposition: Net Force on Multiple Charges (Worked Example)"
+  summary: >
+    Coulomb's law gives the force between two point charges, and superposition
+    extends it to any number of them: the net force on one charge is the vector
+    sum of the separate pairwise forces. We state the law, fix the sign rule for
+    attraction and repulsion, and work a three-charge problem to a boxed
+    magnitude and direction.
+  hashtags: ["#physics", "#electromagnetism", "#coulombslaw"]
+  tags:
+    - Coulomb's law
+    - electric force
+    - superposition principle
+    - electrostatics
+    - point charges
+    - net force
+    - physics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Two charges, held apart, push or pull on each other across empty space.
+      Coulomb's law says exactly how hard, and superposition handles any number
+      of them.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here are two charges of the same sign, {placeA} and {placeB}. This lesson
+      builds on vectors from the previous one, so magnitude, direction and the
+      nose-to-tail sum should be familiar. Electric charge is a property of
+      matter, like mass, except that it comes in two kinds, labelled positive and
+      negative. Like charges repel: each is pushed directly away from the other,
+      {repel} {repelB}. Opposite charges instead attract, pulled directly toward
+      each other. Charge is also quantised, {qne}: every charge is a whole-number
+      multiple of one elementary charge, e, which is about one point six times
+      ten to the minus nineteen coulombs. You cannot have half of one. And in an
+      isolated system charge is conserved — never created or destroyed, only
+      moved from one body to another.
+    animation:
+      primitive: charges
+      params:
+        scale: 1.0
+        charges:
+          A: {at: [-1.5, 0.15], sign: "+", color: red, label: "q"}
+          B: {at: [1.5, 0.15], sign: "+", color: red, label: "q"}
+      steps:
+        - {id: placeA, action: place, params: {name: A}}
+        - {id: placeB, action: place, params: {name: B}}
+        - {id: repel, action: force, params: {on: A, frm: B, length: 1.1, color: orange, label: "F"}}
+        - {id: repelB, action: force, params: {on: B, frm: A, length: 1.1, color: orange}}
+    board:
+      - id: qne
+        latex: "q = n\\,e, \\qquad e = 1.602\\times10^{-19}\\ \\text{C}"
+        say: "q equals n times e, where e, the elementary charge, is one point six zero two times ten to the minus nineteen coulombs"
+        color: yellow
+        legend:
+          - {sym: "q", name: "net charge on an object", unit: "C"}
+          - {sym: "n", name: "a whole number of elementary charges"}
+          - {sym: "e", name: "the elementary charge", unit: "C"}
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Place two opposite charges, {placeQ1} {placeQ2}, a fixed distance r apart,
+      {sep}. Coulomb's law gives
+      the force between them, {coulomb}. The magnitude is the constant k times
+      the product of the two charge sizes, divided by the square of the distance.
+      Two things to read off it. The force grows with either charge, and it falls
+      off as the inverse square of the separation: double the distance and the
+      force drops to a quarter. The constant k, {kval}, is one over four pi
+      epsilon nought, about nine times ten to the nine newton metres squared per
+      coulomb squared, where epsilon nought is the permittivity of free space.
+      The direction is along the line joining the charges — here opposite signs,
+      so each is pulled toward the other, {f12} {f21}. These two forces are equal
+      in size and opposite in direction, exactly as Newton's third law demands.
+    animation:
+      primitive: charges
+      params:
+        scale: 1.0
+        charges:
+          q1: {at: [-1.7, 0.1], sign: "+", color: red, label: "q_1"}
+          q2: {at: [1.7, 0.1], sign: "-", color: blue, label: "q_2"}
+      steps:
+        - {id: placeQ1, action: place, params: {name: q1}}
+        - {id: placeQ2, action: place, params: {name: q2}}
+        - {id: sep, action: separation, params: {a: q1, b: q2, label: "r"}}
+        - {id: f12, action: force, params: {on: q1, frm: q2, length: 1.2, color: green, label: "F"}}
+        - {id: f21, action: force, params: {on: q2, frm: q1, length: 1.2, color: green}}
+    board:
+      - id: coulomb
+        latex: "F = k\\,\\dfrac{|q_1 q_2|}{r^2}"
+        say: "F equals k times the magnitude of q one q two, divided by r squared"
+        color: green
+        tex_colors:
+          "q_1": red
+          "q_2": blue
+        legend:
+          - {sym: "F", name: "magnitude of the electric force", unit: "N"}
+          - {sym: "q_1, q_2", name: "the two point charges", unit: "C"}
+          - {sym: "r", name: "distance between them", unit: "m"}
+          - {sym: "k", name: "Coulomb's constant", unit: "N m^2/C^2"}
+      - id: kval
+        latex: "k = \\dfrac{1}{4\\pi\\varepsilon_0} = 8.99\\times10^{9}\\ \\text{N·m}^2/\\text{C}^2"
+        say: "k equals one over four pi epsilon nought, which is eight point nine nine times ten to the nine newton metres squared per coulomb squared"
+        color: yellow
+
+  - id: s4
+    kind: problem
+    narration: >
+      A quick example first. {statement} Two charges are given, {given}; find the
+      force between them. {find} Substitute straight into Coulomb's law, {step1}:
+      nine times ten to the nine, times three micro-coulombs, times three
+      micro-coulombs, divided by nought point one metres squared. That comes to
+      about eight newtons, {answer}. The signs are opposite, so the force is
+      attractive — the two charges are pulled together.
+    board:
+      - id: statement
+        text: "Two point charges a tenth of a metre apart."
+      - id: given
+        latex: "q_a = +3\\ \\mu\\text{C}, \\quad q_b = -3\\ \\mu\\text{C}, \\quad r = 0.10\\ \\text{m}"
+        say: "q a equals plus three micro-coulombs, q b equals minus three micro-coulombs, r equals nought point one zero metres"
+        role: given
+      - id: find
+        text: "Find the magnitude of the force between them."
+        role: find
+      - id: step1
+        latex: "F = \\dfrac{(8.99\\times10^{9})(3\\times10^{-6})(3\\times10^{-6})}{(0.10)^2}"
+        say: "F equals eight point nine nine times ten to the nine, times three times ten to the minus six, times three times ten to the minus six, over nought point one zero squared"
+        role: step
+        color: blue
+      - id: answer
+        latex: "F \\approx 8.09\\ \\text{N (attractive)}"
+        say: "F is about eight point zero nine newtons, attractive"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "8.99e9*3.0e-6*3.0e-6/0.10**2"
+      value: 8.09
+      unit: "N"
+      tol: 0.01
+
+  - id: s5
+    kind: diagram
+    narration: >
+      With more than two charges, use superposition, {superpos}: the net force on
+      one charge is the vector sum of the separate forces from each of the others,
+      each worked out from Coulomb's law as if the rest were absent. Take a
+      positive charge, {placeQ}, with a second positive charge above it, {place1},
+      and a negative charge to its right, {place2}. The upper charge repels it, so
+      that force points down, {fq1}. The charge on the right attracts it, so that
+      force points right, {fq2}. Add the two nose to tail, and the net force is
+      the single arrow from start to finish, {netF}. Because the parts here are
+      perpendicular, the magnitude follows from Pythagoras and the direction from
+      the tangent, {combine} — the same magnitude-and-angle step as for any
+      vector.
+    animation:
+      primitive: charges
+      params:
+        scale: 1.0
+        charges:
+          Q: {at: [0.0, 0.0], sign: "+", color: red, label: "Q"}
+          q1: {at: [0.0, 1.6], sign: "+", color: red, label: "q_1"}
+          q2: {at: [2.2, 0.0], sign: "-", color: blue, label: "q_2"}
+      steps:
+        - {id: placeQ, action: place, params: {name: Q}}
+        - {id: place1, action: place, params: {name: q1}}
+        - {id: place2, action: place, params: {name: q2}}
+        - {id: fq1, action: force, params: {on: Q, frm: q1, length: 1.3, color: green, label: "F_1"}}
+        - {id: fq2, action: force, params: {on: Q, frm: q2, length: 0.9, color: orange, label: "F_2"}}
+        - {id: netF, action: net, params: {on: Q, color: yellow, label: "F_{net}"}}
+    board:
+      - id: superpos
+        latex: "\\vec{F}_{\\text{net}} = \\sum_i \\vec{F}_i = \\vec{F}_1 + \\vec{F}_2 + \\cdots"
+        say: "the net force equals the sum of the individual forces, F one plus F two and so on"
+        color: yellow
+      - id: combine
+        latex: "F_{\\text{net}} = \\sqrt{F_x^2 + F_y^2}, \\qquad \\tan\\theta = \\dfrac{F_y}{F_x}"
+        say: "F net equals the square root of F x squared plus F y squared, and tan theta equals F y over F x"
+        color: green
+
+  - id: s6
+    kind: problem
+    narration: >
+      Now the full problem. {statement} Three charges are fixed in place, {given};
+      find the net force on the charge at the corner. {find} First the force from
+      the upper charge: both positive, so it repels, pushing straight down,
+      {step1}. That magnitude is about one newton. Next the force from the charge
+      on the right: opposite signs, so it attracts, pulling to the right, {step2},
+      about nought point six seven newtons. The two are perpendicular, so combine
+      them, {step3}: the square root of the sum of their squares gives about one
+      point two newtons, at fifty-six degrees below the horizontal. So the net
+      force is one point two one newtons, directed down and to the right, {answer}.
+    board:
+      - id: statement
+        text: "A charge Q at a right-angle corner, with one charge above and one to the right."
+      - id: given
+        latex: "Q=+2\\,\\mu\\text{C};\\ q_1=+5\\,\\mu\\text{C},\\ d_1=0.30\\,\\text{m};\\ q_2=-6\\,\\mu\\text{C},\\ d_2=0.40\\,\\text{m}"
+        say: "Q equals plus two micro-coulombs; q one equals plus five micro-coulombs, nought point three zero metres above; q two equals minus six micro-coulombs, nought point four zero metres to the right"
+        role: given
+      - id: find
+        text: "Find the net electric force on Q (magnitude and direction)."
+        role: find
+      - id: step1
+        latex: "F_1 = k\\dfrac{q_1 Q}{d_1^2} \\approx 1.00\\ \\text{N (down)}"
+        say: "F one equals k q one Q over d one squared, about one point zero zero newtons, pointing down"
+        role: step
+        color: green
+      - id: step2
+        latex: "F_2 = k\\dfrac{q_2 Q}{d_2^2} \\approx 0.674\\ \\text{N (right)}"
+        say: "F two equals k q two Q over d two squared, about nought point six seven four newtons, pointing right"
+        role: step
+        color: orange
+      - id: step3
+        latex: "F_{\\text{net}} = \\sqrt{F_1^2 + F_2^2} \\approx 1.21\\ \\text{N}, \\quad \\theta \\approx 56^\\circ"
+        say: "F net equals the square root of F one squared plus F two squared, about one point two one newtons, at fifty-six degrees"
+        role: step
+        color: yellow
+      - id: answer
+        latex: "F_{\\text{net}} \\approx 1.21\\ \\text{N, } 56^\\circ \\text{ below } +x"
+        say: "the net force is about one point two one newtons, fifty-six degrees below the positive x axis"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "((8.99e9*6.0e-6*2.0e-6/0.40**2)**2 + (8.99e9*5.0e-6*2.0e-6/0.30**2)**2)**0.5"
+      value: 1.21
+      unit: "N"
+      tol: 0.01
+
+  - id: s7
+    kind: end
+    narration: >
+      To summarise: Coulomb's law gives the force between two charges — inverse
+      square in distance, along the line joining them, with the sign deciding
+      attraction or repulsion — and superposition adds the pairwise forces as
+      vectors. Next: The electric field — what it is, and the field of a line and
+      a ring of charge.

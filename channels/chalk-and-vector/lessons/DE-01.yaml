@@ -1,0 +1,233 @@
+# DE-01: What is a differential equation?
+# OpenStax Calculus Volume 2 §4.1 Basics of Differential Equations (CC BY 4.0).
+# ~7 minutes. Source swapped from Trench (CC BY-NC-SA) to OpenStax for the
+# CC BY policy, as MI-01 was.
+# Colour discipline: solution curve y = blue, slope/derivative = orange,
+# initial condition / particular solution = green, the rate constant k = purple.
+schema_version: 1
+id: DE-01
+channel: chalk-and-vector
+title: "What is a differential equation? (and why physics is written in them)"
+target_minutes: 7
+source:
+  book: "OpenStax Calculus Volume 2"
+  section: "§4.1 Basics of Differential Equations"
+  license: "CC BY 4.0"
+  file: "openstax-calculus-vol2/036-4-1-basics-of-differential-equations.md"
+  pages: "308-316"
+thumbnail:
+  kicker: "Calculus"
+  hook: "The equation that solves itself"
+  keyword: "solves itself"
+publish:
+  title: "Differential Equations Explained: Why All of Physics Is Written in Them"
+  summary: >
+    A differential equation links a function to its own rate of change. This
+    lesson explains what that means, what it is to solve one, the difference
+    between the general family of solutions and a single particular solution
+    fixed by an initial condition, and why Newton's second law and exponential
+    growth are differential equations in disguise.
+  hashtags: ["#calculus", "#differentialequations", "#mathematics"]
+  tags:
+    - differential equations
+    - calculus
+    - initial value problem
+    - exponential growth
+    - general solution
+    - particular solution
+    - Newton's second law
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A differential equation ties a function to its own rate of change. This
+      lesson explains what one is, what it means to solve it, and why so much of
+      physics is written in exactly this form.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Start with a curve, {curve}. You need one idea from calculus: the
+      derivative, the slope of a graph at each point. A differential equation is
+      simply an equation that links an unknown function to one or more of its
+      derivatives, {genForm}. The simplest interesting example is this, {propRate}:
+      the rate of change of y equals a constant k times y itself. In words, the
+      quantity grows at a rate proportional to how much is already there. That one
+      sentence describes compound interest, a growing population, and a cooling
+      cup of coffee. The curve shown is a solution: a function that makes the
+      equation true. Here it passes through the point where x is zero, {p0}. The
+      order of a differential equation is the highest derivative it contains; this
+      one, involving only the first derivative, is first order.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [-1, 4, 1]
+        y: [-1, 8, 1]
+        x_length: 8.2
+        y_length: 3.4
+      steps:
+        - {id: curve, action: plot_function, params: {func: exp, color: blue, label: "y"}}
+        - {id: p0, action: mark_point, params: {x: 0, y: 1, color: green}}
+    board:
+      - id: genForm
+        latex: "F\\left(x,\\, y,\\, y',\\, y'',\\, \\dots\\right) = 0"
+        say: "F of x, y, y prime, y double prime, and so on, equals zero"
+        color: blue
+      - id: propRate
+        latex: "y' = k\\,y"
+        say: "y prime equals k times y"
+        color: blue
+        tex_colors:
+          "y'": orange
+          "k": purple
+        legend:
+          - {sym: "y", name: "the quantity", unit: "varies"}
+          - {sym: "y'", name: "its rate of change"}
+          - {sym: "k", name: "the growth or decay rate", unit: "1/time"}
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Look again at that curve, {curve2}, and take its slope at one point by
+      drawing the tangent, {tan}. For this particular solution the constant k is
+      one half, so the equation says the slope at any point is half the height
+      there, {halfK}. At the marked point, {hpt}, the curve is about two and
+      seven-tenths high, so its slope is about one and a third — and that is
+      exactly what the tangent shows. Where the curve is low it rises gently;
+      where it is high it rises steeply. The differential equation is, in effect,
+      a rule that hands you the slope at every point, and solving it means finding
+      the whole curve that obeys that rule everywhere at once.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [-1, 4, 1]
+        y: [-1, 8, 1]
+        x_length: 8.2
+        y_length: 3.4
+      steps:
+        - {id: curve2, action: plot_function, params: {func: exp, color: blue}}
+        - {id: tan, action: tangent, params: {func: exp, x0: 2, color: orange}}
+        - {id: hpt, action: mark_point, params: {x: 2, y: 2.718, color: green}}
+    board:
+      - id: halfK
+        latex: "y' = \\tfrac{1}{2}\\,y"
+        say: "y prime equals one half y"
+        color: orange
+
+  - id: s4
+    kind: derivation
+    narration: >
+      Try an exponential, {genSol}. To solve y prime equals k y we need a function
+      whose derivative is a constant multiple of itself, and y equals C times e to
+      the k x is exactly that, for any constant C. Check it on a concrete case, k
+      equals two, {verify}: differentiate C e to the two x by the chain rule and
+      you get two C e to the two x, which is just two y. The equation holds for
+      every value of C, so this single formula is a whole family of solutions, one
+      curve for each C. That is why it is called the general solution. To pick one
+      curve out of the family, we need an initial condition — the value of y at one
+      point. Suppose y at zero is three, {particular}: setting x to zero gives C
+      times e to the zero, which is C, equal to three. So C is three, and the
+      particular solution is y equals three e to the two x — the one curve of the
+      family passing through that starting point. This pattern, write the general
+      family and then use one condition to fix the constant, is how every
+      differential equation is ultimately solved.
+    board:
+      - id: genSol
+        latex: "y = C\\,e^{kx}"
+        say: "y equals C times e to the k x"
+        color: blue
+        tex_colors:
+          "C": green
+          "k": purple
+      - id: verify
+        latex: "y = Ce^{2x} \\;\\Rightarrow\\; y' = 2Ce^{2x} = 2y"
+        say: "y equals C e to the two x gives y prime equals two C e to the two x, which is two y"
+        color: orange
+      - id: particular
+        latex: "y(0) = 3 \\;\\Rightarrow\\; C = 3 \\;\\Rightarrow\\; y = 3e^{2x}"
+        say: "y of zero equals three gives C equals three, so y equals three e to the two x"
+        color: green
+        box: true
+
+  - id: s5
+    kind: diagram
+    narration: >
+      Here is why physics is written this way, {vline}. Newton's second law says
+      force equals mass times acceleration, and acceleration is the derivative of
+      velocity — so the law is itself a differential equation, {newton}. For an
+      object in free fall the only force is gravity, mass times g downward. The
+      mass appears on both sides and cancels, leaving v prime equals minus g: the
+      velocity falls at a steady rate g, the same for every object whatever its
+      mass. Starting from an initial velocity, {v0pt}, the solution is a straight
+      line sloping down. Almost every law of physics — motion, heat flow, circuits,
+      waves — takes this shape: a rule for a rate of change, waiting to be solved.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 3, 1]
+        y: [-15, 25, 5]
+        x_length: 8.2
+        y_length: 3.4
+      steps:
+        - {id: vline, action: plot_line, params: {name: V, a: 9.8, b: 1, c: 20, color: blue, label: "v(t)"}}
+        - {id: v0pt, action: mark_point, params: {x: 0, y: 20, color: green, label: "v_0"}}
+    board:
+      - id: newton
+        latex: "F = ma = m\\,v' \\;\\Rightarrow\\; v' = -g"
+        say: "F equals m a equals m v prime, so v prime equals minus g"
+        color: blue
+        tex_colors:
+          "v'": orange
+
+  - id: s6
+    kind: problem
+    narration: >
+      A worked example. {statement} A quantity changes at a rate equal to three
+      times its current value, with a starting value of five, {given}; find the
+      function. {find} The equation is y prime equals three y, so by the rule we
+      just derived the general solution is y equals C e to the three x, {step1};
+      differentiating gives three C e to the three x, which is three y, confirming
+      it. Now apply the initial condition, {step2}: y at zero is C, and that must
+      equal five, so C is five. The particular solution is y equals five e to the
+      three x, {answer}. As a check, at x equals one this gives five e cubed, about
+      one hundred — the quantity has grown twentyfold in a single unit of time.
+    board:
+      - id: statement
+        text: "A quantity grows at three times its current size."
+      - id: given
+        latex: "y' = 3y, \\qquad y(0) = 5"
+        say: "y prime equals three y, with y of zero equal to five"
+        role: given
+      - id: find
+        text: "Find the particular solution y(x)."
+        role: find
+      - id: step1
+        latex: "y = Ce^{3x} \\;\\Rightarrow\\; y' = 3Ce^{3x} = 3y"
+        say: "y equals C e to the three x gives y prime equals three C e to the three x, which is three y"
+        role: step
+        color: blue
+      - id: step2
+        latex: "y(0) = C = 5"
+        say: "y of zero equals C equals five"
+        role: step
+        color: purple
+      - id: answer
+        latex: "y = 5\\,e^{3x}"
+        say: "y equals five e to the three x"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "5 * np.exp(3 * 1)"
+      value: 100.4277
+      unit: ""
+      tol: 0.01
+
+  - id: s7
+    kind: end
+    narration: >
+      To summarise: a differential equation relates a function to its own
+      derivatives; its solutions form a family, and an initial condition selects
+      one. Next: Slope fields — seeing every solution at once.

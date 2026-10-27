@@ -81,6 +81,9 @@ map:
   "Hertz": "hurts"
   "Celsius": "sell-see-us"
   "Kelvin": "kelvin"
+  "Coulomb's": "koo-loms"
+  "Newton's": "newtons"
+  "Pythagoras": "pith-ag-or-as"
   # terms the TTS tends to mangle
   "gyroscope": "jai-ro-scope"
   "gyroscopic": "jai-ro-skop-ic"
