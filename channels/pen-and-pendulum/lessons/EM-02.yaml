@@ -1,0 +1,251 @@
+# EM-02: The electric field — what it is, and the field of a ring of charge.
+# OpenStax University Physics Vol. 2 §5.4-5.6 (CC BY 4.0). ~8 minutes.
+# Colour discipline: positive charge = red, negative charge = blue,
+# field arrows = purple, the axial field / results = green.
+schema_version: 1
+id: EM-02
+channel: pen-and-pendulum
+title: "The electric field: what it is, and the field of a line and a ring of charge"
+target_minutes: 8
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "§5.4-5.6 The Electric Field"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/042-5-4-electric-field.md"
+  pages: "184-201"
+thumbnail:
+  kicker: "Electricity & Magnetism"
+  hook: "Why the ring's centre is dead"
+  keyword: "dead"
+publish:
+  title: "The Electric Field Explained: Field of a Ring of Charge (Full Derivation)"
+  summary: >
+    The electric field is the force per unit charge that a charge arrangement
+    puts on the space around it — independent of any test charge. We define
+    E = F/q, draw the field and its field lines, then derive the on-axis field of
+    a ring of charge and check two worked examples.
+  hashtags: ["#physics", "#electromagnetism", "#electricfield"]
+  tags:
+    - electric field
+    - field of a ring of charge
+    - E = F/q
+    - electric field lines
+    - superposition
+    - electrostatics
+    - physics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Coulomb's law told us the force between two charges. This lesson repackages
+      that force as a field — something a charge sets up in the space around it,
+      waiting for any other charge to feel.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is a positive charge, {placeQ}. In the previous lesson, Coulomb's law
+      gave the force between two charges and superposition added those forces as
+      vectors. Now divide that force by the charge it acts on. The electric field
+      is the force per unit test charge, {Edef}: place a tiny positive test charge
+      at a point, measure the force on it, divide by its charge, and the result is
+      the field there, {fieldQ}. Dividing the test charge out matters, because the
+      answer no longer depends on it — the field belongs to the source alone, and
+      exists at every point in space whether or not we put a test charge there. For
+      a single point charge the field follows straight from Coulomb's law, {Epoint}:
+      k Q over r squared, pointing radially outward from a positive charge and
+      inward toward a negative one. Its unit is newtons per coulomb.
+    animation:
+      primitive: charges
+      params:
+        scale: 1.0
+        charges:
+          Q: {at: [0.0, 0.2], sign: "+", color: red, label: "Q"}
+      steps:
+        - {id: placeQ, action: place, params: {name: Q}}
+        - {id: fieldQ, action: field, params: {name: Q, color: purple, n: 12, length: 1.0}}
+    board:
+      - id: Edef
+        latex: "\\vec{E} = \\dfrac{\\vec{F}}{q}"
+        say: "E equals F divided by q, the force per unit charge"
+        color: purple
+        legend:
+          - {sym: "E", name: "electric field", unit: "N/C"}
+          - {sym: "F", name: "force on the test charge", unit: "N"}
+          - {sym: "q", name: "the test charge", unit: "C"}
+      - id: Epoint
+        latex: "E = k\\,\\dfrac{Q}{r^2}"
+        say: "E equals k times Q over r squared"
+        color: green
+        legend:
+          - {sym: "Q", name: "the source charge", unit: "C"}
+          - {sym: "r", name: "distance from the charge", unit: "m"}
+          - {sym: "k", name: "Coulomb's constant", unit: "N m^2/C^2"}
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Reverse the sign, {placeN}. Around a negative charge the field points inward,
+      {fieldN}, because a positive test charge would be pulled toward it. Drawing an
+      arrow at every point is cluttered, so we join the arrows into continuous
+      field lines, which obey a few simple rules. Lines start on positive charges
+      and end on negative ones; the field at any point is tangent to the line
+      there; where lines crowd together the field is strong, and where they spread
+      apart it is weak; and lines never cross, since the field has one definite
+      direction at each point. When several charges are present, their fields add
+      by superposition, {Enet}: the total field is the vector sum of the field each
+      source would produce alone, exactly as the forces added in the previous
+      lesson. Fields obey superposition because the forces they come from do.
+    animation:
+      primitive: charges
+      params:
+        scale: 1.0
+        charges:
+          N: {at: [0.0, 0.2], sign: "-", color: blue, label: "-Q"}
+      steps:
+        - {id: placeN, action: place, params: {name: N}}
+        - {id: fieldN, action: field, params: {name: N, color: purple, n: 12, length: 1.0}}
+    board:
+      - id: Enet
+        latex: "\\vec{E}_{\\text{net}} = \\sum_i \\vec{E}_i = \\vec{E}_1 + \\vec{E}_2 + \\cdots"
+        say: "the net field equals the sum of the individual fields, E one plus E two and so on"
+        color: purple
+
+  - id: s4
+    kind: diagram
+    narration: >
+      Now a ring of charge, {ringDiag}. Total charge Q is
+      spread evenly around a ring of radius R, and we want the field at a point P a
+      distance z out along the central axis. Break the ring into tiny pieces. Every
+      piece sits the same distance from P, {rEq}: the square root of z squared plus
+      R squared, by the geometry of the right-angled triangle from the centre to
+      the rim to P. Each piece makes a small field pointing from itself to P, but
+      here is the key. For every piece, there is one diametrically opposite it whose
+      sideways push exactly cancels. Only the components along the axis survive. The
+      axial fraction of each piece's field is the cosine of the angle, {cosEq}: z
+      over that same square root. So the whole problem collapses to adding up the
+      axial parts.
+    animation:
+      primitive: charges
+      params:
+        scale: 1.0
+      steps:
+        - {id: ringDiag, action: ring, params: {radius: 1.1, z: 1.6, color: green, label: "E"}}
+    board:
+      - id: rEq
+        latex: "r = \\sqrt{z^2 + R^2}"
+        say: "r equals the square root of z squared plus R squared"
+        color: yellow
+      - id: cosEq
+        latex: "\\cos\\theta = \\dfrac{z}{\\sqrt{z^2 + R^2}}"
+        say: "cosine theta equals z over the square root of z squared plus R squared"
+        color: yellow
+
+  - id: s5
+    kind: derivation
+    narration: >
+      Put the pieces together, {Ecos}. Each element of charge contributes k times
+      its charge over r squared, and only the axial fraction, the cosine, counts.
+      Because r and the angle are the same for every element, both come out
+      of the sum, and what remains is just the total charge Q. Substituting r and
+      the cosine gives the field of the ring on its axis, {ringEq}: k Q z over z
+      squared plus R squared, all to the three-halves power. Two checks make it
+      believable. At the centre, where z is zero, the whole expression is zero —
+      the field vanishes, because every element's pull is cancelled by the one
+      across the ring. And far away, where z is much larger than R, the R squared
+      becomes negligible, the denominator is nearly z cubed, and the field reduces
+      to k Q over z squared — the ring looks just like a point charge, as it should.
+    board:
+      - id: Ecos
+        latex: "E = \\dfrac{kQ}{r^2}\\cos\\theta"
+        say: "E equals k Q over r squared, times cosine theta"
+        color: blue
+      - id: ringEq
+        latex: "E = \\dfrac{k\\,Q\\,z}{\\left(z^2 + R^2\\right)^{3/2}}"
+        say: "E equals k Q z, over z squared plus R squared, all to the three halves"
+        color: green
+        box: true
+
+  - id: s6
+    kind: problem
+    narration: >
+      First, the point charge. {statement} A charge is given, {given};
+      find the field a fifth of a metre away. {find} Straight into the field of a
+      point charge, {step1}: nine times ten to the nine, times four nanocoulombs,
+      over nought point two squared. That comes to about nine hundred newtons per
+      coulomb, {answer}, pointing radially outward.
+    board:
+      - id: statement
+        text: "The field near a point charge."
+      - id: given
+        latex: "Q = +4.0\\ \\text{nC}, \\quad r = 0.20\\ \\text{m}"
+        say: "Q equals plus four nanocoulombs, r equals nought point two zero metres"
+        role: given
+      - id: find
+        text: "Find the field magnitude E."
+        role: find
+      - id: step1
+        latex: "E = \\dfrac{(8.99\\times10^{9})(4.0\\times10^{-9})}{(0.20)^2}"
+        say: "E equals eight point nine nine times ten to the nine, times four times ten to the minus nine, over nought point two zero squared"
+        role: step
+        color: blue
+      - id: answer
+        latex: "E \\approx 899\\ \\text{N/C (outward)}"
+        say: "E is about eight hundred and ninety-nine newtons per coulomb, pointing outward"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "8.99e9*4.0e-9/0.20**2"
+      value: 899
+      unit: "N/C"
+      tol: 0.01
+
+  - id: s7
+    kind: problem
+    narration: >
+      And the ring. {statement2} A ring of charge is given, {given2}; find the
+      axial field at a distance of nought point two metres. {find2} Substitute into
+      the ring formula, {step2}: k Q z on top, and z squared plus R squared to the
+      three-halves on the bottom. The denominator is nought point zero five to the
+      three-halves, and the whole thing works out to about one thousand two hundred
+      and ninety newtons per coulomb, {answer2}. As a sanity check, the point-charge
+      estimate k Q over z squared would give about eighteen hundred; the real ring
+      is sensibly smaller, because here z is only twice the radius, not far away.
+    board:
+      - id: statement2
+        text: "The on-axis field of a ring of charge."
+      - id: given2
+        latex: "Q = 8.0\\ \\text{nC}, \\quad R = 0.10\\ \\text{m}, \\quad z = 0.20\\ \\text{m}"
+        say: "Q equals eight nanocoulombs, R equals nought point one zero metres, z equals nought point two zero metres"
+        role: given
+      - id: find2
+        text: "Find the axial field E."
+        role: find
+      - id: step2
+        latex: "E = \\dfrac{(8.99\\times10^{9})(8.0\\times10^{-9})(0.20)}{(0.20^2 + 0.10^2)^{3/2}}"
+        say: "E equals eight point nine nine times ten to the nine, times eight times ten to the minus nine, times nought point two, over nought point two squared plus nought point one squared, to the three halves"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "E \\approx 1.29\\times10^{3}\\ \\text{N/C (along the axis)}"
+        say: "E is about one thousand two hundred and ninety newtons per coulomb, along the axis"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "8.99e9*8.0e-9*0.20/(0.20**2+0.10**2)**1.5"
+      value: 1286.5
+      unit: "N/C"
+      tol: 0.01
+
+  - id: s8
+    kind: end
+    narration: >
+      To summarise: the electric field is force per unit charge, it belongs to the
+      source and fills the space around it, and the on-axis field of a ring is k Q
+      z over z squared plus R squared to the three-halves — zero at the centre, a
+      point charge from far away. Next: Gauss's law — an intuitive picture, then the
+      sphere, cylinder and plane.

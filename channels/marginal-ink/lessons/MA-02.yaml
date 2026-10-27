@@ -1,0 +1,292 @@
+# MA-02: Inflation, the CPI and the GDP deflator.
+# OpenStax Principles of Economics 3e §22.1-22.2 (CC BY 4.0). ~9 minutes.
+# Colour discipline: base year / base = 100 = green, current year / deflator /
+# inflation = orange, CPI = blue, imports / bias / warning = red.
+schema_version: 1
+id: MA-02
+channel: marginal-ink
+title: "Inflation, the CPI and the GDP deflator (and why they disagree)"
+target_minutes: 9
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§22.1-22.2 Inflation and the Cost of Living"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/251-22-2-how-to-measure-changes-in-the-cost-of-living.md"
+  pages: "530-538"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "Two inflations that disagree"
+  keyword: "disagree"
+publish:
+  title: "Inflation, the CPI and the GDP Deflator (and Why They Disagree)"
+  summary: >
+    Inflation is the percentage change in a price index — the cost of a fixed
+    basket of goods relative to a base year. This explains how index numbers and
+    the inflation rate are built, defines the Consumer Price Index and the GDP
+    deflator, and shows exactly why the two headline measures of inflation give
+    different answers.
+  hashtags: ["#economics", "#macroeconomics", "#inflation"]
+  tags:
+    - inflation
+    - CPI
+    - consumer price index
+    - GDP deflator
+    - price index
+    - inflation rate
+    - macroeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Inflation is a single number standing in for millions of prices. This lesson
+      builds that number from a basket of goods, then shows why its two headline
+      measures disagree.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Start with a shopping basket, {axisBasket}. Last time we built nominal
+      gross domestic product as the market value of output at current prices; that
+      phrase, at current prices, is exactly what inflation measures and what we
+      must learn to strip out. Inflation is a general, ongoing rise in the overall
+      level of prices — not one good getting dearer while another gets cheaper,
+      which is only a change in relative price, but the whole price level drifting
+      up. To pin it down, economists fix a basket of the goods a typical household
+      buys, in the quantities they buy, and track what that same basket costs over
+      time. In a chosen base year the basket costs some amount, {segBase}. A year
+      later, with prices higher, the identical basket costs more, {segNow}. The
+      price index turns those two costs into one tidy number, {indexEq}: one
+      hundred times the cost this year divided by the cost in the base year. The
+      base year is set to one hundred by definition, {lvlBase}, so an index of one
+      hundred and eight means the basket costs eight per cent more than in the base
+      year. And inflation itself, {inflDef}, is simply the percentage change in
+      that index from one year to the next.
+    animation:
+      primitive: bars
+      params:
+        value_max: 130.0
+        bar_width: 1.1
+      steps:
+        - {id: axisBasket, action: axis, params: {label: "cost of the basket"}}
+        - {id: segBase, action: segment, params: {stack: y1, value: 100.0, color: green, label: "100", x: -2.2, col_label: "base year"}}
+        - {id: segNow, action: segment, params: {stack: y2, value: 108.0, color: orange, label: "108", x: 0.4, col_label: "this year"}}
+        - {id: lvlBase, action: level, params: {value: 100.0, color: green, label: "index = 100"}}
+    board:
+      - id: indexEq
+        latex: "\\text{index} = 100 \\times \\dfrac{\\text{cost this year}}{\\text{cost in base year}}"
+        say: "the price index equals one hundred times the cost of the basket this year, divided by its cost in the base year"
+        color: orange
+      - id: inflDef
+        text: "Inflation = the percentage change in the price index."
+        color: red
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Track the index over time, {idxLine}, and it climbs. The base year sits at
+      one hundred, {basePt}; a few years on it has reached, say, one hundred
+      and twenty, {nowPt}, meaning prices overall are a fifth higher than at the
+      start. The inflation rate between any two years is the percentage change in
+      the index, {inflEq}: one hundred times the later index minus the earlier
+      index, all divided by the earlier index. Here is the mistake almost everyone
+      makes. Going from an index of one hundred and seven to one hundred and ten is
+      not three per cent inflation. It is three divided by one hundred and seven,
+      which is about two point eight per cent. You must divide by where you started,
+      never just subtract the two index numbers. The index is a ratio; the
+      inflation rate is a change in that ratio, measured against its starting value.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 5, 1]
+        y: [95, 125, 5]
+        x_length: 8.2
+        y_length: 3.4
+        x_label: "year"
+        y_label: "index"
+      steps:
+        - {id: idxLine, action: plot_line, params: {name: idx, a: -5, b: 1, c: 100, color: orange, label: "price index"}}
+        - {id: basePt, action: mark_point, params: {x: 0, y: 100, color: green, label: "100"}}
+        - {id: nowPt, action: mark_point, params: {x: 4, y: 120, color: orange, label: "120"}}
+    board:
+      - id: inflEq
+        latex: "\\text{inflation} = 100 \\times \\dfrac{\\text{index}_2 - \\text{index}_1}{\\text{index}_1}"
+        say: "the inflation rate equals one hundred times index two minus index one, all divided by index one"
+        color: orange
+
+  - id: s4
+    kind: diagram
+    narration: >
+      Now the two headline measures, {axisCmp}. The Consumer Price Index tracks a
+      fixed basket of consumer goods and services, {cpiBar}, the sort an average
+      household buys — and crucially it includes imported goods people purchase,
+      {cpiImp}. Apply the same index formula to that basket, {cpiEq}, and you have
+      the most-quoted gauge of the cost of living. The GDP deflator is different,
+      {defBar}: it covers everything counted in gross domestic product — all
+      domestically produced output, including investment and government goods, but
+      excluding imports — and it re-prices each year's actual output rather than a
+      fixed list. It is just nominal GDP over real GDP, times one hundred, {defEq}.
+      Because the two watch different baskets, they disagree, {biasNote}. The CPI's
+      basket is frozen, so it cannot let shoppers substitute away from goods that
+      have become dear, and it is slow to credit new or improved products; both
+      effects make a fixed basket overstate the true rise in the cost of living. So
+      the CPI tends to read a little high, {lvlCmp}, while the deflator, with its
+      shifting weights, is the broader and generally more accurate measure of
+      economy-wide inflation. The two numbers answer two different questions: the
+      consumer index asks what a household's shopping costs, while the deflator asks
+      what the whole economy's output costs — so it is no surprise they seldom agree
+      to the decimal.
+    animation:
+      primitive: bars
+      params:
+        value_max: 130.0
+        bar_width: 1.1
+      steps:
+        - {id: axisCmp, action: axis, params: {label: "price index, one year"}}
+        - {id: cpiBar, action: segment, params: {stack: cpi, value: 90.0, color: blue, x: -2.2, col_label: "CPI"}}
+        - {id: cpiImp, action: segment, params: {stack: cpi, value: 22.0, color: red, label: "+ imports"}}
+        - {id: defBar, action: segment, params: {stack: def, value: 110.0, color: orange, x: 0.8, col_label: "GDP deflator"}}
+        - {id: lvlCmp, action: level, params: {value: 112.0, color: green, label: "CPI reads higher"}}
+    board:
+      - id: cpiEq
+        latex: "\\text{CPI} = 100 \\times \\dfrac{\\text{fixed consumer basket this year}}{\\text{its cost in the base year}}"
+        say: "the consumer price index applies the index formula to a fixed basket of consumer goods"
+        color: blue
+      - id: defEq
+        latex: "\\text{GDP deflator} = 100 \\times \\dfrac{\\text{nominal GDP}}{\\text{real GDP}}"
+        say: "the G D P deflator equals one hundred times nominal G D P divided by real G D P"
+        color: orange
+      - id: biasNote
+        text: "A fixed basket misses substitution and new goods — so CPI overstates."
+        color: red
+
+  - id: s5
+    kind: problem
+    narration: >
+      A worked example. {statement} A student's basket is fixed, {given}: eight
+      coffees, four notebooks and two textbooks. {find} In the base year it costs
+      one hundred pounds; this year, {step1}, the coffee and textbook prices have
+      risen while the notebook holds steady, and the same basket costs one hundred
+      and eight pounds. The index is one hundred times one hundred and eight over
+      one hundred, which is one hundred and eight, {step2}. So the inflation rate
+      is one hundred times eight over one hundred, which is eight per cent, {answer}.
+      Notice the textbook, at sixty pounds of the hundred, drives most of the rise —
+      a weighted basket, where the goods you spend more on count for more.
+    board:
+      - id: statement
+        text: "A fixed student basket, two years of prices."
+      - id: given
+        latex: "8\\ \\text{coffee} + 4\\ \\text{notebook} + 2\\ \\text{textbook}"
+        say: "eight coffees, four notebooks, two textbooks"
+        role: given
+      - id: find
+        text: "Find the price index and the inflation rate."
+        role: find
+      - id: step1
+        latex: "\\text{base} = \\pounds100, \\quad \\text{this year} = \\pounds108"
+        say: "base-year cost one hundred pounds, this-year cost one hundred and eight pounds"
+        role: step
+        color: green
+      - id: step2
+        latex: "\\text{index} = 100 \\times \\dfrac{108}{100} = 108"
+        say: "the index is one hundred times one hundred and eight over one hundred, which is one hundred and eight"
+        role: step
+        color: orange
+      - id: answer
+        latex: "\\text{inflation} = 100 \\times \\dfrac{8}{100} = 8\\%"
+        say: "the inflation rate is one hundred times eight over one hundred, which is eight per cent"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "100 * (8*3.30 + 4*4.00 + 2*32.80) / (8*3.00 + 4*4.00 + 2*30.00)"
+      value: 108.0
+      unit: "index (base = 100)"
+      tol: 0.01
+
+  - id: s6
+    kind: problem
+    narration: >
+      Now the GDP deflator. {statement2} An economy's output is valued two ways,
+      {given2}: at this year's prices, nominal GDP is twenty-six thousand four
+      hundred billion; valued at base-year prices, real GDP is twenty-four thousand
+      billion. {find2} The deflator is one hundred times nominal over real, {step3}:
+      one hundred times twenty-six thousand four hundred over twenty-four thousand.
+      That comes to one hundred and ten, {answer2}, telling us the overall price
+      level is ten per cent above the base year — the same inflation idea, now
+      applied to the whole of output rather than a consumer basket.
+    board:
+      - id: statement2
+        text: "The GDP deflator from nominal and real GDP."
+      - id: given2
+        latex: "\\text{nominal GDP} = 26400, \\quad \\text{real GDP} = 24000"
+        say: "nominal G D P twenty-six thousand four hundred, real G D P twenty-four thousand, in billions"
+        role: given
+      - id: find2
+        text: "Find the GDP deflator."
+        role: find
+      - id: step3
+        latex: "\\text{deflator} = 100 \\times \\dfrac{26400}{24000}"
+        say: "the deflator equals one hundred times twenty-six thousand four hundred over twenty-four thousand"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "\\text{deflator} = 110"
+        say: "the deflator is one hundred and ten"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "100 * 26400 / 24000"
+      value: 110.0
+      unit: "index (base = 100)"
+      tol: 0.01
+
+  - id: s7
+    kind: problem
+    narration: >
+      One last, very practical calculation. {statement3} A worker's pay rose to
+      fifty-four thousand pounds this year, {given3}, while the price index climbed
+      to one hundred and twenty. {find3} To compare it with the past fairly, deflate
+      it: divide the nominal figure by the index over one hundred, {step4}. Fifty-four
+      thousand divided by one point two is forty-five thousand pounds, {answer}. So in
+      base-year money the pay packet is worth forty-five thousand — the name on the
+      cheque grew, but a price level a fifth higher means it buys only what forty-five
+      thousand bought before. That is exactly the adjustment that turns nominal GDP
+      into real GDP.
+    board:
+      - id: statement3
+        text: "Deflating a nominal salary to real terms."
+      - id: given3
+        latex: "\\text{nominal} = \\pounds54{,}000, \\quad \\text{index} = 120"
+        say: "nominal salary fifty-four thousand pounds, price index one hundred and twenty"
+        role: given
+      - id: find3
+        text: "Find the real (base-year) salary."
+        role: find
+      - id: step4
+        latex: "\\text{real} = \\dfrac{\\text{nominal}}{\\text{index}/100} = \\dfrac{54{,}000}{1.20}"
+        say: "real equals nominal divided by the index over one hundred, which is fifty-four thousand over one point two"
+        role: step
+        color: green
+      - id: answer
+        latex: "\\text{real} = \\pounds45{,}000"
+        say: "the real salary is forty-five thousand pounds"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "54000 / (120/100)"
+      value: 45000.0
+      unit: "pounds (base year)"
+      tol: 0.01
+
+  - id: s8
+    kind: end
+    narration: >
+      To summarise: inflation is the percentage change in a price index — the cost
+      of a basket relative to a base year. The CPI tracks a fixed consumer basket,
+      so it runs a little high; the GDP deflator re-prices all domestic output and
+      is the broader economy-wide gauge. Next: the aggregate production function and
+      diminishing returns to capital.

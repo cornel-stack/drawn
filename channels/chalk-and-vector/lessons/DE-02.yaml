@@ -1,0 +1,245 @@
+# DE-02: Slope fields — seeing every solution at once.
+# OpenStax Calculus Volume 2 §4.2 Direction Fields and Numerical Methods (CC BY 4.0).
+# ~9 minutes. Source swapped from Trench to OpenStax, as DE-01/MI-01.
+# Colour discipline: field segments = purple, solution curves = blue,
+# initial point = green, equilibria = red, Euler step = orange.
+schema_version: 1
+id: DE-02
+channel: chalk-and-vector
+title: "Slope fields: seeing every solution at once"
+target_minutes: 9
+source:
+  book: "OpenStax Calculus Volume 2"
+  section: "§4.2 Direction Fields and Numerical Methods"
+  license: "CC BY 4.0"
+  file: "openstax-calculus-vol2/037-4-2-direction-fields-and-numerical-methods.md"
+  pages: "317-326"
+thumbnail:
+  kicker: "Differential Equations"
+  hook: "See every solution at once"
+  keyword: "every solution"
+publish:
+  title: "Slope Fields Explained: See Every Solution to a Differential Equation at Once"
+  summary: >
+    A slope field turns a first-order differential equation into a picture: at
+    every point it draws the slope the solution must have there. This lesson
+    shows how to read a field, thread solution curves through it, spot
+    equilibrium solutions where the slope is zero, and take a first numerical
+    step with Euler's method — all without solving the equation.
+  hashtags: ["#calculus", "#differentialequations", "#mathematics"]
+  tags:
+    - slope field
+    - direction field
+    - differential equations
+    - solution curve
+    - equilibrium solution
+    - Euler's method
+    - initial value problem
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A first-order differential equation assigns a slope to every point of the
+      plane. Draw those slopes and you can see the shape of every solution at
+      once, before solving anything.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is a slope field, {field}. In the previous lesson a differential
+      equation y prime equals f of x and y was a rule that gives the slope of the
+      solution from the coordinates of a point, {genForm}. On its own that is an
+      abstract statement. A slope field makes it concrete by carrying out the rule
+      everywhere: at a whole grid of points it draws a short line segment whose
+      slope is exactly the value the equation demands at that point. Take this
+      equation, {fieldEq}: y prime equals x minus y. At the point two, one the
+      slope is two minus one, which is one, so the segment there leans at
+      forty-five degrees, going up. At the point zero, two the slope is zero minus
+      two, which is minus two, so the segment there points steeply downhill. At
+      four, four the slope is zero, so the segment is flat. Do this at every grid
+      point and the little segments knit together into a picture of the flow that
+      the solutions are forced to follow — like iron filings lining up in a
+      magnetic field. And notice what we have not done: we have not solved the
+      equation. We have only read it, point by point, and drawn what it says. That
+      is the power of the field — it shows the behaviour of the solutions before
+      any solving takes place. There is a shortcut for sketching one by hand. Pick
+      a slope you care about, say slope one, and find all the points where x minus
+      y equals one; they lie along the line y equals x minus one, and every segment
+      on that line is parallel. Curves of equal slope like this are called
+      isoclines, and drawing a few of them fills in the field quickly, without
+      testing every single point.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [-1, 5, 1]
+        y: [-2, 4, 1]
+        x_length: 8.2
+        y_length: 3.6
+        x_label: "x"
+        y_label: "y"
+      steps:
+        - {id: field, action: slope_field, params: {f: x_minus_y, x_step: 0.75, y_step: 0.75, color: purple}}
+    board:
+      - id: genForm
+        latex: "y' = f(x,\\,y)"
+        say: "y prime equals f of x and y"
+        color: blue
+      - id: fieldEq
+        latex: "y' = x - y"
+        say: "y prime equals x minus y"
+        color: purple
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Now follow the arrows, {field2}. An initial condition fixes one point the
+      solution must pass through; start at the point zero, one, {ic}, and let the
+      segments steer you. Always step in the direction the local segment points,
+      and when the slope changes, turn to follow it. The curve that threads through
+      the field this way is a solution, {sol1} — tangent to the field at every
+      single point it passes through, because that is exactly what the equation
+      asked for. For this particular equation the curve even has an exact formula,
+      {exactSol}, and you can confirm that its slope always equals x minus y. But
+      the field gave us the shape without the formula. Change the starting point
+      and you simply get a different member of the same family: begin higher up,
+      say at zero, three, and the curve dives down steeply at first before
+      levelling out, {sol2}. Look at where all of these curves are heading. Every
+      one of them is drawn toward the same slanted line, {asymptote}: as x grows,
+      the exponential term shrinks to nothing and the solution settles onto y
+      equals x minus one. One picture told us the fate of the entire family — every
+      solution, whatever its starting point, funnels onto that line — and we never
+      solved a thing.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [-1, 5, 1]
+        y: [-2, 4, 1]
+        x_length: 8.2
+        y_length: 3.6
+        x_label: "x"
+        y_label: "y"
+      steps:
+        - {id: field2, action: slope_field, params: {f: x_minus_y, x_step: 0.75, y_step: 0.75, color: purple}}
+        - {id: ic, action: mark_point, params: {x: 0, y: 1, color: green, label: "(0,1)"}}
+        - {id: sol1, action: solution_curve, params: {f: x_minus_y, x0: 0, y0: 1, color: blue}}
+        - {id: sol2, action: solution_curve, params: {f: x_minus_y, x0: 0, y0: 3, color: blue}}
+    board:
+      - id: exactSol
+        latex: "y = x - 1 + 2e^{-x}"
+        say: "y equals x minus one plus two e to the minus x"
+        color: blue
+      - id: asymptote
+        latex: "y \\to x - 1 \\;\\text{ as }\\; x \\to \\infty"
+        say: "y approaches x minus one as x grows large"
+        color: green
+
+  - id: s4
+    kind: diagram
+    narration: >
+      Some fields read even easier, {autofield}. Take y prime equals y times three
+      minus y, {autoEq}. Here the right-hand side depends only on y,
+      not on x — such an equation is called autonomous — so every point at the same
+      height has the same slope, and the field looks identical as you slide left or
+      right. That makes two special levels jump out. Wherever the right-hand side
+      is zero the slope is flat, and a constant function sits there as a solution.
+      Set the right-hand side to zero, {equilibria}: y times three minus y is zero
+      when y equals zero or y equals three. These are the equilibrium solutions,
+      {eq0} {eq3} — horizontal lines that the field runs exactly along, so a
+      solution starting on one stays on it forever. Now read the arrows in the
+      gaps between them. Just above zero the slope is positive, so a solution there
+      climbs away from zero; and all the way up near three the arrows bend back
+      toward it, so a solution there is pulled onto three, {approach}. That tells
+      us three is a stable level, one that nearby solutions settle onto, while zero
+      is unstable, one they are pushed away from. The long-term behaviour of every
+      solution is written plainly in the arrows, with no solving required.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [-2, 4, 1]
+        y: [-1, 4, 1]
+        x_length: 8.2
+        y_length: 3.6
+        x_label: "x"
+        y_label: "y"
+      steps:
+        - {id: autofield, action: slope_field, params: {f: y_times_3_minus_y, x_step: 0.6, y_step: 0.5, color: purple}}
+        - {id: eq0, action: solution_curve, params: {f: y_times_3_minus_y, x0: -2, y0: 0, color: red}}
+        - {id: eq3, action: solution_curve, params: {f: y_times_3_minus_y, x0: -2, y0: 3, color: red}}
+        - {id: approach, action: solution_curve, params: {f: y_times_3_minus_y, x0: -2, y0: 1, color: blue}}
+    board:
+      - id: autoEq
+        latex: "y' = y\\,(3 - y)"
+        say: "y prime equals y times three minus y"
+        color: purple
+      - id: equilibria
+        latex: "y(3 - y) = 0 \\;\\Rightarrow\\; y = 0,\\; y = 3"
+        say: "y times three minus y equals zero, so y equals zero or y equals three"
+        color: red
+
+  - id: s5
+    kind: problem
+    narration: >
+      One more skill. {statement} The field does more than show shapes: it lets us
+      compute a solution numerically, one step at a time. The method is Euler's,
+      and the idea is to walk along the field in little straight hops. {given}
+      {find} The rule is simple, {euler}: the next value of y is the current y plus
+      the step size times the slope at the current point — in other words, follow
+      the field segment for a short distance, then stop and read the new slope.
+      Start at zero, one, with a step of one half. First hop, {step1}: at zero, one
+      the slope is x minus y, which is minus one, so y becomes one plus one half
+      times minus one, landing at one half, now at the point one half, one half.
+      Second hop, {step2}: there the slope is one half minus one half, which is
+      zero, so y does not change and stays at one half. After two steps we have
+      reached x equals one, giving the estimate, {answer}: y at one is about one
+      half. The exact value is two over e, about nought point seven four, so this
+      coarse step undershoots a little. That is the trade-off with Euler's method:
+      it always works, following the field blindly, but a large step cuts corners —
+      halve the step and the estimate tightens toward the truth.
+    board:
+      - id: statement
+        text: "Estimate y(1) by Euler's method."
+      - id: given
+        latex: "y' = x - y, \\quad y(0) = 1, \\quad h = 0.5"
+        say: "y prime equals x minus y, with y of zero equal to one, and step size one half"
+        role: given
+      - id: find
+        text: "Find an estimate for y(1)."
+        role: find
+      - id: euler
+        latex: "y_{n+1} = y_n + h\\,f(x_n,\\,y_n)"
+        say: "y n plus one equals y n plus h times f of x n and y n"
+        role: step
+        color: orange
+      - id: step1
+        latex: "y_1 = 1 + 0.5(0 - 1) = 0.5"
+        say: "y one equals one plus one half times zero minus one, which is one half"
+        role: step
+        color: orange
+      - id: step2
+        latex: "y_2 = 0.5 + 0.5(0.5 - 0.5) = 0.5"
+        say: "y two equals one half plus one half times one half minus one half, which is one half"
+        role: step
+        color: orange
+      - id: answer
+        latex: "y(1) \\approx 0.5 \\quad (\\text{exact } 2/e \\approx 0.736)"
+        say: "y at one is about one half, against the exact value two over e, about nought point seven four"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "2 * np.exp(-1)"
+      value: 0.735759
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: a slope field draws the slope a solution must have at every
+      point, so you can read off the whole family, spot equilibrium solutions
+      where the slope is zero, and even march out a numerical solution with
+      Euler's method — all without a formula. The field is the qualitative picture;
+      an exact formula, when one exists, is the quantitative detail on top. Next:
+      Separable equations — the first trick everyone learns, explained properly.
