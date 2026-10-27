@@ -122,9 +122,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-      - name: System deps (ffmpeg + headless chrome libs)
+      - name: System deps (ffmpeg + fonts + headless chrome libs)
         run: |
-          sudo apt-get update && sudo apt-get install -y ffmpeg \
+          sudo apt-get update && sudo apt-get install -y ffmpeg fonts-dejavu-core \
             libnss3 libdbus-1-3 libatk1.0-0t64 libatk-bridge2.0-0t64 libcups2t64 \
             libgbm1 libasound2t64 libxcomposite1 libxdamage1 libxrandr2 libxfixes3 \
             libxkbcommon0 libpango-1.0-0 libcairo2
@@ -143,14 +143,14 @@ jobs:
           pattern: clip-*
           merge-multiple: true
           path: out/${{ env.CH }}/${{ env.CODE }}/scenes
-      - name: Props
+      - name: Props (for the thumbnail still)
         run: uv run python -m drawn_finish props channels/$CH/lessons/$CODE.yaml --repo-root "$PWD" --quality "$Q"
-      - name: Assemble (Remotion)
+      - name: Assemble video (ffmpeg — concat clips + caption bar + voice)
+        run: uv run python -m drawn_finish assemble channels/$CH/lessons/$CODE.yaml --repo-root "$PWD" --quality "$Q"
+      - name: Thumbnail (Remotion still)
         working-directory: packages/assemble
         run: |
           O="$GITHUB_WORKSPACE/out/$CH/$CODE"
-          pnpm exec remotion render src/index.ts Lesson "$O/assembly.mp4" \
-            --props="$O/props.json" --public-dir="$GITHUB_WORKSPACE" --log=error
           pnpm exec remotion still src/index.ts Thumbnail "$O/thumbnail.png" \
             --props="$O/props.json" --public-dir="$GITHUB_WORKSPACE" --log=error
       - name: Finish + contact sheet
