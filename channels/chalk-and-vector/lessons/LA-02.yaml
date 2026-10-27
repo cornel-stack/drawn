@@ -164,25 +164,15 @@ scenes:
   - id: s5
     kind: problem
     narration: >
-      Let us do another. {statement} Here is a second system, {given}; we solve it
-      exactly the same way. {find} First lay it out as an augmented
-      matrix, {drawP}. Clear the first column using the top pivot: row two becomes
-      row two minus twice row one, {pstep1}, and row three becomes row three minus
-      row one, {pstep2}. Both leading entries below the pivot fall to zero. Now
-      clear the second column with the middle pivot: row three becomes row three
-      minus twice row two, {pstep3}, and the matrix is in echelon form.
-      Back-substitute from the bottom: the last row gives z equals minus one; the
-      middle row then gives y equals one; and the top row gives x equals two. The
-      solution is two, one, minus one, {answer}.
-    animation:
-      primitive: matrix
-      params:
-        rows: [[1, 1, 1, 2], [2, 1, 3, 2], [1, -1, 2, -1]]
-      steps:
-        - {id: drawP, action: draw, params: {rows: [[1, 1, 1, 2], [2, 1, 3, 2], [1, -1, 2, -1]]}}
-        - {id: pstep1, action: combine, params: {target: 1, src: 0, k: -2}}
-        - {id: pstep2, action: combine, params: {target: 2, src: 0, k: -1}}
-        - {id: pstep3, action: combine, params: {target: 2, src: 1, k: -2}}
+      Try one more. {statement} Here is a second system, {given}, solved in exactly
+      the same shorthand. {find} Clear the first
+      column using the top pivot: row two becomes row two minus twice row one,
+      {step1}, and row three becomes row three minus row one, {step2}. Both leading
+      entries below the pivot fall to zero. Now clear the second column with the
+      middle pivot: row three becomes row three minus twice row two, {step3},
+      leaving echelon form. Back-substitute from the bottom: the last row gives z
+      equals minus one; the middle row then gives y equals one; and the top row
+      gives x equals two. The solution is two, one, minus one, {answer}.
     board:
       - id: statement
         text: "Solve the system by Gauss's method."
@@ -193,6 +183,21 @@ scenes:
       - id: find
         text: "Find (x, y, z)."
         role: find
+      - id: step1
+        latex: "\\rho_2 \\to \\rho_2 - 2\\rho_1"
+        say: "row two becomes row two minus twice row one"
+        role: step
+        color: orange
+      - id: step2
+        latex: "\\rho_3 \\to \\rho_3 - \\rho_1"
+        say: "row three becomes row three minus row one"
+        role: step
+        color: orange
+      - id: step3
+        latex: "\\rho_3 \\to \\rho_3 - 2\\rho_2"
+        say: "row three becomes row three minus twice row two"
+        role: step
+        color: orange
       - id: answer
         latex: "(x, y, z) = (2, 1, -1)"
         say: "x equals two, y equals one, z equals minus one"

@@ -209,25 +209,17 @@ scenes:
       tol: 0.01
 
   - id: s6
-    kind: problem
+    kind: diagram
     narration: >
-      Third problem: the revenue test. {drawD3} Total revenue is price times
-      quantity, {trEq} — the area of the rectangle under the chosen point on the
-      demand curve, {rbox}. The elasticity tells you which way that area moves when
-      price changes. {statement3} Using the same demand curve, a firm raises its
-      price from ten to eleven, {given3}; does revenue rise or fall? {find3} At a
-      price of ten, quantity is eighty and revenue is eight hundred. At eleven,
-      quantity falls to seventy-six, but revenue rises to eight hundred and
-      thirty-six, {step1c} — an increase of thirty-six, {answer3}. Revenue rose
-      because, around this price, demand is inelastic: the quantity fell by a
-      smaller percentage than the price rose. In the elastic region we met earlier,
-      the same price rise would have lost revenue. That is the revenue test, and it
-      is why a business cannot decide whether to raise prices without first knowing
-      the elasticity it faces. Where demand is inelastic, raising price raises
-      takings; where it is elastic, the smarter move is often to cut price and sell
-      far more. The rectangle under the curve captures it entirely: raising price
-      makes the rectangle taller but narrower, and the elasticity decides which of
-      those two effects wins out.
+      Third, the revenue test. {drawD3} Total revenue is price times quantity,
+      {trEq} — the area of the rectangle under the chosen point on the demand
+      curve, {rbox}. The elasticity decides which way that area moves when the
+      price changes. When demand is inelastic, raising the price raises revenue;
+      when it is elastic, raising the price lowers it; and at unit elasticity
+      revenue holds steady, {revRule}. The rectangle shows exactly why: raising the
+      price makes it taller but narrower, and the elasticity decides which of those
+      two effects wins out. So a business cannot sensibly decide whether to raise
+      its prices without first knowing the elasticity of the demand it faces.
     animation:
       primitive: supply_demand
       params:
@@ -241,8 +233,27 @@ scenes:
         latex: "TR = P \\times Q"
         say: "total revenue equals price times quantity"
         color: purple
+      - id: revRule
+        text: "Inelastic: price up, revenue up.  Elastic: price up, revenue down."
+        color: red
+
+  - id: s7
+    kind: problem
+    narration: >
+      Now the numbers. {statement3} Using the same demand curve, a firm raises its
+      price from ten to eleven, {given3}; does revenue rise or fall? {find3} At a
+      price of ten, quantity is eighty and revenue is eight hundred. At eleven,
+      quantity falls to seventy-six, yet revenue climbs to eight hundred and
+      thirty-six, {step1c} — a gain of thirty-six, {answer3}. Revenue rose because,
+      around this price, demand is inelastic: the quantity fell by a smaller
+      percentage than the price rose. In the elastic region we met earlier, the
+      very same price rise would instead have lost revenue — which is the whole
+      lesson of the test. The practical rule for a business is therefore simple:
+      raise prices where demand is inelastic, and compete on price where it is
+      elastic.
+    board:
       - id: statement3
-        text: "A price rise in the inelastic region."
+        text: "A price rise, using the same demand curve."
       - id: given3
         latex: "Q = 120 - 4P: \\quad P = 10 \\;\\to\\; 11"
         say: "with quantity one hundred and twenty minus four P, price rises from ten to eleven"
@@ -267,7 +278,7 @@ scenes:
       unit: "pounds"
       tol: 0.01
 
-  - id: s7
+  - id: s8
     kind: end
     narration: >
       To summarise: elasticity is percentage change in quantity over percentage
