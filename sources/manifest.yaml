@@ -36,6 +36,17 @@ books:
     url: https://assets.openstax.org/oscms-prodcms/media/documents/university-physics-volume-3_-_WEB.pdf
     sha256: "311c6beb70bb9cc6073d40a6085d290a82afde2b38e9aaf672ccb6de0542541b"
 
+  # Calculus: OpenStax Calculus Volume 2 is CC BY 4.0 and carries the standard
+  # "Introduction to Differential Equations" chapter, so it backs DE-01 in place
+  # of Trench (CC BY-NC-SA, non-commercial) — same swap rationale as MI-01.
+  - id: openstax-calculus-vol2
+    title: Calculus Volume 2
+    publisher: OpenStax
+    licence: CC BY 4.0
+    auto: true
+    url: https://assets.openstax.org/oscms-prodcms/media/documents/calculus-volume-2_-_WEB.pdf
+    sha256: "f6ac06038088711766e5b664a8114c8fcb0b7b88cfb38e92bbaf56ba2df43f4a"
+
   # Economics: OpenStax Principles of Economics 3e is CC BY 4.0, so it can back a
   # monetised channel. McAfee & Lewis (CC BY-NC-SA) is kept for topic order only,
   # never as a lesson `source`.
