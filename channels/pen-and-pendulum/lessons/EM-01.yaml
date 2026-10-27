@@ -69,8 +69,8 @@ scenes:
       steps:
         - {id: placeA, action: place, params: {name: A}}
         - {id: placeB, action: place, params: {name: B}}
-        - {id: repel, action: force, params: {on: A, frm: B, length: 1.1, color: orange, label: "F"}}
-        - {id: repelB, action: force, params: {on: B, frm: A, length: 1.1, color: orange}}
+        - {id: repel, action: force, params: {target: A, frm: B, length: 1.1, color: orange, label: "F"}}
+        - {id: repelB, action: force, params: {target: B, frm: A, length: 1.1, color: orange}}
     board:
       - id: qne
         latex: "q = n\\,e, \\qquad e = 1.602\\times10^{-19}\\ \\text{C}"
@@ -107,8 +107,8 @@ scenes:
         - {id: placeQ1, action: place, params: {name: q1}}
         - {id: placeQ2, action: place, params: {name: q2}}
         - {id: sep, action: separation, params: {a: q1, b: q2, label: "r"}}
-        - {id: f12, action: force, params: {on: q1, frm: q2, length: 1.2, color: green, label: "F"}}
-        - {id: f21, action: force, params: {on: q2, frm: q1, length: 1.2, color: green}}
+        - {id: f12, action: force, params: {target: q1, frm: q2, length: 1.2, color: green, label: "F"}}
+        - {id: f21, action: force, params: {target: q2, frm: q1, length: 1.2, color: green}}
     board:
       - id: coulomb
         latex: "F = k\\,\\dfrac{|q_1 q_2|}{r^2}"
@@ -189,9 +189,9 @@ scenes:
         - {id: placeQ, action: place, params: {name: Q}}
         - {id: place1, action: place, params: {name: q1}}
         - {id: place2, action: place, params: {name: q2}}
-        - {id: fq1, action: force, params: {on: Q, frm: q1, length: 1.3, color: green, label: "F_1"}}
-        - {id: fq2, action: force, params: {on: Q, frm: q2, length: 0.9, color: orange, label: "F_2"}}
-        - {id: netF, action: net, params: {on: Q, color: yellow, label: "F_{net}"}}
+        - {id: fq1, action: force, params: {target: Q, frm: q1, length: 1.3, color: green, label: "F_1"}}
+        - {id: fq2, action: force, params: {target: Q, frm: q2, length: 0.9, color: orange, label: "F_2"}}
+        - {id: netF, action: net, params: {target: Q, color: yellow, label: "F_{net}"}}
     board:
       - id: superpos
         latex: "\\vec{F}_{\\text{net}} = \\sum_i \\vec{F}_i = \\vec{F}_1 + \\vec{F}_2 + \\cdots"

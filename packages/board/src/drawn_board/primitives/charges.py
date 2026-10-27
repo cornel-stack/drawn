@@ -96,18 +96,20 @@ class Charges(Primitive):
         self.scene.play(Write(lbl), run_time=run_time * 0.4)
 
     @step
-    def force(self, run_time: float, on: str = None, frm: str = None, length: float = 1.5,
+    def force(self, run_time: float, target: str = None, frm: str = None, length: float = 1.5,
               color: str = "green", label: str = None, **_):
-        """Draw the Coulomb force on charge `on` due to charge `frm`.
+        """Draw the Coulomb force on charge `target` due to charge `frm`.
 
         Direction from the sign product: like charges repel (arrow points away
         from `frm`), unlike charges attract (arrow points toward `frm`).
         `length` is the arrow length in frame units (illustrative scale).
+        (The acting charge is ``target`` rather than ``on`` because YAML parses a
+        bare ``on`` key as the boolean true.)
         """
         from manim import Arrow, GrowArrow, MathTex, Write
 
-        p_on, p_frm = self._pos[on], self._pos[frm]
-        like = str(self._specs[on].get("sign", "+")) == str(self._specs[frm].get("sign", "+"))
+        p_on, p_frm = self._pos[target], self._pos[frm]
+        like = str(self._specs[target].get("sign", "+")) == str(self._specs[frm].get("sign", "+"))
         direction = self._dir(p_on - p_frm)      # away from frm
         if not like:
             direction = -direction               # toward frm (attraction)
@@ -115,7 +117,7 @@ class Charges(Primitive):
         end = p_on + direction * (length + _DOT_RADIUS)
         arrow = Arrow(start, end, buff=0, color=self.color(color),
                       stroke_width=_FORCE_STROKE, max_tip_length_to_length_ratio=_TIP_RATIO)
-        self._forces.setdefault(on, []).append(direction * length)
+        self._forces.setdefault(target, []).append(direction * length)
         anims = [GrowArrow(arrow)]
         if label:
             lbl = MathTex(label, color=self.color(color), font_size=LABEL_FONT_SIZE + 4)
@@ -124,13 +126,13 @@ class Charges(Primitive):
         self.scene.play(*anims, run_time=run_time)
 
     @step
-    def net(self, run_time: float, on: str = None, color: str = "yellow",
+    def net(self, run_time: float, target: str = None, color: str = "yellow",
             label: str = None, show_components: bool = True, **_):
-        """Tip-to-tail sum of the forces already drawn on `on` → the net force."""
+        """Tip-to-tail sum of the forces already drawn on `target` → net force."""
         from manim import Arrow, DashedLine, GrowArrow, MathTex, Write
 
-        p_on = self._pos[on]
-        vecs = self._forces.get(on, [])
+        p_on = self._pos[target]
+        vecs = self._forces.get(target, [])
         total = np.sum(vecs, axis=0) if vecs else np.zeros(3)
 
         if show_components and len(vecs) > 1:
