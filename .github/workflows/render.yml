@@ -19,6 +19,10 @@ on:
         default: final
         type: choice
         options: [final, preview]
+      skip_factcheck:
+        description: Skip the fact-check gate (draft iteration only)
+        type: boolean
+        default: false
 
 concurrency:
   group: render-${{ inputs.channel }}-${{ inputs.lesson }}
@@ -62,6 +66,7 @@ jobs:
       - name: Lint
         run: uv run python -m drawn_schema lint channels/$CH/lessons/$CODE.yaml
       - name: Fact-check gate
+        if: ${{ !inputs.skip_factcheck }}
         run: uv run python -m drawn_schema factcheck-gate $CH $CODE --repo-root "$PWD"
       - name: Synthesise audio + alignment
         run: uv run python -m drawn_tts channels/$CH/lessons/$CODE.yaml --repo-root "$PWD"
