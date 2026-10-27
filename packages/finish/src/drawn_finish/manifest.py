@@ -28,6 +28,14 @@ def _scene_words(repo_root: Path, channel: str, code: str, scene_id: str) -> dic
     return json.loads(wj.read_text())
 
 
+def _thumbnail(lesson: Lesson) -> dict:
+    """Thumbnail hook for Remotion; falls back to the title if none is set."""
+    t = lesson.thumbnail
+    if t is None:
+        return {"hook": lesson.title, "keyword": None, "kicker": None}
+    return {"hook": t.hook, "keyword": t.keyword, "kicker": t.kicker}
+
+
 def build_props(repo_root: Path, lesson_path: Path, quality: str = "preview") -> dict:
     repo_root = Path(repo_root).resolve()
     lesson = Lesson.model_validate(yaml.safe_load(Path(lesson_path).read_text()))

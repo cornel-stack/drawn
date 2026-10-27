@@ -172,6 +172,22 @@ complete. Hear the whole map read aloud with `just pronounce-check <channel>`.
 - The hand is a placeholder transparent PNG; swapping in a real hand photo must
   be a one-file change (`assets/hand/`).
 
+### Thumbnails must earn the click
+
+The thumbnail is **not** the lesson title. Every lesson carries a `thumbnail:`
+block that the Remotion `Thumbnail` composition renders big and bold:
+
+- `hook` — a short, curiosity-driven or provocative line, **≤ ~6 words** ("3
+  pictures beat the formula", "The supply & demand trap", "Why the wheel won't
+  fall"). Promise a payoff or name a mistake; never just restate the title.
+- `keyword` — the word or phrase inside the hook to highlight in the channel
+  accent (rendered as a marker-pen box).
+- `kicker` — a tiny all-caps topic label above the hook ("MICROECONOMICS").
+
+The design adds accent shapes and an oversized faint "?" for energy. The linter
+**warns** when a lesson has no thumbnail hook (it falls back to the dull title)
+and when the hook runs long. Keep it high-contrast and legible at phone size.
+
 ## Task runner
 
 `just` drives everything; the same recipes run locally and in CI:

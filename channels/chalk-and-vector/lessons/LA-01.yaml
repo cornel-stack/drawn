@@ -13,6 +13,10 @@ source:
   license: "CC BY-SA 3.0"
   file: "hefferon-linear-algebra/001-solving-linear-systems.md"
   pages: "11-44"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "3 pictures beat the formula"
+  keyword: "3 pictures"
 
 scenes:
   - id: s1

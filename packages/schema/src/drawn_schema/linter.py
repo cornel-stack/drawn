@@ -236,6 +236,23 @@ def _check_tone(scene: Scene, result: LintResult) -> None:
         )
 
 
+def _check_thumbnail(lesson: Lesson, result: LintResult) -> None:
+    """Every lesson needs a punchy thumbnail hook (not the dull full title)."""
+    t = lesson.thumbnail
+    if t is None:
+        result.warn(
+            "no 'thumbnail' hook — the thumbnail falls back to the full title, "
+            "which is dull; add thumbnail.hook (a short, click-worthy line) and "
+            "thumbnail.keyword to highlight"
+        )
+        return
+    n = len(t.hook.split())
+    if n > 7:
+        result.warn(f"thumbnail hook is {n} words; keep it punchy (<= ~6)")
+    if t.keyword and t.keyword.lower() not in t.hook.lower():
+        result.error(f"thumbnail keyword {t.keyword!r} is not a substring of the hook")
+
+
 def _check_problems(lesson: Lesson, result: LintResult) -> None:
     from drawn_schema.checks import eval_check
 
@@ -364,6 +381,7 @@ def lint_lesson(data: dict, repo_root: Path | None = None) -> LintResult:
     _check_pronounce(lesson, pronounce_map, result)
     _check_problems(lesson, result)
     _check_runtime(lesson, result, pronounce_map)
+    _check_thumbnail(lesson, result)
     _check_licence(lesson, result)
     _check_latex(lesson, result)
     _check_backlog(lesson, repo_root, result)
