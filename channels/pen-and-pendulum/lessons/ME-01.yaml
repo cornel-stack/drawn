@@ -10,6 +10,28 @@ source:
   book: "OpenStax University Physics Vol. 1"
   section: "Ch.2 Vectors"
   license: "CC BY 4.0"
+thumbnail:
+  kicker: "Mechanics"
+  hook: "Stop mixing up dot and cross"
+  keyword: "dot and cross"
+publish:
+  title: "Vectors in Physics: Components, Dot & Cross Product — One Animation Each"
+  summary: >
+    Almost everything in physics has a size and a direction. This lesson builds
+    the whole toolkit from one arrow: splitting into components, finding length
+    and angle, adding nose to tail, and the two products students most often
+    confuse — the dot product, which returns a number, and the cross product,
+    which returns a perpendicular vector.
+  hashtags: ["#physics", "#vectors", "#mechanics"]
+  tags:
+    - vectors
+    - physics
+    - dot product
+    - cross product
+    - vector components
+    - vector addition
+    - mechanics
+    - OpenStax
 
 scenes:
   - id: s1
@@ -121,7 +143,7 @@ scenes:
   - id: s5
     kind: diagram
     narration: >
-      Here are two vectors from a shared corner, {drawE} and {drawF}. The first
+      Here are two vectors, {drawE} and {drawF}, sharing a corner. The first
       product asks how much they point the same way, so drop one onto the other,
       {dotG}: the shaded stretch is the projection, how much of the second lies
       along the first. Multiply that projection by the first vector's
@@ -188,8 +210,8 @@ scenes:
       So a vector splits into components, {recap}; its length and angle come
       straight from them; vectors add nose to tail or part by part; the dot
       product measures alignment and returns a number; and the cross product
-      measures twist and returns a perpendicular vector. Next, in EM-01, we put
-      the dot and cross products to work on Coulomb's law.
+      measures twist and returns a perpendicular vector. Next: Coulomb's law and
+      superposition, where the dot and cross products go straight to work.
     animation:
       primitive: vectors
       params:
