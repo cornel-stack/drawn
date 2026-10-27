@@ -126,6 +126,51 @@ class Charges(Primitive):
         self.scene.play(*anims, run_time=run_time)
 
     @step
+    def field(self, run_time: float, name: str = None, color: str = "purple",
+              n: int = 12, length: float = 0.9, **_):
+        """Radial electric-field arrows around charge `name`: outward for a
+        positive charge, inward (pointing at it) for a negative one."""
+        from manim import Arrow, GrowArrow
+
+        centre = self._pos[name]
+        outward = str(self._specs[name].get("sign", "+")) == "+"
+        arrows = []
+        for i in range(int(n)):
+            ang = 2.0 * np.pi * i / int(n)
+            d = np.array([np.cos(ang), np.sin(ang), 0.0])
+            near = centre + d * (_DOT_RADIUS * 1.3)
+            far = centre + d * (length + _DOT_RADIUS)
+            start, end = (near, far) if outward else (far, near)
+            arrows.append(Arrow(start, end, buff=0, color=self.color(color),
+                                stroke_width=5, max_tip_length_to_length_ratio=0.3))
+        self.scene.play(*[GrowArrow(a) for a in arrows], run_time=run_time)
+
+    @step
+    def ring(self, run_time: float, center=(0.0, 0.0), radius: float = 1.1, z: float = 1.5,
+             color: str = "green", label: str = None, **_):
+        """Schematic ring of charge: a circle, its axis, a point P a distance z
+        along the axis, and the axial field arrow there."""
+        from manim import Arrow, Create, DashedLine, Dot, Ellipse, GrowArrow, GrowFromCenter, MathTex, Write
+
+        c = self._p(center)
+        r = radius * self.scale
+        # drawn edge-on as a flat ellipse so the axis reads as coming toward us
+        ring = Ellipse(width=2 * r, height=r, color=self.color(None), stroke_width=4).move_to(c)
+        axis = DashedLine(c + np.array([0, -r * 0.9, 0]),
+                          c + np.array([0, z * self.scale + 0.6, 0]),
+                          color=self.color(None), stroke_width=2)
+        p = c + np.array([0, z * self.scale, 0])
+        dot = Dot(p, color=self.color(color), radius=0.07)
+        arrow = Arrow(p, p + np.array([0, 1.1, 0]), buff=0, color=self.color(color),
+                      stroke_width=6, max_tip_length_to_length_ratio=0.25)
+        self.scene.play(Create(ring), Create(axis), run_time=run_time * 0.5)
+        anims = [GrowFromCenter(dot), GrowArrow(arrow)]
+        if label:
+            anims.append(Write(MathTex(label, color=self.color(color),
+                                       font_size=LABEL_FONT_SIZE).next_to(arrow, _right(), buff=0.12)))
+        self.scene.play(*anims, run_time=run_time * 0.5)
+
+    @step
     def net(self, run_time: float, target: str = None, color: str = "yellow",
             label: str = None, show_components: bool = True, **_):
         """Tip-to-tail sum of the forces already drawn on `target` → net force."""

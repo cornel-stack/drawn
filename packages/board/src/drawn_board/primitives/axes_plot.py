@@ -23,6 +23,23 @@ _FUNCS = {
     "cubic": (lambda x: 0.12 * x ** 3, "x^3"),
 }
 
+# Named right-hand sides f(x, y) for a first-order ODE y' = f(x, y), and the
+# exact solutions where a clean closed form exists (else solution_curve
+# integrates the field numerically). YAML can't carry a lambda, so slope
+# functions are selected by name, mirroring _FUNCS.
+_SLOPE_FUNCS = {
+    "x": lambda x, y: x,
+    "y": lambda x, y: y,
+    "x_minus_y": lambda x, y: x - y,
+    "x_plus_y": lambda x, y: x + y,
+    "y_times_3_minus_y": lambda x, y: y * (3.0 - y),
+}
+
+_EXACT_SOLS = {
+    # y = x - 1 + C e^{-x}, with C fixed by (x0, y0): C = (y0 - x0 + 1) e^{x0}
+    "x_minus_y": lambda x, x0, y0: x - 1.0 + (y0 - x0 + 1.0) * np.exp(x0) * np.exp(-x),
+}
+
 
 @register("axes_plot")
 class AxesPlot(Primitive):
@@ -214,6 +231,59 @@ class AxesPlot(Primitive):
         self.scene.play(Create(region), run_time=run_time)
 
     @step
+    def slope_field(self, run_time: float, f: str = "x", x_step: float = 0.6,
+                    y_step: float = 0.6, length: float = 0.26, color: str = "blue", **_):
+        """Draw the direction field of y' = f(x, y): a short segment at each grid
+        point whose slope is f there (normalised to a fixed data length)."""
+        from manim import Create, LaggedStart, Line
+
+        fn = _SLOPE_FUNCS[f]
+        x0, x1 = self._xr()
+        yr = self.params.get("y", [-4, 4, 1])
+        segs = []
+        x = x0
+        while x <= x1 + 1e-9:
+            y = yr[0]
+            while y <= yr[1] + 1e-9:
+                m = float(fn(x, y))
+                n = (1.0 + m * m) ** 0.5
+                ux, uy = 1.0 / n, m / n
+                p0 = self.axes.c2p(x - ux * length, y - uy * length)
+                p1 = self.axes.c2p(x + ux * length, y + uy * length)
+                segs.append(Line(p0, p1, color=self.color(color), stroke_width=3))
+                y += y_step
+            x += x_step
+        self.scene.play(LaggedStart(*[Create(s) for s in segs], lag_ratio=0.015),
+                        run_time=run_time)
+
+    @step
+    def solution_curve(self, run_time: float, f: str = "x", x0: float = 0.0, y0: float = 0.0,
+                       color: str = "blue", label: str = None, **_):
+        """Draw the solution of y' = f(x, y) through (x0, y0): the exact curve if
+        one is registered, else integrated numerically (RK4, both directions)."""
+        from manim import Create, VMobject, Write
+
+        xlo, xhi = self._xr()
+        yr = self.params.get("y", [-4, 4, 1])
+        ylo, yhi = yr[0] - 0.3, yr[1] + 0.3
+        exact = _EXACT_SOLS.get(f)
+        if exact is not None:
+            xs = np.linspace(xlo, xhi, 240)
+            data = [(float(xx), float(exact(xx, x0, y0))) for xx in xs]
+        else:
+            data = _integrate(_SLOPE_FUNCS[f], x0, y0, xlo, xhi)
+        # keep the contiguous run of in-range points containing the start
+        run = [self.axes.c2p(xx, yy) for xx, yy in data if ylo <= yy <= yhi]
+        if len(run) < 2:
+            return
+        curve = VMobject(color=self.color(color), stroke_width=_LINE_STROKE)
+        curve.set_points_smoothly(run)
+        self.scene.play(Create(curve), run_time=run_time * (0.8 if label else 1.0))
+        if label:
+            self.scene.play(Write(self._mlabel(label, run[-1], color, _up())),
+                            run_time=run_time * 0.2)
+
+    @step
     def trace(self, run_time: float, func: str = "parabola", color: str = "yellow", **_):
         from manim import Dot, MoveAlongPath
 
@@ -223,6 +293,28 @@ class AxesPlot(Primitive):
         dot = Dot(graph.get_start(), color=self.color(color), radius=0.09)
         self.scene.add(dot)
         self.scene.play(MoveAlongPath(dot, graph), run_time=run_time)
+
+
+def _integrate(fn, x0, y0, xlo, xhi, h=0.04):
+    """RK4 for y' = fn(x, y) from (x0, y0), forward to xhi and back to xlo."""
+    def march(direction, limit):
+        pts, x, y = [(x0, y0)], x0, y0
+        while (x < limit - 1e-9) if direction > 0 else (x > limit + 1e-9):
+            s = direction * min(h, abs(limit - x))
+            k1 = fn(x, y)
+            k2 = fn(x + s / 2, y + s / 2 * k1)
+            k3 = fn(x + s / 2, y + s / 2 * k2)
+            k4 = fn(x + s, y + s * k3)
+            y = y + s / 6 * (k1 + 2 * k2 + 2 * k3 + k4)
+            x = x + s
+            if abs(y) > 1e4:
+                break
+            pts.append((x, y))
+        return pts
+
+    back = march(-1, xlo)
+    fwd = march(+1, xhi)
+    return list(reversed(back)) + fwd[1:]
 
 
 def _create(m):
