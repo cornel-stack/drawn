@@ -47,7 +47,7 @@ scenes:
   - id: s2
     kind: diagram
     narration: >
-      Start from echelon form, {drawE}. The previous lesson left us here: a
+      Start here, {drawE}: echelon form, where the previous lesson left us — a
       staircase, with a leading entry in each row and zeros below it. The three
       leading entries sit on the diagonal, {hpz}. Reduced echelon form asks for
       two more things of every leading entry, {rrefDef}: it must be a one, and it
