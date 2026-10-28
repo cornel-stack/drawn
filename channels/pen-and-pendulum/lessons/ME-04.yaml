@@ -89,8 +89,8 @@ scenes:
   - id: s3
     kind: diagram
     narration: >
-      Everything starts with the launch velocity, {drawV0}. The one method begins
-      by resolving that single arrow into two, {splitV0}: a horizontal part and a
+      The launch velocity, {drawV0}, is where everything starts. The one method
+      begins by resolving that single arrow into two, {splitV0}: a horizontal part and a
       vertical part. If the launch speed is v nought at an angle theta above the
       horizontal, trigonometry gives the pieces, {comps}: the horizontal component
       is v nought cos theta, and the vertical component is v nought sin theta. From
