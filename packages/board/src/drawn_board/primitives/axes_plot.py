@@ -21,6 +21,9 @@ _FUNCS = {
     "cos": (lambda x: 2.0 * np.cos(x), r"\cos x"),
     "exp": (lambda x: np.exp(0.5 * x), "e^{x}"),
     "cubic": (lambda x: 0.12 * x ** 3, "x^3"),
+    # a concave, bowed-out production-possibilities frontier: integer-clean,
+    # y'' = -0.2 < 0, intercepts (0,10) and (10,0).
+    "ppf": (lambda x: 10.0 - 0.1 * x * x, "10 - 0.1x^2"),
 }
 
 # Named right-hand sides f(x, y) for a first-order ODE y' = f(x, y), and the
@@ -282,6 +285,22 @@ class AxesPlot(Primitive):
         if label:
             self.scene.play(Write(self._mlabel(label, run[-1], color, _up())),
                             run_time=run_time * 0.2)
+
+    @step
+    def chord(self, run_time: float, x0: float = 0, y0: float = 0, x1: float = 1,
+              y1: float = 1, color: str = "orange", label: str = None, **_):
+        """Draw the straight chord between two data points (a secant), optionally
+        labelled with its slope — opportunity cost as rise over run."""
+        from manim import Create, Line
+
+        p0, p1 = self.axes.c2p(x0, y0), self.axes.c2p(x1, y1)
+        line = Line(p0, p1, color=self.color(color), stroke_width=_LINE_STROKE)
+        self.scene.play(Create(line), run_time=run_time * (0.75 if label else 1.0))
+        if label:
+            from manim import Write
+
+            self.scene.play(Write(self._mlabel(label, (p0 + p1) / 2, color, _up())),
+                            run_time=run_time * 0.25)
 
     @step
     def trace(self, run_time: float, func: str = "parabola", color: str = "yellow", **_):
