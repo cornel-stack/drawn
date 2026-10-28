@@ -61,6 +61,7 @@ map:
   "\\bar": "bar"
   # named people and laws (phonetic spellings the voice reads correctly)
   "Coulomb": "koo-lom"
+  "Gauss's": "gowss-iz"
   "Gauss": "gowss"
   "Gaussian": "gowss-ian"
   "Ampere": "am-pair"

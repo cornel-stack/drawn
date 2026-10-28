@@ -146,6 +146,32 @@ class Charges(Primitive):
         self.scene.play(*[GrowArrow(a) for a in arrows], run_time=run_time)
 
     @step
+    def gaussian_surface(self, run_time: float, name: str = None, radius: float = 1.3,
+                         color: str = "yellow", flux_arrows: int = 4, **_):
+        """Draw a dashed closed Gaussian surface (a circle) around charge `name`,
+        with a few short outward arrows showing field lines piercing it."""
+        from manim import Arrow, Circle, Create, DashedVMobject, GrowArrow
+
+        centre = self._pos[name]
+        r = radius * self.scale
+        circle = DashedVMobject(
+            Circle(radius=r, color=self.color(color), stroke_width=3).move_to(centre),
+            num_dashes=36)
+        self.scene.play(Create(circle), run_time=run_time * 0.6)
+        arrows = []
+        for i in range(int(flux_arrows)):
+            ang = 2.0 * np.pi * i / max(int(flux_arrows), 1)
+            d = np.array([np.cos(ang), np.sin(ang), 0.0])
+            start = centre + d * (r - 0.18)
+            end = centre + d * (r + 0.32)
+            arrows.append(Arrow(start, end, buff=0, color=self.color(color),
+                                stroke_width=5, max_tip_length_to_length_ratio=0.5))
+        if arrows:
+            self.scene.play(*[GrowArrow(a) for a in arrows], run_time=run_time * 0.4)
+        else:
+            self.scene.wait(run_time * 0.4)
+
+    @step
     def ring(self, run_time: float, center=(0.0, 0.0), radius: float = 1.1, z: float = 1.5,
              color: str = "green", label: str = None, **_):
         """Schematic ring of charge: a circle, its axis, a point P a distance z

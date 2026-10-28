@@ -24,6 +24,11 @@ _FUNCS = {
     # a concave, bowed-out production-possibilities frontier: integer-clean,
     # y'' = -0.2 < 0, intercepts (0,10) and (10,0).
     "ppf": (lambda x: 10.0 - 0.1 * x * x, "10 - 0.1x^2"),
+    # a concave, increasing aggregate production function Y = 10*sqrt(k):
+    # diminishing returns to capital (clip guards the sqrt near x=0).
+    "prodfn": (lambda x: 10.0 * np.sqrt(np.clip(x, 0.0, None)), r"10\sqrt{k}"),
+    # the same function lifted by better technology / human capital (shifts up).
+    "prodfn_hi": (lambda x: 13.0 * np.sqrt(np.clip(x, 0.0, None)), r"13\sqrt{k}"),
 }
 
 # Named right-hand sides f(x, y) for a first-order ODE y' = f(x, y), and the
@@ -36,11 +41,14 @@ _SLOPE_FUNCS = {
     "x_minus_y": lambda x, y: x - y,
     "x_plus_y": lambda x, y: x + y,
     "y_times_3_minus_y": lambda x, y: y * (3.0 - y),
+    "x_times_y": lambda x, y: x * y,
 }
 
 _EXACT_SOLS = {
     # y = x - 1 + C e^{-x}, with C fixed by (x0, y0): C = (y0 - x0 + 1) e^{x0}
     "x_minus_y": lambda x, x0, y0: x - 1.0 + (y0 - x0 + 1.0) * np.exp(x0) * np.exp(-x),
+    # dy/dx = x y  =>  y = y0 * e^{(x^2 - x0^2)/2}
+    "x_times_y": lambda x, x0, y0: y0 * np.exp((x * x - x0 * x0) / 2.0),
 }
 
 
