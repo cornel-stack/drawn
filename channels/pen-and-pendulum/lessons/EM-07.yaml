@@ -1,0 +1,203 @@
+# EM-07: Kirchhoff's rules — solving any circuit with two equations.
+# OpenStax University Physics Vol. 2 §10.3 (CC BY 4.0). ~7 minutes.
+# Colour: wires = white, battery = red, resistors = orange, junction = yellow,
+# currents = blue, loop = green.
+schema_version: 1
+id: EM-07
+channel: pen-and-pendulum
+title: "Kirchhoff's rules: solving any circuit with two equations"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "§10.3 Kirchhoff's Rules"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/084-10-3-kirchhoff-s-rules.md"
+  pages: "453-468"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "Any circuit, two rules"
+  keyword: "two rules"
+publish:
+  title: "Kirchhoff's Rules Explained: Solve Any Circuit With Two Equations"
+  summary: >
+    When resistors are not simply in series or parallel, Kirchhoff's two rules
+    still crack the circuit. We show the junction rule as charge conservation and
+    the loop rule as energy conservation, apply both to a two-loop circuit, and
+    solve for the currents. Two worked examples follow.
+  hashtags: ["#physics", "#electromagnetism", "#circuits"]
+  tags:
+    - Kirchhoff's rules
+    - junction rule
+    - loop rule
+    - circuit analysis
+    - electromagnetism
+    - resistors
+    - physics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Series and parallel formulas handle tidy circuits. For everything else there are two
+      rules, due to Kirchhoff, that together solve any circuit at all — and both are just
+      conservation laws in disguise.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is a circuit, {drawWires}, with a battery, {addBattery}, in red, driving the
+      whole thing. Two resistors sit on the branches, {addR1} {addR2}, in orange. Where
+      three wires meet is a junction, {addNode}, marked a. Now the currents. One current
+      leaves the battery, {curr1}, in blue, call it I-one. At the junction it has nowhere to
+      vanish to, so it splits into two: I-two down the middle branch, {curr2}, and I-three
+      down the right, {curr3}. That is the first rule in picture form, the junction rule,
+      {junctionEq}: whatever current flows into a junction must flow out, because charge
+      cannot pile up or disappear. The second rule follows a loop, {markLoop}, in green. Travel all the way
+      round any closed loop — here the left one — adding up every voltage: the battery lifts
+      the potential, each resistor drops it, and because you end where you began, the rises
+      and drops must cancel to zero. That is energy conservation for a charge making the
+      round trip. Two rules, charge and energy, and between them they pin down every current.
+    animation:
+      primitive: circuit
+      params:
+        width: 5.0
+        height: 2.8
+        center: [0.0, -1.0]
+      steps:
+        - {id: drawWires, action: draw_wires, params: {color: white}}
+        - {id: addBattery, action: battery, params: {branch: left, label: "\\varepsilon", color: red}}
+        - {id: addR1, action: resistor, params: {branch: middle, label: "R_1", color: orange}}
+        - {id: addR2, action: resistor, params: {branch: right, label: "R_2", color: orange}}
+        - {id: addNode, action: junction, params: {node: top, label: "a", color: yellow}}
+        - {id: curr1, action: current, params: {branch: left, direction: up, label: "I_1", color: blue}}
+        - {id: curr2, action: current, params: {branch: middle, direction: down, label: "I_2", color: blue}}
+        - {id: curr3, action: current, params: {branch: right, direction: down, label: "I_3", color: blue}}
+        - {id: markLoop, action: loop, params: {which: left, color: green}}
+    board:
+      - id: junctionEq
+        latex: "\\sum I_{in} = \\sum I_{out}"
+        say: "the sum of currents in equals the sum of currents out"
+        color: yellow
+        legend:
+          - {sym: "I_1", name: "current from the battery", unit: "A"}
+          - {sym: "I_2, I_3", name: "the two branch currents", unit: "A"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Write the rules down, {junctionEq2}. The junction rule says the currents into any node
+      sum to the currents out — for our node a, I-one equals I-two plus I-three. It is
+      conservation of charge: a junction is not a reservoir, so what arrives must leave. The
+      loop rule is the second equation, {loopEq}: around any closed loop, the voltage changes
+      sum to zero. It is conservation of energy: a charge carried once round a loop and back
+      to its start can have gained no net energy, so the battery's lift must be exactly spent
+      in the resistors' drops. The only subtlety is signs, and it is mechanical. Pick a
+      direction to walk each loop. Crossing a battery from minus to plus is a rise; a resistor
+      crossed along the current is a drop of I times R. For the left loop, the battery's e m f
+      minus the drop across R-one equals zero, which gives I-two at once. Count the unknown
+      currents, write one junction equation and as many loop equations as you need, and you
+      have a solvable system every time. There is never any guessing: the two conservation
+      laws always supply exactly enough equations to find every current, however tangled the
+      network. If a current comes out negative, it simply means you guessed its arrow
+      backwards — the size is still right. It is worth seeing why the bookkeeping always
+      closes. Each branch carries one unknown current, so a circuit with b branches has b
+      unknowns. The junctions supply some equations and the independent loops supply the
+      rest, and a classic result guarantees that between them they furnish exactly b
+      independent equations — never too few to solve, never so many that they contradict.
+      That is the quiet promise of Kirchhoff's rules: they do not merely help with hard
+      circuits, they are complete. Series and parallel shortcuts are just special cases you
+      can read off by eye; the two rules underneath them handle the bridge circuit, the
+      multi-battery network, anything you can draw. Reduce what you can by inspection, then
+      reach for the rules for the rest, and no circuit can resist you.
+    board:
+      - id: junctionEq2
+        latex: "I_1 = I_2 + I_3"
+        say: "I one equals I two plus I three"
+        color: yellow
+      - id: loopEq
+        latex: "\\sum_{\\text{loop}} \\Delta V = 0 \\;\\Rightarrow\\; \\varepsilon - I_2 R_1 = 0"
+        say: "the sum of voltage changes round a loop is zero, so e m f minus I two R one equals zero"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      The junction rule. {statement} At a junction, two of the three currents are known,
+      {given}; find the third. {find} By the junction rule the current in equals the currents
+      out, {step1}: I-one equals I-two plus I-three, three amperes plus one ampere. That is
+      four amperes, {answer}. No matter how many wires meet at a point, their currents must
+      balance exactly — in equals out, always. The rule is nothing more than the statement
+      that charge is conserved and a wire is not a bucket: every coulomb arriving each second
+      must leave each second, so the inflows and outflows can never disagree.
+    board:
+      - id: statement
+        text: "Current at a junction."
+      - id: given
+        latex: "I_2 = 3\\ \\text{A}, \\quad I_3 = 1\\ \\text{A}"
+        say: "I two equals three amperes, I three equals one ampere"
+        role: given
+      - id: find
+        text: "Find I₁ = I₂ + I₃."
+        role: find
+      - id: step1
+        latex: "I_1 = I_2 + I_3 = 3 + 1"
+        say: "I one equals I two plus I three, three plus one"
+        role: step
+        color: yellow
+      - id: answer
+        latex: "I_1 = 4\\ \\text{A}"
+        say: "I one equals four amperes"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "3 + 1"
+      value: 4
+      unit: "A"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      The loop rule. {statement2} The left loop has the battery and one resistor, {given2};
+      find the current through that resistor. {find2} Apply the loop rule, {step2}: the
+      battery's twelve volts minus I-two times four ohms must sum to zero round the loop. So
+      I-two is twelve over four, {answer2}, three amperes. The loop rule has turned a picture
+      of a circuit into a single equation with a single unknown, and solved it — the same
+      move works loop by loop for any network.
+    board:
+      - id: statement2
+        text: "Current from the loop rule."
+      - id: given2
+        latex: "\\varepsilon = 12\\ \\text{V}, \\quad R_1 = 4\\ \\Omega"
+        say: "e m f equals twelve volts, R one equals four ohms"
+        role: given
+      - id: find2
+        text: "Find I₂ from ε − I₂R₁ = 0."
+        role: find
+      - id: step2
+        latex: "\\varepsilon - I_2 R_1 = 0 \\;\\Rightarrow\\; I_2 = \\dfrac{12}{4}"
+        say: "e m f minus I two R one equals zero, so I two is twelve over four"
+        role: step
+        color: green
+      - id: answer2
+        latex: "I_2 = 3\\ \\text{A}"
+        say: "I two equals three amperes"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "12 / 4"
+      value: 3
+      unit: "A"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the junction rule is conservation of charge, currents in equal currents
+      out; the loop rule is conservation of energy, voltage changes round a loop sum to zero;
+      and together they give exactly enough equations to solve any circuit. Next: RC circuits
+      — charging and discharging, the differential equation solved visually.

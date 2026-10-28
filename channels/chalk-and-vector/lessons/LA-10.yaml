@@ -1,0 +1,213 @@
+# LA-10: Linear independence — when is a vector redundant?
+# Hefferon, Linear Algebra §II Linear Independence (CC BY-SA 3.0). ~7 minutes.
+# Colour: v = blue, w = orange, redundant u = red, combination = green.
+schema_version: 1
+id: LA-10
+channel: chalk-and-vector
+title: "Linear independence: when is a vector redundant?"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "§II Linear Independence"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/009-linear-independence.md"
+  pages: "109-125"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "Which arrow is dead weight?"
+  keyword: "dead weight"
+publish:
+  title: "Linear Independence Explained: When Is a Vector Redundant?"
+  summary: >
+    A vector is redundant when it adds nothing new — when it already lies in the
+    span of the others. We make that precise with the independence test, show why
+    any three vectors in the plane must be dependent, and connect it to the
+    determinant. Two worked examples follow.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - linear independence
+    - linearly dependent
+    - redundant vector
+    - linear algebra
+    - span
+    - determinant
+    - basis
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A set of vectors can carry dead weight: a vector that points nowhere the others
+      could not already reach. Spotting and removing that redundancy is what linear
+      independence is about.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Two vectors, {drawV} {drawW}: v in blue and w in orange, pointing in different
+      directions. On their own they are independent — neither is a scaling of the other,
+      so each genuinely adds a new direction, and together they span the plane. Now bring
+      in a third, {drawU}, u in red. Watch what happens when we add v and w nose to tail,
+      {combine}: their sum lands exactly on u. So u is nothing new — it is already v plus
+      w, {depEq}, a combination of vectors we had. We call u redundant, and the set of three
+      linearly dependent. This is the whole idea. A set is dependent when at least one
+      member is a combination of the others, adding no reach the rest did not already
+      have. It is independent when none of them is — when every vector contributes a
+      direction the others cannot supply. And in the plane there is a hard ceiling: two
+      independent vectors already reach everywhere, so any third must be a combination of
+      them. You can never have three independent vectors in two dimensions.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-1, 5, 1], y: [-1, 4, 1]}
+        vectors:
+          v: {to: [1, 2], color: blue, label: "v"}
+          w: {to: [3, 1], color: orange, label: "w"}
+          u: {to: [4, 3], color: red, label: "u"}
+      steps:
+        - {id: drawV, action: draw, params: {name: v}}
+        - {id: drawW, action: draw, params: {name: w}}
+        - {id: drawU, action: draw, params: {name: u}}
+        - {id: combine, action: add_tip_to_tail, params: {a: v, b: w, result: sum, color: green}}
+    board:
+      - id: depEq
+        latex: "\\vec{u} = \\vec{v} + \\vec{w}"
+        say: "u equals v plus w"
+        color: green
+        legend:
+          - {sym: "\\vec{u}", name: "redundant: a combination of v, w", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here is the clean test, {defEq}. A set is linearly independent when the only way to
+      combine the vectors and get the zero vector is to use all-zero weights. If instead
+      some combination with weights not all zero reaches zero, the set is dependent, and
+      that equation can be rearranged to write one vector in terms of the others, {depEq2}
+      — exposing the redundant one. So dependence and redundancy are the same statement
+      seen two ways: a non-trivial combination giving zero, or one vector lying in the span
+      of the rest. Everything ties back to what we have built. Adding a dependent vector to
+      a set never enlarges its span, which is why independence is exactly the condition for
+      a spanning set to be as small as possible. And for n vectors in n dimensions there is
+      a one-line test, {detEq}: they are independent precisely when the matrix with them as
+      columns has a non-zero determinant — a zero determinant means the columns are
+      dependent and collapse the space. Count carries the punchline: in n-dimensional space
+      the largest independent set has exactly n vectors, no more. That maximum number is
+      the dimension, and a smallest independent spanning set is a basis — which is where we
+      go next. A few consequences are worth keeping. Any set that contains the zero vector is
+      automatically dependent, because you can weight the zero vector by anything and the rest
+      by nothing and still reach zero. Any set with more vectors than the dimension of the
+      space is dependent too — five vectors in three dimensions cannot all be independent,
+      there is simply not enough room for five separate directions. And a single non-zero
+      vector is always independent on its own. The practical upshot is a habit of mind: when
+      you meet a pile of vectors, the first question is not what they span but how many of
+      them are genuinely pulling their weight. Strip the redundant ones away and what remains
+      is the lean, independent core that does all the work — fewer vectors, same reach.
+    board:
+      - id: defEq
+        latex: "c_1\\vec{v}_1 + \\cdots + c_k\\vec{v}_k = \\vec{0} \\;\\Rightarrow\\; \\text{all } c_i = 0"
+        say: "c one v one up to c k v k equals zero implies every c i is zero"
+        color: blue
+      - id: depEq2
+        latex: "\\text{dependent} \\iff \\vec{v}_i = \\textstyle\\sum_{j\\ne i} c_j\\vec{v}_j"
+        say: "dependent means some v i is a combination of the others"
+        color: red
+      - id: detEq
+        latex: "\\text{independent} \\iff \\det \\ne 0"
+        say: "independent exactly when the determinant is non-zero"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Testing two vectors. {statement} Two vectors are given, {given}; decide whether they
+      are independent. {find} Form the determinant of the matrix with them as columns,
+      {step1}: one times one minus three times two, which is minus five. It is not zero,
+      {step2}, so the vectors are independent, {answer} — neither is a multiple of the
+      other, and together they span the whole plane. Any non-zero determinant, positive or
+      negative, signals independence; only an exact zero would mean one vector is redundant.
+      This determinant test is the quickest there is for two vectors: one multiplication
+      each way, one subtraction, and the sign of the answer need not even be considered.
+    board:
+      - id: statement
+        text: "Are the two vectors independent?"
+      - id: given
+        latex: "\\vec{v} = \\begin{pmatrix}1\\\\2\\end{pmatrix}, \\quad \\vec{w} = \\begin{pmatrix}3\\\\1\\end{pmatrix}"
+        say: "v is one, two; w is three, one"
+        role: given
+      - id: find
+        text: "Independent or dependent?"
+        role: find
+      - id: step1
+        latex: "\\det\\begin{pmatrix}1 & 3\\\\2 & 1\\end{pmatrix} = 1(1) - 3(2)"
+        say: "the determinant is one times one minus three times two"
+        role: step
+        color: blue
+      - id: step2
+        latex: "= -5 \\ne 0"
+        say: "equals minus five, which is not zero"
+        role: step
+        color: green
+      - id: answer
+        latex: "\\text{independent}"
+        say: "the vectors are independent"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "1*1 - 3*2"
+      value: -5
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Exposing the redundant one. {statement2} Now three vectors in the plane, {given2};
+      since any three must be dependent, write the third as a combination of the first two.
+      {find2} Solve for the weights, {step1b}: a times one plus b times three equals five,
+      and a times two plus b times one equals five. Eliminate and you find b equals one,
+      then a equals two, {step2b}. So u is two v plus w, {answer2} — exactly the redundancy
+      the theory promised. Remove u and you lose nothing: v and w alone still reach every
+      point u could.
+    board:
+      - id: statement2
+        text: "Write the third vector as a combination."
+      - id: given2
+        latex: "\\vec{v}=\\begin{pmatrix}1\\\\2\\end{pmatrix},\\ \\vec{w}=\\begin{pmatrix}3\\\\1\\end{pmatrix},\\ \\vec{u}=\\begin{pmatrix}5\\\\5\\end{pmatrix}"
+        say: "v is one, two; w is three, one; u is five, five"
+        role: given
+      - id: find2
+        text: "Express u as a·v + b·w."
+        role: find
+      - id: step1b
+        latex: "a + 3b = 5, \\quad 2a + b = 5"
+        say: "a plus three b equals five, two a plus b equals five"
+        role: step
+        color: orange
+      - id: step2b
+        latex: "b = 1, \\quad a = 2"
+        say: "b equals one, a equals two"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "\\vec{u} = 2\\vec{v} + \\vec{w}"
+        say: "u equals two v plus w"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "2*1 + 1*3"
+      value: 5
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: vectors are linearly independent when no combination of them except
+      the all-zero one gives the zero vector, equivalently when none is a combination of
+      the others; dependence means redundancy, and for a square set it shows up as a zero
+      determinant. Next: Basis and dimension — choosing your coordinate system.

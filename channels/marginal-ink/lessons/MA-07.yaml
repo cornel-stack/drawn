@@ -1,0 +1,210 @@
+# MA-07: Consumption smoothing — the two-period model and permanent income.
+# OpenStax Principles of Economics 3e, intertemporal-choice appendix (CC BY 4.0)
+# for the budget constraint and indifference curves; the Euler equation and
+# permanent-income hypothesis are the standard construction (flagged in review).
+# ~7 minutes. Colour: indifference = blue, budget = orange, optimum = green, smoothing = yellow.
+schema_version: 1
+id: MA-07
+channel: marginal-ink
+title: "Consumption smoothing: the two-period model and permanent income"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "Appendix: Indifference Curves (Intertemporal Choice)"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/422-indifference-curves-with-labor-leisure-and-intertemporal-choices.md"
+  pages: "A-9 to A-16"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "Spend today's raise tomorrow"
+  keyword: "tomorrow"
+publish:
+  title: "Consumption Smoothing: The Two-Period Model and Permanent Income"
+  summary: >
+    People prefer a steady standard of living to a bumpy one, so they save in fat
+    years and borrow in lean ones. We build the two-period model — the intertemporal
+    budget line and indifference curves — find the smoothing optimum, and explain
+    why consumption tracks permanent, not current, income. Two worked examples.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - consumption smoothing
+    - two-period model
+    - permanent income
+    - intertemporal choice
+    - budget constraint
+    - macroeconomics
+    - saving and borrowing
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Given a choice, almost no one wants to feast one year and starve the next. People
+      prefer a steady standard of living — and that single preference explains a great deal
+      of saving and borrowing.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Consumption today on one axis, {lowCurve}, and consumption next period on the other.
+      This blue curve is an indifference curve over the two periods: every point on it gives
+      the same lifetime satisfaction, and it bows inward because a person with plenty today
+      and little tomorrow will trade a lot of today's consumption for a little of tomorrow's,
+      and vice versa — the taste for balance. Curves further out are preferred, {highCurve},
+      more consumption in both periods. What can be afforded is set by the budget line,
+      {budget}, in orange: the present value of what you consume cannot exceed the present
+      value of what you earn, {budgetEq}, with saving and borrowing letting you move
+      consumption between the periods. The best plan is the tangency, {optimum}, the point marked E. And here is
+      the key: when the interest rate just offsets impatience, that tangency sits on the
+      forty-five degree line, where consumption today equals consumption tomorrow. The
+      consumer smooths. Whatever the timing of their income, they aim for a flat path, saving
+      when income is high and borrowing when it is low.
+    animation:
+      primitive: indifference
+      params:
+        x_max: 14
+        y_max: 14
+        utility: {a: 1, b: 1}
+        budget: {px: 1, py: 1, m: 12}
+        x_label: "c_1"
+        y_label: "c_2"
+      steps:
+        - {id: lowCurve, action: curve, params: {level: 0.5, color: blue}}
+        - {id: highCurve, action: curve, params: {through_optimum: true, color: blue, label: "U"}}
+        - {id: budget, action: budget_line, params: {color: orange, label: "B"}}
+        - {id: optimum, action: optimum, params: {color: green, label: "E"}}
+    board:
+      - id: budgetEq
+        latex: "c_1 + \\dfrac{c_2}{1+r} = y_1 + \\dfrac{y_2}{1+r}"
+        say: "c one plus c two over one plus r, equals y one plus y two over one plus r"
+        color: orange
+        legend:
+          - {sym: "c_1, c_2", name: "consumption now and later", unit: ""}
+          - {sym: "r", name: "the interest rate", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here, {budgetEq2}, is the intertemporal budget. Its meaning is that the present value
+      of lifetime consumption equals the present value of lifetime income: a pound next period
+      is worth only one over one plus r today, because lending it would earn interest.
+      Rearranged, it is a straight line whose slope is minus one plus r — the rate at which
+      the market lets you trade future consumption for present. The optimum sets the slope of
+      the indifference curve equal to that, {eulerEq}: the marginal rate of substitution
+      between the two periods equals one plus r. This is the Euler equation, and with equal
+      taste for each period it says consumption grows only if the interest rate rewards
+      waiting; when it does not, the consumer picks a flat path, c-one equal to c-two. The
+      lesson generalises into the permanent income idea, {permEq}: a household bases its
+      spending not on this year's income but on its permanent income — the steady level its
+      lifetime wealth could sustain. A temporary windfall is therefore mostly saved and
+      spread thin across all future years, while a permanent raise is spent in full. It is
+      why a one-off tax rebate barely moves consumption, and why people borrow against
+      degrees they have not yet been paid for: current income is a poor guide to spending;
+      lifetime income is the real driver. All of this rests quietly on being able to borrow
+      and lend freely, and that is where the model meets the real world. If banks will not
+      lend to you — if you are, as economists say, liquidity constrained — then you cannot
+      borrow against future income, and your consumption is forced to track your current
+      income after all. This is why the young and the poor, who struggle to borrow, respond
+      far more strongly to a temporary cash payment than the theory of permanent income
+      would predict: they would like to smooth, but the credit market will not let them. So
+      the two-period model is at once a prediction and a diagnostic. When consumption is
+      smooth, credit is working; when it lurches with every paycheque, it is a sign that
+      someone has been shut out of the very markets that make smoothing possible.
+    board:
+      - id: budgetEq2
+        latex: "c_1 + \\dfrac{c_2}{1+r} = y_1 + \\dfrac{y_2}{1+r}"
+        say: "c one plus c two over one plus r equals y one plus y two over one plus r"
+        color: orange
+      - id: eulerEq
+        latex: "\\text{MRS}_{c_1,c_2} = 1 + r"
+        say: "the marginal rate of substitution between the periods equals one plus r"
+        color: green
+        box: true
+      - id: permEq
+        latex: "c = \\text{permanent income}"
+        say: "consumption tracks permanent income"
+        color: yellow
+
+  - id: s4
+    kind: problem
+    narration: >
+      Smoothing by saving. {statement} A worker earns more now than later, with no interest
+      for simplicity, {given}; find the smooth consumption level and the saving it needs.
+      {find} With equal income value in each period and a taste for balance, the smooth plan
+      sets consumption equal across the two, {step1}: the average of the two incomes, a
+      hundred plus fifty over two. That is seventy-five in each period, {answer}. To consume
+      seventy-five now while earning a hundred, the worker saves twenty-five, carrying it
+      forward to cover the shortfall next period. High income today is not high consumption
+      today; it is a flatter path, paid for by saving.
+    board:
+      - id: statement
+        text: "Smoothing when income is high now."
+      - id: given
+        latex: "y_1 = 100, \\quad y_2 = 50, \\quad r = 0"
+        say: "income one hundred now, fifty later, interest rate zero"
+        role: given
+      - id: find
+        text: "Find smooth c and the saving."
+        role: find
+      - id: step1
+        latex: "c_1 = c_2 = \\dfrac{y_1 + y_2}{2} = \\dfrac{100 + 50}{2}"
+        say: "c one equals c two equals the average, one hundred plus fifty over two"
+        role: step
+        color: yellow
+      - id: answer
+        latex: "c = 75, \\quad \\text{save } 25"
+        say: "consumption seventy-five, saving twenty-five"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(100 + 50) / 2"
+      value: 75
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Smoothing by borrowing. {statement2} Now the incomes are reversed — little now, more
+      later, {given2}; find the smooth consumption and how it is financed. {find2} The smooth
+      level is again the average of the two incomes, {step1b}: forty plus eighty over two,
+      which is sixty in each period, {answer2}. But this time the worker earns only forty now
+      and wants to consume sixty, so they borrow twenty, repaying it next period out of the
+      higher income. Saving and borrowing are the same act seen from opposite sides: both move
+      consumption through time to keep the standard of living level.
+    board:
+      - id: statement2
+        text: "Smoothing when income is high later."
+      - id: given2
+        latex: "y_1 = 40, \\quad y_2 = 80, \\quad r = 0"
+        say: "income forty now, eighty later, interest rate zero"
+        role: given
+      - id: find2
+        text: "Find smooth c and the borrowing."
+        role: find
+      - id: step1b
+        latex: "c = \\dfrac{y_1 + y_2}{2} = \\dfrac{40 + 80}{2}"
+        say: "consumption equals the average, forty plus eighty over two"
+        role: step
+        color: yellow
+      - id: answer2
+        latex: "c = 60, \\quad \\text{borrow } 20"
+        say: "consumption sixty, borrowing twenty"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(40 + 80) / 2"
+      value: 60
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the two-period model sets the present value of consumption equal to the
+      present value of income; people choose a smooth path, saving when income is high and
+      borrowing when it is low; and consumption tracks permanent, not current, income. Next:
+      Investment — Tobin's q and the user cost of capital.
