@@ -1,0 +1,235 @@
+# ME-03: Free fall and the velocity-time graph.
+# OpenStax University Physics Vol. 1 §3.5 (CC BY 4.0). ~6 minutes.
+# Colour discipline: velocity line = blue, g/slope = orange, initial velocity
+# v0 = yellow, displacement/area = green, turning point (v=0) = red.
+schema_version: 1
+id: ME-03
+channel: pen-and-pendulum
+title: "Free fall and the velocity-time graph, visualised"
+target_minutes: 6
+source:
+  book: "OpenStax University Physics Vol. 1"
+  section: "§3.5 Free Fall"
+  license: "CC BY 4.0"
+  file: "university-physics-vol1/025-3-5-free-fall.md"
+  pages: "126-131"
+thumbnail:
+  kicker: "Mechanics"
+  hook: "At the top, v=0 but a isn't"
+  keyword: "a isn't"
+publish:
+  title: "Free Fall on the Velocity-Time Graph: Why v=0 at the Top but a Isn't"
+  summary: >
+    Free fall is the kinematic equations with one change: the acceleration is
+    gravity, a = -g. On the velocity-time graph that is a single straight line of
+    slope -9.8 metres per second squared. We read the height off its area, see
+    why every mass falls at the same rate, and why the velocity is zero at the top
+    of a throw while the acceleration never is. Two worked problems follow.
+  hashtags: ["#physics", "#freefall", "#kinematics"]
+  tags:
+    - free fall
+    - acceleration due to gravity
+    - velocity time graph
+    - kinematics
+    - g equals 9.8
+    - projectile motion
+    - mechanics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Drop a hammer and a feather together, with no air in the way, and they land
+      at the very same instant. Free fall turns out to be one straight line on a
+      graph, and this lesson draws it.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Plot velocity against time, {plotV}. Free fall means motion under gravity
+      alone, with air resistance ignored, and its one defining fact, from the
+      previous lesson on the kinematic equations, is that the acceleration is
+      constant. That acceleration is g, about nine point eight metres per second
+      squared, {gval}, and — Galileo's great discovery — it is the same for every
+      object whatever its mass. Take upward as positive, so the acceleration is
+      minus g. The velocity equation is then just the kinematic one with that
+      substitution, {vEq}: v equals v nought minus g t. On the graph it is a
+      straight line, starting at the launch velocity, {markV0}, and sloping
+      steadily downward at nine point eight per second. Throw something up and the
+      line crosses zero at the top of the flight, {markTop} — the instant the
+      object is momentarily at rest — then continues into negative velocity as it
+      falls back. The slope never changes: gravity pulls just as hard on the way up
+      as on the way down.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 4, 1]
+        y: [-20, 20, 10]
+        x_length: 8.2
+        y_length: 4.0
+        x_label: "t"
+        y_label: "v"
+      steps:
+        - {id: plotV, action: plot_line, params: {name: V, a: 9.8, b: 1, c: 19.6, color: blue, label: "v(t)"}}
+        - {id: markV0, action: mark_point, params: {x: 0, y: 19.6, color: yellow, label: "v_0"}}
+        - {id: markTop, action: mark_point, params: {x: 2, y: 0, color: red, label: "v=0"}}
+    board:
+      - id: vEq
+        latex: "v = v_0 - g\\,t"
+        say: "v equals v nought minus g times t"
+        color: blue
+        tex_colors:
+          "v_0": yellow
+          "g": orange
+        legend:
+          - {sym: "v", name: "velocity (up positive)", unit: "m/s"}
+          - {sym: "v_0", name: "initial velocity", unit: "m/s"}
+          - {sym: "g", name: "gravity, 9.8", unit: "m/s^2"}
+      - id: gval
+        latex: "g = 9.8\\ \\text{m/s}^2"
+        say: "g equals nine point eight metres per second squared"
+        color: orange
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Draw the line again, {plotV2}. As before, the area under it is the
+      displacement. On the way up, the velocity is positive, so the area is a
+      triangle above the axis, {shadeUp} — the height climbed before the object
+      stops. The position equation is the kinematic one with minus g, {yEq}: height
+      is v nought t minus one half g t squared, the upward area eaten into by
+      gravity. After the top, the velocity goes negative, and the area below the
+      axis counts as downward travel; by the time the object returns to its start,
+      the triangle below exactly matches the one above, and the net displacement is
+      zero. There is also a timeless version linking speed and height directly,
+      {vSqEq}: v squared equals v nought squared minus two g times the change in
+      height — the equation to reach for when no clock is involved. One warning the
+      graph makes vivid: at the very top, the velocity is zero, but the slope is
+      not, so the acceleration is still nine point eight downward. Zero velocity
+      never means zero acceleration.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 4, 1]
+        y: [-20, 20, 10]
+        x_length: 8.2
+        y_length: 4.0
+        x_label: "t"
+        y_label: "v"
+      steps:
+        - {id: plotV2, action: plot_line, params: {name: V, a: 9.8, b: 1, c: 19.6, color: blue, label: "v(t)"}}
+        - {id: shadeUp, action: area_under_line, params: {name: V, x0: 0, x1: 2, color: green}}
+    board:
+      - id: yEq
+        latex: "y = y_0 + v_0\\,t - \\tfrac{1}{2}\\,g\\,t^2"
+        say: "y equals y nought plus v nought t minus one half g t squared"
+        color: green
+        tex_colors:
+          "v_0": yellow
+          "g": orange
+      - id: vSqEq
+        latex: "v^2 = v_0^2 - 2\\,g\\,(y - y_0)"
+        say: "v squared equals v nought squared minus two g times the change in y"
+        color: blue
+        tex_colors:
+          "v_0": yellow
+          "g": orange
+
+  - id: s4
+    kind: problem
+    narration: >
+      A dropped object first. {statement} A stone is released from rest off a high
+      bridge, {given}; find its speed and how far it has fallen after three seconds.
+      {find} With no initial velocity, the equations are at their simplest. Speed
+      is g times t, {step1}: nine point eight times three is twenty-nine point four
+      metres per second. Distance is one half g t squared, {step2}: one half times
+      nine point eight times nine is forty-four point one metres, {answer}. In three
+      seconds it is already falling at nearly thirty metres per second — gravity
+      builds speed quickly.
+    board:
+      - id: statement
+        text: "A stone dropped from rest (take downward as positive)."
+      - id: given
+        latex: "v_0 = 0, \\quad t = 3\\ \\text{s}, \\quad g = 9.8\\ \\text{m/s}^2"
+        say: "v nought equals zero, t equals three seconds, g equals nine point eight metres per second squared"
+        role: given
+      - id: find
+        text: "Find the speed and the distance fallen."
+        role: find
+      - id: step1
+        latex: "v = g\\,t = 9.8 \\times 3 = 29.4\\ \\text{m/s}"
+        say: "v equals g t, nine point eight times three, which is twenty-nine point four metres per second"
+        role: step
+        color: blue
+      - id: step2
+        latex: "y = \\tfrac{1}{2}g t^2 = \\tfrac{1}{2}(9.8)(3)^2"
+        say: "y equals one half g t squared, one half times nine point eight times three squared"
+        role: step
+        color: green
+      - id: answer
+        latex: "v = 29.4\\ \\text{m/s}, \\quad y = 44.1\\ \\text{m}"
+        say: "the speed is twenty-nine point four metres per second and the distance is forty-four point one metres"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "0.5 * 9.8 * 3**2"
+      value: 44.1
+      unit: "m"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Now a throw upward. {statement2} A ball leaves the hand going straight up at
+      nineteen point six metres per second, {given2}; find the time to the top and
+      the greatest height. {find2} At the top the velocity is zero, so from v equals
+      v nought minus g t, the time is v nought over g, {step1b}: nineteen point six
+      over nine point eight is two seconds. For the height, use the timeless
+      equation with v zero, {step2b}: the height is v nought squared over two g,
+      which is nineteen point six, {answer2}. So two seconds up, nineteen point six
+      metres high. And remember: at that highest point the ball is momentarily
+      still, but gravity has not switched off — its acceleration is nine point eight
+      downward the whole time.
+    board:
+      - id: statement2
+        text: "A ball thrown straight up (upward positive)."
+      - id: given2
+        latex: "v_0 = 19.6\\ \\text{m/s}, \\quad v_{\\text{top}} = 0, \\quad g = 9.8\\ \\text{m/s}^2"
+        say: "v nought equals nineteen point six metres per second, velocity at the top zero, g equals nine point eight"
+        role: given
+      - id: find2
+        text: "Find the time to the top and the maximum height."
+        role: find
+      - id: step1b
+        latex: "t = \\dfrac{v_0}{g} = \\dfrac{19.6}{9.8} = 2\\ \\text{s}"
+        say: "t equals v nought over g, nineteen point six over nine point eight, which is two seconds"
+        role: step
+        color: blue
+      - id: step2b
+        latex: "h = \\dfrac{v_0^2}{2g} = \\dfrac{19.6^2}{2(9.8)}"
+        say: "h equals v nought squared over two g, nineteen point six squared over twice nine point eight"
+        role: step
+        color: green
+      - id: answer2
+        latex: "t = 2\\ \\text{s}, \\quad h = 19.6\\ \\text{m}"
+        say: "two seconds to the top, and a maximum height of nineteen point six metres"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "19.6**2 / (2 * 9.8)"
+      value: 19.6
+      unit: "m"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: free fall is the kinematic equations with the acceleration set
+      to minus g, so the velocity-time graph is one straight line of slope nine
+      point eight — its area is the height, and at the top the velocity is zero
+      while the acceleration never is. Next: Projectile motion from zero — one
+      method for every question, where this same downward pull becomes just the
+      vertical half of the motion.

@@ -1,0 +1,229 @@
+# MI-03: How to calculate opportunity cost (and why the PPF is curved).
+# OpenStax Principles of Economics 3e §2.2 (CC BY 4.0). ~7 minutes.
+# Colour discipline: PPF curve = blue, points A/B + gentle slope = orange,
+# points C/D + steep slope = purple, efficient = green, inefficient = red,
+# unattainable = yellow.
+schema_version: 1
+id: MI-03
+channel: marginal-ink
+title: "How to calculate opportunity cost (and why the PPF is curved)"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§2.2 The Production Possibilities Frontier and Social Choices"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/016-2-2-the-production-possibilities-frontier-and-social-choices.md"
+  pages: "34-38"
+thumbnail:
+  kicker: "Microeconomics"
+  hook: "Why the frontier bends"
+  keyword: "bends"
+publish:
+  title: "How to Calculate Opportunity Cost (and Why the PPF Is Curved)"
+  summary: >
+    Opportunity cost is just the slope of the production possibilities frontier —
+    the amount of one good you give up to get one more unit of the other. We
+    measure it between two points, show why it rises as you specialise, and read
+    efficient, inefficient and unattainable choices straight off the graph.
+  hashtags: ["#economics", "#microeconomics", "#opportunitycost"]
+  tags:
+    - opportunity cost
+    - production possibilities frontier
+    - PPF
+    - productive efficiency
+    - law of increasing opportunity cost
+    - scarcity and tradeoffs
+    - microeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Every choice has a cost: what you gave up to make it. For a whole economy,
+      that cost is drawn as a single curved line, and the bend in that line has a
+      reason worth knowing.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is a production possibilities frontier, {drawPPF}. It shows every
+      combination of two goods an economy can make — say education along the
+      bottom and healthcare up the side — when it uses all its resources fully. No
+      prior economics is needed; everything is read from this one curve. A point on
+      the frontier, {markP}, is productively efficient: resources are fully used, so
+      the only way to get more of one good is to give up some of the other. A point
+      inside the frontier, {markQ}, is wasteful — the economy could have more of
+      both, so some resources are idle or misused. And a point outside, {markR}, is
+      simply unattainable: there are not enough resources to reach it, however the
+      economy is organised. So the frontier is the dividing line between what is
+      possible and what is not, {effNote}, and every fully-employed choice lies on
+      it. This is scarcity made visible: resources are limited, so producing more of
+      one good always means producing less of the other. There is no point on the
+      frontier where you can gain in both directions at once — that is exactly what
+      sitting on the boundary means. The real economic question, then, is never
+      whether we can have more of everything, but which trade along this curve is
+      worth making.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 11, 2]
+        y: [0, 11, 2]
+        x_length: 8.2
+        y_length: 3.8
+        x_label: "education"
+        y_label: "healthcare"
+      steps:
+        - {id: drawPPF, action: plot_function, params: {func: ppf, color: blue, label: "PPF"}}
+        - {id: markP, action: mark_point, params: {x: 4, y: 8.4, color: green, label: "P"}}
+        - {id: markQ, action: mark_point, params: {x: 4, y: 6.0, color: red, label: "Q"}}
+        - {id: markR, action: mark_point, params: {x: 8, y: 5.0, color: yellow, label: "R"}}
+    board:
+      - id: effNote
+        text: "On the frontier = efficient; inside = wasteful; outside = unattainable."
+        color: green
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Now measure the cost of choosing, {drawPPF2}. Because the frontier slopes
+      down, getting more education means giving up some healthcare, and the amount
+      given up is the opportunity cost, {ocEq}: the fall in one good divided by the
+      rise in the other — the magnitude of the slope. Take two points near the top,
+      {markA} and {markB}, where the curve is nearly flat, {chordAB}: moving from A
+      to B gains two units of education and costs only a little healthcare, so the
+      opportunity cost is low. Now take two points lower down, {markC} and {markD},
+      where the curve is steep, {chordCD}: the same two extra units of education now
+      cost far more healthcare. The slope has steepened, {incEq}, so the
+      opportunity cost has risen. This is the law of increasing opportunity cost,
+      and it is exactly why the frontier bows outward instead of being a straight
+      line. Resources are not equally good at both tasks. The first workers shifted
+      into education are the ones already poorly suited to healthcare, so they cost
+      little; but to keep expanding education you must pull over your best doctors,
+      and each of those costs a great deal. Rising cost bends the curve. If instead
+      every resource were equally good at both goods, the opportunity cost would be
+      constant and the frontier would be a straight line — so the gentle slope at
+      the top and the steep slope at the bottom are the visible signature of
+      resources that specialise. The bow is not a drawing flourish; it is the law of
+      increasing opportunity cost made into a shape.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 11, 2]
+        y: [0, 11, 2]
+        x_length: 8.2
+        y_length: 3.8
+        x_label: "education"
+        y_label: "healthcare"
+      steps:
+        - {id: drawPPF2, action: plot_function, params: {func: ppf, color: blue, label: "PPF"}}
+        - {id: markA, action: mark_point, params: {x: 1, y: 9.9, color: orange, label: "A"}}
+        - {id: markB, action: mark_point, params: {x: 3, y: 9.1, color: orange, label: "B"}}
+        - {id: chordAB, action: chord, params: {x0: 1, y0: 9.9, x1: 3, y1: 9.1, color: orange}}
+        - {id: markC, action: mark_point, params: {x: 7, y: 5.1, color: purple, label: "C"}}
+        - {id: markD, action: mark_point, params: {x: 9, y: 1.9, color: purple, label: "D"}}
+        - {id: chordCD, action: chord, params: {x0: 7, y0: 5.1, x1: 9, y1: 1.9, color: purple}}
+    board:
+      - id: ocEq
+        latex: "\\text{opportunity cost} = \\left|\\dfrac{\\Delta Y}{\\Delta X}\\right| = \\dfrac{Y_1 - Y_2}{X_2 - X_1}"
+        say: "opportunity cost equals the magnitude of delta Y over delta X — the healthcare given up, divided by the education gained"
+        color: orange
+      - id: incEq
+        latex: "\\text{slope}_{A\\to B} < \\text{slope}_{C\\to D}"
+        say: "the slope from A to B is smaller than the slope from C to D"
+        color: green
+
+  - id: s4
+    kind: problem
+    narration: >
+      Put numbers on it. {statement} The economy moves along the frontier from A to
+      B, {given}; find the opportunity cost of a unit of education. {find} The
+      education gained is three minus one, which is two units, {step1}. The
+      healthcare given up is nine point nine minus nine point one, which is nought
+      point eight, {step2}. Divide: nought point eight over two is nought point four,
+      {answer}. So up here, each extra unit of education costs only four tenths of a
+      unit of healthcare — cheap, because we are near the top of the curve.
+    board:
+      - id: statement
+        text: "Opportunity cost between two points on the frontier."
+      - id: given
+        latex: "A = (1,\\ 9.9), \\quad B = (3,\\ 9.1)"
+        say: "A is one, nine point nine; B is three, nine point one"
+        role: given
+      - id: find
+        text: "Find the opportunity cost of a unit of education."
+        role: find
+      - id: step1
+        latex: "\\Delta X = 3 - 1 = 2"
+        say: "the change in education is three minus one, which is two"
+        role: step
+        color: orange
+      - id: step2
+        latex: "\\Delta Y = 9.9 - 9.1 = 0.8"
+        say: "the healthcare given up is nine point nine minus nine point one, which is nought point eight"
+        role: step
+        color: orange
+      - id: answer
+        latex: "\\text{opp. cost} = \\dfrac{0.8}{2} = 0.4"
+        say: "opportunity cost equals nought point eight over two, which is nought point four"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "(9.9 - 9.1) / (3 - 1)"
+      value: 0.4
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Now the steep part. {statement2} The economy moves from C to D, further down
+      the same frontier, {given2}; find the opportunity cost here. {find2} The
+      education gained is again two units, nine minus seven, {step1c}. But the
+      healthcare given up is five point one minus one point nine, which is three
+      point two, {step2c}. Divide: three point two over two is one point six,
+      {answer2}. Four times the cost we found up at the top, for the very same two
+      units of education. That rising cost, from nought point four to one point six
+      as we slide down, is the law of increasing opportunity cost — and the reason
+      the frontier is curved rather than straight.
+    board:
+      - id: statement2
+        text: "Opportunity cost lower down the same frontier."
+      - id: given2
+        latex: "C = (7,\\ 5.1), \\quad D = (9,\\ 1.9)"
+        say: "C is seven, five point one; D is nine, one point nine"
+        role: given
+      - id: find2
+        text: "Find the opportunity cost here, and compare."
+        role: find
+      - id: step1c
+        latex: "\\Delta X = 9 - 7 = 2"
+        say: "the change in education is nine minus seven, which is two"
+        role: step
+        color: purple
+      - id: step2c
+        latex: "\\Delta Y = 5.1 - 1.9 = 3.2"
+        say: "the healthcare given up is five point one minus one point nine, which is three point two"
+        role: step
+        color: purple
+      - id: answer2
+        latex: "\\text{opp. cost} = \\dfrac{3.2}{2} = 1.6"
+        say: "opportunity cost equals three point two over two, which is one point six"
+        role: answer
+        box: true
+        color: purple
+    check:
+      expr: "(5.1 - 1.9) / (9 - 7)"
+      value: 1.6
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: opportunity cost is the magnitude of the frontier's slope — the
+      amount of one good given up per unit of the other — and it rises as you
+      specialise, which is exactly why the frontier bows outward. To find it, you
+      need only two points and a division: the good given up over the good gained.
+      Next: Comparative advantage — how to work out who should make what.
