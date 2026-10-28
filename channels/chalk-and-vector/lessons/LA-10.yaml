@@ -81,7 +81,7 @@ scenes:
   - id: s3
     kind: derivation
     narration: >
-      Here is the clean test, {defEq}. A set is linearly independent when the only way to
+      Here, {defEq}, is the clean test. A set is linearly independent when the only way to
       combine the vectors and get the zero vector is to use all-zero weights. If instead
       some combination with weights not all zero reaches zero, the set is dependent, and
       that equation can be rearranged to write one vector in terms of the others, {depEq2}

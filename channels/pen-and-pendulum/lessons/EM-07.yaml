@@ -86,7 +86,7 @@ scenes:
   - id: s3
     kind: derivation
     narration: >
-      Write the rules down, {junctionEq2}. The junction rule says the currents into any node
+      Here, {junctionEq2}, is the first rule written down. The junction rule says the currents into any node
       sum to the currents out — for our node a, I-one equals I-two plus I-three. It is
       conservation of charge: a junction is not a reservoir, so what arrives must leave. The
       loop rule is the second equation, {loopEq}: around any closed loop, the voltage changes
