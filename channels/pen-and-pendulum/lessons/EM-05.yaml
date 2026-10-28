@@ -69,7 +69,8 @@ scenes:
       primitive: capacitor
       params:
         separation: 2.6
-        height: 2.6
+        height: 2.2
+        center: [0.0, -1.25]
       steps:
         - {id: drawPlates, action: draw_plates, params: {color: white}}
         - {id: addCharge, action: charge, params: {pos_color: red, neg_color: blue, n: 4}}

@@ -76,8 +76,8 @@ scenes:
         - {id: outputCurve, action: plot_function, params: {func: output_pw, color: blue, label: "f(k)"}}
         - {id: savingCurve, action: plot_function, params: {func: saving_pw, color: green, label: "s\\,f(k)"}}
         - {id: depLine, action: plot_line, params: {name: dep, a: 0.3, b: -1, c: 0, color: red, label: "\\delta k"}}
-        - {id: breakLine, action: plot_line, params: {name: brk, a: 0.6, b: -1, c: 0, color: orange, label: "(\\delta+n)k"}}
-        - {id: steady, action: mark_point, params: {x: 1, y: 0.6, color: yellow, label: "k^*"}}
+        - {id: breakLine, action: plot_line, params: {name: brk, a: 0.45, b: -1, c: 0, color: orange, label: "(\\delta+n)k"}}
+        - {id: steady, action: mark_point, params: {x: 1.78, y: 0.8, color: yellow, label: "k^*"}}
     board:
       - id: breakEq
         latex: "s\\,f(k^*) = (\\delta + n)\\,k^*"
