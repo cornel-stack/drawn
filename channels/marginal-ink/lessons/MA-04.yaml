@@ -1,0 +1,223 @@
+# MA-04: The Solow growth model, part 1 — the diagram and the steady state.
+# OpenStax Principles of Economics 3e, Ch 20 Economic Growth (CC BY 4.0), for the
+# capital-deepening / diminishing-returns content. The formal Solow steady-state
+# diagram is the standard intermediate-macro construction (flagged in the review).
+# ~7 minutes. Colour: output = blue, saving/investment = green, depreciation = red,
+# steady state = yellow.
+schema_version: 1
+id: MA-04
+channel: marginal-ink
+title: "The Solow growth model, part 1: the diagram and the steady state"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§20.2-20.3 Labor Productivity and the Components of Economic Growth"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/227-20-2-labor-productivity-and-economic-growth.md"
+  pages: "487-498"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "Why saving alone can't grow"
+  keyword: "saving alone"
+publish:
+  title: "The Solow Model, Part 1: The Diagram and the Steady State, Built Step by Step"
+  summary: >
+    The Solow model explains why economies settle at a steady level of capital per
+    worker. We build the central diagram — output, investment and depreciation
+    against capital — find the steady state where investment just replaces worn-out
+    capital, and show why more saving lifts the level but not the long-run growth
+    rate. Two worked examples follow.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - Solow model
+    - Solow growth model
+    - steady state
+    - capital per worker
+    - economic growth
+    - diminishing returns
+    - macroeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Save more and your economy grows richer — but only up to a point, and then it
+      stops. The Solow model shows exactly where that point is, and why saving alone
+      cannot raise growth forever.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Output per worker first, {outputCurve}, in blue, plotted against capital per
+      worker along the bottom. It rises, but it bends over: each extra machine adds
+      less than the last, the diminishing returns to capital. Workers save and invest a
+      fixed fraction of what they produce, so investment per worker is just a scaled-down
+      copy of that curve, {savingCurve}, in green. Against these we draw depreciation,
+      {depLine}, in red — a straight line, because a constant fraction of the capital
+      stock wears out each year, and more capital means more wearing out. Now the key.
+      Where the green investment curve crosses the red depreciation line, {steady},
+      new investment exactly replaces what wore away, so capital per worker stops
+      changing — in symbols, {ssEq}, saving times output equals depreciation times
+      capital. That crossing is the steady state, k star. To its left, the green curve
+      sits above the red line: investment outpaces depreciation, so capital grows and
+      the economy moves rightward, toward the crossing. To its right, the red line is
+      higher: depreciation wins, capital shrinks, and the economy slides back left.
+      Either way the economy is pulled to the same point, so the steady state is stable,
+      and an economy started anywhere will drift until it arrives there and halts.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 10, 1]
+        y: [0, 7, 1]
+        x_length: 8.0
+        y_length: 3.6
+        x_label: "k"
+        y_label: "per worker"
+      steps:
+        - {id: outputCurve, action: plot_function, params: {func: output_pw, color: blue, label: "f(k)"}}
+        - {id: savingCurve, action: plot_function, params: {func: saving_pw, color: green, label: "s\\,f(k)"}}
+        - {id: depLine, action: plot_line, params: {name: dep, a: 0.3, b: -1, c: 0, color: red, label: "\\delta k"}}
+        - {id: steady, action: mark_point, params: {x: 4, y: 1.2, color: yellow, label: "k^*"}}
+    board:
+      - id: ssEq
+        latex: "s\\,f(k^*) = \\delta k^*"
+        say: "s times f of k star equals delta k star"
+        color: yellow
+        legend:
+          - {sym: "s", name: "saving rate", unit: ""}
+          - {sym: "\\delta", name: "depreciation rate", unit: ""}
+          - {sym: "k^*", name: "steady-state capital per worker", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      The engine is one equation, {accEq}. The change in capital per worker each year is
+      what you add, investment s times f of k, minus what you lose, depreciation delta
+      times k. When investment exceeds depreciation this is positive and capital deepens;
+      when depreciation exceeds investment it is negative and capital thins. The steady
+      state is where the change is zero, {ssEq2}: investment and depreciation balance, s
+      times f of k star equals delta times k star. Because output bends over while
+      depreciation climbs in a straight line, the two are guaranteed to cross exactly
+      once away from the origin, and the balance there is stable. Now the payoff, and the
+      point of the whole model. Raise the saving rate and the green curve lifts, so the
+      crossing moves right: the economy reaches a higher steady state, with more capital
+      and more output per worker. But it is a one-off gain to the level, not a permanent
+      rise in the growth rate. Once at the new steady state, growth per worker stops
+      again, because diminishing returns always let depreciation catch up. Lasting growth
+      in income per worker must come from somewhere the diagram holds fixed —
+      technology — which is where part two begins. The same diagram makes a sharp
+      prediction about poor and rich countries. A country starting with little capital
+      per worker sits far to the left, where the investment curve towers above the
+      depreciation line, so capital deepens quickly and output per worker grows fast. A
+      rich country near its steady state has almost no gap left, so it grows slowly.
+      Other things equal, the poor country should therefore grow faster and catch up —
+      the idea economists call convergence. It does not always happen, because saving
+      rates, population growth and technology differ from place to place, each shifting
+      the curves and moving the steady state. But the mechanism is exactly the one on
+      the board: the further you are below your own steady state, the faster you climb
+      toward it, and the closer you get, the more depreciation drags against you.
+    board:
+      - id: accEq
+        latex: "\\Delta k = s\\,f(k) - \\delta k"
+        say: "the change in k equals s times f of k, minus delta times k"
+        color: green
+      - id: ssEq2
+        latex: "\\Delta k = 0 \\;\\Rightarrow\\; s\\,f(k^*) = \\delta k^*"
+        say: "change in k equals zero means s f of k star equals delta k star"
+        color: yellow
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Finding the steady state. {statement} Take a simple economy with output per worker
+      the square root of capital, and a saving rate and depreciation rate as given,
+      {given}; find the steady-state capital per worker. {find} Set investment equal to
+      depreciation, {step1}: s times the square root of k equals delta times k. Divide
+      both sides by the square root of k, {step2}: s equals delta times the square root
+      of k, so the square root of k star is s over delta, which is four. Square it,
+      {answer}: k star is sixteen. At that level, output per worker is the square root
+      of sixteen, a steady four units, and it stays there year after year.
+    board:
+      - id: statement
+        text: "Solve for the steady-state capital."
+      - id: given
+        latex: "f(k) = \\sqrt{k}, \\quad s = 0.4, \\quad \\delta = 0.1"
+        say: "f of k equals root k, saving rate nought point four, depreciation nought point one"
+        role: given
+      - id: find
+        text: "Find k* where s·f(k) = δk."
+        role: find
+      - id: step1
+        latex: "s\\sqrt{k} = \\delta k"
+        say: "s root k equals delta k"
+        role: step
+        color: green
+      - id: step2
+        latex: "\\sqrt{k^*} = \\dfrac{s}{\\delta} = \\dfrac{0.4}{0.1} = 4"
+        say: "root k star equals s over delta, nought point four over nought point one, four"
+        role: step
+        color: yellow
+      - id: answer
+        latex: "k^* = 16"
+        say: "k star equals sixteen"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "(0.4 / 0.1)**2"
+      value: 16
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Steady-state consumption. {statement2} Use the same economy at its steady state,
+      {given2}; find consumption per worker. {find2} Consumption is the part of output
+      not saved, {step1b}: one minus the saving rate, times output per worker. Output at
+      the steady state is the square root of sixteen, which is four, {step2b}. So
+      consumption is sixty per cent of four, {answer2}: two point four units per worker.
+      The other forty per cent, one point six units, is exactly the investment that
+      replaces worn-out capital and holds the economy at its steady state.
+    board:
+      - id: statement2
+        text: "Consumption per worker at the steady state."
+      - id: given2
+        latex: "s = 0.4, \\quad k^* = 16, \\quad f(k^*) = \\sqrt{16} = 4"
+        say: "saving rate nought point four, k star sixteen, output four"
+        role: given
+      - id: find2
+        text: "Find consumption per worker c*."
+        role: find
+      - id: step1b
+        latex: "c^* = (1-s)\\,f(k^*)"
+        say: "c star equals one minus s, times output per worker"
+        role: step
+        color: blue
+      - id: step2b
+        latex: "f(k^*) = \\sqrt{16} = 4"
+        say: "output per worker is the square root of sixteen, four"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "c^* = (1-0.4)(4) = 2.4"
+        say: "c star equals nought point six times four, two point four"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(1 - 0.4) * 4"
+      value: 2.4
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the Solow diagram plots output, investment and depreciation against
+      capital per worker; the steady state is where investment just covers depreciation,
+      so capital stops changing; and a higher saving rate raises the level but not the
+      long-run growth rate. Next: Solow part two — population, technology and the golden
+      rule.

@@ -1,0 +1,213 @@
+# LA-07: What a matrix really does — matrices as transformations.
+# Hefferon, Linear Algebra, Topic: Geometry of Linear Maps (CC BY-SA 3.0).
+# ~7 minutes. Colour: i-hat = blue, j-hat = green, area/det = yellow, target = orange.
+schema_version: 1
+id: LA-07
+channel: chalk-and-vector
+title: "What a matrix really does: matrices as transformations"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "Topic: Geometry of Linear Maps"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/022-topic-geometry-of-linear-maps.md"
+  pages: "234-243"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "A matrix is a verb"
+  keyword: "a verb"
+publish:
+  title: "What a Matrix Really Does: Matrices as Transformations of Space"
+  summary: >
+    A matrix is not a grid of numbers to memorise — it is a function that moves
+    every point in the plane, fixed entirely by where it sends the two basis
+    vectors. We watch the grid deform, read the columns straight off, and see the
+    determinant as the factor by which area is scaled. Two worked examples follow.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - linear transformation
+    - matrices as transformations
+    - matrix vector product
+    - determinant area
+    - basis vectors
+    - linear algebra
+    - linear maps
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A matrix is usually taught as a box of numbers with rules for pushing them
+      around. It is better understood as an action: a way of moving every point in
+      space at once.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Start with the two basis vectors, {drawBasis}: i-hat one step east, j-hat one
+      step north. Between them they span the unit square, {unitSquare}, which has area
+      one. Now apply the matrix, {applyA}. Watch what happens to the whole plane: every
+      point slides to a new place, and three things hold. The grid lines stay straight,
+      they stay parallel, and they stay evenly spaced — that is what makes the map
+      linear, and it is why the matrix is fixed by so little. In fact it is fixed
+      entirely by where the two basis vectors land, and those two destinations are
+      exactly the columns of the matrix, {matA}: i-hat has gone to two, one, the first
+      column; j-hat to one, two, the second. Know where i-hat and j-hat go and you know
+      where everything goes, because every other point is just some combination of those
+      two. Notice what linearity forbids: the grid never curves, never tears, and the
+      origin never moves, since zero times anything is still zero. A transformation that
+      bent the grid or shifted the centre would simply not be a matrix. And the unit
+      square? It has been stretched into a parallelogram, {detBox}, whose area is three.
+      That number is the determinant — the factor by which the transformation scales
+      every area in the plane. Double the area of any shape before the map and its image
+      doubles too; the stretch factor of three is the same everywhere on the plane.
+    animation:
+      primitive: linear_transform
+      params:
+        x_range: [-5, 5]
+        y_range: [-3, 3]
+        matrix: [[2, 1], [1, 2]]
+      steps:
+        - {id: drawBasis, action: draw_basis, params: {i_color: blue, j_color: green}}
+        - {id: unitSquare, action: unit_square, params: {color: yellow}}
+        - {id: applyA, action: apply_matrix, params: {matrix: [[2, 1], [1, 2]]}}
+        - {id: detBox, action: determinant, params: {color: yellow}}
+    board:
+      - id: matA
+        latex: "A = \\begin{pmatrix}2 & 1\\\\1 & 2\\end{pmatrix}"
+        say: "A equals the matrix with columns two, one and one, two"
+        color: blue
+        legend:
+          - {sym: "\\text{col }1", name: "where i-hat lands", unit: ""}
+          - {sym: "\\text{col }2", name: "where j-hat lands", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      In symbols, {mvEq}, the rule reads like this. A point with coordinates x and y is
+      really x lots of i-hat plus y lots of j-hat. Because the map is linear, it sends that
+      combination to x lots of where i-hat goes plus y lots of where j-hat goes — which
+      is just x times the first column plus y times the second, {colEq}. Collecting the
+      entries gives the familiar matrix-times-vector recipe: the top output is a x plus
+      b y, the bottom is c x plus d y. So the arithmetic you were taught is not a
+      definition pulled from nowhere; it is the bookkeeping for combining the columns.
+      Linearity is the whole engine, {linEq}: the image of a sum is the sum of the
+      images, and scaling a vector scales its image to match. That is exactly why the
+      grid stayed straight, parallel and evenly spaced. One reading falls straight out:
+      if the determinant is zero, the two columns line up, the parallelogram collapses
+      to a segment of zero area, and the transformation has flattened the plane onto a
+      line — which is the geometric meaning of a matrix with no inverse. This picture
+      also names the matrices you already know. The identity matrix leaves the columns
+      at i-hat and j-hat, so it moves nothing. A matrix whose columns are a quarter-turn
+      of the originals rotates the whole plane; one with the columns stretched along the
+      axes scales it. Shears, reflections and projections are all just different choices
+      of where the two basis vectors are sent. Reading a matrix as the pair of places
+      i-hat and j-hat go turns a wall of numbers into a single, picturable motion.
+    board:
+      - id: mvEq
+        latex: "A\\begin{pmatrix}x\\\\y\\end{pmatrix} = \\begin{pmatrix}a & b\\\\c & d\\end{pmatrix}\\begin{pmatrix}x\\\\y\\end{pmatrix} = \\begin{pmatrix}ax+by\\\\cx+dy\\end{pmatrix}"
+        say: "A times the vector x, y equals a x plus b y, over c x plus d y"
+        color: blue
+      - id: colEq
+        latex: "= x\\begin{pmatrix}a\\\\c\\end{pmatrix} + y\\begin{pmatrix}b\\\\d\\end{pmatrix}"
+        say: "equals x times the first column plus y times the second column"
+        color: green
+      - id: linEq
+        latex: "A(\\vec{u}+\\vec{v}) = A\\vec{u} + A\\vec{v}"
+        say: "A of u plus v equals A u plus A v"
+        color: yellow
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Applying a matrix. {statement} A matrix and a vector are given, {given}; find
+      where the vector lands. {find} Combine the columns: x is one, y is two, so the
+      result is one times the first column plus two times the second, {step1}. Entry by
+      entry, {step2}: the top is two times one plus one times two, which is four; the
+      bottom is one times one plus three times two, which is seven. The vector one, two
+      is sent to four, seven, {answer}. Every other point on the plane moves by the very
+      same rule, set once and for all by the two columns.
+    board:
+      - id: statement
+        text: "Where does the matrix send the vector?"
+      - id: given
+        latex: "A = \\begin{pmatrix}2 & 1\\\\1 & 3\\end{pmatrix}, \\quad \\vec{v} = \\begin{pmatrix}1\\\\2\\end{pmatrix}"
+        say: "A with columns two, one and one, three; v equals one, two"
+        role: given
+      - id: find
+        text: "Compute A·v."
+        role: find
+      - id: step1
+        latex: "A\\vec{v} = 1\\begin{pmatrix}2\\\\1\\end{pmatrix} + 2\\begin{pmatrix}1\\\\3\\end{pmatrix}"
+        say: "A v equals one times the first column plus two times the second"
+        role: step
+        color: blue
+      - id: step2
+        latex: "= \\begin{pmatrix}2(1)+1(2)\\\\1(1)+3(2)\\end{pmatrix}"
+        say: "equals two times one plus one times two, over one times one plus three times two"
+        role: step
+        color: green
+      - id: answer
+        latex: "A\\vec{v} = \\begin{pmatrix}4\\\\7\\end{pmatrix}"
+        say: "A v equals four, seven"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "2*1 + 1*2"
+      value: 4
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Now area. {statement2} A matrix is given, {given2}; find the factor by which it
+      scales area, and the new area of a region that starts at two square units. {find2}
+      The scaling factor is the determinant, {step1b}: the product down the leading
+      diagonal, three times two, minus the product up the other, one times one, which
+      is five. Every area is multiplied by five, {step2b}, so a region of two square
+      units becomes ten, {answer2}. A determinant larger than one means the map
+      magnifies; between zero and one it shrinks; and exactly zero would flatten the
+      region to nothing.
+    board:
+      - id: statement2
+        text: "How much does the matrix scale area?"
+      - id: given2
+        latex: "A = \\begin{pmatrix}3 & 1\\\\1 & 2\\end{pmatrix}, \\quad \\text{area}_0 = 2"
+        say: "A with columns three, one and one, two; starting area two"
+        role: given
+      - id: find2
+        text: "Find det A and the new area."
+        role: find
+      - id: step1b
+        latex: "\\det A = 3(2) - 1(1) = 5"
+        say: "determinant A equals three times two minus one times one, five"
+        role: step
+        color: yellow
+      - id: step2b
+        latex: "\\text{area} = |\\det A| \\times \\text{area}_0 = 5 \\times 2"
+        say: "the new area is the determinant times the old area, five times two"
+        role: step
+        color: yellow
+      - id: answer2
+        latex: "\\text{area} = 10"
+        say: "the new area is ten square units"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "(3*2 - 1*1) * 2"
+      value: 10
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: a matrix is a linear transformation of the plane, pinned down by
+      where it sends the two basis vectors — its columns — and its determinant is the
+      factor by which it scales area, zero meaning the plane is crushed onto a line.
+      Next: Why matrix multiplication is defined like that.

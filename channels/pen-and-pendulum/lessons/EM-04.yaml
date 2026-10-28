@@ -1,0 +1,208 @@
+# EM-04: Electric potential vs potential energy vs voltage.
+# OpenStax University Physics Vol. 2 §7.1-7.3 (CC BY 4.0). ~7 minutes.
+# Colour: charge = red, field = purple, equipotential/potential = green,
+# potential energy = blue, voltage = yellow.
+schema_version: 1
+id: EM-04
+channel: pen-and-pendulum
+title: "Electric potential vs potential energy vs voltage: the three things students mix up"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "§7.1-7.3 Electric Potential Energy, Potential, and Potential Difference"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/056-7-1-electric-potential-energy.md"
+  pages: "293-312"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "Three words, three meanings"
+  keyword: "three meanings"
+publish:
+  title: "Potential Energy vs Potential vs Voltage: The Difference, Finally Clear"
+  summary: >
+    Electric potential energy, electric potential and voltage sound alike and are
+    constantly confused. We separate them cleanly: energy is in joules and belongs
+    to a charge; potential is energy per unit charge in volts and belongs to the
+    field; voltage is a difference in potential. Two worked examples follow.
+  hashtags: ["#physics", "#electromagnetism", "#voltage"]
+  tags:
+    - electric potential
+    - electric potential energy
+    - voltage
+    - potential difference
+    - volts
+    - electromagnetism
+    - physics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Potential energy, potential, and voltage are three different quantities with
+      three different units, yet they are mixed up more than almost anything else in
+      physics. Kept apart, they are simple.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is a positive charge, {placeQ}, and its electric field, {drawField}, in
+      purple, pointing outward. Now add the new idea, {drawEquis}, in green: surfaces
+      of constant potential, drawn as rings around the charge. The potential is a single
+      number attached to every point in space, high near the charge and falling off as
+      you move away. The rings are closely packed where the field is strong and spread
+      out where it is weak, and each ring is everywhere at right angles to the field.
+      Crucially, these rings exist whether or not any charge sits on them — the
+      potential is a property of the field alone, a kind of electrical height that the
+      source charge sets up across the whole of space. For a single point charge it
+      falls as one over the distance, {pointEq}: k Q over r. Think of it as a landscape
+      of hills and valleys. A positive charge builds a hill; the potential is the height
+      of the ground at each point, and it is there before you roll any ball onto it. A
+      negative charge would dig a valley instead, its potential going negative as you
+      approach. A positive test charge, left free, always rolls downhill — from high
+      potential to low — which is why positive charges are pushed away from the hill and
+      drawn into the valley. That single landscape, set up by the source, already
+      contains everything about how any charge you later introduce will move.
+    animation:
+      primitive: charges
+      params:
+        scale: 1.0
+        charges:
+          Q: {at: [0.0, 0.15], sign: "+", color: red, label: "Q"}
+      steps:
+        - {id: placeQ, action: place, params: {name: Q}}
+        - {id: drawField, action: field, params: {name: Q, color: purple, n: 12, length: 1.1}}
+        - {id: drawEquis, action: equipotential, params: {name: Q, color: green, radii: [0.8, 1.4, 2.1], labels: ["V_1", "V_2", "V_3"]}}
+    board:
+      - id: pointEq
+        latex: "V = \\dfrac{kQ}{r}"
+        say: "V equals k Q over r"
+        color: green
+        legend:
+          - {sym: "V", name: "electric potential", unit: "V = J/C"}
+          - {sym: "Q", name: "source charge", unit: "C"}
+          - {sym: "r", name: "distance from it", unit: "m"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Now separate the three quantities, {peEq}. First, electric potential energy: the
+      energy a specific charge q has because of where it sits in the field, measured in
+      joules. Move q and this energy changes, just as lifting a mass changes its
+      gravitational energy. It depends on the charge you place. Second, the potential
+      itself, {vEq}: divide that energy by the charge, and you get the energy per unit
+      charge, measured in volts — one volt is one joule per coulomb. Dividing out the q
+      is the key step, because what remains no longer depends on the test charge; it is
+      the property of the field we drew as rings. Potential energy belongs to a charge;
+      potential belongs to a point. Third, voltage, {voltEq}: voltage is nothing more
+      than a difference in potential between two points, V at b minus V at a. A battery
+      labelled nine volts guarantees that difference between its terminals, and the work
+      to carry a charge q across it is q times that difference. This is why voltage, not
+      potential, is what we measure: only differences in height matter when you want the
+      energy gained or lost. The ground floor can be called zero wherever it is
+      convenient; the climb between two floors is what costs energy. A water analogy
+      makes the three crisp. Potential is like the pressure in a pipe, set by the pump
+      regardless of whether any water flows. Potential energy is the energy a particular
+      amount of water carries at that pressure. And voltage is the pressure difference
+      between two points, which is what actually drives a current along the pipe. This
+      also explains the unit physicists love for tiny energies: move one electron
+      through one volt and it gains one electron-volt of energy — energy equals charge
+      times potential difference, written small. Keep the three apart by their units and
+      the confusion dissolves: joules for energy, volts for potential, and volts again,
+      but as a difference, for voltage.
+    board:
+      - id: peEq
+        latex: "U = qV"
+        say: "U equals q V"
+        color: blue
+      - id: vEq
+        latex: "V = \\dfrac{U}{q} \\quad [\\text{volts} = \\text{J/C}]"
+        say: "V equals U over q, in volts, joules per coulomb"
+        color: green
+      - id: voltEq
+        latex: "\\Delta V = V_b - V_a, \\quad W = q\\,\\Delta V"
+        say: "delta V equals V b minus V a, and the work is q times delta V"
+        color: yellow
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Energy from potential. {statement} A small charge is placed at a point where the
+      potential is known, {given}; find its electric potential energy. {find} The energy
+      is simply the charge times the potential, {step1}: two microcoulombs, which is two
+      millionths of a coulomb, times five hundred volts. That is one thousandth of a
+      joule, {answer}, or one millijoule. Double the charge and you would double the
+      energy, because the potential at that point has not changed — the field set it,
+      and the charge merely samples it.
+    board:
+      - id: statement
+        text: "Potential energy of a charge at a point."
+      - id: given
+        latex: "q = 2\\ \\mu\\text{C}, \\quad V = 500\\ \\text{V}"
+        say: "q equals two microcoulombs, V equals five hundred volts"
+        role: given
+      - id: find
+        text: "Find the potential energy U."
+        role: find
+      - id: step1
+        latex: "U = qV = (2\\times 10^{-6})(500)"
+        say: "U equals q V, two times ten to the minus six, times five hundred"
+        role: step
+        color: blue
+      - id: answer
+        latex: "U = 1\\times 10^{-3}\\ \\text{J} = 1\\ \\text{mJ}"
+        say: "U equals one times ten to the minus three joules, one millijoule"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "2e-6 * 500"
+      value: 0.001
+      unit: "J"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Work across a voltage. {statement2} A charge is carried between two points with a
+      known potential difference, {given2}; find the work done on it. {find2} Work is
+      the charge times the potential difference, {step2}: half a coulomb times twelve
+      volts, which is six joules, {answer2}. Notice we never needed the potential at
+      either point on its own — only the twelve-volt difference between them. That is
+      the whole reason a battery is stamped with a voltage rather than a potential: the
+      difference is what delivers the energy.
+    board:
+      - id: statement2
+        text: "Work moving a charge through a potential difference."
+      - id: given2
+        latex: "q = 0.5\\ \\text{C}, \\quad \\Delta V = 12\\ \\text{V}"
+        say: "q equals half a coulomb, delta V equals twelve volts"
+        role: given
+      - id: find2
+        text: "Find the work W."
+        role: find
+      - id: step2
+        latex: "W = q\\,\\Delta V = (0.5)(12)"
+        say: "W equals q times delta V, nought point five times twelve"
+        role: step
+        color: yellow
+      - id: answer2
+        latex: "W = 6\\ \\text{J}"
+        say: "W equals six joules"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "0.5 * 12"
+      value: 6
+      unit: "J"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: electric potential energy is a charge's energy at a point, in
+      joules; potential is that energy per unit charge, in volts, and belongs to the
+      field; and voltage is a difference in potential, which is what drives charges and
+      what we measure. Next: Capacitors — capacitance, stored energy and dielectrics.
