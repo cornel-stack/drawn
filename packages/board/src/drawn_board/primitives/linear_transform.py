@@ -51,6 +51,7 @@ class LinearTransform(Primitive):
         self.scene.add(self.plane)
         self.matrix = np.array(p.get("matrix", [[1, 0], [0, 1]]), dtype=float)
         self._basis: dict = {}
+        self._extra: list = []   # mobjects that apply_matrix should also deform
 
     # -- helpers -----------------------------------------------------------
 
@@ -96,7 +97,7 @@ class LinearTransform(Primitive):
 
         m = np.array(matrix, dtype=float) if matrix is not None else self.matrix
         self.matrix = m
-        movers = [self.plane, *self._basis.values()]
+        movers = [self.plane, *self._basis.values(), *self._extra]
         self.scene.play(
             *[ApplyMatrix(m, mob, about_point=self._pt(0, 0)) for mob in movers],
             run_time=run_time,
@@ -147,6 +148,41 @@ class LinearTransform(Primitive):
         end = (start[0] + y * m[0, 1], start[1] + y * m[1, 1])
         yc = self._arrow(end[0], end[1], c2_color, x0=start[0], y0=start[1])
         self.scene.play(GrowArrow(yc), run_time=run_time * 0.5)
+
+    @step
+    def unit_square(self, run_time: float, color: str = "yellow", **_):
+        """Draw the unit square spanned by i-hat and j-hat (area 1). It is added to
+        the movers, so the next apply_matrix deforms it into the parallelogram whose
+        area is the determinant."""
+        from manim import Polygon
+
+        sq = Polygon(self._pt(0, 0), self._pt(1, 0), self._pt(1, 1), self._pt(0, 1),
+                     color=self.color(color), stroke_width=4, fill_opacity=0.25,
+                     fill_color=self.color(color))
+        self._extra.append(sq)
+        self._unit_square = sq
+        self.scene.play(_fade_in(self.scene, sq), run_time=run_time)
+
+    @step
+    def determinant(self, run_time: float, color: str = "yellow", label: str = None, **_):
+        """Annotate the (already transformed) unit square with the signed area it now
+        covers — the determinant of the matrix."""
+        from manim import MathTex, Write
+
+        m = self.matrix
+        det = float(m[0, 0] * m[1, 1] - m[0, 1] * m[1, 0])
+        # centroid of the transformed square = image of (0.5, 0.5)
+        cx = 0.5 * (m[0, 0] + m[0, 1])
+        cy = 0.5 * (m[1, 0] + m[1, 1])
+        text = label if label is not None else rf"\det = {det:.0f}"
+        lbl = MathTex(text, color=self.color(color), font_size=LABEL_FONT_SIZE)
+        lbl.move_to(self._pt(cx, cy))
+        sq = getattr(self, "_unit_square", None)
+        if sq is not None:
+            self.scene.play(sq.animate.set_fill(opacity=0.4), run_time=run_time * 0.4)
+            self.scene.play(Write(lbl), run_time=run_time * 0.6)
+        else:
+            self.scene.play(Write(lbl), run_time=run_time)
 
     @step
     def span_demo(self, run_time: float, matrix=None, color: str = "green", **_):

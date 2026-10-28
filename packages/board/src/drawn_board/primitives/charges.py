@@ -146,6 +146,31 @@ class Charges(Primitive):
         self.scene.play(*[GrowArrow(a) for a in arrows], run_time=run_time)
 
     @step
+    def equipotential(self, run_time: float, name: str = None, color: str = "green",
+                      radii=(0.7, 1.2, 1.8), labels=None, **_):
+        """Concentric dashed equipotential circles around charge `name` — surfaces of
+        constant potential, perpendicular to the field. They crowd together where the
+        field is strong (near the charge) and the potential falls off as 1/r outward."""
+        from manim import Circle, Create, DashedVMobject, MathTex, Write
+
+        centre = self._pos[name]
+        circles, texts = [], []
+        for i, rr in enumerate(radii):
+            r = float(rr) * self.scale
+            c = DashedVMobject(
+                Circle(radius=r, color=self.color(color), stroke_width=3).move_to(centre),
+                num_dashes=28)
+            circles.append(c)
+            if labels and i < len(labels):
+                t = MathTex(labels[i], color=self.color(color),
+                            font_size=LABEL_FONT_SIZE - 2)
+                t.move_to(centre + np.array([0.0, r, 0.0]))
+                texts.append(t)
+        self.scene.play(*[Create(c) for c in circles], run_time=run_time * 0.7)
+        if texts:
+            self.scene.play(*[Write(t) for t in texts], run_time=run_time * 0.3)
+
+    @step
     def gaussian_surface(self, run_time: float, name: str = None, radius: float = 1.3,
                          color: str = "yellow", flux_arrows: int = 4, **_):
         """Draw a dashed closed Gaussian surface (a circle) around charge `name`,
