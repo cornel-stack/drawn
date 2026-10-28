@@ -1,0 +1,219 @@
+# MA-08: Unemployment — natural rate, cyclical and the labour market diagram.
+# OpenStax Principles of Economics 3e, Ch 21 Unemployment (CC BY 4.0). ~7 minutes.
+# Colour: labour supply = blue, labour demand = orange, equilibrium = green, unemployment = red.
+schema_version: 1
+id: MA-08
+channel: marginal-ink
+title: "Unemployment: natural rate, cyclical and the labour market diagram"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§21.3-21.4 Causes of Unemployment (Short Run and Long Run)"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/240-21-3-what-causes-changes-in-unemployment-over-the-short-run.md"
+  pages: "521-534"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "Why some jobless is normal"
+  keyword: "normal"
+publish:
+  title: "Unemployment Explained: The Natural Rate, Cyclical Joblessness and the Labour Market"
+  summary: >
+    Some unemployment never goes away, even in a boom. We build the labour market
+    diagram, show how a wage stuck above equilibrium creates joblessness, separate
+    the natural rate (frictional plus structural) from cyclical unemployment, and
+    compute the unemployment rate. Two worked examples follow.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - unemployment
+    - natural rate of unemployment
+    - cyclical unemployment
+    - labour market
+    - frictional structural
+    - macroeconomics
+    - unemployment rate
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Even in the healthiest economy, some people are always out of work. Understanding why
+      means separating the unemployment that is normal and unavoidable from the kind a
+      recession creates.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawSupply}, is the supply of labour, in blue: more people offer to work as the
+      wage rises. And here, {drawDemand}, is the demand for labour, in orange: firms hire
+      fewer workers as the wage rises. Where they cross, {mark}, is the equilibrium wage,
+      where the number of people wanting to work exactly matches the number of jobs — the
+      market clears, and there is no unemployment of this kind. So why is anyone ever left out?
+      Because wages often cannot fall to that clearing level. Minimum wage laws, union
+      contracts, and firms choosing to pay above the going rate all hold the wage up. At a wage
+      stuck above equilibrium, {gap}, in red, more people want to work than there are jobs: the
+      quantity of labour supplied exceeds the quantity demanded, and that surplus of workers is
+      unemployment. The diagram makes the cause vivid — unemployment of this sort is a price
+      that is too high and cannot come down, leaving willing workers with no one to hire them.
+      The share of the labour force caught in that gap is what we call the unemployment rate,
+      {rateEq}.
+    animation:
+      primitive: supply_demand
+      params:
+        q_max: 9
+        p_max: 9
+        demand: {a: 8, b: 0.8}
+        supply: {c: 1, d: 0.7}
+        x_label: "L"
+        y_label: "W"
+      steps:
+        - {id: drawSupply, action: draw_supply, params: {color: blue}}
+        - {id: drawDemand, action: draw_demand, params: {color: orange}}
+        - {id: mark, action: equilibrium, params: {color: green}}
+        - {id: gap, action: show_gap, params: {price: 6.0, color: red, label: "unemployment"}}
+    board:
+      - id: rateEq
+        latex: "u = \\dfrac{U}{E + U}"
+        say: "the unemployment rate u equals U over E plus U"
+        color: red
+        legend:
+          - {sym: "U", name: "unemployed", unit: ""}
+          - {sym: "E", name: "employed", unit: ""}
+          - {sym: "E+U", name: "the labour force", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      First, how unemployment is measured, {rateEq2}. The unemployment rate is the number
+      unemployed divided by the labour force — and the labour force is only those working or
+      actively looking, not the whole population. Someone who has stopped looking is not
+      counted, which is why the rate can mislead. Now the types. Some unemployment is always
+      present and is called the natural rate, {naturalEq}, made of two parts. Frictional
+      unemployment is the churn of people between jobs — school-leavers searching, workers
+      moving on — and it is healthy, the sign of a flexible economy. Structural unemployment
+      is a deeper mismatch: the skills or the locations of workers do not fit the jobs on
+      offer, as when an industry declines. Together these make the natural rate, the
+      unemployment that persists even when the economy is at full strength. On top of it sits
+      cyclical unemployment, {cyclicalEq}: the extra joblessness caused by a recession, when
+      demand for goods falls, firms cut back, and wages are too sticky to drop fast enough to
+      keep everyone employed. Cyclical unemployment is the difference between the actual rate
+      and the natural rate, and it is what policy fights in a downturn. When cyclical
+      unemployment is zero and only the natural rate remains, economists call it full
+      employment — which, tellingly, is not zero unemployment at all, but the healthy minimum
+      an economy in motion can never fall below. The distinction matters enormously for policy,
+      because the cure depends on the cause. Cyclical unemployment responds to boosting demand:
+      lower interest rates or government spending can lift firms' need for workers and pull the
+      actual rate back down to the natural one. But the same medicine does nothing for
+      structural unemployment, where the problem is a mismatch of skills, not a shortage of
+      demand — that calls for retraining and helping people move to where the jobs are. Try to
+      push unemployment below its natural rate by stimulus alone and you tend to get not lasting
+      jobs but rising inflation, as employers bid against each other for workers who are not
+      there. So the natural rate acts as a kind of speed limit, and a central task of
+      macroeconomics is telling the two kinds of unemployment apart, because mistaking a
+      structural problem for a cyclical one wastes the very tools that would have fixed it.
+    board:
+      - id: rateEq2
+        latex: "u = \\dfrac{U}{E + U} \\times 100\\%"
+        say: "the unemployment rate is U over E plus U, as a percentage"
+        color: red
+      - id: naturalEq
+        latex: "u_{nat} = u_{frictional} + u_{structural}"
+        say: "the natural rate equals frictional plus structural unemployment"
+        color: orange
+      - id: cyclicalEq
+        latex: "u_{cyclical} = u_{actual} - u_{nat}"
+        say: "cyclical unemployment equals the actual rate minus the natural rate"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Computing the rate. {statement} The numbers of employed and unemployed are given,
+      {given}; find the unemployment rate. {find} The labour force is the two added together,
+      {step1}: ninety-two million employed plus eight million unemployed is one hundred million.
+      The rate is the unemployed over that, {step2}: eight over one hundred. That is eight per
+      cent, {answer}. Notice the denominator is the labour force, not the population — the
+      retired, the students and the discouraged who have given up looking are all outside it.
+    board:
+      - id: statement
+        text: "Compute the unemployment rate."
+      - id: given
+        latex: "E = 92\\ \\text{m}, \\quad U = 8\\ \\text{m}"
+        say: "ninety-two million employed, eight million unemployed"
+        role: given
+      - id: find
+        text: "Find the unemployment rate."
+        role: find
+      - id: step1
+        latex: "\\text{labour force} = E + U = 92 + 8 = 100"
+        say: "the labour force is ninety-two plus eight, one hundred million"
+        role: step
+        color: blue
+      - id: step2
+        latex: "u = \\dfrac{8}{100} \\times 100\\%"
+        say: "u equals eight over one hundred, as a percentage"
+        role: step
+        color: red
+      - id: answer
+        latex: "u = 8\\%"
+        say: "the unemployment rate is eight per cent"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "8 / (92 + 8) * 100"
+      value: 8
+      unit: "%"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Splitting out the cycle. {statement2} The actual rate and the two natural components are
+      given, {given2}; find the cyclical unemployment. {find2} First the natural rate, {step1b}:
+      frictional of three per cent plus structural of two per cent is five per cent. Cyclical is
+      what is left once the natural rate is removed, {step2b}: the actual eight per cent minus
+      the natural five. That leaves three per cent of cyclical unemployment, {answer2} — the
+      part caused by the downturn, the part that should fade as the economy recovers, while the
+      five per cent natural rate remains even at full employment.
+    board:
+      - id: statement2
+        text: "Find the cyclical unemployment."
+      - id: given2
+        latex: "u_{act}=8\\%,\\ u_{fric}=3\\%,\\ u_{struc}=2\\%"
+        say: "actual eight per cent, frictional three, structural two"
+        role: given
+      - id: find2
+        text: "Find cyclical unemployment."
+        role: find
+      - id: step1b
+        latex: "u_{nat} = 3\\% + 2\\% = 5\\%"
+        say: "the natural rate is three plus two, five per cent"
+        role: step
+        color: orange
+      - id: step2b
+        latex: "u_{cyc} = u_{act} - u_{nat} = 8\\% - 5\\%"
+        say: "cyclical equals actual minus natural, eight minus five"
+        role: step
+        color: green
+      - id: answer2
+        latex: "u_{cyc} = 3\\%"
+        say: "cyclical unemployment is three per cent"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "8 - (3 + 2)"
+      value: 3
+      unit: "%"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the labour market clears at the equilibrium wage, and a wage held above it
+      leaves a surplus of workers — unemployment; the natural rate, frictional plus structural,
+      persists even at full employment, while cyclical unemployment is the actual rate minus
+      the natural rate. Next: How banks create money — the balance-sheet version.

@@ -1,0 +1,210 @@
+# LA-11: Basis and dimension — choosing your coordinate system.
+# Hefferon, Linear Algebra §III Basis and Dimension (CC BY-SA 3.0). ~7 minutes.
+# Colour: b1 = blue, b2 = green, target v = orange, coordinates = yellow.
+schema_version: 1
+id: LA-11
+channel: chalk-and-vector
+title: "Basis and dimension: choosing your coordinate system"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "§III Basis and Dimension"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/010-basis-and-dimension.md"
+  pages: "121-140"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "Every vector, one address"
+  keyword: "one address"
+publish:
+  title: "Basis and Dimension: How Coordinates Really Work"
+  summary: >
+    A basis is a minimal set of vectors that reaches everywhere — independent and
+    spanning — and it turns every vector into a unique list of coordinates. We show
+    why those coordinates are unique, why every basis of a space has the same size
+    (its dimension), and how changing basis changes the address. Two worked examples.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - basis
+    - dimension
+    - coordinates
+    - linear algebra
+    - spanning set
+    - linear independence
+    - vector space
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Coordinates feel absolute, but they are a choice. Pick a basis and every vector gets
+      a unique address; pick a different basis and the same vector is written in a new
+      language.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Two vectors, {drawBasis}: b-one in blue and b-two in green. They are independent and
+      they span the plane, and a set that does both is a basis. Here is why a basis is so
+      useful. Take any vector, {drawTarget}, v in orange. Because the basis spans, v is some
+      combination of b-one and b-two; because the basis is independent, that combination is
+      the only one. Watch it built, {buildCombo}: two steps along b-one, then one step along
+      b-two, and we land exactly on v. Those two numbers, two and one, are the coordinates of
+      v in this basis, {coordEq} — its address. Every vector in the plane gets exactly one such address,
+      and every pair of numbers names exactly one vector. That is the whole point of a basis:
+      it sets up a grid, a coordinate system, in which arithmetic with vectors becomes
+      arithmetic with lists of numbers. The familiar x and y coordinates are just the
+      addresses in one particular basis, the standard one; a different basis would give the
+      same vector different coordinates, while the vector itself, the arrow, never moves.
+    animation:
+      primitive: linear_transform
+      params:
+        x_range: [-2, 5]
+        y_range: [-1, 4]
+        matrix: [[1, 1], [0, 2]]
+      steps:
+        - {id: drawBasis, action: columns, params: {c1_color: blue, c2_color: green, labels: ["\\vec{b}_1", "\\vec{b}_2"]}}
+        - {id: drawTarget, action: vector, params: {x: 3, y: 2, color: orange, label: "\\vec{v}"}}
+        - {id: buildCombo, action: combo, params: {matrix: [[1, 1], [0, 2]], x: 2, y: 1, c1_color: blue, c2_color: green}}
+    board:
+      - id: coordEq
+        latex: "\\vec{v} = 2\\vec{b}_1 + 1\\vec{b}_2"
+        say: "v equals two b one plus one b two"
+        color: yellow
+        legend:
+          - {sym: "(2, 1)", name: "coordinates of v in this basis", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Make the definition precise, {basisEq}. A basis is a set of vectors that is both
+      linearly independent and spanning: spanning so that every vector can be reached,
+      independent so that there is no redundancy. Those two properties together force the
+      key fact, {coordEq2}: every vector is a unique combination of the basis vectors. The
+      uniqueness is worth seeing. Suppose a vector could be written two ways; subtract them,
+      and you get a combination of the basis equal to the zero vector. But independence says
+      the only such combination is the all-zero one, so the two ways were identical all
+      along. No vector has two addresses. Now dimension, {dimEq}. A space can have many
+      different bases, but a remarkable theorem says they all have the same number of
+      vectors, and that number is the dimension of the space. The plane has dimension two
+      because every basis of it has exactly two vectors; three-dimensional space has
+      dimension three. The dimension is thus a property of the space itself, not of any
+      particular basis — it counts the independent directions, the true number of degrees of
+      freedom. Choosing a basis is choosing a language to describe the space; the dimension
+      is what every language agrees on. This explains a puzzle that often troubles beginners.
+      A space can be described by endlessly many different coordinate systems, each giving the
+      same vector a different list of numbers, and yet none of them is more correct than
+      another — they are translations of one another. What the arrow is does not depend on the
+      words we use to name it. A good choice of basis can make a problem fall apart: align the
+      basis with the directions a matrix naturally stretches, and a tangle of numbers turns
+      into a simple diagonal. Much of the cleverness in linear algebra is exactly this, picking
+      the basis in which the question answers itself. And the count never lies: however you
+      slice a space, every basis has the same number of vectors, so the dimension is a hard,
+      honest fact about the space — two for a plane, three for the room around you, and in the
+      abstract spaces of functions and signals, sometimes infinitely many.
+    board:
+      - id: basisEq
+        latex: "\\text{basis} = \\text{independent} + \\text{spanning}"
+        say: "a basis is independent and spanning"
+        color: blue
+      - id: coordEq2
+        latex: "\\vec{v} = c_1\\vec{b}_1 + \\cdots + c_n\\vec{b}_n \\;\\text{(unique)}"
+        say: "every v is a unique combination c one b one up to c n b n"
+        color: yellow
+      - id: dimEq
+        latex: "\\dim = \\text{number of basis vectors}"
+        say: "the dimension is the number of basis vectors, the same for every basis"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Finding coordinates. {statement} A basis and a vector are given, {given}; find the
+      coordinates of the vector in that basis. {find} We need weights a and b with a times
+      b-one plus b times b-two equal to v, {step1}: a plus b equals seven across the top, and
+      two b equals four down the bottom. The second gives b equals two, {step2}; then a is
+      seven minus two, five. So the coordinates are five and two, {answer}: v is five b-one
+      plus two b-two. The same arrow, written in this basis, is simply the pair five, two.
+    board:
+      - id: statement
+        text: "Coordinates of a vector in a basis."
+      - id: given
+        latex: "\\vec{b}_1 = \\begin{pmatrix}1\\\\0\\end{pmatrix}, \\vec{b}_2 = \\begin{pmatrix}1\\\\2\\end{pmatrix}, \\vec{v} = \\begin{pmatrix}7\\\\4\\end{pmatrix}"
+        say: "b one is one, zero; b two is one, two; v is seven, four"
+        role: given
+      - id: find
+        text: "Find the coordinates of v."
+        role: find
+      - id: step1
+        latex: "a + b = 7, \\quad 2b = 4"
+        say: "a plus b equals seven, two b equals four"
+        role: step
+        color: orange
+      - id: step2
+        latex: "b = 2, \\quad a = 7 - 2 = 5"
+        say: "b equals two, a equals seven minus two, five"
+        role: step
+        color: blue
+      - id: answer
+        latex: "(a, b) = (5, 2)"
+        say: "the coordinates are five, two"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "5*1 + 2*1"
+      value: 7
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Is it a basis? {statement2} A set of two vectors in the plane is given, {given2}; decide
+      whether it is a basis. {find2} In the plane a basis needs exactly two independent
+      vectors, so we test independence with the determinant, {step1b}: one times minus one
+      minus one times one, which is minus two. It is not zero, {step2b}, so the vectors are
+      independent; two independent vectors in a two-dimensional space must also span it, so
+      they form a basis, {answer2}. Independence plus the right count is all you ever need to
+      check: in dimension n, any n independent vectors are automatically a basis.
+    board:
+      - id: statement2
+        text: "Do the vectors form a basis?"
+      - id: given2
+        latex: "\\vec{u} = \\begin{pmatrix}1\\\\1\\end{pmatrix}, \\quad \\vec{w} = \\begin{pmatrix}1\\\\-1\\end{pmatrix}"
+        say: "u is one, one; w is one, minus one"
+        role: given
+      - id: find2
+        text: "Basis of R²?"
+        role: find
+      - id: step1b
+        latex: "\\det\\begin{pmatrix}1 & 1\\\\1 & -1\\end{pmatrix} = 1(-1) - 1(1)"
+        say: "the determinant is one times minus one minus one times one"
+        role: step
+        color: orange
+      - id: step2b
+        latex: "= -2 \\ne 0"
+        say: "equals minus two, not zero"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "\\text{yes, a basis}"
+        say: "yes, they form a basis"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "1*(-1) - 1*1"
+      value: -2
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: a basis is an independent spanning set that gives every vector a unique
+      coordinate address; every basis of a space has the same size, its dimension; and
+      choosing a basis is choosing coordinates, which the vector itself does not depend on.
+      Next: Rank and nullity — what a matrix destroys and what it keeps.

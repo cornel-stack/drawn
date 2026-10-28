@@ -1,0 +1,208 @@
+# EM-08: RC circuits — charging and discharging, the differential equation solved visually.
+# OpenStax University Physics Vol. 2 §10.5 (CC BY 4.0). ~7 minutes.
+# Colour: charging = blue, discharging = red, time constant tau = yellow, final value = green.
+schema_version: 1
+id: EM-08
+channel: pen-and-pendulum
+title: "RC circuits: charging and discharging, the differential equation solved visually"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "§10.5 RC Circuits"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/086-10-5-rc-circuits.md"
+  pages: "469-480"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "The curve behind every timer"
+  keyword: "every timer"
+publish:
+  title: "RC Circuits Explained: Charging, Discharging and the Time Constant"
+  summary: >
+    Put a resistor and capacitor together and the voltage changes not suddenly but
+    along a smooth exponential curve. We derive that curve from the loop rule as a
+    differential equation, read off the time constant tau = RC, and show what 63%
+    and five time constants mean. Two worked examples follow.
+  hashtags: ["#physics", "#electromagnetism", "#circuits"]
+  tags:
+    - RC circuit
+    - time constant
+    - charging capacitor
+    - discharging
+    - exponential decay
+    - electromagnetism
+    - physics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Connect a resistor to a capacitor and the voltage does not jump; it eases along a
+      smooth exponential curve. That curve, and the single number that sets its pace, runs
+      every blinking light and camera flash.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Charging first, {chargeCurve}, in blue. A capacitor charging through a resistor does
+      not fill instantly — its voltage climbs steeply at first, then ever more slowly, easing
+      up toward the supply voltage, {finalLine}, in green, which it approaches but in theory
+      never quite reaches. The pace is set entirely by one number, the time constant,
+      {tauMark}, in yellow, {tauEq}: tau equals R times C. After one time constant the capacitor has
+      reached sixty-three per cent of the way, and after about five it is all but full.
+      Discharging is the mirror image, {dischargeCurve}, in red: start the capacitor full and
+      let it empty through the resistor, and the voltage falls along the same kind of curve,
+      dropping to thirty-seven per cent after one time constant. Both curves are exponentials,
+      and both are governed by the same tau. A big resistance or a big capacitance makes tau
+      large and the whole process slow and gentle; small values make it snap. Choosing R and C
+      is choosing how long the circuit takes to respond.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 5, 1]
+        y: [0, 6, 1]
+        x_length: 8.0
+        y_length: 3.6
+        x_label: "t/RC"
+        y_label: "V"
+      steps:
+        - {id: chargeCurve, action: plot_function, params: {func: rc_charge, color: blue, label: "charge"}}
+        - {id: finalLine, action: plot_line, params: {name: v0, a: 0, b: 1, c: 5, color: green, label: "V_0"}}
+        - {id: tauMark, action: mark_point, params: {x: 1, y: 3.16, color: yellow, label: "\\tau"}}
+        - {id: dischargeCurve, action: plot_function, params: {func: rc_discharge, color: red, label: "discharge"}}
+    board:
+      - id: tauEq
+        latex: "\\tau = RC"
+        say: "tau equals R C"
+        color: yellow
+        legend:
+          - {sym: "\\tau", name: "time constant", unit: "s"}
+          - {sym: "R", name: "resistance", unit: "\\Omega"}
+          - {sym: "C", name: "capacitance", unit: "F"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here, {deEq}, is where the curve comes from. Apply the loop rule to the charging
+      circuit: the supply voltage equals the drop across the resistor plus the voltage on the
+      capacitor. The resistor's drop is R times the current, and the current is the rate at
+      which charge flows onto the capacitor — so the equation becomes R C times the rate of
+      change of the capacitor voltage, plus that voltage, equals the supply. It is a
+      first-order differential equation, and its solution is the exponential we drew,
+      {chargeEq}: the voltage equals the supply times one minus e to the minus t over R C. At
+      time zero it is empty; as time runs on, the exponential fades and the voltage approaches
+      the supply. The group R C in the exponent is the time constant, {tauEq2}, and it has
+      units of seconds. Put t equal to tau and the exponent is minus one, so the capacitor
+      sits at one minus one-over-e of the way — that is the sixty-three per cent. Discharging
+      obeys the same equation with the supply set to zero, giving a pure decaying exponential,
+      e to the minus t over R C, which is why both charging and discharging share one shape and
+      one tau. This exponential approach to equilibrium is one of the most common patterns in all
+      of physics, from cooling coffee to settling pendulums; here it is simply charge trickling
+      onto a capacitor through a resistor's resistance. It is worth dwelling on why the curve
+      bends the way it does. Early on the capacitor is nearly empty, so almost the whole supply
+      voltage falls across the resistor, driving a large current that piles charge on fast —
+      the curve is steep. As the capacitor fills, its own voltage opposes the supply, less
+      voltage is left for the resistor, the current dwindles, and charging slows to a crawl.
+      The process is self-limiting: the fuller it gets, the slower it fills, which is exactly
+      what produces the exponential. The same logic run backwards explains discharging — a full
+      capacitor drives a big current that empties it quickly, then tapers as it drains. This is
+      why the five-time-constant rule of thumb is so handy: after five taus the circuit is more
+      than ninety-nine per cent of the way, close enough to call finished, and engineers size R
+      and C to hit exactly the delay a flashing light or a timer circuit needs.
+    board:
+      - id: deEq
+        latex: "RC\\dfrac{dV}{dt} + V = \\varepsilon"
+        say: "R C times d V d t, plus V, equals the supply voltage"
+        color: blue
+      - id: chargeEq
+        latex: "V = V_0\\left(1 - e^{-t/RC}\\right)"
+        say: "V equals V nought times one minus e to the minus t over R C"
+        color: blue
+        box: true
+      - id: tauEq2
+        latex: "\\tau = RC \\quad [\\text{seconds}]"
+        say: "tau equals R C, measured in seconds"
+        color: yellow
+
+  - id: s4
+    kind: problem
+    narration: >
+      The time constant. {statement} A resistor and capacitor are connected, {given}; find the
+      time constant. {find} It is simply their product, {step1}: two thousand ohms times one
+      thousandth of a farad. That is two seconds, {answer}. So after two seconds the capacitor
+      is sixty-three per cent charged, and after about ten seconds, five time constants, it is
+      essentially full. The time constant is the one number you need to know how fast any RC
+      circuit responds.
+    board:
+      - id: statement
+        text: "Time constant of an RC circuit."
+      - id: given
+        latex: "R = 2000\\ \\Omega, \\quad C = 1\\times 10^{-3}\\ \\text{F}"
+        say: "R equals two thousand ohms, C equals one times ten to the minus three farads"
+        role: given
+      - id: find
+        text: "Find τ = RC."
+        role: find
+      - id: step1
+        latex: "\\tau = RC = (2000)(1\\times 10^{-3})"
+        say: "tau equals R C, two thousand times one times ten to the minus three"
+        role: step
+        color: yellow
+      - id: answer
+        latex: "\\tau = 2\\ \\text{s}"
+        say: "tau equals two seconds"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "2000 * 1e-3"
+      value: 2
+      unit: "s"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Voltage after one time constant. {statement2} The same capacitor charges from a supply,
+      {given2}; find its voltage after exactly one time constant. {find2} Use the charging
+      formula with t equal to tau, so the exponent is minus one, {step2}: ten volts times one
+      minus e to the minus one. Now e to the minus one is about nought point three seven, so
+      one minus it is nought point six three. Ten times that is about six point three volts,
+      {answer2}. That is the sixty-three per cent rule in numbers: one time constant always
+      brings the capacitor sixty-three per cent of the way to its final voltage, whatever R, C
+      and the supply happen to be.
+    board:
+      - id: statement2
+        text: "Voltage after one time constant."
+      - id: given2
+        latex: "V_0 = 10\\ \\text{V}, \\quad t = \\tau"
+        say: "V nought equals ten volts, t equals tau"
+        role: given
+      - id: find2
+        text: "Find V at t = τ."
+        role: find
+      - id: step2
+        latex: "V = 10\\left(1 - e^{-1}\\right)"
+        say: "V equals ten times one minus e to the minus one"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "V \\approx 6.3\\ \\text{V}"
+        say: "V is about six point three volts"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "10 * (1 - np.exp(-1))"
+      value: 6.32
+      unit: "V"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: an RC circuit charges and discharges along exponential curves set by the
+      time constant tau equals R C; the loop rule gives a first-order differential equation
+      whose solution is that exponential; and one time constant takes the capacitor sixty-three
+      per cent of the way. Next: The magnetic force on a moving charge and why it does no work.
