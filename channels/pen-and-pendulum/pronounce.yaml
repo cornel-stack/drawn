@@ -87,6 +87,10 @@ map:
   "Coulomb's": "koo-loms"
   "Newton's": "newtons"
   "Pythagoras": "pith-ag-or-as"
+  "Pythagorean": "pith-ag-or-ee-an"
+  # single frame-labels A, B, C in relative-velocity subscripts (not proper nouns)
+  "A's": "A's"
+  "B's": "B's"
   # terms the TTS tends to mangle
   "gyroscope": "jai-ro-scope"
   "gyroscopic": "jai-ro-skop-ic"
