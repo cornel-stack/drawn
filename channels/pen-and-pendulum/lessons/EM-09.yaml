@@ -61,8 +61,8 @@ scenes:
       params:
         show_axes: true
         vectors:
-          v: {to: [2.4, 0, 0], color: blue, label: "v"}
-          B: {to: [0, 0, 2.4], color: purple, label: "B"}
+          v: {to: [1.7, 0, 0], color: blue, label: "v"}
+          B: {to: [0, 0, 1.7], color: purple, label: "B"}
       steps:
         - {id: drawV, action: draw, params: {name: v}}
         - {id: drawB, action: draw, params: {name: B}}
