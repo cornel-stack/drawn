@@ -1,0 +1,211 @@
+# LA-12: Rank and nullity — what a matrix destroys and what it keeps.
+# Hefferon, Linear Algebra §II Computing Linear Maps / rangespace & nullspace (CC BY-SA 3.0).
+# ~7 minutes. Colour: columns/image = blue, null space = red, surviving dims = green.
+schema_version: 1
+id: LA-12
+channel: chalk-and-vector
+title: "Rank and nullity: what a matrix destroys and what it keeps"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "§II Rangespace and Nullspace; the Rank-Nullity Theorem"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/017-computing-linear-maps.md"
+  pages: "200-224"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "What a matrix throws away"
+  keyword: "throws away"
+publish:
+  title: "Rank and Nullity: What a Matrix Keeps and What It Destroys"
+  summary: >
+    Every matrix keeps some directions and crushes others to nothing. The rank
+    counts the dimensions that survive — the size of the image — and the nullity
+    counts those flattened to zero. We show why rank plus nullity always equals the
+    number of columns, the rank-nullity theorem. Two worked examples follow.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - rank
+    - nullity
+    - rank-nullity theorem
+    - column space
+    - null space
+    - linear algebra
+    - kernel image
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A matrix can lose information: it can crush a whole line of different vectors down to
+      the same point. Rank and nullity are the two numbers that measure exactly how much it
+      keeps and how much it throws away.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawCols}, are the two columns of a matrix, and notice they point the same way —
+      one is a multiple of the other. Watch what the matrix does to the whole plane, {applyA}:
+      every point is flattened onto a single line. That line is the image, or column space,
+      and because it is one-dimensional, we say the matrix has rank one, {rankEq}. The rank is the
+      dimension of the image — the number of dimensions that survive the transformation. But
+      a whole plane has been squashed onto a line, so a great deal was lost: an entire line of
+      different input vectors all land on the same output point, and one whole line of inputs
+      is sent exactly to zero. That line of vectors crushed to zero is the null space, and its
+      dimension is the nullity — here, one. So this matrix keeps one dimension and destroys
+      one. Two dimensions went in; one survives as the image and one collapses into the null
+      space. That balance is not a coincidence. The surviving dimensions and the destroyed
+      dimensions always add back up to the number you started with.
+    animation:
+      primitive: linear_transform
+      params:
+        x_range: [-5, 5]
+        y_range: [-3, 3]
+        matrix: [[2, 1], [2, 1]]
+      steps:
+        - {id: drawCols, action: columns, params: {c1_color: blue, c2_color: green, labels: ["\\vec{c}_1", "\\vec{c}_2"]}}
+        - {id: applyA, action: apply_matrix, params: {matrix: [[2, 1], [2, 1]]}}
+    board:
+      - id: rankEq
+        latex: "\\text{rank} = \\dim(\\text{image})"
+        say: "the rank is the dimension of the image"
+        color: blue
+        legend:
+          - {sym: "\\text{image}", name: "column space: where inputs land", unit: ""}
+          - {sym: "\\text{null space}", name: "inputs sent to zero", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Define the two carefully, {rankEq2}. The rank is the dimension of the image, the column
+      space — equivalently, the number of linearly independent columns the matrix has. It
+      counts the directions that make it through. The nullity, {nullEq}, is the dimension of
+      the null space: the set of all vectors the matrix sends to zero. A vector in the null
+      space is information the matrix erases, because you cannot tell it apart from zero after
+      the map. Now the key result tying them together, the rank-nullity theorem, {rntEq}: the
+      rank plus the nullity equals the number of columns — the dimension of the space you
+      started in. Every input dimension meets one of two fates: it either survives into the
+      image or it collapses into the null space, and nothing is counted twice or lost from the
+      ledger. The theorem just balances that ledger. The extremes are worth naming. A square
+      matrix with full rank crushes nothing — its nullity is zero, no information is lost, and
+      it is exactly these matrices that can be inverted and undone. A matrix with any nullity
+      above zero has thrown something away for good, and no inverse can recover it; a zero
+      determinant is precisely the warning that this has happened. Rank is how much a matrix
+      preserves; nullity is the price it charged. The theorem is also a powerful shortcut. Often
+      you can find one of the two numbers easily and read off the other for free: spot that the
+      columns span only a plane and you know the rank, and the nullity follows by subtraction
+      without ever solving a single equation. It explains, too, why a wide matrix — more columns
+      than rows — must always crush something. If it maps a big space into a small one, there is
+      simply not enough room in the image for every input direction to survive, so the nullity is
+      forced above zero and solutions to the homogeneous equation must exist. The same counting
+      underlies why a system of equations with more unknowns than equations can never have a
+      single unique solution: there are always free directions left over. Rank and nullity turn
+      these facts from surprises into arithmetic — count the surviving dimensions, subtract from
+      the total, and the rest follows at once.
+    board:
+      - id: rankEq2
+        latex: "\\text{rank} = \\text{number of independent columns}"
+        say: "the rank is the number of independent columns"
+        color: blue
+      - id: nullEq
+        latex: "\\text{nullity} = \\dim\\{\\vec{x} : A\\vec{x} = \\vec{0}\\}"
+        say: "the nullity is the dimension of the set of x with A x equals zero"
+        color: red
+      - id: rntEq
+        latex: "\\text{rank} + \\text{nullity} = n"
+        say: "rank plus nullity equals n, the number of columns"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      A matrix, {statement}, to analyse. A two-by-two matrix is given, {given}; find
+      its rank and nullity. {find} Look at the rows: the second is exactly twice the first, so
+      the matrix has only one independent row, and therefore one independent column — the rank
+      is one, {step1}. The matrix has two columns, so by the rank-nullity theorem the nullity
+      is two minus one, {step2}, which is one, {answer}. One dimension survives, one is
+      crushed. The zero determinant, one times four minus two times two, confirms the matrix
+      is not full rank and must have a non-trivial null space.
+    board:
+      - id: statement
+        text: "Find the rank and nullity."
+      - id: given
+        latex: "A = \\begin{pmatrix}1 & 2\\\\2 & 4\\end{pmatrix}"
+        say: "A is one, two, two, four"
+        role: given
+      - id: find
+        text: "Find rank and nullity."
+        role: find
+      - id: step1
+        latex: "\\text{row}_2 = 2\\,\\text{row}_1 \\;\\Rightarrow\\; \\text{rank} = 1"
+        say: "row two is twice row one, so the rank is one"
+        role: step
+        color: blue
+      - id: step2
+        latex: "\\text{nullity} = n - \\text{rank} = 2 - 1"
+        say: "nullity equals n minus rank, two minus one"
+        role: step
+        color: green
+      - id: answer
+        latex: "\\text{rank} = 1, \\quad \\text{nullity} = 1"
+        say: "rank one, nullity one"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "2 - 1"
+      value: 1
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Using the theorem directly. {statement2} A matrix maps four-dimensional space into the
+      plane and is known to have rank two, {given2}; find its nullity. {find2} The theorem does
+      all the work, {step1b}: rank plus nullity equals the number of columns, which is four. So
+      the nullity is four minus the rank of two, {step2b}, which is two, {answer2}. The map
+      takes in four dimensions, carries two of them through to the plane as its image, and
+      collapses the other two to zero. You never had to find the null space itself — the count
+      alone pins its dimension down.
+    board:
+      - id: statement2
+        text: "Nullity from the rank-nullity theorem."
+      - id: given2
+        latex: "A : \\mathbb{R}^4 \\to \\mathbb{R}^2, \\quad \\text{rank} = 2"
+        say: "A maps R four to R two, with rank two"
+        role: given
+      - id: find2
+        text: "Find the nullity."
+        role: find
+      - id: step1b
+        latex: "\\text{rank} + \\text{nullity} = n = 4"
+        say: "rank plus nullity equals n, which is four"
+        role: step
+        color: green
+      - id: step2b
+        latex: "\\text{nullity} = 4 - 2"
+        say: "nullity equals four minus two"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "\\text{nullity} = 2"
+        say: "the nullity is two"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "4 - 2"
+      value: 2
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the rank is the dimension of a matrix's image, the directions it keeps;
+      the nullity is the dimension of its null space, the directions it crushes to zero; and
+      the rank-nullity theorem says the two always add up to the number of columns. Next: The
+      inverse matrix — undoing a transformation, and when you can't.

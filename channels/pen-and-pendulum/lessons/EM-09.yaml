@@ -1,0 +1,202 @@
+# EM-09: The magnetic force on a moving charge and why it does no work.
+# OpenStax University Physics Vol. 2 §11.2-11.3 (CC BY 4.0). ~7 minutes.
+# Colour: velocity v = blue, field B = purple, force F = green, radius = yellow.
+schema_version: 1
+id: EM-09
+channel: pen-and-pendulum
+title: "The magnetic force on a moving charge and why it does no work"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "§11.2-11.3 Magnetic Fields and Motion of a Charged Particle"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/093-11-3-motion-of-a-charged-particle-in-a-magnetic-field.md"
+  pages: "497-516"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "A force that never does work"
+  keyword: "never does work"
+publish:
+  title: "The Magnetic Force on a Moving Charge: Why It Does No Work"
+  summary: >
+    The magnetic force on a moving charge is always at right angles to its motion,
+    so it can steer a charge but never speed it up or slow it down. We build the
+    cross product F = qv × B, explain why a perpendicular force does no work, and
+    derive the circular path it produces. Two worked examples follow.
+  hashtags: ["#physics", "#electromagnetism", "#magnetism"]
+  tags:
+    - magnetic force
+    - Lorentz force
+    - moving charge
+    - cross product
+    - circular motion
+    - electromagnetism
+    - physics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      The magnetic force is the odd one out among forces: it always pushes at a right angle to
+      the motion. That single fact means it can bend a charge's path into a circle, yet never
+      change its speed.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      A charge moves with some velocity, {drawV}, v in blue, through a magnetic field, {drawB},
+      B in purple, pointing in a different direction. The force on the charge is given by a
+      cross product, {crossF}: F equals q times v cross B, {forceEq}, drawn here in green. The defining
+      feature leaps out of the picture — the force is perpendicular to both the velocity and
+      the field at once, which is exactly what a cross product produces. It does not point
+      along the motion, and it does not point along the field; it sticks straight out from the
+      plane the two of them make. Its direction follows the right-hand rule: point your fingers
+      along v, curl them toward B, and your thumb gives the force on a positive charge. Reverse
+      the charge's sign, or reverse either vector, and the force flips. Because this force is
+      forever at right angles to the velocity, it can only ever turn the charge, never hurry it
+      along or hold it back — and that is the whole character of magnetism on a moving charge.
+    animation:
+      primitive: vectors3d
+      params:
+        show_axes: true
+        vectors:
+          v: {to: [2.4, 0, 0], color: blue, label: "v"}
+          B: {to: [0, 0, 2.4], color: purple, label: "B"}
+      steps:
+        - {id: drawV, action: draw, params: {name: v}}
+        - {id: drawB, action: draw, params: {name: B}}
+        - {id: crossF, action: cross, params: {a: v, b: B, color: green, label: "F = qv\\times B"}}
+    board:
+      - id: forceEq
+        latex: "\\vec{F} = q\\,\\vec{v}\\times\\vec{B}"
+        say: "F equals q times v cross B"
+        color: green
+        legend:
+          - {sym: "q", name: "charge", unit: "C"}
+          - {sym: "\\vec{v}", name: "velocity", unit: "m/s"}
+          - {sym: "\\vec{B}", name: "magnetic field", unit: "T"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Put the magnitude down first, {magEq}: the size of the force is q v B times the sine of
+      the angle between v and B. It is largest when the charge moves across the field, at ninety
+      degrees, and exactly zero when it moves straight along the field — a charge sliding
+      parallel to B feels no magnetic force at all. Now the central claim, {workEq}: this force
+      does no work. Work is force times displacement along the motion, and the magnetic force
+      has no component along the motion, because it is perpendicular to the velocity. So the
+      work is zero, the kinetic energy never changes, and the speed stays constant for as long
+      as the charge is in the field. A force of fixed strength, always perpendicular to the
+      velocity, is the exact recipe for circular motion — it is the centripetal force in
+      disguise. Set the magnetic force equal to the mass times the centripetal acceleration, q
+      v B equals m v squared over r, and solve for the radius, {radiusEq}: r equals m v over q
+      B. Faster or heavier particles circle wider; stronger fields and bigger charges rein them
+      into tighter loops. This is how a mass spectrometer sorts ions by their mass, and how the
+      great particle accelerators bend beams around their rings — all from a force that, for all
+      its steering, does no work whatsoever. It is worth pausing on how strange this is. Every other
+      force you meet can change a thing's energy: gravity speeds a falling stone, friction drains a
+      slider's motion into heat, an electric field accelerates a charge along its own direction. The
+      magnetic force alone is forbidden from doing any of that, purely by its geometry — locked at
+      ninety degrees to the velocity, it can only ever redirect. If the charge's velocity has a part
+      along the field as well as across it, the across part circles while the along part coasts
+      untouched, so the path becomes a helix, a corkscrew spiralling along the field line. This is
+      how charged particles from the Sun are funnelled down Earth's magnetic field toward the poles
+      to light the auroras. And it is why, when you want to actually give a particle energy in an
+      accelerator, you use electric fields to speed it up and reserve the magnets purely for
+      steering — each force doing the one job its geometry allows.
+    board:
+      - id: magEq
+        latex: "F = qvB\\sin\\theta"
+        say: "F equals q v B sine theta"
+        color: green
+      - id: workEq
+        latex: "W = 0 \\quad (\\vec{F} \\perp \\vec{v})"
+        say: "the work is zero, because F is perpendicular to v"
+        color: blue
+      - id: radiusEq
+        latex: "r = \\dfrac{mv}{qB}"
+        say: "r equals m v over q B"
+        color: yellow
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      The force magnitude. {statement} A charge crosses a magnetic field at right angles,
+      {given}; find the force on it. {find} At ninety degrees the sine is one, so the force is
+      simply q v B, {step1}: two coulombs, times three metres per second, times four tesla.
+      That is twenty-four newtons, {answer}. Had the charge been moving along the field instead
+      of across it, the sine would be zero and the force would vanish entirely — direction is
+      everything for the magnetic force.
+    board:
+      - id: statement
+        text: "Force on a charge crossing a field."
+      - id: given
+        latex: "q = 2\\ \\text{C},\\ v = 3\\ \\text{m/s},\\ B = 4\\ \\text{T},\\ \\theta = 90^{\\circ}"
+        say: "q two coulombs, v three metres per second, B four tesla, theta ninety degrees"
+        role: given
+      - id: find
+        text: "Find F = qvB sin θ."
+        role: find
+      - id: step1
+        latex: "F = qvB = (2)(3)(4)"
+        say: "F equals q v B, two times three times four"
+        role: step
+        color: green
+      - id: answer
+        latex: "F = 24\\ \\text{N}"
+        say: "F equals twenty-four newtons"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "2*3*4"
+      value: 24
+      unit: "N"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      The radius of the circle. {statement2} A particle of known mass circles in the field,
+      {given2}; find the radius of its path. {find2} The magnetic force provides the centripetal
+      force, so the radius is m v over q B, {step2}: nought point eight kilograms times three
+      metres per second, over two coulombs times four tesla. The top is two point four, the
+      bottom is eight, {answer2}, giving a radius of nought point three metres. The particle
+      loops round at constant speed forever, the magnetic force always pulling it inward and
+      never doing a joule of work.
+    board:
+      - id: statement2
+        text: "Radius of the circular path."
+      - id: given2
+        latex: "m = 0.8\\ \\text{kg},\\ v = 3\\ \\text{m/s},\\ q = 2\\ \\text{C},\\ B = 4\\ \\text{T}"
+        say: "mass nought point eight kilograms, v three, q two, B four"
+        role: given
+      - id: find2
+        text: "Find r = mv/(qB)."
+        role: find
+      - id: step2
+        latex: "r = \\dfrac{mv}{qB} = \\dfrac{(0.8)(3)}{(2)(4)}"
+        say: "r equals m v over q B, nought point eight times three, over two times four"
+        role: step
+        color: yellow
+      - id: answer2
+        latex: "r = \\dfrac{2.4}{8} = 0.3\\ \\text{m}"
+        say: "r equals two point four over eight, nought point three metres"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "0.8 * 3 / (2 * 4)"
+      value: 0.3
+      unit: "m"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the magnetic force on a moving charge is q times v cross B, perpendicular to
+      both the velocity and the field; being perpendicular to the motion it does no work, so the
+      speed is constant; and that steers the charge in a circle of radius m v over q B. Next:
+      Torque on a current loop in a magnetic field — how a motor works.

@@ -1,0 +1,201 @@
+# MA-09: How banks create money (the balance-sheet version).
+# OpenStax Principles of Economics 3e, Ch 27 Money and Banking (CC BY 4.0). ~7 minutes.
+# Colour: initial deposit = blue, money created = green, total = yellow, reserves = orange.
+schema_version: 1
+id: MA-09
+channel: marginal-ink
+title: "How banks create money (the balance-sheet version)"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§27.3-27.4 The Role of Banks and How Banks Create Money"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/316-27-4-how-banks-create-money.md"
+  pages: "655-668"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "Banks print money by lending"
+  keyword: "by lending"
+publish:
+  title: "How Banks Create Money: The Money Multiplier, Explained"
+  summary: >
+    Banks do not just store money — they create it. By keeping only a fraction of
+    deposits in reserve and lending the rest, the banking system multiplies an
+    original deposit many times over. We build the money multiplier from the
+    balance sheet and show where the new money comes from. Two worked examples.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - money creation
+    - money multiplier
+    - fractional reserve banking
+    - reserve ratio
+    - banking
+    - macroeconomics
+    - deposits and loans
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Banks are often pictured as vaults that simply hold our money. In fact they do something
+      far stranger: by lending, the banking system creates money, turning one deposit into many
+      times its value.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Start at zero, {drawAxis}, and follow a single deposit through the banking system. Someone
+      deposits cash — call it the initial deposit, {initBar}, in blue. The bank does not leave it
+      sitting there. It keeps only a small fraction as reserves and lends the rest out. That loan
+      is spent and lands in someone else's bank as a new deposit, which is lent again, and so on
+      down a long chain. Each round adds more deposits to the system, and when the whole chain is
+      summed, the money created by all that lending, {createdBar}, in green, dwarfs the original.
+      Together they make the total money, {totalLine}, in yellow — here ten times the first
+      deposit, a multiple fixed by the money multiplier, {multEq}. The striking part is that no new cash was printed. The green is money conjured
+      into existence by the act of lending: every loan becomes a deposit, and every deposit
+      counts as money. The banking system expands the money supply simply by doing what banks
+      do — taking in deposits and lending them back out.
+    animation:
+      primitive: bars
+      params:
+        value_max: 11000
+        bar_width: 1.3
+      steps:
+        - {id: drawAxis, action: axis, params: {label: "money (pounds)"}}
+        - {id: initBar, action: segment, params: {stack: m, value: 1000, color: blue, label: "initial deposit", x: 0.0}}
+        - {id: createdBar, action: segment, params: {stack: m, value: 9000, color: green, label: "created by lending", x: 0.0}}
+        - {id: totalLine, action: level, params: {value: 10000, color: yellow, label: "total 10x"}}
+    board:
+      - id: multEq
+        latex: "\\text{money multiplier} = \\dfrac{1}{rr}"
+        say: "the money multiplier equals one over the reserve ratio"
+        color: yellow
+        legend:
+          - {sym: "rr", name: "reserve ratio", unit: ""}
+          - {sym: "1/rr", name: "money multiplier", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here, {reserveEq}, is the rule a bank follows: it holds a fraction of every deposit, the
+      reserve ratio, as reserves, and lends out the rest. Follow the money. A deposit arrives;
+      the bank keeps the reserve fraction and lends one minus that fraction. The borrower spends
+      it, it is redeposited at another bank, which again keeps its fraction and lends the rest.
+      Each round the new lending is smaller than the last by the factor one minus the reserve
+      ratio, so the total deposits created are the original times one, plus that factor, plus
+      the factor squared, and on forever. That is a geometric series, and it sums to a clean
+      result, {multEq2}: the total is the original deposit divided by the reserve ratio. One
+      over the reserve ratio is the money multiplier. A reserve ratio of a tenth gives a
+      multiplier of ten; a smaller ratio lets banks lend more of each deposit and multiplies the
+      money further, {totalEq}. Two cautions keep the picture honest. The full multiplier is
+      only reached if banks lend every spare penny and people redeposit every pound — in reality
+      banks hold extra reserves and people keep some cash, so the real multiplier is smaller.
+      And the process runs in reverse just as powerfully: when loans are repaid or deposits
+      withdrawn, money is destroyed round by round, which is why a banking panic can shrink the
+      money supply so violently. Creating money and destroying it are the same machine run in
+      opposite directions. This balance-sheet view clears up a common confusion about what money
+      even is. Most of the money in a modern economy is not notes and coins at all; it is numbers
+      in bank accounts — deposits — and those are created by lending, not by the mint. When a bank
+      grants a loan, it does not hand over someone else's cash; it simply writes a new deposit into
+      the borrower's account, and in that instant new money exists. That is why the central bank
+      does not control the money supply directly. It sets the reserve requirements and the interest
+      rates that make lending more or less attractive, and then the banking system, loan by loan,
+      expands or contracts the money supply in response. The multiplier is the leverage in that
+      system: a small change in reserves, amplified through round after round of lending, moves a
+      far larger quantity of money — which is exactly what makes banking powerful, and what makes
+      it fragile.
+    board:
+      - id: reserveEq
+        latex: "\\text{reserves} = rr \\times \\text{deposits}"
+        say: "reserves equal the reserve ratio times deposits"
+        color: orange
+      - id: multEq2
+        latex: "\\text{total} = \\dfrac{\\text{deposit}}{rr}"
+        say: "the total money equals the deposit divided by the reserve ratio"
+        color: yellow
+        box: true
+      - id: totalEq
+        latex: "1 + (1-rr) + (1-rr)^2 + \\cdots = \\dfrac{1}{rr}"
+        say: "one plus one minus r r, plus its square, and so on, sums to one over r r"
+        color: green
+
+  - id: s4
+    kind: problem
+    narration: >
+      The money multiplier. {statement} A reserve ratio is given, {given}; find the money
+      multiplier. {find} The multiplier is one over the reserve ratio, {step1}: one over nought
+      point one. That is ten, {answer}. Each pound of reserves in the system can support ten
+      pounds of deposits — so a bank holding a tenth of its deposits as reserves is, in effect,
+      backing a money supply ten times its cash.
+    board:
+      - id: statement
+        text: "Compute the money multiplier."
+      - id: given
+        latex: "rr = 0.1"
+        say: "the reserve ratio is nought point one"
+        role: given
+      - id: find
+        text: "Find the money multiplier."
+        role: find
+      - id: step1
+        latex: "\\text{multiplier} = \\dfrac{1}{rr} = \\dfrac{1}{0.1}"
+        say: "the multiplier is one over the reserve ratio, one over nought point one"
+        role: step
+        color: yellow
+      - id: answer
+        latex: "\\text{multiplier} = 10"
+        say: "the multiplier is ten"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "1 / 0.1"
+      value: 10
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      The total money created. {statement2} A fresh deposit enters a system with that same
+      reserve ratio, {given2}; find the total money it eventually supports and how much is newly
+      created. {find2} The total is the deposit times the multiplier, {step1b}: a thousand pounds
+      over nought point one, which is ten thousand pounds, {answer2}. Of that, the original
+      thousand was the cash deposited; the other nine thousand is money the banking system
+      created through lending. One real deposit, nine times as much new money — conjured not by a
+      printing press, but by the simple act of lending deposits back out.
+    board:
+      - id: statement2
+        text: "Total money from one deposit."
+      - id: given2
+        latex: "\\text{deposit} = \\pounds 1000, \\quad rr = 0.1"
+        say: "a deposit of one thousand pounds, reserve ratio nought point one"
+        role: given
+      - id: find2
+        text: "Find the total money and the money created."
+        role: find
+      - id: step1b
+        latex: "\\text{total} = \\dfrac{1000}{0.1}"
+        say: "the total is one thousand over nought point one"
+        role: step
+        color: yellow
+      - id: answer2
+        latex: "\\text{total} = \\pounds 10{,}000 \\;(\\pounds 9000 \\text{ new})"
+        say: "ten thousand pounds total, nine thousand of it newly created"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "1000 / 0.1"
+      value: 10000
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: banks keep a fraction of deposits as reserves and lend the rest; the lent
+      money is redeposited and lent again, multiplying the original deposit by one over the
+      reserve ratio; and so the banking system creates money through lending, not printing. Next:
+      The IS curve, derived — goods-market equilibrium and the multiplier.
