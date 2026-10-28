@@ -67,7 +67,7 @@ scenes:
         length: 6.2
         height: 1.5
         n: 11
-        center: [0.0, -0.6]
+        center: [0.0, -1.15]
       steps:
         - {id: drawWire, action: draw_wire, params: {color: white}}
         - {id: addElectrons, action: electrons, params: {color: blue, label: "e^-"}}

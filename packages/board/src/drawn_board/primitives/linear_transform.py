@@ -185,19 +185,23 @@ class LinearTransform(Primitive):
             self.scene.play(Write(lbl), run_time=run_time)
 
     @step
-    def span_demo(self, run_time: float, matrix=None, color: str = "green", **_):
-        """Dot the plane with reachable points to show the columns span it."""
+    def span_demo(self, run_time: float, matrix=None, color: str = "green",
+                  reach: int = 5, **_):
+        """Dot the plane with reachable points to show the columns span it. A wide,
+        dense lattice of combinations so the span visibly fills the plane (when the
+        columns are independent) or lines up (when they are not)."""
         from manim import Dot, VGroup
 
         m = np.array(matrix, dtype=float) if matrix is not None else self.matrix
         dots = VGroup()
-        for x in (-1.0, 0.0, 1.0, 2.0):
-            for y in (-1.0, 0.0, 1.0, 2.0):
+        steps = [i * 0.5 for i in range(-2 * reach, 2 * reach + 1)]  # half-integer weights
+        for x in steps:
+            for y in steps:
                 px = x * m[0, 0] + y * m[0, 1]
                 py = x * m[1, 0] + y * m[1, 1]
                 if self.xr[0] <= px <= self.xr[1] and self.yr[0] <= py <= self.yr[1]:
-                    dots.add(Dot(self._pt(px, py), radius=0.045,
-                                 color=self.color(color), fill_opacity=0.6))
+                    dots.add(Dot(self._pt(px, py), radius=0.06,
+                                 color=self.color(color), fill_opacity=0.75))
         self.scene.play(_fade_in(self.scene, dots), run_time=run_time)
 
 
