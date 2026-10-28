@@ -89,8 +89,8 @@ scenes:
   - id: s3
     kind: derivation
     narration: >
-      Capacitance is fixed by geometry, {plateEq2}: permittivity times plate area over the
-      gap. Widen the plates and you hold more charge; narrow the gap and the same voltage
+      First, {plateEq2}: capacitance is permittivity times plate area over the gap, fixed
+      entirely by geometry. Widen the plates and you hold more charge; narrow the gap and the same voltage
       drives on more charge still. Now the energy, and this is the subtle part. You might
       guess the energy is simply charge times voltage, but that overcounts, because the
       voltage is not constant as you charge up. The first bit of charge crosses an empty

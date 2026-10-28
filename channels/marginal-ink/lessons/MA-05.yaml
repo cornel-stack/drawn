@@ -90,7 +90,7 @@ scenes:
   - id: s3
     kind: derivation
     narration: >
-      The break-even condition is this, {breakEq2}: at the steady state, investment equals
+      Here, {breakEq2}, is the break-even condition: at the steady state, investment equals
       depreciation plus the capital needed to equip population growth. Raise n and the
       right-hand line tilts up, dragging the steady state down — the formal version of what
       we just saw. But population and depreciation only relocate a steady state; neither
