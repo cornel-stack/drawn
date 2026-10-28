@@ -1,0 +1,210 @@
+# ME-05: Why circular motion needs a force — centripetal acceleration derived.
+# OpenStax University Physics Vol. 1 §4.4 (CC BY 4.0). ~7 minutes.
+# Colour: path = white, velocity v = blue, centripetal acceleration a = red,
+# radius r = yellow, Delta v = orange, force F = green.
+schema_version: 1
+id: ME-05
+channel: pen-and-pendulum
+title: "Why circular motion needs a force: centripetal acceleration derived"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 1"
+  section: "§4.4 Uniform and Nonuniform Circular Motion"
+  license: "CC BY 4.0"
+  file: "university-physics-vol1/033-4-4-uniform-and-nonuniform-circular-motion.md"
+  pages: "170-176"
+thumbnail:
+  kicker: "Mechanics"
+  hook: "Constant speed, still accelerating"
+  keyword: "still accelerating"
+publish:
+  title: "Centripetal Acceleration, Derived: Why Constant Speed Still Means Accelerating"
+  summary: >
+    Travel a circle at constant speed and you are still accelerating — because
+    velocity is a vector and its direction never stops changing. We derive the
+    centripetal acceleration a = v squared over r from the velocity triangle, show
+    it also equals r omega squared, and link it to the inward force F = m v squared
+    over r. Two worked problems follow.
+  hashtags: ["#physics", "#circularmotion", "#mechanics"]
+  tags:
+    - centripetal acceleration
+    - circular motion
+    - uniform circular motion
+    - centripetal force
+    - v squared over r
+    - physics derivation
+    - mechanics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      An object going round a circle at a perfectly steady speed is, strangely,
+      accelerating the whole way round. This lesson shows why turning is an
+      acceleration, and finds exactly how much.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is the path, {drawCircle}, a circle of radius r, {drawRadius}. An object
+      moves round it at constant speed — uniform circular motion. This builds on
+      vectors and the kinematic equations. Watch the two arrows as it goes,
+      {startOrbit}. The velocity, in blue, is always tangent to the circle, pointing
+      the way the object travels. Its length never changes, because the speed is
+      constant — but its direction turns continually. And here is the crux: velocity
+      is a vector, so if its direction changes, the velocity is changing, and a
+      changing velocity is an acceleration. That acceleration, in red, points
+      straight at the centre. We call it centripetal, meaning centre-seeking, and
+      its size is this, {acEq}: v squared over r. To see where that comes from, look
+      at how the velocity itself changes, {velTriangle}: comparing the velocity a
+      moment apart, their difference points inward, toward the centre — the
+      direction of the acceleration. This is the point people find hardest, so it is
+      worth dwelling on. We tend to think of acceleration as speeding up or slowing
+      down. But acceleration is the rate of change of the velocity vector, and a
+      vector can change in two ways: in length, or in direction. Here the length
+      holds perfectly steady while the direction swings round, and that is change
+      enough. You feel it as a passenger: round a roundabout at a constant forty, you
+      are pressed to one side the entire way, never for an instant travelling in a
+      straight line.
+    animation:
+      primitive: circular_motion
+      params:
+        center: [0.0, -0.5]
+        radius: 1.7
+      steps:
+        - {id: drawCircle, action: draw_circle, params: {color: white, label: "path"}}
+        - {id: drawRadius, action: radius_line, params: {color: yellow, label: "r"}}
+        - {id: startOrbit, action: start_orbit, params: {rate: 0.8, v_color: blue, a_color: red}}
+        - {id: velTriangle, action: velocity_triangle, params: {v_color: blue, dv_color: orange}}
+    board:
+      - id: acEq
+        latex: "a_c = \\dfrac{v^2}{r}"
+        say: "a c equals v squared over r"
+        color: red
+        legend:
+          - {sym: "a_c", name: "centripetal acceleration", unit: "m/s^2"}
+          - {sym: "v", name: "speed", unit: "m/s"}
+          - {sym: "r", name: "radius", unit: "m"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here is the geometry, {triEq}. In a short time, the object moves along a tiny
+      arc, and the two radii to its start and end, together with the chord between
+      them, form a thin triangle. The two velocity vectors — same length, slightly
+      different directions — form a second triangle. Because each velocity is at a
+      right angle to its radius, the two triangles are similar, so their sides are
+      in the same proportion: the change in velocity over the speed equals the arc
+      length over the radius. Now divide both sides by the time taken. On the left,
+      change in velocity over time is the acceleration; on the right, arc length over
+      time is the speed. Rearranged, that gives the acceleration as v squared over r
+      — exactly the result from the picture. Written with the rotation rate omega,
+      since v equals r omega, it is also a c equals r omega squared, {omegaEq}. And
+      because an acceleration needs a force, Newton's second law names the cause,
+      {forceEq}: a centripetal force, m v squared over r, pulling toward the centre —
+      supplied by friction for a car, tension for a whirling ball, gravity for a
+      planet. Two features of this formula are worth noticing. It grows with the
+      square of the speed, so doubling your speed round a bend quadruples the force
+      the road must provide — which is why cornering fast is so punishing. And it
+      grows as the radius shrinks, so a tight bend demands far more force than a
+      gentle sweep at the same speed. There is nothing exotic about the centripetal
+      force; it is just the name we give to whatever real force happens to point at
+      the centre and do the turning.
+    board:
+      - id: triEq
+        latex: "\\dfrac{\\Delta v}{v} = \\dfrac{\\Delta s}{r}"
+        say: "delta v over v equals delta s over r"
+        color: orange
+      - id: omegaEq
+        latex: "a_c = r\\,\\omega^2 \\quad (v = r\\,\\omega)"
+        say: "a c equals r omega squared, since v equals r omega"
+        color: red
+      - id: forceEq
+        latex: "F = m\\,a_c = \\dfrac{m\\,v^2}{r}"
+        say: "F equals m a c, which is m v squared over r"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      A car on a bend. {statement} A car rounds a circular curve at a steady speed,
+      {given}; find its centripetal acceleration. {find} Straight into the formula,
+      {step1}: twenty squared over fifty is four hundred over fifty, which is eight
+      metres per second squared, {answer}. That is about four-fifths of gravity — a
+      firm sideways pull, and it must point toward the centre of the curve the whole
+      way round.
+    board:
+      - id: statement
+        text: "A car rounds a bend at constant speed."
+      - id: given
+        latex: "v = 20\\ \\text{m/s}, \\quad r = 50\\ \\text{m}"
+        say: "v equals twenty metres per second, r equals fifty metres"
+        role: given
+      - id: find
+        text: "Find the centripetal acceleration."
+        role: find
+      - id: step1
+        latex: "a_c = \\dfrac{v^2}{r} = \\dfrac{20^2}{50}"
+        say: "a c equals v squared over r, twenty squared over fifty"
+        role: step
+        color: red
+      - id: answer
+        latex: "a_c = 8\\ \\text{m/s}^2"
+        say: "a c equals eight metres per second squared"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "20**2 / 50"
+      value: 8
+      unit: "m/s^2"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Now the force behind it. {statement2} The same car has a given mass, {given2};
+      find the net inward force the road must supply. {find2} Use the centripetal
+      force, {step2}: mass times v squared over r, twelve hundred times twenty
+      squared over fifty, which is nine thousand six hundred newtons, {answer2}.
+      Equivalently, mass times the eight metres per second squared we just found.
+      That force is simply the friction between tyres and road — and if it runs out,
+      on ice, the car keeps going straight, exactly as Newton's first law says.
+    board:
+      - id: statement2
+        text: "The force on the cornering car."
+      - id: given2
+        latex: "m = 1200\\ \\text{kg}, \\quad v = 20\\ \\text{m/s}, \\quad r = 50\\ \\text{m}"
+        say: "mass twelve hundred kilograms, v twenty metres per second, r fifty metres"
+        role: given
+      - id: find2
+        text: "Find the centripetal force."
+        role: find
+      - id: step2
+        latex: "F = \\dfrac{m v^2}{r} = \\dfrac{1200 \\times 20^2}{50}"
+        say: "F equals m v squared over r, twelve hundred times twenty squared over fifty"
+        role: step
+        color: green
+      - id: answer2
+        latex: "F = 9600\\ \\text{N}"
+        say: "F equals nine thousand six hundred newtons"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "1200 * 20**2 / 50"
+      value: 9600
+      unit: "N"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: moving in a circle means the velocity vector constantly changes
+      direction, which is an acceleration toward the centre of magnitude v squared
+      over r; by Newton's second law a real inward force must cause it. Remove that
+      force and the object flies off along the tangent, in a straight line, exactly
+      as it should. Next: Relative velocity — the boat, the river, and the frame of
+      reference.

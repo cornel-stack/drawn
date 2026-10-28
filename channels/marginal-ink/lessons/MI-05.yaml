@@ -1,0 +1,281 @@
+# MI-05: Price ceilings, floors and taxes — who really pays?
+# OpenStax Principles of Economics 3e §3.4 (CC BY 4.0). ~9 minutes.
+# Colour: demand = orange, supply = blue, equilibrium = green,
+# ceiling/floor line + gap + tax wedge = red.
+schema_version: 1
+id: MI-05
+channel: marginal-ink
+title: "Price ceilings, floors and taxes: who really pays?"
+target_minutes: 9
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§3.4 Price Ceilings and Price Floors"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/029-3-4-price-ceilings-and-price-floors.md"
+  pages: "70-73"
+thumbnail:
+  kicker: "Microeconomics"
+  hook: "Who really pays the tax?"
+  keyword: "pays"
+publish:
+  title: "Price Ceilings, Floors & Taxes: Who Really Pays?"
+  summary: >
+    Price caps cause shortages, price floors cause surpluses, and a tax lands on
+    whichever side can least walk away — not on whoever writes the cheque. This
+    lesson shows all three on one supply-and-demand diagram, with worked numbers.
+  hashtags: ["#economics", "#microeconomics", "#supplyanddemand"]
+  tags:
+    - price ceiling
+    - price floor
+    - tax incidence
+    - rent control
+    - minimum wage
+    - supply and demand
+    - microeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Governments often try to set prices by law — a cap here, a floor there, a tax
+      on top. But a price is where two curves meet, and the market has ways of
+      answering back. This lesson shows how.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Start with demand and supply, {drawD} {drawS}, meeting at the equilibrium,
+      {eq}, where the price would naturally settle. This builds on supply and
+      demand and on surplus. A price ceiling is a legal maximum — the price may not
+      go above it. It only bites if it is set below the equilibrium; a ceiling above
+      the natural price is ignored, since the market never reaches it. Set it below,
+      though, and the consequences are immediate, {ceilGap}. At that artificially low
+      price, buyers want a lot — quantity demanded is high — but sellers offer
+      little, because it is barely worth their while. The result is a shortage: more
+      buyers than there is stock to go round, {ceilEq}. Rent control is the classic
+      case: cap rents below the market level and you get queues, waiting lists, and
+      landlords who stop maintaining their flats. The low price helps those lucky
+      enough to buy at it, but hurts the sellers and the would-be buyers left empty
+      handed. A cap cannot conjure up the missing supply; it just hides the cost in
+      a queue instead of a price.
+    animation:
+      primitive: supply_demand
+      params:
+        demand: {a: 8.0, b: 1.0}
+        supply: {c: 1.0, d: 1.0}
+      steps:
+        - {id: drawD, action: draw_demand, params: {color: orange}}
+        - {id: drawS, action: draw_supply, params: {color: blue}}
+        - {id: eq, action: equilibrium, params: {color: green}}
+        - {id: ceilGap, action: show_gap, params: {price: 2.0, color: red, label: shortage}}
+    board:
+      - id: ceilEq
+        latex: "P_c < P^{*} \\;\\Rightarrow\\; \\text{shortage} = Q_d - Q_s"
+        say: "if the ceiling P c is below P star, there is a shortage, quantity demanded minus quantity supplied"
+        color: red
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Now the opposite, {drawD2} {drawS2} {eq2}. A price floor is a legal minimum —
+      the price may not fall below it. This one only bites if it is set above the
+      equilibrium. Put it there, {floorGap}, and the imbalance reverses. At the high
+      price, sellers rush to supply — quantity supplied is large — but buyers pull
+      back, so quantity demanded is small. Now there is a surplus: more offered than
+      anyone wants to buy, {floorEq}. The minimum wage is a price floor on labour:
+      set above the market wage, it raises pay for those who keep their jobs, but
+      leaves a surplus of workers — unemployment — who would work at that wage but
+      cannot find a taker. Agricultural price supports do the same to crops, which is
+      why governments that guarantee high farm prices end up with warehouses full of
+      unsold grain. A floor, like a ceiling, cannot repeal supply and demand; it only
+      decides whether the imbalance shows up as a shortage or a glut.
+    animation:
+      primitive: supply_demand
+      params:
+        demand: {a: 8.0, b: 1.0}
+        supply: {c: 1.0, d: 1.0}
+      steps:
+        - {id: drawD2, action: draw_demand, params: {color: orange}}
+        - {id: drawS2, action: draw_supply, params: {color: blue}}
+        - {id: eq2, action: equilibrium, params: {color: green}}
+        - {id: floorGap, action: show_gap, params: {price: 7.0, color: red, label: surplus}}
+    board:
+      - id: floorEq
+        latex: "P_f > P^{*} \\;\\Rightarrow\\; \\text{surplus} = Q_s - Q_d"
+        say: "if the floor P f is above P star, there is a surplus, quantity supplied minus quantity demanded"
+        color: red
+
+  - id: s4
+    kind: diagram
+    narration: >
+      Now a tax, {drawD3} {drawS3} {eq3}. Put a fixed tax on each unit sold. It
+      drives a wedge between the two prices that matter, {wedge}: the price the buyer
+      pays at the top, and the lower price the seller keeps after handing the tax to
+      the government. The gap between them is exactly the tax, {taxEq}. Here is the
+      question everyone gets wrong. Who really bears the tax? Not, in general,
+      whoever is legally told to pay it. It makes no difference whether the tax is
+      collected from the shop or added at the till — the economic burden is split the
+      same way either way. What decides the split is elasticity, {incEq}: the side
+      that can least easily walk away bears more of it. If buyers have no good
+      substitute — think petrol, or cigarettes — they are stuck, and most of the tax
+      lands on them. If sellers cannot easily switch what they produce, more lands on
+      them. Whoever is more trapped, pays more. The cheque-writer is a distraction;
+      the elasticities decide.
+    animation:
+      primitive: supply_demand
+      params:
+        demand: {a: 8.0, b: 1.0}
+        supply: {c: 1.0, d: 1.0}
+      steps:
+        - {id: drawD3, action: draw_demand, params: {color: orange}}
+        - {id: drawS3, action: draw_supply, params: {color: blue}}
+        - {id: eq3, action: equilibrium, params: {color: green}}
+        - {id: wedge, action: tax, params: {t: 2.0, color: red}}
+    board:
+      - id: taxEq
+        latex: "P_b - P_s = t"
+        say: "the price buyers pay minus the price sellers keep equals the tax per unit"
+        color: red
+      - id: incEq
+        latex: "\\text{buyer share} = \\dfrac{\\text{slope}_S}{\\text{slope}_S + \\text{slope}_D}"
+        say: "the buyers' share of the tax is the supply slope over the sum of the supply and demand slopes"
+        color: orange
+
+  - id: s5
+    kind: problem
+    narration: >
+      A ceiling, by the numbers. {statement} A market's demand and supply are given,
+      {given}; a ceiling is imposed below the equilibrium. {find} First the free
+      equilibrium: set quantity demanded equal to quantity supplied, {step1}, which
+      gives a price of five and a quantity of seventy. Now impose a ceiling of three,
+      below five. At a price of three, quantity demanded is one hundred and twenty
+      minus thirty, ninety; quantity supplied is twenty plus thirty, fifty, {step2}.
+      The shortage is the difference, ninety minus fifty, forty units, {answer}. Forty
+      buyers who want the good at the capped price simply cannot get it.
+    board:
+      - id: statement
+        text: "A price ceiling below equilibrium."
+      - id: given
+        latex: "Q_d = 120 - 10P, \\quad Q_s = 20 + 10P, \\quad P_c = 3"
+        say: "quantity demanded one hundred twenty minus ten P; quantity supplied twenty plus ten P; ceiling at three"
+        role: given
+      - id: find
+        text: "Find the shortage at the ceiling."
+        role: find
+      - id: step1
+        latex: "120 - 10P = 20 + 10P \\;\\Rightarrow\\; P^{*} = 5, \\; Q^{*} = 70"
+        say: "one hundred twenty minus ten P equals twenty plus ten P, giving P star five and Q star seventy"
+        role: step
+        color: green
+      - id: step2
+        latex: "P = 3: \\quad Q_d = 90, \\; Q_s = 50"
+        say: "at a price of three, quantity demanded is ninety and quantity supplied is fifty"
+        role: step
+        color: orange
+      - id: answer
+        latex: "\\text{shortage} = 90 - 50 = 40"
+        say: "the shortage is ninety minus fifty, which is forty"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "(120 - 10*3) - (20 + 10*3)"
+      value: 40
+      unit: "units"
+      tol: 0.01
+
+  - id: s6
+    kind: problem
+    narration: >
+      A floor, by the numbers. {statement2} A different market, {given2}; a floor is
+      set above the equilibrium. {find2} The free equilibrium sits where demand meets
+      supply, {step3}, at a price of six and a quantity of fifty-two. Impose a floor
+      of eight, above six. At a price of eight, quantity demanded is one hundred minus
+      sixty-four, thirty-six; quantity supplied is ten plus fifty-six, sixty-six,
+      {step4}. The surplus is sixty-six minus thirty-six, thirty units, {answer2} —
+      goods, or hours of labour, offered at the floor price that nobody will buy.
+    board:
+      - id: statement2
+        text: "A price floor above equilibrium."
+      - id: given2
+        latex: "Q_d = 100 - 8P, \\quad Q_s = 10 + 7P, \\quad P_f = 8"
+        say: "quantity demanded one hundred minus eight P; quantity supplied ten plus seven P; floor at eight"
+        role: given
+      - id: find2
+        text: "Find the surplus at the floor."
+        role: find
+      - id: step3
+        latex: "100 - 8P = 10 + 7P \\;\\Rightarrow\\; P^{*} = 6, \\; Q^{*} = 52"
+        say: "one hundred minus eight P equals ten plus seven P, giving P star six and Q star fifty-two"
+        role: step
+        color: green
+      - id: step4
+        latex: "P = 8: \\quad Q_d = 36, \\; Q_s = 66"
+        say: "at a price of eight, quantity demanded is thirty-six and quantity supplied is sixty-six"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "\\text{surplus} = 66 - 36 = 30"
+        say: "the surplus is sixty-six minus thirty-six, which is thirty"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "(10 + 7*8) - (100 - 8*8)"
+      value: 30
+      unit: "units"
+      tol: 0.01
+
+  - id: s7
+    kind: problem
+    narration: >
+      Finally, who pays a tax. {statement3} Demand is steep, buyers are relatively
+      trapped, {given3}; a tax of six per unit is placed on sellers. {find3} Without
+      the tax, the price is ten and two-thirds. The tax shifts supply up by six,
+      raising the price buyers pay to fourteen and two-thirds and dropping what
+      sellers keep to eight and two-thirds, {step5} — a wedge of exactly six. Compare
+      to the old price: buyers pay four more than before, sellers receive two less,
+      {answer3}. The tax was levied on sellers, yet buyers bear twice the burden —
+      because their steep, inelastic demand leaves them least able to walk away. Who
+      writes the cheque did not matter; the elasticities did. This is why taxes on
+      necessities fall mostly on consumers, while taxes on goods with many
+      substitutes are largely absorbed by producers, who dare not pass them on for
+      fear of losing custom.
+    board:
+      - id: statement3
+        text: "A per-unit tax: who bears it?"
+      - id: given3
+        latex: "P = 24 - 2Q \\;(\\text{demand}), \\quad P = 4 + Q \\;(\\text{supply}), \\quad t = 6"
+        say: "demand price twenty-four minus two Q; supply price four plus Q; tax of six per unit"
+        role: given
+      - id: find3
+        text: "Find each side's share of the tax."
+        role: find
+      - id: step5
+        latex: "P_b = 14\\tfrac{2}{3}, \\quad P_s = 8\\tfrac{2}{3}, \\quad P_b - P_s = 6"
+        say: "buyers pay fourteen and two-thirds, sellers keep eight and two-thirds, a wedge of six"
+        role: step
+        color: red
+      - id: answer3
+        latex: "\\text{buyer burden} = 4, \\quad \\text{seller burden} = 2"
+        say: "buyers bear four, sellers bear two — twice as much on the inelastic buyers"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "(24 - 2*((24-(4+6))/(2+1))) - (24 - 2*((24-4)/(2+1)))"
+      value: 4.0
+      unit: "currency"
+      tol: 0.01
+
+  - id: s8
+    kind: end
+    narration: >
+      To summarise: a price ceiling below equilibrium makes a shortage; a price floor
+      above it makes a surplus; and a tax is split by elasticity, falling hardest on
+      whichever side can least walk away — never simply on whoever hands over the
+      money. In every case the lesson is the same: a price is an outcome of supply
+      and demand, and a law that fixes it does not abolish the forces underneath, it
+      only changes the form in which they appear. Next: Monopoly — how a single
+      seller sets its price.

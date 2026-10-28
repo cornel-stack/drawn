@@ -1,0 +1,223 @@
+# LA-05: Vectors are not arrows — three ways to think about a vector.
+# Hefferon, Linear Algebra §1.II Linear Geometry of n-Space (CC BY-SA 3.0).
+# ~7 minutes. Colour: v = blue, components = purple/yellow, w = orange, sum = green.
+schema_version: 1
+id: LA-05
+channel: chalk-and-vector
+title: "Vectors are not arrows: three ways to think about a vector"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "§1.II Linear Geometry of n-Space"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/002-linear-geometry.md"
+  pages: "35-49"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "One vector, three faces"
+  keyword: "three faces"
+publish:
+  title: "Vectors Explained: 3 Ways to See the Same Thing (Arrow, Point, Column)"
+  summary: >
+    A vector is one object with three equally valid readings: an arrow with length
+    and direction, a point reached from the origin, and a column of numbers. We
+    show why they are the same thing, and why adding and scaling look identical in
+    all three — then work two short examples.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - linear algebra
+    - vectors
+    - vector addition
+    - scalar multiplication
+    - free vector
+    - vector length
+    - magnitude
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Everyone pictures a vector as an arrow. That is one of three equally good
+      pictures, and seeing all three is what makes the whole subject click.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Start with an arrow, {drawV}. The first reading is the geometric one: a
+      vector has a length and a direction, drawn as an arrow. Here is the second
+      reading. Follow the arrow from the origin and it ends at a point — one along
+      and two up — and we deliberately blur the line between the vector and that
+      endpoint, so a vector is also just a point in space. The third reading is the
+      one you compute with, {markTip}: list the steps, one across and two up, as a
+      column of numbers, {colEq}. Arrow, point, column — three descriptions of the
+      very same object, {threeNote}. And one more subtlety: an arrow is not pinned
+      to the origin. Slide it elsewhere without turning or stretching it, {drawFree},
+      and it is the same vector, because it has the same length and the same
+      direction. What a vector records is a displacement — so much across and so
+      much up — not a fixed place. Why keep three pictures of one thing? Because each
+      is best at a different job. The arrow shows direction and length at a glance;
+      the point connects vectors to geometry, to lines and planes; and the column is
+      the one you actually calculate with, and the only one that still works when
+      there is nothing to draw. In four dimensions, or four hundred, a vector is
+      simply a list of that many numbers, and every idea here carries straight over.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-2, 5, 1], y: [-1, 4, 1]}
+        vectors:
+          v: {to: [1, 2], color: blue, label: "v"}
+          vfree: {to: [1, 2], color: blue, label: ""}
+      steps:
+        - {id: drawV, action: draw, params: {name: v}}
+        - {id: markTip, action: components, params: {name: v, cx: purple, cy: yellow}}
+        - {id: drawFree, action: draw_at, params: {name: vfree, basepoint: [3, 0]}}
+    board:
+      - id: colEq
+        latex: "\\vec{v} = \\begin{pmatrix}1\\\\2\\end{pmatrix}"
+        say: "v equals the column one, two"
+        color: blue
+      - id: threeNote
+        text: "One vector, three readings: arrow, point, column."
+        color: blue
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Draw two vectors, {drawV2} {drawW}. Watch what addition means in all three
+      readings at once. Geometrically, slide the second arrow so its tail meets the
+      first one's tip, and the sum runs from the very start to the very end,
+      {sumVW} — the nose-to-tail rule, the diagonal of the parallelogram they span.
+      In numbers, it could not be simpler, {addEq}: add the two columns entry by
+      entry, two plus one and one plus two, giving three, three. The picture and
+      the arithmetic are the same move. Scalar multiplication is just as unified,
+      {scaleEq}: doubling the vector, {drawScale}, stretches the arrow to twice its
+      length and doubles each number in the column. Whichever reading you prefer,
+      adding and scaling are a single idea seen from three sides — which is exactly
+      why you can switch between the picture and the numbers whenever one is easier.
+      Subtraction follows the same pattern with no new rule: to take w away from v,
+      reverse w into minus w and add, which flips its arrow end for end and negates
+      each of its numbers. From just these two operations, adding and scaling, the
+      whole of linear algebra is built — every line, plane, span and combination
+      you will meet is nothing more than vectors added and scaled.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-1, 5, 1], y: [-1, 5, 1]}
+        vectors:
+          v: {to: [2, 1], color: blue, label: "v"}
+          w: {to: [1, 2], color: orange, label: "w"}
+          twoV: {to: [4, 2], color: blue, label: "2v"}
+      steps:
+        - {id: drawV2, action: draw, params: {name: v}}
+        - {id: drawW, action: draw, params: {name: w}}
+        - {id: sumVW, action: add_tip_to_tail, params: {a: v, b: w, result: vpw, color: green}}
+        - {id: drawScale, action: draw, params: {name: twoV}}
+    board:
+      - id: addEq
+        latex: "\\begin{pmatrix}v_1\\\\v_2\\end{pmatrix} + \\begin{pmatrix}w_1\\\\w_2\\end{pmatrix} = \\begin{pmatrix}v_1+w_1\\\\v_2+w_2\\end{pmatrix}"
+        say: "v one, v two, plus w one, w two, equals v one plus w one, v two plus w two"
+        color: green
+      - id: scaleEq
+        latex: "r\\begin{pmatrix}v_1\\\\v_2\\end{pmatrix} = \\begin{pmatrix}r v_1\\\\r v_2\\end{pmatrix}"
+        say: "r times the column v one, v two, equals r v one, r v two"
+        color: blue
+
+  - id: s4
+    kind: problem
+    narration: >
+      A quick calculation. {statement} Two vectors are given, {given}; compute two
+      v plus w. {find} Scale first: twice v is six, two, {step1}. Then add w entry
+      by entry, {step2}: six minus one is five, two plus two is four. The answer is
+      the column five, four, {answer} — pure arithmetic, no picture needed, though
+      you could check it by drawing. Notice the order did not matter: we could have
+      drawn two v as an arrow twice as long as v, slid w onto its tip, and read off
+      the same endpoint. The column reading simply lets a computer do in a flash
+      what the arrows do on paper, which is why, past two or three dimensions, the
+      numbers are the only practical tool.
+    board:
+      - id: statement
+        text: "Combine two vectors."
+      - id: given
+        latex: "\\vec{v} = \\begin{pmatrix}3\\\\1\\end{pmatrix}, \\quad \\vec{w} = \\begin{pmatrix}-1\\\\2\\end{pmatrix}"
+        say: "v equals three, one; w equals minus one, two"
+        role: given
+      - id: find
+        text: "Compute 2v + w."
+        role: find
+      - id: step1
+        latex: "2\\vec{v} = \\begin{pmatrix}6\\\\2\\end{pmatrix}"
+        say: "twice v is six, two"
+        role: step
+        color: blue
+      - id: step2
+        latex: "2\\vec{v} + \\vec{w} = \\begin{pmatrix}6 - 1\\\\2 + 2\\end{pmatrix}"
+        say: "two v plus w is six minus one, two plus two"
+        role: step
+        color: green
+      - id: answer
+        latex: "2\\vec{v} + \\vec{w} = \\begin{pmatrix}5\\\\4\\end{pmatrix}"
+        say: "two v plus w equals five, four"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(2*np.array([3,1]) + np.array([-1,2]))[0]"
+      value: 5.0
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Now a length. {statement2} A three-dimensional vector is given, {given2};
+      find its length. {find2} The length is the straight-line distance from the
+      origin to the tip, and Pythagoras generalises to any number of dimensions,
+      {normEq}: the square root of the sum of the squared components. Here that is
+      the square root of four plus nine plus thirty-six, {step3}, which is the
+      square root of forty-nine — a clean seven, {answer2}. One formula collapses
+      the three readings into a single number: how long the arrow is. In two
+      dimensions this is just the familiar Pythagoras — a vector three across and
+      four up has length five, the hypotenuse of a right-angled triangle. The beauty
+      is that the same rule keeps working in three dimensions, as here, and in any
+      number beyond, where there is no triangle left to picture but the arithmetic is
+      unchanged. Length, like addition and scaling, is defined once by the numbers
+      and then holds in every dimension at once.
+    board:
+      - id: statement2
+        text: "Find a vector's length."
+      - id: given2
+        latex: "\\vec{a} = \\begin{pmatrix}2\\\\3\\\\6\\end{pmatrix}"
+        say: "a equals two, three, six"
+        role: given
+      - id: find2
+        text: "Compute the length of a."
+        role: find
+      - id: normEq
+        latex: "|\\vec{v}| = \\sqrt{v_1^2 + v_2^2 + \\cdots + v_n^2}"
+        say: "the length of v equals the square root of v one squared plus v two squared and so on"
+        role: step
+        color: blue
+      - id: step3
+        latex: "|\\vec{a}| = \\sqrt{2^2 + 3^2 + 6^2} = \\sqrt{49}"
+        say: "the length of a equals the square root of two squared plus three squared plus six squared, the square root of forty-nine"
+        role: step
+        color: purple
+      - id: answer2
+        latex: "|\\vec{a}| = 7"
+        say: "the length of a equals seven"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "np.linalg.norm(np.array([2,3,6]))"
+      value: 7.0
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: a vector is one object with three readings — an arrow, a point,
+      and a column of numbers — and adding and scaling are the same act in every
+      one. Next: The dot product explained visually — projection, angle, and work.
