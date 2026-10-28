@@ -37,6 +37,11 @@ _FUNCS = {
     "saving_pw": (lambda x: 0.6 * np.sqrt(np.clip(x, 0.0, None)), r"s\,f(k)"),
     # a downward projectile arc from (0,0) to (10,0), apex (5,4).
     "arc": (lambda x: 0.16 * x * (10.0 - x), "trajectory"),
+    # RC circuit, with x = t/RC (time in units of the time constant tau). Charging
+    # V(t) = V0(1 - e^{-t/RC}) and discharging V(t) = V0 e^{-t/RC}, V0 scaled to 5.
+    # At one time constant (x=1): charge 63% (~3.16), discharge 37% (~1.84).
+    "rc_charge": (lambda x: 5.0 * (1.0 - np.exp(-np.clip(x, 0.0, None))), r"V_0(1-e^{-t/RC})"),
+    "rc_discharge": (lambda x: 5.0 * np.exp(-np.clip(x, 0.0, None)), r"V_0 e^{-t/RC}"),
 }
 
 # Named right-hand sides f(x, y) for a first-order ODE y' = f(x, y), and the

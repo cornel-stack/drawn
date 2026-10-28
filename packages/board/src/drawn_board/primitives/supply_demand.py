@@ -45,8 +45,12 @@ class SupplyDemand(Primitive):
         # the scene's formula so the two never overlap.
         self.axes.move_to(style.ANIM_CENTER)
         self.scene.add(self.axes)
-        self.scene.add(self._axis_label("Q", self.axes.x_axis.get_end(), _right()))
-        self.scene.add(self._axis_label("P", self.axes.y_axis.get_end(), _up()))
+        # axis captions default to Q (quantity) and P (price), but can be relabelled
+        # for other markets — e.g. L and W for the labour market.
+        self.scene.add(self._axis_label(self.params.get("x_label", "Q"),
+                                        self.axes.x_axis.get_end(), _right()))
+        self.scene.add(self._axis_label(self.params.get("y_label", "P"),
+                                        self.axes.y_axis.get_end(), _up()))
         self._lines: dict = {}
 
     # -- geometry ----------------------------------------------------------
