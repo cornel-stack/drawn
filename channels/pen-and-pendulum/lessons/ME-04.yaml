@@ -1,0 +1,248 @@
+# ME-04: Projectile motion from zero — one method for every question.
+# OpenStax University Physics Vol. 1 §4.3 (CC BY 4.0). ~8 minutes.
+# Colour: trajectory = green, horizontal component v0x = blue, vertical
+# component v0y = yellow, launch velocity v0 = red, g = orange, apex = red.
+schema_version: 1
+id: ME-04
+channel: pen-and-pendulum
+title: "Projectile motion from zero: one method for every question"
+target_minutes: 8
+source:
+  book: "OpenStax University Physics Vol. 1"
+  section: "§4.3 Projectile Motion"
+  license: "CC BY 4.0"
+  file: "university-physics-vol1/032-4-3-projectile-motion.md"
+  pages: "160-167"
+thumbnail:
+  kicker: "Mechanics"
+  hook: "Up and across don't talk"
+  keyword: "don't talk"
+publish:
+  title: "Projectile Motion from Scratch: One Method for Range, Height and Time of Flight"
+  summary: >
+    A projectile is two motions at once: constant velocity across, free fall down —
+    and they never interfere. Resolve the launch velocity into components, treat
+    each axis with the kinematic equations, and recombine. We derive the range,
+    maximum height and time of flight, then work a launch at an angle and a
+    horizontal throw off a cliff.
+  hashtags: ["#physics", "#projectilemotion", "#mechanics"]
+  tags:
+    - projectile motion
+    - range of a projectile
+    - time of flight
+    - maximum height
+    - horizontal and vertical components
+    - kinematics
+    - mechanics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Throw anything through the air and it traces the same curve. One method
+      handles every projectile question — and it rests on a single surprising fact
+      about how the motion splits in two.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is the path, {plotArc} — a parabola. A projectile is any object moving
+      under gravity alone, with air resistance ignored, and this builds on the
+      kinematic equations and on free fall. The surprising fact is this: the
+      horizontal and vertical motions are completely independent, and can be solved
+      separately. Gravity pulls only downward, so it never touches the sideways
+      motion. Across, there is no acceleration at all, so the horizontal position
+      just ticks along at constant velocity, {xEq}. Down, it is pure free fall, the
+      vertical position obeying the usual equation with minus g, {yEq}. The
+      launch point, {markLaunch}, the apex where the upward motion momentarily
+      stops, {markApex}, and the landing, {markLand}, are all set by these two
+      equations running at once, sharing only the clock. Split the problem along
+      the axes, and a curved, two-dimensional motion becomes two straight, familiar
+      one-dimensional ones.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 10, 2]
+        y: [0, 5, 1]
+        x_length: 8.2
+        y_length: 4.0
+        x_label: "x"
+        y_label: "y"
+      steps:
+        - {id: plotArc, action: plot_function, params: {func: arc, color: green, label: "path"}}
+        - {id: markLaunch, action: mark_point, params: {x: 0, y: 0, color: yellow, label: "launch", dashed: false}}
+        - {id: markApex, action: mark_point, params: {x: 5, y: 4, color: red, label: "apex"}}
+        - {id: markLand, action: mark_point, params: {x: 10, y: 0, color: yellow, label: "land", dashed: false}}
+    board:
+      - id: xEq
+        latex: "x = x_0 + v_{0x}\\,t"
+        say: "x equals x nought plus v nought x times t"
+        color: blue
+      - id: yEq
+        latex: "y = y_0 + v_{0y}\\,t - \\tfrac{1}{2}\\,g\\,t^2"
+        say: "y equals y nought plus v nought y times t minus one half g t squared"
+        color: yellow
+        tex_colors:
+          "g": orange
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Everything starts with the launch velocity, {drawV0}. The one method begins
+      by resolving that single arrow into two, {splitV0}: a horizontal part and a
+      vertical part. If the launch speed is v nought at an angle theta above the
+      horizontal, trigonometry gives the pieces, {comps}: the horizontal component
+      is v nought cos theta, and the vertical component is v nought sin theta. From
+      here the recipe never changes. The horizontal part feeds the constant-velocity
+      equation; the vertical part feeds the free-fall equation; you solve each axis
+      on its own, with time as the only thread connecting them; and, if you need the
+      full velocity or position at some instant, you recombine the two components at
+      the end. Resolve, solve each axis, recombine — that is the whole procedure,
+      and it works for a cannonball, a long jumper, or a stone off a cliff.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-1, 5, 1], y: [-1, 4, 1], x_length: 7.0, y_length: 4.0, center: [-0.4, 0.4, 0]}
+        vectors:
+          V0: {to: [2.6, 1.5], color: red, label: "v_0"}
+      steps:
+        - {id: drawV0, action: draw, params: {name: V0}}
+        - {id: splitV0, action: components, params: {name: V0, cx: blue, cy: yellow}}
+    board:
+      - id: comps
+        latex: "v_{0x} = v_0\\cos\\theta, \\quad v_{0y} = v_0\\sin\\theta"
+        say: "v nought x equals v nought cos theta, v nought y equals v nought sin theta"
+        color: red
+
+  - id: s4
+    kind: derivation
+    narration: >
+      Set the height to zero, {tofStep}. From those two equations the famous results
+      follow in a few lines. Launching from the ground and asking when it lands, we
+      put the height back at zero in the vertical equation and factor out the time;
+      that gives the time of flight, {tof}: two v nought sin theta over g. For the range, how far it
+      travels, just multiply that flight time by the constant horizontal speed,
+      {range}: v nought squared sine of two theta, over g. Because sine is largest
+      at ninety degrees, the range is greatest when two theta is ninety — that is,
+      a launch angle of forty-five degrees. And for the greatest height, use the
+      timeless free-fall equation at the apex, where the vertical velocity is zero,
+      {maxh}: the maximum height is v nought squared sine squared theta, over two g
+      — set only by the vertical component. Three headline formulas, all from
+      resolving one arrow into two.
+    board:
+      - id: tofStep
+        latex: "0 = v_{0y}\\,t - \\tfrac{1}{2}g t^2 \\;\\Rightarrow\\; t\\left(v_{0y} - \\tfrac{1}{2}g t\\right) = 0"
+        say: "zero equals v nought y t minus one half g t squared, so t times v nought y minus one half g t equals zero"
+        color: yellow
+      - id: tof
+        latex: "T = \\dfrac{2 v_0 \\sin\\theta}{g}"
+        say: "the time of flight equals two v nought sine theta over g"
+        color: green
+      - id: range
+        latex: "R = \\dfrac{v_0^2 \\sin 2\\theta}{g}"
+        say: "the range equals v nought squared sine two theta over g"
+        color: green
+        box: true
+      - id: maxh
+        latex: "H = \\dfrac{v_0^2 \\sin^2\\theta}{2g}"
+        say: "the maximum height equals v nought squared sine squared theta over two g"
+        color: green
+        box: true
+
+  - id: s5
+    kind: problem
+    narration: >
+      A launch at an angle. {statement} A ball is thrown at twenty-eight metres per
+      second, thirty degrees above the horizontal, on level ground, {given}; find
+      its maximum height, time of flight, and range. {find} First the components,
+      {step1}: the horizontal part is twenty-four point two five, the vertical part
+      a clean fourteen metres per second. Maximum height uses the vertical part
+      alone, {step2}: fourteen squared over twice nine point eight is ten metres.
+      Time of flight is twice fourteen over nine point eight, about two point nine
+      seconds. And the range is the horizontal speed times that time — or straight
+      from the formula, v nought squared sine sixty over g — about sixty-nine point
+      three metres, {answer}.
+    board:
+      - id: statement
+        text: "A projectile launched at an angle, level ground."
+      - id: given
+        latex: "v_0 = 28\\ \\text{m/s}, \\quad \\theta = 30^\\circ, \\quad g = 9.8\\ \\text{m/s}^2"
+        say: "v nought equals twenty-eight metres per second, theta equals thirty degrees, g equals nine point eight"
+        role: given
+      - id: find
+        text: "Find H, the time of flight T, and the range R."
+        role: find
+      - id: step1
+        latex: "v_{0x} = 28\\cos30^\\circ \\approx 24.25, \\quad v_{0y} = 28\\sin30^\\circ = 14"
+        say: "v nought x is twenty-eight cos thirty, about twenty-four point two five; v nought y is twenty-eight sin thirty, which is fourteen"
+        role: step
+        color: blue
+      - id: step2
+        latex: "H = \\dfrac{14^2}{2(9.8)} = 10\\ \\text{m}"
+        say: "H equals fourteen squared over twice nine point eight, which is ten metres"
+        role: step
+        color: yellow
+      - id: answer
+        latex: "H = 10\\ \\text{m}, \\quad T \\approx 2.86\\ \\text{s}, \\quad R \\approx 69.3\\ \\text{m}"
+        say: "maximum height ten metres, time of flight about two point eight six seconds, range about sixty-nine point three metres"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "28**2 * (3**0.5/2) / 9.8"
+      value: 69.28
+      unit: "m"
+      tol: 0.01
+
+  - id: s6
+    kind: problem
+    narration: >
+      Now a horizontal throw. {statement2} A stone is thrown straight sideways at
+      fifteen metres per second off a cliff forty-four point one metres high,
+      {given2}; find the time to land and how far out it travels. {find2} The
+      launch is horizontal, so the initial vertical velocity is zero, and the
+      vertical motion is pure free fall through forty-four point one metres. From
+      the height equals one half g t squared, the time is the square root of twice
+      the height over g, {step3}: the square root of twice forty-four point one
+      over nine point eight, which is exactly three seconds. The horizontal speed
+      never changes, so the distance is just fifteen times three, forty-five
+      metres, {answer2}. And notice: the sideways speed had no effect whatever on
+      the fall time — thrown or simply dropped, the stone hits the ground at the
+      very same instant.
+    board:
+      - id: statement2
+        text: "A horizontal launch off a cliff."
+      - id: given2
+        latex: "v_x = 15\\ \\text{m/s}, \\quad h = 44.1\\ \\text{m}, \\quad v_{0y} = 0"
+        say: "horizontal speed fifteen metres per second, height forty-four point one metres, initial vertical velocity zero"
+        role: given
+      - id: find2
+        text: "Find the time to land and the horizontal distance."
+        role: find
+      - id: step3
+        latex: "t = \\sqrt{\\dfrac{2h}{g}} = \\sqrt{\\dfrac{2(44.1)}{9.8}} = 3.0\\ \\text{s}"
+        say: "t equals the square root of two h over g, the square root of twice forty-four point one over nine point eight, which is three seconds"
+        role: step
+        color: yellow
+      - id: answer2
+        latex: "t = 3.0\\ \\text{s}, \\quad x = 15 \\times 3.0 = 45\\ \\text{m}"
+        say: "the time to land is three seconds, and the horizontal distance is fifteen times three, forty-five metres"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "15 * (2*44.1/9.8)**0.5"
+      value: 45.0
+      unit: "m"
+      tol: 0.01
+
+  - id: s7
+    kind: end
+    narration: >
+      To summarise: a projectile is constant-velocity motion across and free fall
+      down, joined only by a shared clock — resolve the launch velocity into
+      components, solve each axis with the kinematic equations, and recombine. The
+      same three formulas, range, height and time of flight, then answer almost any
+      question you can ask about a projectile. Next: Uniform circular motion — why
+      turning is an acceleration even at constant speed.

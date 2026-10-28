@@ -1,0 +1,234 @@
+# MI-04: Consumer and producer surplus — how to calculate them from a graph.
+# OpenStax Principles of Economics 3e §3.5 (CC BY 4.0). ~7 minutes.
+# Colour: demand = orange, supply = blue, equilibrium = green,
+# consumer surplus = purple, producer surplus = yellow.
+schema_version: 1
+id: MI-04
+channel: marginal-ink
+title: "Consumer and producer surplus: how to calculate them from a graph"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§3.5 Demand, Supply, and Efficiency"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/030-3-5-demand-supply-and-efficiency.md"
+  pages: "74-77"
+thumbnail:
+  kicker: "Microeconomics"
+  hook: "The triangle buyers never see"
+  keyword: "triangle"
+publish:
+  title: "Consumer & Producer Surplus: How to Read Them Off a Graph"
+  summary: >
+    Consumer and producer surplus are just two triangles on the supply-and-demand
+    diagram. This lesson shows exactly how to find the equilibrium, then measure
+    each triangle with one half base times height — worked through on clean numbers.
+  hashtags: ["#economics", "#microeconomics", "#supplyanddemand"]
+  tags:
+    - consumer surplus
+    - producer surplus
+    - total surplus
+    - economic efficiency
+    - supply and demand
+    - microeconomics
+    - OpenStax
+    - principles of economics
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A fair market price hides two kinds of winner. Both show up on the
+      supply-and-demand diagram as triangles — and once you can see them, you can
+      measure them.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Start with demand and supply, {drawD} {drawS}, crossing at the equilibrium,
+      {eq}, where the price is P star and the quantity Q star. This builds on the
+      earlier supply-and-demand lesson. Now look above the price line. The demand
+      curve shows what each buyer was willing to pay; many were willing to pay more
+      than P star but only had to pay P star. That saving, summed over every unit
+      bought, is the consumer surplus — the triangle below the demand curve and
+      above the price, {shadeCS}. Its area is easy: one half the base times the
+      height, {csEq}, where the base is Q star and the height is the gap from the
+      price up to the demand intercept. Below the price line sits the mirror image.
+      The supply curve shows the lowest price each seller would accept; many
+      accepted less than P star but received P star. That gain is the producer
+      surplus — the triangle above supply and below the price, {shadePS} — and its
+      area is again one half base times height, {psEq}, the base Q star and the
+      height the gap from the supply intercept up to the price. Add the two and you
+      get the total surplus, the whole benefit the market creates — and it is
+      largest exactly at the competitive equilibrium. This is the deep result
+      hiding in the diagram: the free-market price and quantity are not just where
+      the lines happen to cross, they are the point that squeezes the most combined
+      benefit out of buyers and sellers together. Push the quantity above or below
+      Q star — with a price cap, say, or a tax — and the two triangles shrink; the
+      benefit that disappears is called deadweight loss, and no one receives it at
+      all. For now, the task is simply to measure the two triangles at the
+      equilibrium, and the tool is always the same: one half base times height.
+    animation:
+      primitive: supply_demand
+      params:
+        demand: {a: 8.0, b: 0.8}
+        supply: {c: 1.0, d: 0.7}
+      steps:
+        - {id: drawD, action: draw_demand, params: {color: orange}}
+        - {id: drawS, action: draw_supply, params: {color: blue}}
+        - {id: eq, action: equilibrium, params: {color: green}}
+        - {id: shadeCS, action: surplus, params: {which: consumer, cs_color: purple}}
+        - {id: shadePS, action: surplus, params: {which: producer, ps_color: yellow}}
+    board:
+      - id: csEq
+        latex: "CS = \\tfrac{1}{2}\\,Q^{*}\\,(a - P^{*})"
+        say: "consumer surplus equals one half Q star times a minus P star"
+        color: purple
+        legend:
+          - {sym: "Q^{*}", name: "equilibrium quantity"}
+          - {sym: "a", name: "demand intercept (top price)"}
+          - {sym: "P^{*}", name: "equilibrium price"}
+      - id: psEq
+        latex: "PS = \\tfrac{1}{2}\\,Q^{*}\\,(P^{*} - c)"
+        say: "producer surplus equals one half Q star times P star minus c"
+        color: yellow
+        legend:
+          - {sym: "c", name: "supply intercept (lowest price)"}
+
+  - id: s3
+    kind: problem
+    narration: >
+      Consumer surplus by the numbers. {statement} A market has the demand and
+      supply lines given, {given}; find the equilibrium, then the consumer surplus.
+      {find} Set the two prices equal to find the crossing, {step1}: twenty minus Q
+      equals two plus a half Q, so eighteen equals one and a half Q, giving Q star
+      equals twelve and P star equals eight. The demand intercept, the price at
+      which quantity would fall to zero, is twenty. So the consumer-surplus triangle
+      has base twelve and height twenty minus eight, {step2}. Its area is one half
+      times twelve times twelve, which is seventy-two, {answer}. That seventy-two is
+      real money in buyers' pockets — the total they would have been willing to pay,
+      over and above what the market actually charged them.
+    board:
+      - id: statement
+        text: "Find equilibrium, then consumer surplus."
+      - id: given
+        latex: "P = 20 - Q \\;\\text{(demand)}, \\quad P = 2 + 0.5Q \\;\\text{(supply)}"
+        say: "price equals twenty minus Q for demand; price equals two plus a half Q for supply"
+        role: given
+      - id: find
+        text: "Find (P*, Q*) and the consumer surplus."
+        role: find
+      - id: step1
+        latex: "20 - Q = 2 + 0.5Q \\;\\Rightarrow\\; Q^{*} = 12, \\; P^{*} = 8"
+        say: "twenty minus Q equals two plus a half Q, giving Q star twelve and P star eight"
+        role: step
+        color: green
+      - id: step2
+        latex: "CS = \\tfrac{1}{2}(12)(20 - 8)"
+        say: "consumer surplus is one half times twelve times twenty minus eight"
+        role: step
+        color: purple
+      - id: answer
+        latex: "CS = 72"
+        say: "consumer surplus is seventy-two"
+        role: answer
+        box: true
+        color: purple
+    check:
+      expr: "0.5 * ((20-2)/(1+0.5)) * (20 - (20 - 1*((20-2)/(1+0.5))))"
+      value: 72.0
+      unit: "thousand pounds"
+      tol: 0.01
+
+  - id: s4
+    kind: problem
+    narration: >
+      Producer surplus, same market. {statement2} Using the same equilibrium,
+      {given2}, find the producer surplus. {find2} This triangle sits below the
+      price and above the supply curve. Its base is again the equilibrium quantity,
+      twelve. Its height is the gap from the supply intercept up to the price,
+      {step3}: the supply line hits the axis at a price of two, so the height is
+      eight minus two, which is six. The area is one half times twelve times six,
+      which is thirty-six, {answer2}. And the total surplus, the market's whole
+      benefit, is the two added together: seventy-two plus thirty-six, one hundred
+      and eight. Here the buyers keep twice the surplus the sellers do, and the
+      reason is geometric — the demand curve is steeper than the supply, so the
+      consumer triangle is the taller of the two.
+    board:
+      - id: statement2
+        text: "Producer surplus on the same market."
+      - id: given2
+        latex: "Q^{*} = 12, \\quad P^{*} = 8, \\quad c = 2"
+        say: "equilibrium quantity twelve, price eight, supply intercept two"
+        role: given
+      - id: find2
+        text: "Find the producer surplus."
+        role: find
+      - id: step3
+        latex: "PS = \\tfrac{1}{2}(12)(8 - 2)"
+        say: "producer surplus is one half times twelve times eight minus two"
+        role: step
+        color: yellow
+      - id: answer2
+        latex: "PS = 36, \\quad TS = 72 + 36 = 108"
+        say: "producer surplus is thirty-six, and total surplus is seventy-two plus thirty-six, one hundred and eight"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "0.5 * ((20-2)/(1+0.5)) * ((20 - 1*((20-2)/(1+0.5))) - 2)"
+      value: 36.0
+      unit: "thousand pounds"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      A last market. {statement3} Here demand and supply are equally steep,
+      {given3}; find both surpluses. {find3} The crossing is where
+      twelve minus a half Q equals two plus a half Q, so Q star is ten and P star
+      is seven, {step4}. Consumer surplus is one half times ten times twelve minus
+      seven, which is twenty-five. Producer surplus is one half times ten times
+      seven minus two, also twenty-five, {step5}. They come out equal, {answer3},
+      because the two curves have the same steepness, making the triangles mirror
+      images. Total surplus is fifty.
+    board:
+      - id: statement3
+        text: "A market with equally steep curves."
+      - id: given3
+        latex: "P = 12 - 0.5Q, \\quad P = 2 + 0.5Q"
+        say: "price equals twelve minus a half Q for demand; price equals two plus a half Q for supply"
+        role: given
+      - id: find3
+        text: "Find CS, PS and total surplus."
+        role: find
+      - id: step4
+        latex: "12 - 0.5Q = 2 + 0.5Q \\;\\Rightarrow\\; Q^{*} = 10, \\; P^{*} = 7"
+        say: "twelve minus a half Q equals two plus a half Q, giving Q star ten and P star seven"
+        role: step
+        color: green
+      - id: step5
+        latex: "CS = \\tfrac{1}{2}(10)(5) = 25, \\quad PS = \\tfrac{1}{2}(10)(5) = 25"
+        say: "consumer surplus is one half times ten times five, twenty-five; producer surplus the same, twenty-five"
+        role: step
+        color: purple
+      - id: answer3
+        latex: "CS = PS = 25, \\quad TS = 50"
+        say: "consumer and producer surplus are both twenty-five, and total surplus is fifty"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "0.5*((12-2)/(0.5+0.5))*(12 - (12 - 0.5*((12-2)/(0.5+0.5)))) + 0.5*((12-2)/(0.5+0.5))*((12 - 0.5*((12-2)/(0.5+0.5))) - 2)"
+      value: 50.0
+      unit: "pounds"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: consumer surplus is the triangle below demand and above the
+      price; producer surplus is the triangle above supply and below the price; add
+      them for total surplus, which is largest exactly at the competitive
+      equilibrium. Each is one half base times height. Next: Price ceilings, floors
+      and taxes — who really pays?

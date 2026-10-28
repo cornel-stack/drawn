@@ -1,0 +1,213 @@
+# LA-04: Why solution sets are lines, planes and points.
+# Hefferon, Linear Algebra §1.I.3 General = Particular + Homogeneous (CC BY-SA 3.0).
+# ~7 minutes. Colour: particular solution p = blue, homogeneous direction / line
+# through origin = green, the full solution set = yellow.
+schema_version: 1
+id: LA-04
+channel: chalk-and-vector
+title: "Why solution sets are lines, planes and points (particular + homogeneous)"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "§1.I.3 General = Particular + Homogeneous"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/001-solving-linear-systems.md"
+  pages: "23-30"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "A line is a shifted line"
+  keyword: "shifted"
+publish:
+  title: "Why Solution Sets Are Points, Lines and Planes (Particular + Homogeneous)"
+  summary: >
+    Every linear system's solution set is one particular solution plus the
+    solutions of the associated homogeneous system — so geometrically it is a flat
+    through the origin, shifted. The number of free variables sets the dimension:
+    zero gives a point, one a line, two a plane. We show why, then work it on a
+    concrete system and its homogeneous twin.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - linear algebra
+    - solution set
+    - particular solution
+    - homogeneous system
+    - general solution
+    - free variables
+    - vector form
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Solution sets of linear systems come in exactly three shapes — a point, a
+      line, a plane — and one simple idea explains all three at once.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Start with a direction, {drawV}. A homogeneous system is one whose
+      right-hand sides are all zero, written A x equals zero, {homEq}. It is
+      always consistent, because the zero vector is always a solution — so its
+      solution set always passes through the origin. From the previous lesson, a
+      free variable contributes a direction vector; with one free variable, every
+      solution is a scalar multiple of that single direction. Double it, halve it,
+      negate it, and you stay on the same straight line through the origin, {homLine}
+      — the span of the direction. With two free variables you would get two
+      directions and a whole plane through the origin. So the homogeneous solution
+      set is a flat through the origin, and the number of free variables is its
+      dimension: none gives just the origin, one a line, two a plane. There is a
+      reason the origin always belongs. Multiply any solution by a number and it is
+      still a solution, since zero times a number is still zero; add two solutions
+      and their sum is a solution too. A set closed under scaling and adding, and
+      containing zero, is exactly a line or plane through the origin — never a
+      curve, never something offset. That is why homogeneous solution sets are so
+      rigid, and so easy to picture.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-3, 5, 1], y: [-3, 4, 1]}
+        vectors:
+          v: {to: [1.5, -1], color: green, label: "v"}
+      steps:
+        - {id: drawV, action: draw, params: {name: v}}
+        - {id: homLine, action: translated_line, params: {through_origin: true, direction: [1.5, -1], color: green, dashed: true, length: 7.5}}
+    board:
+      - id: homEq
+        latex: "A\\vec{x} = \\vec{0} \\;\\Rightarrow\\; \\{\\,s\\vec{v}\\,\\}"
+        say: "A x equals zero has solution set the multiples of v"
+        color: green
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Now the full system, {drawP}. Find just one solution of the actual
+      equations — any single one will do — and call it the particular solution p.
+      Here it is, a fixed vector to a point off the origin. Take the homogeneous
+      direction from before, {drawV2}, and add it on: p plus any multiple of v is
+      again a solution, because A times p plus a homogeneous part equals the
+      right-hand side plus zero. Sweep the multiple and you trace a line, {solLine}
+      — but it no longer passes through the origin. It is the homogeneous line from
+      a moment ago, lifted off the origin and pinned to p. That is the whole
+      theorem, {slogan}: general equals particular plus homogeneous. Every solution,
+      {setForm}, is one particular solution plus a solution of the associated
+      homogeneous system. And since the homogeneous part sets the shape — point,
+      line, or plane — the full solution set is just that same shape, shifted to pass
+      through p. The proof is a single line of algebra. If s is any solution and p
+      is our particular one, then s minus p satisfies the homogeneous system,
+      because the right-hand sides cancel; so s is p plus a homogeneous solution,
+      and conversely every such sum solves the system. Nothing is left out, and
+      nothing extra sneaks in. This also settles the three outcomes once and for
+      all: no particular solution means the set is empty; a particular solution with
+      only the trivial homogeneous solution means a single point; and a particular
+      solution together with a genuine homogeneous line or plane means infinitely
+      many, arranged along that flat.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-1, 6, 1], y: [-1, 5, 1]}
+        vectors:
+          p: {to: [2, 3], color: blue, label: "p"}
+          v: {to: [1.5, -1], color: green, label: "v"}
+      steps:
+        - {id: drawP, action: draw, params: {name: p}}
+        - {id: drawV2, action: draw, params: {name: v}}
+        - {id: solLine, action: translated_line, params: {point: [2, 3], direction: [1.5, -1], color: yellow, length: 7.5, label: "p + sv"}}
+    board:
+      - id: slogan
+        latex: "\\text{general} = \\text{particular} + \\text{homogeneous}"
+        say: "general equals particular plus homogeneous"
+        color: yellow
+      - id: setForm
+        latex: "\\{\\,\\vec{p} + s\\vec{v}_1 + t\\vec{v}_2 + \\cdots\\,\\}"
+        say: "the solution set is p plus s v one plus t v two and so on"
+        color: yellow
+
+  - id: s4
+    kind: problem
+    narration: >
+      A worked example. {statement} Here are two equations in three unknowns,
+      {given}; describe every solution. {find} Reducing leaves z free, so set the
+      leading variables in terms of z and write the vector form, {step1}. Choosing
+      the constant term gives a particular solution, three, two, one; the part
+      multiplying the free variable gives the direction, minus three, one, two. So
+      the solution set is the line, {answer}: three, two, one, plus s times minus
+      three, one, two. Check one: at s equals one the point is zero, three, three,
+      and substituting back, zero plus three plus three is six and zero minus three
+      plus six is three — both equations hold.
+    board:
+      - id: statement
+        text: "Describe the full solution set."
+      - id: given
+        latex: "x + y + z = 6, \\quad x - y + 2z = 3"
+        say: "x plus y plus z equals six; x minus y plus two z equals three"
+        role: given
+      - id: find
+        text: "Write the solution set in vector form."
+        role: find
+      - id: step1
+        latex: "z \\text{ free}, \\quad x = \\tfrac{9 - 3z}{2}, \\quad y = \\tfrac{3 + z}{2}"
+        say: "z is free, x equals nine minus three z over two, y equals three plus z over two"
+        role: step
+        color: green
+      - id: answer
+        latex: "\\begin{pmatrix}x\\\\y\\\\z\\end{pmatrix} = \\begin{pmatrix}3\\\\2\\\\1\\end{pmatrix} + s\\begin{pmatrix}-3\\\\1\\\\2\\end{pmatrix}"
+        say: "the solution vector equals three, two, one, plus s times minus three, one, two"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "(np.array([[1,1,1],[1,-1,2]]) @ (np.array([3,2,1]) + np.array([-3,1,2])))[0]"
+      value: 6.0
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Now the homogeneous twin. {statement2} Take the very same coefficients but
+      set both right-hand sides to zero, {given2}; describe its solutions. {find2}
+      The reduction runs exactly as before, only the constants column stays zero
+      throughout, {step2}, so there is no particular part — just the direction. The
+      solution set is the multiples of minus three, one, two, {answer2}, a line
+      straight through the origin, since the zero vector is always a solution.
+      Compare the two problems side by side. The directions are the same, the
+      shapes are the same — both lines. The only difference is the particular
+      solution: the real system's line is this homogeneous line through the origin,
+      lifted and pinned to the point three, two, one. Change the right-hand sides of
+      a system and you never change the shape of its solution set — only where that
+      shape sits. General equals particular plus homogeneous, seen twice.
+    board:
+      - id: statement2
+        text: "The associated homogeneous system."
+      - id: given2
+        latex: "x + y + z = 0, \\quad x - y + 2z = 0"
+        say: "x plus y plus z equals zero; x minus y plus two z equals zero"
+        role: given
+      - id: find2
+        text: "Describe its solution set."
+        role: find
+      - id: step2
+        latex: "z \\text{ free}, \\quad x = -\\tfrac{3z}{2}, \\quad y = \\tfrac{z}{2}"
+        say: "z is free, x equals minus three z over two, y equals z over two"
+        role: step
+        color: green
+      - id: answer2
+        latex: "\\vec{x} = s\\begin{pmatrix}-3\\\\1\\\\2\\end{pmatrix}"
+        say: "x equals s times minus three, one, two"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(np.array([[1,1,1],[1,-1,2]]) @ (np.array([3,2,1]) + 2*np.array([-3,1,2])))[0]"
+      value: 6.0
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: a solution set is one particular solution plus the homogeneous
+      solutions — a flat through the origin, shifted — and the number of free
+      variables sets its dimension: zero a point, one a line, two a plane. Next:
+      Vectors are not arrows — three ways to think about a vector.
