@@ -1,0 +1,268 @@
+# DE-03: Separable equations, explained properly.
+# OpenStax Calculus Volume 2 §4.3 Separable Equations (CC BY 4.0). ~9 minutes.
+# Source swapped from Trench to OpenStax, as DE-01/DE-02.
+# Colour discipline: slope field = purple, solution curves = blue,
+# equilibrium solution = red, initial condition / constant = green.
+schema_version: 1
+id: DE-03
+channel: chalk-and-vector
+title: "Separable equations: the first trick everyone learns, explained properly"
+target_minutes: 9
+source:
+  book: "OpenStax Calculus Volume 2"
+  section: "§4.3 Separable Equations"
+  license: "CC BY 4.0"
+  file: "openstax-calculus-vol2/038-4-3-separable-equations.md"
+  pages: "333-343"
+thumbnail:
+  kicker: "Differential Equations"
+  hook: "Split it, then integrate"
+  keyword: "Split it"
+publish:
+  title: "Separable Differential Equations, Explained Properly: Separate, Integrate, Solve"
+  summary: >
+    A separable equation is one whose right-hand side factors into an x-part
+    times a y-part. This lesson shows the five-step method from the ground up —
+    separate the variables, integrate both sides, add one constant, fix it with
+    the initial condition — and the one trap everyone hits: the constant solutions
+    you lose when you divide. Worked symbolically and pictured as a slope field.
+  hashtags: ["#calculus", "#differentialequations", "#mathematics"]
+  tags:
+    - separable equations
+    - separation of variables
+    - differential equations
+    - initial value problem
+    - implicit solution
+    - equilibrium solution
+    - slope field
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Most differential equations cannot be solved by any formula. One common
+      class can — provided the equation splits cleanly into two halves. These are
+      the separable equations, and they are the first trick everyone learns.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Look at the flow, {field}. In the previous lessons a differential equation
+      gave the slope at every point; now we actually solve one. An equation is
+      called separable when its right-hand side factors into a function of x alone
+      times a function of y alone, {sepForm}. That single property is the whole
+      key, because it lets us pull the two variables onto opposite sides of the
+      equation. Treat the derivative d y by d x as a genuine ratio for a moment,
+      and move every y to the left and every x to the right, {separate}: d y over
+      h of y equals g of x d x. The variables are now separated — each side
+      involves only one of them. And once they are apart, we can integrate each
+      side on its own, {integrate}. That is the entire method in one idea: separate,
+      then integrate. Everything that follows is just carrying it out carefully.
+      Treating d y by d x as a ratio here is a shortcut, not a lie — it can be
+      justified cleanly by the chain rule — but the bookkeeping it gives is exactly
+      right, which is why separable equations are the first ones anyone can solve by
+      hand. Not every equation cooperates, though: d y by d x equals x plus y does
+      not factor into an x-part times a y-part, so this trick simply does not apply,
+      and a different method is needed.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [-2, 2, 1]
+        y: [-3, 3, 1]
+        x_length: 8.2
+        y_length: 3.6
+        x_label: "x"
+        y_label: "y"
+      steps:
+        - {id: field, action: slope_field, params: {f: x_times_y, x_step: 0.5, y_step: 0.5, color: purple}}
+    board:
+      - id: sepForm
+        latex: "\\dfrac{dy}{dx} = g(x)\\,h(y)"
+        say: "d y by d x equals g of x times h of y"
+        color: purple
+        legend:
+          - {sym: "g(x)", name: "the x-part"}
+          - {sym: "h(y)", name: "the y-part"}
+      - id: separate
+        latex: "\\dfrac{dy}{h(y)} = g(x)\\,dx"
+        say: "d y over h of y equals g of x d x"
+        color: blue
+      - id: integrate
+        latex: "\\int \\dfrac{dy}{h(y)} = \\int g(x)\\,dx"
+        say: "the integral of d y over h of y equals the integral of g of x d x"
+        color: blue
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Take a concrete case, {exEq}: d y by d x equals x times y. Before dividing by
+      anything, pause on one point that is easy to miss. If y is zero, the right
+      side is zero, so the constant function y equals zero is already a solution,
+      {equilib} — an equilibrium solution the method must not lose. Set that aside
+      and, assuming y is not zero, separate, {exSep}: d y over y equals x d x.
+      Integrate both sides, {exInt}. The left gives the natural log of the absolute
+      value of y; the right gives x squared over two. Each integral brings its own
+      constant, but their difference is just one arbitrary constant, so we write a
+      single C. Now undo the logarithm by exponentiating, {exExp}. The result is y
+      equals A times e to the x squared over two, where A absorbs e to the C and may
+      take either sign — and, allowing A to be zero, it even recovers the constant
+      solution we set aside. One formula, one constant, the whole family. The
+      constant A is the freedom; an initial condition would pin it to a single value.
+    board:
+      - id: exEq
+        latex: "\\dfrac{dy}{dx} = x\\,y"
+        say: "d y by d x equals x times y"
+        color: purple
+      - id: equilib
+        latex: "h(y) = 0 \\;\\Rightarrow\\; y = 0"
+        say: "h of y equals zero gives the constant solution y equals zero"
+        color: red
+      - id: exSep
+        latex: "\\dfrac{dy}{y} = x\\,dx"
+        say: "d y over y equals x d x"
+        color: blue
+      - id: exInt
+        latex: "\\ln|y| = \\dfrac{x^2}{2} + C"
+        say: "the natural log of the absolute value of y equals x squared over two, plus C"
+        color: blue
+      - id: exExp
+        latex: "y = A\\,e^{x^2/2}"
+        say: "y equals A times e to the x squared over two"
+        color: green
+        tex_colors:
+          "A": green
+
+  - id: s4
+    kind: diagram
+    narration: >
+      Now see the family, {field2}. That same slope field is exactly the flow the
+      solutions must follow. Start at a point above the axis, {ic}, and the curve
+      that threads through, always tangent to the field, is one member of the
+      family, {sol1} — it is y equals A e to the x squared over two for one value of
+      A. Start lower, or below the axis, and you simply pick a different A, {sol2}
+      {sol3}: the same shape, scaled. And running straight along the middle is the
+      equilibrium we were careful to keep, {eq0}: y equals zero, flat forever,
+      because there x times y is always zero, {eqNote}. The picture and the formula
+      say the same thing — every solution is one curve of this family, selected by
+      where it starts. This is the reward for the extra care over the constant
+      solution: the equilibrium is not an afterthought stuck on at the end, but a
+      genuine member of the picture, the one flat curve that the algebra would have
+      quietly thrown away.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [-2, 2, 1]
+        y: [-3, 3, 1]
+        x_length: 8.2
+        y_length: 3.6
+        x_label: "x"
+        y_label: "y"
+      steps:
+        - {id: field2, action: slope_field, params: {f: x_times_y, x_step: 0.5, y_step: 0.5, color: purple}}
+        - {id: ic, action: mark_point, params: {x: 0, y: 0.4, color: green, label: "(0,\\,0.4)"}}
+        - {id: sol1, action: solution_curve, params: {f: x_times_y, x0: 0, y0: 0.4, color: blue}}
+        - {id: sol2, action: solution_curve, params: {f: x_times_y, x0: 0, y0: -0.4, color: blue}}
+        - {id: sol3, action: solution_curve, params: {f: x_times_y, x0: 0, y0: 0.15, color: blue}}
+        - {id: eq0, action: solution_curve, params: {f: x_times_y, x0: -2, y0: 0, color: red}}
+    board:
+      - id: eqNote
+        text: "y = 0 is the equilibrium solution the field runs along."
+        color: red
+
+  - id: s5
+    kind: problem
+    narration: >
+      First problem. {statement} Solve d y by d x equals three x squared y, with y
+      of zero equal to two, {given}; find y. {find} The constant solution y equals
+      zero is ruled out by the starting value of two, so divide and separate:
+      d y over y equals three x squared d x. Integrate, {step1}: the log of y equals
+      x cubed plus a constant. Exponentiate to get y equals A e to the x cubed,
+      {step2}, and apply the initial condition — at x zero, y is A, which must be
+      two, so A is two. The solution is y equals two e to the x cubed, {answer}. As
+      a check, at x equals one that gives two e, about five point four four.
+    board:
+      - id: statement
+        text: "Solve the separable initial-value problem."
+      - id: given
+        latex: "\\dfrac{dy}{dx} = 3x^2 y, \\quad y(0) = 2"
+        say: "d y by d x equals three x squared y, with y of zero equal to two"
+        role: given
+      - id: find
+        text: "Find y(x)."
+        role: find
+      - id: step1
+        latex: "\\int \\dfrac{dy}{y} = \\int 3x^2\\,dx \\;\\Rightarrow\\; \\ln|y| = x^3 + C"
+        say: "the integral of d y over y equals the integral of three x squared d x, so log y equals x cubed plus C"
+        role: step
+        color: blue
+      - id: step2
+        latex: "y = A\\,e^{x^3}, \\quad y(0) = A = 2"
+        say: "y equals A e to the x cubed, and y of zero equals A equals two"
+        role: step
+        color: green
+      - id: answer
+        latex: "y = 2\\,e^{x^3}"
+        say: "y equals two e to the x cubed"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "2 * np.exp(1)"
+      value: 5.436564
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: problem
+    narration: >
+      A second problem. {statement2} Solve d y by d x equals x over y, with y of
+      zero equal to three, {given2}; find y at four.
+      {find2} Separate by cross-multiplying: y d y equals x d x. Integrate, {step1b}:
+      y squared over two equals x squared over two plus a constant, which tidies to
+      y squared minus x squared equals C. That is an implicit solution — a
+      relation between x and y, not yet y by itself, and in fact a hyperbola. The
+      initial condition fixes it: at zero, three, C is nine, {step2b}. Only now can
+      we make it explicit: y is the positive square root of x squared plus nine,
+      taking the positive branch because y started positive. At x equals four, y is
+      the square root of twenty-five, which is five, {answer2} — a clean whole
+      number from the old three, four, five triangle.
+    board:
+      - id: statement2
+        text: "A separable problem with an implicit first form."
+      - id: given2
+        latex: "\\dfrac{dy}{dx} = \\dfrac{x}{y}, \\quad y(0) = 3"
+        say: "d y by d x equals x over y, with y of zero equal to three"
+        role: given
+      - id: find2
+        text: "Find y(4)."
+        role: find
+      - id: step1b
+        latex: "\\int y\\,dy = \\int x\\,dx \\;\\Rightarrow\\; y^2 - x^2 = C"
+        say: "the integral of y d y equals the integral of x d x, giving y squared minus x squared equals C"
+        role: step
+        color: blue
+      - id: step2b
+        latex: "y(0)=3 \\;\\Rightarrow\\; C = 9 \\;\\Rightarrow\\; y = \\sqrt{x^2 + 9}"
+        say: "y of zero equals three gives C equals nine, so y equals the square root of x squared plus nine"
+        role: step
+        color: green
+      - id: answer2
+        latex: "y(4) = \\sqrt{16 + 9} = 5"
+        say: "y of four equals the square root of sixteen plus nine, which is five"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "np.sqrt(4**2 + 9)"
+      value: 5.0
+      unit: ""
+      tol: 0.01
+
+  - id: s7
+    kind: end
+    narration: >
+      To summarise: a separable equation splits into a y-part and an x-part;
+      integrate each side, add one constant, and fix it with the starting value —
+      and never drop the constant solutions you divided away. Next: Integrating
+      factors — where that mysterious e to the integral of p comes from.

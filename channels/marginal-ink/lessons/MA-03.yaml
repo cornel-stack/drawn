@@ -1,0 +1,276 @@
+# MA-03: The aggregate production function and diminishing returns to capital.
+# OpenStax Principles of Economics 3e §20.2-20.3 (CC BY 4.0). ~9 minutes.
+# Colour discipline: production curve = blue, low-capital steps = green,
+# high-capital steps / output response = orange, marginal product / tangent =
+# orange, the technology-shifted curve = red.
+schema_version: 1
+id: MA-03
+channel: marginal-ink
+title: "The aggregate production function and diminishing returns to capital"
+target_minutes: 9
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§20.2-20.3 Productivity and the Components of Economic Growth"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/228-20-3-components-of-economic-growth.md"
+  pages: "503-507"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "The tenth machine barely helps"
+  keyword: "tenth machine"
+publish:
+  title: "The Aggregate Production Function & Diminishing Returns to Capital"
+  summary: >
+    Output per worker depends on capital per worker — but the curve bends over.
+    This explains the aggregate production function, why each extra unit of
+    capital adds less than the last, and how human capital and technology lift the
+    whole curve to keep an economy growing.
+  hashtags: ["#economics", "#macroeconomics", "#economicgrowth"]
+  tags:
+    - aggregate production function
+    - diminishing returns
+    - marginal product of capital
+    - economic growth
+    - capital deepening
+    - labour productivity
+    - human capital
+    - macroeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Why does giving a worker more machines eventually stop helping much? The
+      answer is one curve — the aggregate production function — and the way it
+      quietly bends over.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is that curve, {curve}. An aggregate production function turns a
+      country's inputs into its output — the total it produces, the gross domestic
+      product from the earlier lesson. Written in full it depends on physical
+      capital, the skills of its workers, and the level of technology, {prodEq}. It
+      is cleanest to measure everything per worker, {perWorkerEq}: then output per
+      worker depends on capital per worker, holding skills and technology fixed. This
+      output per worker is just labour productivity — the value each person produces
+      — and over the long run it is the single thing that most decides a country's
+      standard of living. A nation grows rich by raising it, not merely by adding
+      more bodies to the workforce. So the question that matters is this: as we give
+      each worker more capital to work with, how much more do they actually produce?
+      Read the curve from the left. The first units of capital per worker lift
+      output sharply, {ptLow} {ptLow2} — a worker with almost no equipment gains
+      enormously from the first tools. But keep adding capital and the gains fade,
+      {ptHi} {ptHi2}: the marks climb by less and less. Look at the vertical gaps
+      between successive points; they shrink as you move right. The curve rises
+      throughout, but it bends over — output keeps growing, just more and more
+      slowly.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 26, 5]
+        y: [0, 55, 10]
+        x_length: 8.2
+        y_length: 3.4
+        x_label: "k"
+        y_label: "Y"
+      steps:
+        - {id: curve, action: plot_function, params: {func: prodfn, color: blue, label: "Y = 10\\sqrt{k}"}}
+        - {id: ptLow, action: mark_point, params: {x: 1, y: 10, color: green, label: "k=1"}}
+        - {id: ptLow2, action: mark_point, params: {x: 4, y: 20, color: green, label: "k=4"}}
+        - {id: ptHi, action: mark_point, params: {x: 9, y: 30, color: orange, label: "k=9"}}
+        - {id: ptHi2, action: mark_point, params: {x: 16, y: 40, color: orange, label: "k=16"}}
+    board:
+      - id: prodEq
+        latex: "Y = f(K,\\, H,\\, A)"
+        say: "output equals a function of physical capital, human capital, and technology"
+        color: blue
+        legend:
+          - {sym: "K", name: "physical capital"}
+          - {sym: "H", name: "human capital (skills)"}
+          - {sym: "A", name: "technology"}
+      - id: perWorkerEq
+        latex: "\\dfrac{Y}{L} = f\\!\\left(\\dfrac{K}{L}\\right)"
+        say: "output per worker is a function of capital per worker"
+        color: blue
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Draw the curve again, {curve2}. The steepness of the curve at a point is the
+      marginal product of capital — the extra output from one more unit of capital,
+      holding everything else fixed, {mpkEq}. Take the tangent low down, at a small
+      capital level, {tanLow}: it is steep, so that extra machine buys a lot of
+      extra output. Now the tangent higher up, {tanHigh}: it is noticeably shallower,
+      so the same extra machine buys far less. That falling slope is diminishing
+      returns, stated precisely. The intuition is a workshop. Give a worker with
+      bare hands their first machine and output leaps; give that same pair of hands
+      a tenth identical machine and most of them sit idle — there is only so much
+      one worker can operate at once. Each extra unit of capital is worth less than
+      the one before, so long as the worker, their skills, and the technology stay
+      the same. This is why simply throwing money at machines has limits. A poor
+      country starting with very little capital can grow quickly just by equipping
+      its workers — it is far out on the steep part of the curve, where every machine
+      pays off handsomely. But a rich country, already deep in capital, sits on the
+      flat part, where another machine barely moves output. That alone would predict
+      growth grinding to a halt as nations get richer — and yet it does not, which
+      is the puzzle the next scene resolves.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 26, 5]
+        y: [0, 55, 10]
+        x_length: 8.2
+        y_length: 3.4
+        x_label: "k"
+        y_label: "Y"
+      steps:
+        - {id: curve2, action: plot_function, params: {func: prodfn, color: blue, label: "Y = 10\\sqrt{k}"}}
+        - {id: tanLow, action: tangent, params: {func: prodfn, x0: 4, color: green}}
+        - {id: tanHigh, action: tangent, params: {func: prodfn, x0: 16, color: orange}}
+    board:
+      - id: mpkEq
+        latex: "\\text{MPK} = \\dfrac{\\Delta Y}{\\Delta K} \\;\\text{ falls as } K \\text{ rises}"
+        say: "the marginal product of capital, delta Y over delta K, falls as capital rises"
+        color: orange
+
+  - id: s4
+    kind: diagram
+    narration: >
+      Here is the curve again, {baseCurve}. If capital alone runs into diminishing
+      returns, how do rich countries keep growing, decade after decade? They do not
+      just slide along one fixed curve; they lift the whole curve upward,
+      {techCurve}. Two forces do the lifting. Human capital — the education,
+      training and experience of workers — means more output squeezed from the same
+      machines. And technology — new inventions, but also better ways of organising
+      work, like the assembly line — raises what every machine can produce. Both of
+      them shift the entire production function up, {shiftNote}, so that at every
+      level of capital per worker the economy now gets more output than it did
+      before. When economists break growth down into its sources, technology
+      typically turns out to be the single largest contributor — so much so that a
+      large slice of measured growth is simply attributed to it as a residual, the
+      part that more capital and more workers cannot account for. And building human
+      capital matters at least as much as piling up physical capital. After the
+      Second World War, countries whose factories had been flattened rebuilt with
+      astonishing speed, because the knowledge and the skills of their people
+      survived even when the machines did not. Capital deepening gives quick gains
+      that then fade; it is ideas and skills that keep a curve climbing, year after
+      year.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 16, 4]
+        y: [0, 55, 10]
+        x_length: 8.2
+        y_length: 3.4
+        x_label: "k"
+        y_label: "Y"
+      steps:
+        - {id: baseCurve, action: plot_function, params: {func: prodfn, color: blue, label: "f"}}
+        - {id: techCurve, action: plot_function, params: {func: prodfn_hi, color: red, label: "f'"}}
+    board:
+      - id: shiftNote
+        text: "Human capital and technology shift the whole function up."
+        color: red
+
+  - id: s5
+    kind: problem
+    narration: >
+      Put numbers on diminishing returns. {statement} Take the production function Y
+      equals ten root k, {given}; find the extra output from one more unit of
+      capital, first at a low level and then at a high one. {find} At k equals four,
+      output is twenty; at five it is about twenty-two point three six, {step1}, so
+      the extra machine adds about two point three six. Now at k equals sixteen,
+      output is forty; at seventeen it is about forty-one point two three, {step2}, so
+      the very same extra machine adds only about one point two three, {answer}.
+      Identical capital, barely half the output gain — diminishing returns in two
+      numbers. The curve is doing exactly what its shape promised: still rising, but
+      by less each time.
+    board:
+      - id: statement
+        text: "Extra output from one more unit of capital, low k vs high k."
+      - id: given
+        latex: "Y = 10\\sqrt{k}"
+        say: "output equals ten times the square root of capital per worker"
+        role: given
+      - id: find
+        text: "Compare the gain from k=4 to 5 with k=16 to 17."
+        role: find
+      - id: step1
+        latex: "10\\sqrt{5} - 10\\sqrt{4} \\approx 22.36 - 20 = 2.36"
+        say: "ten root five minus ten root four is about twenty-two point three six minus twenty, which is two point three six"
+        role: step
+        color: green
+      - id: step2
+        latex: "10\\sqrt{17} - 10\\sqrt{16} \\approx 41.23 - 40 = 1.23"
+        say: "ten root seventeen minus ten root sixteen is about forty-one point two three minus forty, which is one point two three"
+        role: step
+        color: orange
+      - id: answer
+        latex: "2.36 \\;\\to\\; 1.23 \\quad (\\text{same } \\Delta K)"
+        say: "the gain falls from two point three six to one point two three for the same extra capital"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "10*(5**0.5) - 10*(4**0.5)"
+      value: 2.3607
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: problem
+    narration: >
+      Now the marginal product. {statement2} For Y equals ten root k, the marginal
+      product of capital is five over root k, {given2} — the
+      slope of the curve. {find2} At a low capital level, k equals four, {step1b}, it
+      is five over two, which is two point five. At a high level, k equals
+      twenty-five, {step2b}, it is five over five, which is one. So as capital per
+      worker rises from four to twenty-five, the marginal product falls from two
+      point five to one, {answer2}. A later machine is worth less than an earlier
+      one — the same message, now read straight off the slope. Halve the marginal
+      product and you must invest far more just to keep output growing at the same
+      pace.
+    board:
+      - id: statement2
+        text: "The marginal product of capital at low vs high k."
+      - id: given2
+        latex: "Y = 10\\sqrt{k} \\;\\Rightarrow\\; \\text{MPK} = \\dfrac{5}{\\sqrt{k}}"
+        say: "for Y equals ten root k, the marginal product of capital is five over root k"
+        role: given
+      - id: find2
+        text: "Find MPK at k=4 and k=25."
+        role: find
+      - id: step1b
+        latex: "\\text{MPK}(4) = \\dfrac{5}{\\sqrt{4}} = 2.5"
+        say: "the marginal product at k equals four is five over two, which is two point five"
+        role: step
+        color: green
+      - id: step2b
+        latex: "\\text{MPK}(25) = \\dfrac{5}{\\sqrt{25}} = 1.0"
+        say: "the marginal product at k equals twenty-five is five over five, which is one"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "\\text{MPK}: 2.5 \\;\\to\\; 1.0"
+        say: "the marginal product of capital falls from two point five to one"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "5 / (25**0.5)"
+      value: 1.0
+      unit: ""
+      tol: 0.01
+
+  - id: s7
+    kind: end
+    narration: >
+      To summarise: output per worker rises with capital per worker, but with
+      diminishing returns — the marginal product of capital falls as capital grows;
+      only human capital and better technology shift the whole curve up. Moving
+      along the curve eventually stalls; moving the curve itself is what sustains
+      growth. That single distinction is the seed of the model economists use to
+      study growth formally. Next: The Solow growth model, part one — the diagram
+      and the steady state.

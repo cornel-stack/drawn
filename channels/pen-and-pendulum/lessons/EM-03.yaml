@@ -1,0 +1,260 @@
+# EM-03: Gauss's law — flux, and the sphere, line and plane.
+# OpenStax University Physics Vol. 2 Ch.6 §6.1-6.3 (CC BY 4.0). ~8 minutes.
+# Colour discipline: positive charge = red, field arrows = purple,
+# Gaussian surface / flux = yellow, derived results = green.
+schema_version: 1
+id: EM-03
+channel: pen-and-pendulum
+title: "Gauss's law: an intuitive picture, then the sphere, cylinder and plane"
+target_minutes: 8
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "Ch.6 Gauss's Law (§6.1-6.3)"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/050-6-2-explaining-gauss-s-law.md"
+  pages: "232-257"
+thumbnail:
+  kicker: "Electricity & Magnetism"
+  hook: "The shape doesn't matter"
+  keyword: "shape"
+publish:
+  title: "Gauss's Law Explained: Flux, and the Sphere, Line & Plane Derived"
+  summary: >
+    Gauss's law says the net electric flux through any closed surface equals the
+    charge enclosed divided by epsilon nought. We build the intuition — the
+    inverse-square field exactly cancels the growth in area, so the same field
+    lines cross any surface around a charge — then use symmetry to derive the field
+    of a point charge, an infinite line and an infinite sheet.
+  hashtags: ["#physics", "#electromagnetism", "#gausslaw"]
+  tags:
+    - Gauss's law
+    - electric flux
+    - electric field
+    - point charge field
+    - infinite line of charge
+    - infinite sheet of charge
+    - symmetry
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Coulomb's law and the field told us where the field points. Gauss's law
+      counts how much of it pierces a closed surface — and, for symmetric charges,
+      turns that count into the field itself.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is a charge, {placeQ}, with its field radiating outward, {fieldQ}. The
+      electric flux measures how much of that field crosses a surface, {fluxEq}: for
+      a flat patch in a uniform field it is simply the field times the area, times
+      the cosine of the angle between the field and the surface. Face the field
+      head-on and the flux is largest; turn the surface edge-on and nothing crosses
+      it. Now wrap a closed surface right around the charge, {gaussQ} — we call it a
+      Gaussian surface. By convention its normal points outward, so lines leaving
+      count as positive flux and lines entering as negative. Here is the striking
+      part. The field falls off as one over r squared, but the area of a sphere
+      grows as r squared. Enlarge the surface, {gaussQ2}, and the weaker field is
+      spread over exactly proportionally more area: the two effects cancel. The
+      same number of field lines cross any surface enclosing the charge, whatever
+      its size, and in fact whatever its shape.
+    animation:
+      primitive: charges
+      params:
+        scale: 1.0
+        charges:
+          Q: {at: [0.0, 0.0], sign: "+", color: red, label: "Q"}
+      steps:
+        - {id: placeQ, action: place, params: {name: Q}}
+        - {id: fieldQ, action: field, params: {name: Q, color: purple, n: 12, length: 0.8}}
+        - {id: gaussQ, action: gaussian_surface, params: {name: Q, radius: 1.2, color: yellow, flux_arrows: 4}}
+        - {id: gaussQ2, action: gaussian_surface, params: {name: Q, radius: 1.9, color: yellow, flux_arrows: 0}}
+    board:
+      - id: fluxEq
+        latex: "\\Phi = \\vec{E}\\cdot\\vec{A} = EA\\cos\\theta"
+        say: "flux equals E dot A, which is E times A times cosine theta"
+        color: yellow
+        legend:
+          - {sym: "\\Phi", name: "electric flux", unit: "N m^2/C"}
+          - {sym: "E", name: "field magnitude", unit: "N/C"}
+          - {sym: "A", name: "area", unit: "m^2"}
+          - {sym: "\\theta", name: "angle of field to the normal", unit: "deg"}
+
+  - id: s3
+    kind: diagram
+    narration: >
+      Wrap the charge again, {placeQ2} {fieldQ2} {gaussQ3}. Because the flux
+      through any enclosing surface is the same, it can depend only on the charge
+      inside — and that is Gauss's law, {gaussEq}: the net flux through any closed
+      surface equals the charge enclosed, divided by epsilon nought, the
+      permittivity of free space. The circle-with-a-cross means add up the field
+      dotted with each little patch of area, over the whole closed surface. Three
+      things make it powerful. The surface can be any shape you like; it need not
+      be a real object, just an imaginary boundary; and only the charge inside it
+      counts — charges outside contribute lines that go in one side and out the
+      other, netting to zero. On its own this is a statement about flux, not the
+      field. But when the charge is symmetric, it becomes a tool for finding the
+      field itself.
+    animation:
+      primitive: charges
+      params:
+        scale: 1.0
+        charges:
+          Q: {at: [0.0, 0.0], sign: "+", color: red, label: "Q"}
+      steps:
+        - {id: placeQ2, action: place, params: {name: Q}}
+        - {id: fieldQ2, action: field, params: {name: Q, color: purple, n: 12, length: 0.8}}
+        - {id: gaussQ3, action: gaussian_surface, params: {name: Q, radius: 1.4, color: yellow, flux_arrows: 6}}
+    board:
+      - id: gaussEq
+        latex: "\\Phi = \\oint \\vec{E}\\cdot d\\vec{A} = \\dfrac{Q_{\\text{enc}}}{\\varepsilon_0}"
+        say: "the net flux, the closed-surface integral of E dot d A, equals Q enclosed over epsilon nought"
+        color: yellow
+        legend:
+          - {sym: "Q_{\\text{enc}}", name: "charge inside the surface", unit: "C"}
+          - {sym: "\\varepsilon_0", name: "permittivity of free space", unit: "C^2/N m^2"}
+
+  - id: s4
+    kind: derivation
+    narration: >
+      Sphere first, {sphereEq}. Put a point charge at the centre of a Gaussian
+      sphere of radius r. By symmetry the field has the same strength everywhere on
+      the sphere and points straight out, so the flux is just the field times the
+      sphere's area, four pi r squared. Set that equal to the enclosed charge over
+      epsilon nought and solve, {sphereRes}: the field is Q over four pi epsilon
+      nought r squared, which is exactly k Q over r squared — Coulomb's field,
+      recovered in two lines. And since the derivation only used the charge inside,
+      a uniformly charged sphere looks, from outside, precisely as though all its
+      charge sat at the centre.
+    board:
+      - id: sphereEq
+        latex: "\\Phi = E\\,(4\\pi r^2) = \\dfrac{Q}{\\varepsilon_0}"
+        say: "flux equals E times four pi r squared, equals Q over epsilon nought"
+        color: yellow
+      - id: sphereRes
+        latex: "E = \\dfrac{Q}{4\\pi\\varepsilon_0 r^2} = \\dfrac{kQ}{r^2}"
+        say: "E equals Q over four pi epsilon nought r squared, which is k Q over r squared"
+        color: green
+        box: true
+
+  - id: s5
+    kind: derivation
+    narration: >
+      Line next, {lineEq}. For an infinite line of charge, symmetry calls for a
+      cylinder around it. The field pierces the curved side, of area two pi r times
+      the length, and skims the flat end caps, which therefore pass no flux. The
+      enclosed charge is the charge per unit length, lambda, times the length, and
+      the lengths cancel, leaving {lineRes}: the field is lambda over two pi epsilon
+      nought r. Notice it falls off as one over r, not one over r squared — a line
+      reaches further than a point. Plane last, {planeEq}. For an infinite sheet,
+      use a box straddling it. The field punches straight out of the two faces
+      parallel to the sheet, of area A each, while the four side faces pass nothing.
+      So the flux is two E A, equal to the charge per unit area, sigma, times A,
+      over epsilon nought, giving {planeRes}: the field is sigma over two epsilon
+      nought. Remarkably, it does not depend on distance at all — the field of a
+      sheet is uniform, and the factor of two is simply because the sheet throws
+      field out of both of its sides.
+    board:
+      - id: lineEq
+        latex: "\\Phi = E\\,(2\\pi r L) = \\dfrac{\\lambda L}{\\varepsilon_0}"
+        say: "flux equals E times two pi r L, equals lambda L over epsilon nought"
+        color: yellow
+      - id: lineRes
+        latex: "E = \\dfrac{\\lambda}{2\\pi\\varepsilon_0 r}"
+        say: "E equals lambda over two pi epsilon nought r"
+        color: green
+        box: true
+      - id: planeEq
+        latex: "\\Phi = 2EA = \\dfrac{\\sigma A}{\\varepsilon_0}"
+        say: "flux equals two E A, equals sigma A over epsilon nought"
+        color: yellow
+      - id: planeRes
+        latex: "E = \\dfrac{\\sigma}{2\\varepsilon_0}"
+        say: "E equals sigma over two epsilon nought"
+        color: green
+        box: true
+
+  - id: s6
+    kind: problem
+    narration: >
+      A line first. {statement} A long wire carries charge, {given}; find the field
+      a short way out. {find} Straight into the line result, {step1}: the field is
+      lambda over two pi epsilon nought r. Using the constant k, that is twice k
+      lambda over r — twice eight point nine nine times ten to the nine, times three
+      nanocoulombs per metre, over nought point one five metres. That comes to about
+      three hundred and sixty newtons per coulomb, {answer}, pointing straight away
+      from the wire.
+    board:
+      - id: statement
+        text: "The field of an infinite line of charge."
+      - id: given
+        latex: "\\lambda = 3.0\\ \\text{nC/m}, \\quad r = 0.15\\ \\text{m}"
+        say: "lambda equals three nanocoulombs per metre, r equals nought point one five metres"
+        role: given
+      - id: find
+        text: "Find the field magnitude E."
+        role: find
+      - id: step1
+        latex: "E = \\dfrac{\\lambda}{2\\pi\\varepsilon_0 r} = \\dfrac{2k\\lambda}{r} = \\dfrac{2(8.99\\times10^{9})(3.0\\times10^{-9})}{0.15}"
+        say: "E equals lambda over two pi epsilon nought r, which is two k lambda over r, two times eight point nine nine times ten to the nine times three times ten to the minus nine, over nought point one five"
+        role: step
+        color: blue
+      - id: answer
+        latex: "E \\approx 360\\ \\text{N/C}"
+        say: "E is about three hundred and sixty newtons per coulomb"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "2*8.99e9*3.0e-9/0.15"
+      value: 359.7
+      unit: "N/C"
+      tol: 0.01
+
+  - id: s7
+    kind: problem
+    narration: >
+      Now a sheet. {statement2} A large flat plate carries charge spread over its
+      area, {given2}; find the field near it. {find2} Use the plane result, {step2}:
+      the field is sigma over two epsilon nought — two micro-coulombs per square
+      metre, over twice eight point eight five times ten to the minus twelve. That
+      works out to about one point one three times ten to the fifth newtons per
+      coulomb, {answer2}. And unlike the line, this answer carries no distance in it
+      at all: step back from the sheet and the field is exactly the same.
+    board:
+      - id: statement2
+        text: "The field of an infinite charged sheet."
+      - id: given2
+        latex: "\\sigma = 2.0\\ \\mu\\text{C/m}^2"
+        say: "sigma equals two micro-coulombs per square metre"
+        role: given
+      - id: find2
+        text: "Find the field magnitude E."
+        role: find
+      - id: step2
+        latex: "E = \\dfrac{\\sigma}{2\\varepsilon_0} = \\dfrac{2.0\\times10^{-6}}{2(8.85\\times10^{-12})}"
+        say: "E equals sigma over two epsilon nought, two times ten to the minus six over twice eight point eight five times ten to the minus twelve"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "E \\approx 1.13\\times10^{5}\\ \\text{N/C}"
+        say: "E is about one point one three times ten to the fifth newtons per coulomb"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "2.0e-6/(2*8.85e-12)"
+      value: 1.13e5
+      unit: "N/C"
+      tol: 0.01
+
+  - id: s8
+    kind: end
+    narration: >
+      To summarise: electric flux is the field crossing a surface; Gauss's law says
+      the net flux through any closed surface is the enclosed charge over epsilon
+      nought; and where the charge is symmetric, that gives the field in a line or
+      two — the sphere, the line, the plane. Next: Electric potential versus
+      potential energy versus voltage — the three things students mix up.
