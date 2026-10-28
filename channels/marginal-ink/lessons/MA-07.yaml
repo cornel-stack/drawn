@@ -67,8 +67,8 @@ scenes:
         y_max: 14
         utility: {a: 1, b: 1}
         budget: {px: 1, py: 1, m: 12}
-        x_label: "c_1"
-        y_label: "c_2"
+        x_label: "c_{1}"
+        y_label: "c_{2}"
       steps:
         - {id: lowCurve, action: curve, params: {level: 0.5, color: blue}}
         - {id: highCurve, action: curve, params: {through_optimum: true, color: blue, label: "U"}}
