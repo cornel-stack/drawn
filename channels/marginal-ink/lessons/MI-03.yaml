@@ -47,7 +47,7 @@ scenes:
   - id: s2
     kind: diagram
     narration: >
-      Here is a production possibilities frontier, {drawPPF}. It shows every
+      Here, {drawPPF}, is a production possibilities frontier. It shows every
       combination of two goods an economy can make — say education along the
       bottom and healthcare up the side — when it uses all its resources fully. No
       prior economics is needed; everything is read from this one curve. A point on
