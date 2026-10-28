@@ -1,0 +1,215 @@
+# EM-06: Current, drift velocity and Ohm's law from the electron's point of view.
+# OpenStax University Physics Vol. 2 §9.1-9.4 (CC BY 4.0). ~7 minutes.
+# Colour: wire = white, electrons/drift = blue, field = purple, current I = yellow, resistance = red.
+schema_version: 1
+id: EM-06
+channel: pen-and-pendulum
+title: "Current, drift velocity and Ohm's law from the electron's point of view"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "§9.1-9.4 Current, Conduction, Resistance and Ohm's Law"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/073-9-1-electrical-current.md"
+  pages: "391-420"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "Electrons crawl, signals race"
+  keyword: "crawl"
+publish:
+  title: "Current, Drift Velocity and Ohm's Law: What Electrons Actually Do"
+  summary: >
+    Electric current is charge on the move, but the electrons themselves drift
+    astonishingly slowly. We define current as charge per second, link it to the
+    drift velocity of the electrons, derive Ohm's law V = IR and resistance from
+    resistivity, and finish with electrical power. Two worked examples follow.
+  hashtags: ["#physics", "#electromagnetism", "#ohmslaw"]
+  tags:
+    - electric current
+    - drift velocity
+    - Ohm's law
+    - resistance
+    - resistivity
+    - electromagnetism
+    - physics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Flick a switch and the light comes on at once, yet the electrons inside the wire
+      are crawling along slower than a snail. Both facts are true, and together they
+      explain what electric current really is.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      A wire, {drawWire}, full of free electrons, {addElectrons}, in blue — the loose
+      outer electrons of the metal atoms, able to wander through it. Left alone they jitter
+      about at random, going nowhere on average. Apply an electric field along the wire,
+      {addField}, in purple, and a slow drift is added to that jitter, {addDrift}: the
+      electrons edge steadily along, against the field because their charge is negative.
+      This net creep is the drift velocity, and it is tiny — a fraction of a millimetre
+      per second. The current, {addCurrent}, in yellow, is defined as the rate at which
+      charge flows past a point, {currentEq}, and by a historical convention it points
+      opposite to the electron drift, the way positive charge would move. That convention
+      was fixed before anyone knew the carriers were negative, and we have kept it ever
+      since; it rarely matters, but it is why current and electrons march in opposite
+      directions on every diagram. So how does the light come on instantly? Because the
+      field itself travels through the wire at nearly the speed of light, so every electron
+      everywhere starts drifting almost at once. Think of a tube already full of marbles:
+      push one in at this end and a marble pops out the far end immediately, even though no
+      single marble crossed the tube. The electrons are slow, but the signal to move is not.
+    animation:
+      primitive: conductor
+      params:
+        length: 6.2
+        height: 1.5
+        n: 11
+        center: [0.0, -0.6]
+      steps:
+        - {id: drawWire, action: draw_wire, params: {color: white}}
+        - {id: addElectrons, action: electrons, params: {color: blue, label: "e^-"}}
+        - {id: addField, action: field, params: {color: purple, label: "E"}}
+        - {id: addDrift, action: drift, params: {direction: -1.0, color: blue, label: "v_d"}}
+        - {id: addCurrent, action: current_arrow, params: {color: yellow, label: "I"}}
+    board:
+      - id: currentEq
+        latex: "I = \\dfrac{Q}{t}"
+        say: "I equals Q over t"
+        color: yellow
+        legend:
+          - {sym: "I", name: "current", unit: "A = C/s"}
+          - {sym: "Q", name: "charge that flows", unit: "C"}
+          - {sym: "t", name: "time taken", unit: "s"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Start from the definition, {currentEq2}: current is charge per unit time, one ampere
+      being one coulomb every second. Look closer at the moving charge and the current ties
+      to the drift directly, {microEq}: it equals the number of electrons per unit volume,
+      times their charge, times the wire's cross-sectional area, times the drift velocity.
+      A fat wire, or more electrons, or a faster drift — each carries more current. This also
+      shows why the drift is so slow: a metal packs in so many electrons that even a crawl
+      delivers a healthy current. Now push harder with a bigger voltage and more current
+      flows. For ordinary metals the two are simply proportional, which is Ohm's law,
+      {ohmEq}: voltage equals current times resistance. Resistance is the constant of
+      proportionality, how much the wire opposes the flow, and it too comes from the
+      material and shape, {resEq}: resistivity times length over area. A long thin wire of a
+      poor conductor resists strongly; a short fat wire of copper barely at all. The
+      electrons lose energy colliding with the vibrating atoms as they drift, and that lost
+      energy appears as heat — which is both how a kettle works and why a resistor warms up.
+      It is worth dwelling on what Ohm's law is and is not. It is not a law of nature like
+      conservation of energy; it is a property that some materials happen to have, namely
+      that their resistance stays constant whatever the voltage. Metals obey it well over a
+      wide range, which is why circuits are so predictable. But many things do not: a
+      filament bulb, a diode, a thermistor all have a resistance that shifts with current or
+      temperature, and for them the simple proportionality breaks down. When we call a
+      component a resistor, we mean precisely that we are trusting it to obey Ohm's law.
+      Resistance, then, is not a fixed label on an object but a statement about how it
+      responds — and for ohmic materials that response is beautifully simple.
+    board:
+      - id: currentEq2
+        latex: "I = \\dfrac{Q}{t} \\quad [\\text{A} = \\text{C/s}]"
+        say: "I equals Q over t, amperes, coulombs per second"
+        color: yellow
+      - id: microEq
+        latex: "I = n\\,q\\,A\\,v_d"
+        say: "I equals n q A v d"
+        color: blue
+      - id: ohmEq
+        latex: "V = IR"
+        say: "V equals I R"
+        color: red
+        box: true
+      - id: resEq
+        latex: "R = \\dfrac{\\rho L}{A}"
+        say: "R equals rho L over A"
+        color: red
+
+  - id: s4
+    kind: problem
+    narration: >
+      Ohm's law in action. {statement} A resistor is placed across a battery, {given}; find
+      the current through it. {find} Rearrange Ohm's law, {step1}: current is voltage over
+      resistance, twelve volts over four ohms. That is three amperes, {answer}. Double the
+      voltage and the current doubles, because for an ohmic resistor the two stay in strict
+      proportion — the defining feature of Ohm's law.
+    board:
+      - id: statement
+        text: "Current through a resistor."
+      - id: given
+        latex: "V = 12\\ \\text{V}, \\quad R = 4\\ \\Omega"
+        say: "V equals twelve volts, R equals four ohms"
+        role: given
+      - id: find
+        text: "Find the current I."
+        role: find
+      - id: step1
+        latex: "I = \\dfrac{V}{R} = \\dfrac{12}{4}"
+        say: "I equals V over R, twelve over four"
+        role: step
+        color: yellow
+      - id: answer
+        latex: "I = 3\\ \\text{A}"
+        say: "I equals three amperes"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "12 / 4"
+      value: 3
+      unit: "A"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      The power it dissipates. {statement2} Take the same resistor and current, {given2};
+      find the power it turns into heat. {find2} Power is voltage times current, {step2}:
+      twelve volts times three amperes, which is thirty-six watts, {answer2}. You could also
+      write it as current squared times resistance, or voltage squared over resistance — all
+      three give thirty-six. That is the rate at which the resistor converts electrical energy
+      into heat, the same principle behind every heater and every warming phone charger.
+      The three forms are worth keeping together, because which one is easiest depends on
+      what you know. If you have the voltage and current, use their product. If you know the
+      current and resistance, current squared times resistance is quickest. And if you have
+      the voltage across a known resistance, voltage squared over resistance. They are one
+      law wearing three faces, linked by Ohm's law, and here all three return the same
+      thirty-six watts.
+    board:
+      - id: statement2
+        text: "Power dissipated by the resistor."
+      - id: given2
+        latex: "V = 12\\ \\text{V}, \\quad I = 3\\ \\text{A}"
+        say: "V equals twelve volts, I equals three amperes"
+        role: given
+      - id: find2
+        text: "Find the power P = VI."
+        role: find
+      - id: step2
+        latex: "P = VI = (12)(3)"
+        say: "P equals V I, twelve times three"
+        role: step
+        color: red
+      - id: answer2
+        latex: "P = 36\\ \\text{W}"
+        say: "P equals thirty-six watts"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "12 * 3"
+      value: 36
+      unit: "W"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: current is the rate charge flows, carried by electrons drifting slowly
+      opposite to it; Ohm's law says voltage equals current times resistance for ordinary
+      materials; and resistance grows with length and resistivity but falls with area. Next:
+      Kirchhoff's rules — solving any circuit with two equations.

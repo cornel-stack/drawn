@@ -1,0 +1,210 @@
+# LA-09: Span — everywhere your vectors can reach.
+# Hefferon, Linear Algebra §I Definition of Vector Space / Spanning (CC BY-SA 3.0).
+# ~7 minutes. Colour: v = blue, w = green, combination = orange, span = yellow.
+schema_version: 1
+id: LA-09
+channel: chalk-and-vector
+title: "Span: everywhere your vectors can reach"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "§II Linear Independence and §I Spanning Sets"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/008-definition-of-vector-space.md"
+  pages: "95-115"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "Everywhere two arrows can reach"
+  keyword: "everywhere"
+publish:
+  title: "Span, Explained Visually: Everywhere Your Vectors Can Reach"
+  summary: >
+    The span of a set of vectors is every point you can reach by scaling and
+    adding them. We show why two vectors pointing different ways fill the whole
+    plane, why two parallel vectors reach only a line, and how to test whether a
+    target is in the span. Two worked examples follow.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - span
+    - linear combination
+    - spanning set
+    - linear algebra
+    - vectors
+    - linear independence
+    - reachable
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Give me two arrows and the freedom to scale them and add them, and a question
+      follows at once: which points can I reach? The answer is called the span.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Two vectors, {drawCols}: v in blue and w in green, pointing different ways. A
+      linear combination is any scaling of these two added together — so much v plus
+      so much w. The span is the set of every point you can reach this way, {spanEq}.
+      Watch it fill in, {spanDots}: allow each weight to vary and the combinations land on a
+      grid of points that spreads across the entire plane. Because v and w point in
+      genuinely different directions, every point in the plane is some combination of
+      them — the span is all of two-dimensional space. This is why two good vectors are
+      enough to address the whole plane: give the right amounts of each and you arrive
+      anywhere. The one thing that can go wrong is if the two arrows point along the
+      same line. Then adding scaled copies only ever slides you back and forth on that
+      line, and the span collapses from the whole plane to a single line through the
+      origin. The difference is exactly whether the two vectors are independent or not.
+    animation:
+      primitive: linear_transform
+      params:
+        x_range: [-5, 5]
+        y_range: [-3, 3]
+        matrix: [[1, 2], [1, 1]]
+      steps:
+        - {id: drawCols, action: columns, params: {c1_color: blue, c2_color: green, labels: ["\\vec{v}", "\\vec{w}"]}}
+        - {id: spanDots, action: span_demo, params: {color: yellow}}
+    board:
+      - id: spanEq
+        latex: "\\text{span}\\{\\vec{v},\\vec{w}\\} = \\{a\\vec{v} + b\\vec{w}\\}"
+        say: "the span of v and w is the set of all a v plus b w"
+        color: yellow
+        legend:
+          - {sym: "a, b", name: "any real scalars", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Put it precisely, {defEq}. The span of a set of vectors is the collection of all
+      their linear combinations — every sum of scaled copies. Asking whether a target
+      vector lies in the span is therefore asking a concrete question: can I find
+      weights that build it? And that is just a system of linear equations, {sysEq}:
+      match the first components, match the second, and solve for the weights a and b.
+      If the system has a solution, the target is in the span; if it has none, it is
+      out of reach. Everything connects to what we have already seen. The two vectors
+      span the whole plane exactly when they are independent — when neither is a scaling
+      of the other — and that is exactly when the matrix with them as columns has a
+      non-zero determinant. A zero determinant means the arrows are parallel, the system
+      fails for most targets, and the span is only a line. So span, independence and the
+      determinant are three views of the same fact: whether your vectors genuinely reach
+      in different directions. The idea scales up without change. Three independent
+      vectors span all of three-dimensional space; two of them span a plane within it;
+      and in any dimension, the span is simply everywhere a handful of vectors can
+      together reach. It is worth noticing what the span always contains. Set every weight
+      to zero and you get the zero vector, so the origin lies in every span. Keep one
+      vector and scale it alone and you get its whole line. Add a second, independent one
+      and you sweep out a plane; a third, independent again, and you fill space. Each new
+      independent vector lifts the span up by one dimension, while a vector that was
+      already reachable adds nothing new — it is redundant. That word, redundant, is the
+      hinge to the next idea: a vector is redundant precisely when it already lies in the
+      span of the others, and stripping out the redundant ones leaves the smallest set
+      that still reaches everywhere.
+    board:
+      - id: defEq
+        latex: "\\text{span}\\,S = \\{c_1\\vec{v}_1 + \\cdots + c_k\\vec{v}_k\\}"
+        say: "the span of S is all sums c one v one up to c k v k"
+        color: yellow
+      - id: sysEq
+        latex: "a\\vec{v} + b\\vec{w} = \\vec{t}"
+        say: "a v plus b w equals the target t"
+        color: orange
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Is a target reachable? {statement} Two vectors and a target are given, {given};
+      express the target as a combination, if you can. {find} Set up the equations,
+      {step1}: a times one plus b times two equals four, and a times one plus b times one
+      equals three. Subtract the second from the first, {step2}: b equals one. Back-substitute,
+      {step3}: a equals two. So the target is two v plus one w, {answer} — it is in the
+      span. We found exact weights, so the target is genuinely reachable, and since these
+      two vectors are independent, every other target would be reachable too.
+    board:
+      - id: statement
+        text: "Is the target in the span?"
+      - id: given
+        latex: "\\vec{v} = \\begin{pmatrix}1\\\\1\\end{pmatrix},\\ \\vec{w} = \\begin{pmatrix}2\\\\1\\end{pmatrix},\\ \\vec{t} = \\begin{pmatrix}4\\\\3\\end{pmatrix}"
+        say: "v is one, one; w is two, one; target is four, three"
+        role: given
+      - id: find
+        text: "Write t as a·v + b·w."
+        role: find
+      - id: step1
+        latex: "a + 2b = 4, \\quad a + b = 3"
+        say: "a plus two b equals four, a plus b equals three"
+        role: step
+        color: orange
+      - id: step2
+        latex: "b = 1"
+        say: "subtracting gives b equals one"
+        role: step
+        color: green
+      - id: step3
+        latex: "a = 3 - b = 2"
+        say: "a equals three minus b, two"
+        role: step
+        color: blue
+      - id: answer
+        latex: "\\vec{t} = 2\\vec{v} + 1\\vec{w}"
+        say: "the target is two v plus one w"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "2*1 + 1*2"
+      value: 4
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Here, {statement2}, the span is only a line. Now two vectors are given where one is
+      a multiple of the other, {given2}; find what they span. {find2} Check independence
+      with the determinant, {step1b}: one times four minus two times two is zero. A zero
+      determinant means w is just twice v, {step2b}, so every combination lies on the
+      single line through v. The span is that line, not the plane, {answer2}. A target off
+      the line, like three, five, can never be reached, because reaching it would need the
+      second component to be five while twice the first is six. Two vectors only span the
+      plane when they point in truly different directions.
+    board:
+      - id: statement2
+        text: "What do dependent vectors span?"
+      - id: given2
+        latex: "\\vec{v} = \\begin{pmatrix}1\\\\2\\end{pmatrix}, \\quad \\vec{w} = \\begin{pmatrix}2\\\\4\\end{pmatrix}"
+        say: "v is one, two; w is two, four"
+        role: given
+      - id: find2
+        text: "Find span{v, w}."
+        role: find
+      - id: step1b
+        latex: "\\det = 1(4) - 2(2) = 0"
+        say: "the determinant is one times four minus two times two, zero"
+        role: step
+        color: orange
+      - id: step2b
+        latex: "\\vec{w} = 2\\vec{v}"
+        say: "w equals two v"
+        role: step
+        color: green
+      - id: answer2
+        latex: "\\text{span} = \\text{the line through } \\vec{v}"
+        say: "the span is the line through v"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "1*4 - 2*2"
+      value: 0
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the span of a set of vectors is every point their linear combinations
+      can reach; independent vectors fill the whole space, while dependent ones collapse
+      the span to a line or less; and testing membership is just solving a linear system.
+      Next: Linear independence — when is a vector redundant?
