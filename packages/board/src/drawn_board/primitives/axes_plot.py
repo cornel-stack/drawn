@@ -29,6 +29,8 @@ _FUNCS = {
     "prodfn": (lambda x: 10.0 * np.sqrt(np.clip(x, 0.0, None)), r"10\sqrt{k}"),
     # the same function lifted by better technology / human capital (shifts up).
     "prodfn_hi": (lambda x: 13.0 * np.sqrt(np.clip(x, 0.0, None)), r"13\sqrt{k}"),
+    # a downward projectile arc from (0,0) to (10,0), apex (5,4).
+    "arc": (lambda x: 0.16 * x * (10.0 - x), "trajectory"),
 }
 
 # Named right-hand sides f(x, y) for a first-order ODE y' = f(x, y), and the

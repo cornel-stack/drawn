@@ -159,6 +159,32 @@ class Vectors(Primitive):
         self.scene.play(_create(projseg), run_time=run_time * 0.3)
 
 
+    @step
+    def translated_line(self, run_time: float, point=(0.0, 0.0), direction=(1.0, 0.0),
+                        color: str = "yellow", length: float = 5.0, dashed: bool = False,
+                        through_origin: bool = False, label: str = None, **_):
+        """Draw the line through `point` along `direction` (a solution set): the
+        homogeneous line through the origin (``through_origin``), or a particular
+        point plus that direction — the shifted line."""
+        from manim import DashedLine, Line, Write
+
+        px, py = (0.0, 0.0) if through_origin else (float(point[0]), float(point[1]))
+        dx, dy = float(direction[0]), float(direction[1])
+        n = (dx * dx + dy * dy) ** 0.5 or 1.0
+        ux, uy = dx / n, dy / n
+        half = length / 2.0
+        p0 = self._c2p(px - ux * half, py - uy * half)
+        p1 = self._c2p(px + ux * half, py + uy * half)
+        cls = DashedLine if dashed else Line
+        line = cls(p0, p1, color=self.color(color), stroke_width=_VEC_STROKE - 2)
+        self.scene.play(_create(line), run_time=run_time * (0.8 if label else 1.0))
+        if label:
+            from manim import UP
+
+            self.scene.play(Write(self._mlabel(label, p1, color, UP)),
+                            run_time=run_time * 0.2)
+
+
 def _create(m):
     from manim import Create
 

@@ -187,6 +187,32 @@ class SupplyDemand(Primitive):
         self.scene.play(_grow(arrow), _write(lbl), run_time=run_time * 0.5)
 
     @step
+    def surplus(self, run_time: float, which: str = "both", cs_color: str = "green",
+                ps_color: str = "orange", **_):
+        """Shade the consumer- and/or producer-surplus triangles at equilibrium.
+
+        CS = below demand, above the price (vertices (0,P*), (0,a), (Q*,P*)).
+        PS = above supply, below the price (vertices (0,P*), (0,c), (Q*,P*)).
+        """
+        from manim import FadeIn, MathTex, Polygon, VGroup
+
+        q, p = self._equilibrium()
+        anims = []
+        if which in ("both", "consumer"):
+            cs = Polygon(self.axes.c2p(0, p), self.axes.c2p(0, self.a), self.axes.c2p(q, p),
+                         color=self.color(cs_color), fill_opacity=0.3, stroke_width=2)
+            lbl = MathTex("CS", color=self.color(cs_color), font_size=LABEL_FONT_SIZE)
+            lbl.move_to(self.axes.c2p(q / 3.0, (self.a + 2 * p) / 3.0))
+            anims += [FadeIn(VGroup(cs, lbl))]
+        if which in ("both", "producer"):
+            ps = Polygon(self.axes.c2p(0, p), self.axes.c2p(0, self.c), self.axes.c2p(q, p),
+                         color=self.color(ps_color), fill_opacity=0.3, stroke_width=2)
+            lbl = MathTex("PS", color=self.color(ps_color), font_size=LABEL_FONT_SIZE)
+            lbl.move_to(self.axes.c2p(q / 3.0, (self.c + 2 * p) / 3.0))
+            anims += [FadeIn(VGroup(ps, lbl))]
+        self.scene.play(*anims, run_time=run_time)
+
+    @step
     def mark_points(self, run_time: float, curve: str = "demand", points: list = None,
                     color: str = "yellow", **_):
         """Drop labelled dots at given quantities on a curve, with dashed guides."""
