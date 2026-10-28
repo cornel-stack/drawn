@@ -1,0 +1,207 @@
+# EM-05: Capacitors — capacitance, stored energy and dielectrics, derived.
+# OpenStax University Physics Vol. 2 §8.1-8.4 (CC BY 4.0). ~7 minutes.
+# Colour: plates/charge +Q = red, -Q = blue, field = purple, energy = yellow, dielectric = green.
+schema_version: 1
+id: EM-05
+channel: pen-and-pendulum
+title: "Capacitors: capacitance, stored energy and dielectrics, derived"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "§8.1-8.4 Capacitance, Energy Stored, and Dielectrics"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/065-8-1-capacitors-and-capacitance.md"
+  pages: "339-372"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "How charge is bottled"
+  keyword: "bottled"
+publish:
+  title: "Capacitors Explained: Capacitance, Stored Energy and Dielectrics, Derived"
+  summary: >
+    A capacitor stores charge and, with it, energy. We define capacitance as charge
+    per volt, derive the parallel-plate formula and the stored energy one half C V
+    squared by building the charge up bit by bit, and show why slipping in a
+    dielectric raises the capacitance. Two worked examples follow.
+  hashtags: ["#physics", "#electromagnetism", "#capacitor"]
+  tags:
+    - capacitor
+    - capacitance
+    - energy stored capacitor
+    - dielectric
+    - parallel plate capacitor
+    - electromagnetism
+    - physics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A capacitor is a device for holding charge still, and with it a store of electrical
+      energy that can be released in an instant. Two metal plates and a gap are all it
+      takes.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Two parallel plates, {drawPlates}, with a gap between them. Connect them to a
+      battery and charge flows, {addCharge}: one plate ends up with a positive charge,
+      the other with an equal negative charge. Between the plates sits a uniform electric
+      field, {drawField}, in purple, the same strength everywhere, pointing from the
+      positive plate to the negative. The capacitor is now storing charge, and the
+      measure of how good it is at this is its capacitance, {capEq}: the charge on either
+      plate divided by the voltage between them. More charge held for each volt means a
+      larger capacitance. For two flat plates it depends only on their geometry: the
+      area of the plates, the gap between them, and the permittivity of what fills it —
+      bigger plates and a smaller gap store more charge for the same voltage, as we shall
+      write down in a moment. Now slide an insulating slab into the gap, {addDielectric},
+      a dielectric, in green. Its molecules line up with the field and set up their own
+      opposing field, weakening the one between the plates. With a weaker field the same
+      charge sits at a lower voltage, so the capacitance rises — the whole reason real
+      capacitors are filled with dielectric rather than air. Picture the charging itself.
+      The battery acts as a pump, lifting electrons from one plate and piling them on the
+      other, leaving the first positive and making the second negative. It stops when the
+      voltage across the plates matches the battery, and at that moment the stored charge
+      is fixed. Disconnect the battery and the charge stays put, held in place by its own
+      attraction across the gap — the capacitor remembers.
+    animation:
+      primitive: capacitor
+      params:
+        separation: 2.6
+        height: 2.6
+      steps:
+        - {id: drawPlates, action: draw_plates, params: {color: white}}
+        - {id: addCharge, action: charge, params: {pos_color: red, neg_color: blue, n: 4}}
+        - {id: drawField, action: field, params: {color: purple, rows: 4, label: "E"}}
+        - {id: addDielectric, action: dielectric, params: {color: green, label: "\\kappa", weaken: 0.55}}
+    board:
+      - id: capEq
+        latex: "C = \\dfrac{Q}{V}"
+        say: "C equals Q over V"
+        color: red
+        legend:
+          - {sym: "C", name: "capacitance", unit: "F = C/V"}
+          - {sym: "Q", name: "charge on a plate", unit: "C"}
+          - {sym: "V", name: "voltage across it", unit: "V"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Capacitance is fixed by geometry, {plateEq2}: permittivity times plate area over the
+      gap. Widen the plates and you hold more charge; narrow the gap and the same voltage
+      drives on more charge still. Now the energy, and this is the subtle part. You might
+      guess the energy is simply charge times voltage, but that overcounts, because the
+      voltage is not constant as you charge up. The first bit of charge crosses an empty
+      capacitor for free; each later bit must be pushed against the charge already there,
+      and the voltage climbs from zero to its final value as you go. Add up the work to
+      ferry across every small piece of charge, each at the voltage present at that
+      moment, and the total is one half the final charge times the final voltage, {energyEq}:
+      one half C V squared. The one half is the average voltage during charging — you pay
+      full price only for the last electron. That energy sits in the electric field in the
+      gap, ready to be returned. Finally the dielectric, {dielEq}: inserting a material of
+      constant kappa multiplies the capacitance by kappa, because the bound charges weaken
+      the field and lower the voltage for the same stored charge. A dielectric of kappa
+      equal to five turns any capacitor into one five times better, and it also lets the
+      plates sit closer without sparking across. There is a neat way to see where the
+      energy lives. Rewrite one half C V squared using the field in the gap, and it
+      becomes one half the permittivity times the field squared, summed over the volume
+      between the plates. The energy is not sitting on the plates; it is spread through
+      the field itself, in the empty space between them. Charge the capacitor and you are
+      literally pumping energy into the field; discharge it and the field hands that
+      energy straight back. This is the same electric field we have tracked all along,
+      now revealed as a reservoir you can fill and empty at will.
+    board:
+      - id: plateEq2
+        latex: "C = \\dfrac{\\varepsilon_0 A}{d}"
+        say: "C equals epsilon nought A over d"
+        color: red
+      - id: energyEq
+        latex: "U = \\tfrac{1}{2}QV = \\tfrac{1}{2}CV^2"
+        say: "U equals one half Q V, which is one half C V squared"
+        color: yellow
+        box: true
+      - id: dielEq
+        latex: "C \\rightarrow \\kappa\\,C"
+        say: "C becomes kappa times C"
+        color: green
+
+  - id: s4
+    kind: problem
+    narration: >
+      Charge on a capacitor. {statement} A capacitor of known capacitance is connected to
+      a battery, {given}; find the charge stored on each plate. {find} Rearrange the
+      definition of capacitance, {step1}: charge is capacitance times voltage, five
+      microfarads times twelve volts. That is sixty microcoulombs, {answer}. Double the
+      voltage and you double the charge, because for a fixed capacitor charge and voltage
+      rise in lockstep.
+    board:
+      - id: statement
+        text: "Charge stored by a capacitor."
+      - id: given
+        latex: "C = 5\\ \\mu\\text{F}, \\quad V = 12\\ \\text{V}"
+        say: "C equals five microfarads, V equals twelve volts"
+        role: given
+      - id: find
+        text: "Find the charge Q = CV."
+        role: find
+      - id: step1
+        latex: "Q = CV = (5\\times 10^{-6})(12)"
+        say: "Q equals C V, five times ten to the minus six, times twelve"
+        role: step
+        color: red
+      - id: answer
+        latex: "Q = 6\\times 10^{-5}\\ \\text{C} = 60\\ \\mu\\text{C}"
+        say: "Q equals six times ten to the minus five coulombs, sixty microcoulombs"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "5e-6 * 12"
+      value: 6e-5
+      unit: "C"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Energy stored. {statement2} Take the same capacitor at the same voltage, {given2};
+      find the energy it holds. {find2} Use one half C V squared, {step2}: one half, times
+      five microfarads, times twelve volts squared. Twelve squared is a hundred and
+      forty-four, so the energy is three point six times ten to the minus four joules,
+      {answer2}, or about a third of a millijoule. Small, but delivered in a flash it can
+      light a camera flash or restart a heart — which is exactly what capacitors are for.
+    board:
+      - id: statement2
+        text: "Energy stored in the capacitor."
+      - id: given2
+        latex: "C = 5\\ \\mu\\text{F}, \\quad V = 12\\ \\text{V}"
+        say: "C equals five microfarads, V equals twelve volts"
+        role: given
+      - id: find2
+        text: "Find the stored energy U."
+        role: find
+      - id: step2
+        latex: "U = \\tfrac{1}{2}CV^2 = \\tfrac{1}{2}(5\\times 10^{-6})(12)^2"
+        say: "U equals one half C V squared, one half times five times ten to the minus six, times twelve squared"
+        role: step
+        color: yellow
+      - id: answer2
+        latex: "U = 3.6\\times 10^{-4}\\ \\text{J}"
+        say: "U equals three point six times ten to the minus four joules"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "0.5 * 5e-6 * 12**2"
+      value: 0.00036
+      unit: "J"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: capacitance is charge stored per volt, set by the plate geometry; the
+      energy held is one half C V squared, because the voltage climbs as you charge; and a
+      dielectric raises the capacitance by weakening the internal field. Next: Current,
+      drift velocity and Ohm's law from the electron's point of view.

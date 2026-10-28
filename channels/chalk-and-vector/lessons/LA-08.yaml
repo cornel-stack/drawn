@@ -1,0 +1,213 @@
+# LA-08: Why matrix multiplication is defined like that — composition of maps.
+# Hefferon, Linear Algebra §III Matrix Operations / Computing Linear Maps (CC BY-SA 3.0).
+# ~7 minutes. Colour: i-hat = blue, j-hat = green, first map B = orange, second map A = yellow.
+schema_version: 1
+id: LA-08
+channel: chalk-and-vector
+title: "Why matrix multiplication is defined like that"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "§III Matrix Operations and the Mechanics of Matrix Multiplication"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/018-matrix-operations.md"
+  pages: "222-234"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "Rows times columns? Here's why"
+  keyword: "Here's why"
+publish:
+  title: "Why Matrix Multiplication Is Defined That Way (It's Composition)"
+  summary: >
+    Multiplying matrices by rows-times-columns looks arbitrary until you see what
+    it is: doing one transformation after another. We show that AB means apply B,
+    then A, derive the row-times-column rule from that single fact, and see why the
+    order matters so AB is not BA. Two worked examples follow.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - matrix multiplication
+    - composition of transformations
+    - row times column
+    - linear algebra
+    - non-commutative
+    - matrices
+    - linear maps
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      The rule for multiplying matrices — rows against columns — is the strangest-looking
+      definition most students meet. It stops looking arbitrary the moment you see what
+      it really is.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Start with the basis vectors, {drawBasis}. Here is the idea in one sentence:
+      multiplying two matrices means doing two transformations one after the other.
+      Apply the first matrix, {applyB}, in orange: it stretches the plane, sending the
+      basis vectors to new places. Now apply the second matrix on top, {applyA}, in
+      yellow: it shears what is already there. The plane has been transformed twice, and
+      the single matrix that would have done both in one go is their product, {defEq}.
+      That is the whole meaning of matrix multiplication: the product A B is the
+      transformation you get by applying B first and then A. Read it right to left, like
+      a function of a function — the matrix nearest the vector acts first. Everything
+      else — the rows, the columns, the sums of products — is just the arithmetic that
+      works this out. And straight away one famous feature makes sense: order matters.
+      Stretching then shearing lands the plane somewhere different from shearing then
+      stretching, so swapping the two matrices generally changes the answer. This is also
+      why a matrix times a vector, which you have done all along, is the same operation
+      seen small: a vector is a one-column matrix, and multiplying it is the transformation
+      acting on that single arrow.
+    animation:
+      primitive: linear_transform
+      params:
+        x_range: [-5, 5]
+        y_range: [-3, 3]
+      steps:
+        - {id: drawBasis, action: draw_basis, params: {i_color: blue, j_color: green}}
+        - {id: applyB, action: apply_matrix, params: {matrix: [[2, 0], [0, 1.4]]}}
+        - {id: applyA, action: apply_matrix, params: {matrix: [[1, 1], [0, 1]]}}
+    board:
+      - id: defEq
+        latex: "(AB)\\vec{v} = A(B\\vec{v})"
+        say: "A B applied to v equals A applied to, B applied to v"
+        color: yellow
+        legend:
+          - {sym: "B", name: "the first transformation applied", unit: ""}
+          - {sym: "A", name: "the second, applied after", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      In symbols, {defEq2}, the product applied to a vector means apply B, then feed the
+      result to A. Follow where a basis vector goes. B sends it to one of B's columns;
+      then A acts on that column, and A acting on any vector combines A's columns with
+      those entries as weights. Work it through and the entry in row i, column j of the
+      product is row i of A multiplied against column j of B, term by term and summed,
+      {entryEq}. That is exactly the rows-against-columns recipe — not a rule to
+      memorise, but the bookkeeping of composing two maps. It also explains the shapes:
+      the number of columns of A must match the number of rows of B, because A has to
+      act on vectors living in the space B delivers them to. If they do not match, the
+      composition is meaningless and the product is undefined. And it pins down the
+      feature that trips everyone up, {commEq}: A B is generally not B A. Matrices are
+      functions, and doing B then A is a different operation from doing A then B — put
+      your socks on before your shoes, not the other way round. Multiplication of
+      matrices is associative, since composing functions is, but it is not commutative,
+      because the order in which you transform the plane is part of the answer. Two
+      special cases anchor the idea. Multiplying by the identity matrix changes nothing,
+      because it is the transformation that leaves every point where it is — the
+      do-nothing map. And multiplying a matrix by its inverse gives the identity, because
+      the inverse is the transformation that undoes it, sending the plane back exactly
+      where it started. Composition is the thread running through all of it: the product
+      is a recipe for doing things one after another, and every rule of matrix
+      multiplication is a fact about following one motion with the next.
+    board:
+      - id: defEq2
+        latex: "(AB)\\vec{v} = A(B\\vec{v})"
+        say: "A B times v equals A of B of v"
+        color: yellow
+      - id: entryEq
+        latex: "(AB)_{ij} = \\sum_k A_{ik}\\,B_{kj}"
+        say: "the i j entry of A B equals the sum over k of A i k times B k j"
+        color: green
+      - id: commEq
+        latex: "AB \\ne BA \\quad \\text{in general}"
+        say: "A B is not equal to B A, in general"
+        color: orange
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Multiplying two matrices. {statement} Two matrices are given, {given}; compute the
+      product A B. {find} Each entry is a row of A against a column of B. Top-left,
+      {step1}: row one of A, one and one, against column one of B, two and zero — one
+      times two plus one times zero is two. Top-right, {step2}: row one against column
+      two, one times zero plus one times three is three. The bottom row of A is zero and
+      one, so it simply reads off the bottom row of B. The product is this, {answer}. In
+      transformation terms, we scaled by B and then sheared by A, and this single matrix
+      does both at once.
+    board:
+      - id: statement
+        text: "Compute the matrix product."
+      - id: given
+        latex: "A = \\begin{pmatrix}1 & 1\\\\0 & 1\\end{pmatrix}, \\quad B = \\begin{pmatrix}2 & 0\\\\0 & 3\\end{pmatrix}"
+        say: "A is one, one, zero, one; B is two, zero, zero, three"
+        role: given
+      - id: find
+        text: "Find AB."
+        role: find
+      - id: step1
+        latex: "(AB)_{11} = 1(2) + 1(0) = 2"
+        say: "the top-left entry is one times two plus one times zero, two"
+        role: step
+        color: green
+      - id: step2
+        latex: "(AB)_{12} = 1(0) + 1(3) = 3"
+        say: "the top-right entry is one times zero plus one times three, three"
+        role: step
+        color: green
+      - id: answer
+        latex: "AB = \\begin{pmatrix}2 & 3\\\\0 & 3\\end{pmatrix}"
+        say: "A B equals two, three, zero, three"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "1*2 + 1*0"
+      value: 2
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Order matters. {statement2} Take the same two matrices and multiply them the other
+      way, B A, {given2}; find the top-right entry and compare. {find2} Now it is a row
+      of B against a column of A, {step3}: row one of B, two and zero, against column two
+      of A, one and one — two times one plus zero times one is two. But the same entry in
+      A B was three, {step4}. The two products disagree, {answer2}, so A B is not B A.
+      Geometrically, shearing then stretching is simply not the same motion as stretching
+      then shearing, and the numbers faithfully record that.
+    board:
+      - id: statement2
+        text: "Does the order change the product?"
+      - id: given2
+        latex: "BA, \\quad B = \\begin{pmatrix}2 & 0\\\\0 & 3\\end{pmatrix}, \\ A = \\begin{pmatrix}1 & 1\\\\0 & 1\\end{pmatrix}"
+        say: "compute B A, with B two, zero, zero, three and A one, one, zero, one"
+        role: given
+      - id: find2
+        text: "Find (BA)₁₂ and compare with (AB)₁₂."
+        role: find
+      - id: step3
+        latex: "(BA)_{12} = 2(1) + 0(1) = 2"
+        say: "the top-right entry of B A is two times one plus zero times one, two"
+        role: step
+        color: orange
+      - id: step4
+        latex: "(AB)_{12} = 3 \\ne 2 = (BA)_{12}"
+        say: "but the top-right of A B was three, not two"
+        role: step
+        color: yellow
+      - id: answer2
+        latex: "AB \\ne BA"
+        say: "so A B does not equal B A"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "2*1 + 0*1"
+      value: 2
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: multiplying matrices is composing transformations, A B meaning B
+      first then A; the row-against-column rule is just the arithmetic of that
+      composition; and because the order of transformations matters, A B is generally not
+      B A. Next: Span — everywhere your vectors can reach.

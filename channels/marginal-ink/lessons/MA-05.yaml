@@ -1,0 +1,228 @@
+# MA-05: The Solow growth model, part 2 — population, technology, the golden rule.
+# OpenStax Principles of Economics 3e, Ch 20 (CC BY 4.0) for the tech/population
+# content; the golden rule and (delta+n)k break-even line are the standard
+# intermediate-macro construction (flagged in the review). ~7 minutes.
+# Colour: output = blue, saving/investment = green, depreciation = red,
+# break-even (delta+n)k = orange, steady state/golden = yellow.
+schema_version: 1
+id: MA-05
+channel: marginal-ink
+title: "Solow part 2: population, technology and the golden rule"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§20.3-20.4 Components of Economic Growth and Convergence"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/228-20-3-components-of-economic-growth.md"
+  pages: "487-498"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "The saving rate that's just right"
+  keyword: "just right"
+publish:
+  title: "Solow Model Part 2: Population Growth, Technology and the Golden Rule"
+  summary: >
+    Part two of the Solow model. Adding population growth steepens the break-even
+    line and lowers capital per worker; only technology delivers lasting growth in
+    income per head; and the golden-rule saving rate is the one that maximises
+    steady-state consumption, where the slope of output matches the break-even line.
+    Two worked examples follow.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - Solow model
+    - golden rule
+    - population growth
+    - technological progress
+    - steady state
+    - economic growth
+    - macroeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Part one found the steady state. Part two asks what moves it: a growing
+      population, better technology, and the saving rate that leaves people best off.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Output per worker, {outputCurve}, in blue, and the investment it funds, {savingCurve},
+      in green, exactly as before. In part one the break-even line was depreciation alone,
+      {depLine}, in red. Now let the population grow. Each year there are more workers to
+      equip, so investment must do two jobs: replace worn-out capital and furnish the new
+      workers with their share. The break-even line steepens to depreciation plus
+      population growth times capital, {breakLine}, in orange — in symbols, {breakEq},
+      investment at the steady state must equal delta plus n, all times k. Because it is
+      steeper, it meets the green investment curve further to the left, at a lower steady
+      state, {steady}. That is the model's blunt verdict: faster population growth, other
+      things equal, means less capital per worker and lower output per head. The capital
+      has to be spread more thinly, since a chunk of every year's saving now goes simply
+      to kitting out the extra workers rather than making each existing worker better
+      equipped. Notice what has not moved the curve, though — the output curve itself.
+      Only one thing lifts that, and it is the quiet force behind every lasting rise in
+      living standards: technology.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 10, 1]
+        y: [0, 7, 1]
+        x_length: 8.0
+        y_length: 3.6
+        x_label: "k"
+        y_label: "per worker"
+      steps:
+        - {id: outputCurve, action: plot_function, params: {func: output_pw, color: blue, label: "f(k)"}}
+        - {id: savingCurve, action: plot_function, params: {func: saving_pw, color: green, label: "s\\,f(k)"}}
+        - {id: depLine, action: plot_line, params: {name: dep, a: 0.3, b: -1, c: 0, color: red, label: "\\delta k"}}
+        - {id: breakLine, action: plot_line, params: {name: brk, a: 0.6, b: -1, c: 0, color: orange, label: "(\\delta+n)k"}}
+        - {id: steady, action: mark_point, params: {x: 1, y: 0.6, color: yellow, label: "k^*"}}
+    board:
+      - id: breakEq
+        latex: "s\\,f(k^*) = (\\delta + n)\\,k^*"
+        say: "s times f of k star equals, delta plus n, times k star"
+        color: orange
+        legend:
+          - {sym: "\\delta", name: "depreciation rate", unit: ""}
+          - {sym: "n", name: "population growth rate", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      The break-even condition is this, {breakEq2}: at the steady state, investment equals
+      depreciation plus the capital needed to equip population growth. Raise n and the
+      right-hand line tilts up, dragging the steady state down — the formal version of what
+      we just saw. But population and depreciation only relocate a steady state; neither
+      can make output per worker rise forever, because the output curve still bends over
+      into diminishing returns. Lasting growth needs the curve itself to climb year after
+      year, and that is what technological progress does, {techEq}: with labour-augmenting
+      technology growing at a rate g, output per worker grows at g even in the steady
+      state. Capital explains why countries differ in level; technology explains why they
+      all grow over time. Now the golden rule, the model's one piece of advice on saving.
+      Steady-state consumption per worker is output minus the investment that just holds
+      capital steady, and it is largest at the capital level where the slope of the output
+      curve equals the slope of the break-even line, {goldEq}: f dashed of k equals delta
+      plus n. Save too little and you consume a lot now but sit on a thin capital stock;
+      save too much and you pour output into replacing capital you barely enjoy. The
+      golden-rule saving rate threads between the two, maximising consumption for every
+      generation — the most anyone can sustainably have. It is worth being clear about
+      what the golden rule is not. It does not maximise output, nor capital, nor growth;
+      a country could push capital higher still and produce more, yet be worse off,
+      because so much of that extra output would be swallowed by replacing and equipping
+      capital that nobody gets to consume. The golden rule maximises what actually reaches
+      people. And it carries a sting: an economy saving above the golden rate could raise
+      consumption for every generation at once simply by saving less — a rare free lunch
+      in economics. One saving below it faces a harder trade, giving up consumption now to
+      enjoy more later. Knowing which side you are on is the whole practical use of the
+      model.
+    board:
+      - id: breakEq2
+        latex: "s\\,f(k^*) = (\\delta + n)\\,k^*"
+        say: "s f of k star equals, delta plus n, k star"
+        color: orange
+      - id: techEq
+        latex: "g_{y} = g \\quad (\\text{from technology})"
+        say: "output per worker grows at g, the rate of technological progress"
+        color: blue
+      - id: goldEq
+        latex: "f'(k_{gold}) = \\delta + n"
+        say: "f dashed of k golden equals delta plus n"
+        color: yellow
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Here, {statement}, population growth enters. Take the same simple economy as
+      part one, but now with a positive population growth rate, {given}; find the
+      steady-state capital per worker. {find} Set investment equal to break-even,
+      {step1}: s times the square root of k equals delta plus n, times k. Divide by the
+      square root of k, {step2}: the square root of k star is s over delta plus n, which is
+      nought point four over nought point two, equal to two. Square it, {answer}: k star is
+      four. Compare that with sixteen when there was no population growth — adding ten per
+      cent population growth has quartered capital per worker. More mouths, thinner capital.
+    board:
+      - id: statement
+        text: "Steady state with population growth."
+      - id: given
+        latex: "f(k) = \\sqrt{k}, \\ s = 0.4, \\ \\delta = 0.1, \\ n = 0.1"
+        say: "f of k is root k, saving nought point four, depreciation nought point one, population growth nought point one"
+        role: given
+      - id: find
+        text: "Find k* where s·f(k) = (δ+n)k."
+        role: find
+      - id: step1
+        latex: "s\\sqrt{k} = (\\delta + n)\\,k"
+        say: "s root k equals, delta plus n, times k"
+        role: step
+        color: green
+      - id: step2
+        latex: "\\sqrt{k^*} = \\dfrac{s}{\\delta + n} = \\dfrac{0.4}{0.2} = 2"
+        say: "root k star equals s over delta plus n, nought point four over nought point two, two"
+        role: step
+        color: orange
+      - id: answer
+        latex: "k^* = 4"
+        say: "k star equals four"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "(0.4 / (0.1 + 0.1))**2"
+      value: 4
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      The golden-rule capital. {statement2} For the same economy, {given2}; find the
+      capital per worker that maximises steady-state consumption. {find2} The golden rule
+      sets the slope of output equal to the break-even slope, {step1b}: the derivative of
+      the square root of k is one over twice the square root of k, and we set it equal to
+      delta plus n. Solve for the square root of k, {step2b}: it is one over twice nought
+      point one, which is five. Square it, {answer2}: the golden-rule capital is
+      twenty-five. At that level, and the saving rate that delivers it, consumption per
+      worker is as high as the economy can hold year after year. Save to reach there, and
+      no further.
+    board:
+      - id: statement2
+        text: "Golden-rule capital per worker."
+      - id: given2
+        latex: "f(k) = \\sqrt{k}, \\quad \\delta + n = 0.1"
+        say: "f of k is root k, delta plus n equals nought point one"
+        role: given
+      - id: find2
+        text: "Find k where f'(k) = δ+n."
+        role: find
+      - id: step1b
+        latex: "f'(k) = \\dfrac{1}{2\\sqrt{k}} = \\delta + n"
+        say: "f dashed of k equals one over two root k, set equal to delta plus n"
+        role: step
+        color: blue
+      - id: step2b
+        latex: "\\sqrt{k} = \\dfrac{1}{2(0.1)} = 5"
+        say: "root k equals one over two times nought point one, five"
+        role: step
+        color: yellow
+      - id: answer2
+        latex: "k_{gold} = 25"
+        say: "the golden-rule capital is twenty-five"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "(1 / (2 * 0.1))**2"
+      value: 25
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: population growth steepens the break-even line and lowers capital per
+      worker; only technological progress raises output per head for good; and the
+      golden-rule saving rate, where output's slope equals delta plus n, maximises
+      lasting consumption. Next: Growth accounting — how much of growth is capital, labour
+      and ideas.
