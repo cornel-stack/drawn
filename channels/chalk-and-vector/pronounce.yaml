@@ -58,6 +58,9 @@ map:
   "\\hat": "hat"
   "\\bar": "bar"
   "\\vec": "vector"
+  # single matrix names A, B used possessively (not proper nouns)
+  "A's": "A's"
+  "B's": "B's"
   # named people and terms
   "Gauss": "gowss"
   "Gauss's": "gowss-iz"
