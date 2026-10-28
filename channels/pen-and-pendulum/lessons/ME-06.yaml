@@ -1,0 +1,216 @@
+# ME-06: Relative velocity — the boat, the river and the frame of reference.
+# OpenStax University Physics Vol. 1 §4.5 (CC BY 4.0). ~7 minutes.
+# Colour: boat rel water v_bw = green, current v_wg = blue, ground v_bg = red, path = yellow.
+schema_version: 1
+id: ME-06
+channel: pen-and-pendulum
+title: "Relative velocity: the boat, the river and the frame of reference"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 1"
+  section: "§4.5 Relative Motion in One and Two Dimensions"
+  license: "CC BY 4.0"
+  file: "university-physics-vol1/034-4-5-relative-motion-in-one-and-two-dimensions.md"
+  pages: "177-184"
+thumbnail:
+  kicker: "Mechanics"
+  hook: "Aim straight, land downstream"
+  keyword: "land downstream"
+publish:
+  title: "Relative Velocity Explained: The Boat-and-River Problem, Done Properly"
+  summary: >
+    Steer a boat straight across a river and you still land downstream — because
+    velocity depends on who is watching. We add velocities between frames with one
+    rule, v_bg = v_bw + v_wg, cross the river in a worked example, and find the
+    drift the current causes. Vectors, not memorised formulas.
+  hashtags: ["#physics", "#mechanics", "#kinematics"]
+  tags:
+    - relative velocity
+    - relative motion
+    - frame of reference
+    - boat and river
+    - vector addition
+    - crossing a river
+    - physics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Point a boat straight at the far bank and it never lands straight across. The
+      reason is that velocity is always measured relative to something, and choosing
+      what to measure against is the whole skill.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is the river, {drawRiver}, flowing left to right. A boat sets off from the
+      near bank steered straight across — this is its velocity relative to the water,
+      {boatVel}, in green. But the water itself is moving. The current carries
+      everything floating in it downstream, and that is the water's velocity relative
+      to the ground, {current}, in blue, drawn from the tip of the first. Add the two
+      nose to tail and you get the boat's velocity relative to the ground, {resultant},
+      in red — the velocity someone standing on the bank actually sees. It points
+      diagonally, so the boat follows the red line and lands downstream of where it
+      was aimed, {crossRiver}. The hollow dot marks where it would have landed with no
+      current. This is the one rule of the whole topic, {addEq}: a velocity relative to
+      the ground is the velocity relative to the water plus the velocity of the water
+      relative to the ground. Read the subscripts as a chain — boat-to-water, then
+      water-to-ground — and the shared middle frame, the water, links them into
+      boat-to-ground. You never add speeds blindly; you add velocity vectors, nose to
+      tail, and the frame you measure against is what each arrow is relative to. Change
+      your frame and the arrows change too: to a fish drifting with the current the
+      boat moves straight across at its full across-stream speed, while to a bystander
+      on the bank it slides along the diagonal. Both are right; they are simply
+      measuring against different things.
+    animation:
+      primitive: river_crossing
+      params:
+        boat: [0.0, 1.3]
+        current: 1.4
+      steps:
+        - {id: drawRiver, action: draw_river, params: {color: blue}}
+        - {id: boatVel, action: boat_velocity, params: {color: green, label: "v_{bw}"}}
+        - {id: current, action: current_velocity, params: {color: blue, label: "v_{wg}"}}
+        - {id: resultant, action: resultant, params: {color: red, label: "v_{bg}"}}
+        - {id: crossRiver, action: cross, params: {color: red, boat_color: yellow}}
+    board:
+      - id: addEq
+        latex: "\\vec{v}_{bg} = \\vec{v}_{bw} + \\vec{v}_{wg}"
+        say: "v b g equals v b w plus v w g"
+        color: red
+        legend:
+          - {sym: "\\vec{v}_{bg}", name: "boat relative to ground", unit: "m/s"}
+          - {sym: "\\vec{v}_{bw}", name: "boat relative to water", unit: "m/s"}
+          - {sym: "\\vec{v}_{wg}", name: "water relative to ground", unit: "m/s"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      The rule generalises, {chainEq}. The velocity of A relative to C is the velocity
+      of A relative to B plus the velocity of B relative to C — the inner frame, B,
+      cancels in the subscripts, like a chain. Our boat is just A equals boat, B equals
+      water, C equals ground. Two consequences follow. First, reversing a frame flips
+      the sign, {flipEq}: your velocity relative to the water is minus the water's
+      velocity relative to you. Second, to find how one moving object drifts relative
+      to another, subtract their ground velocities, {subEq}: the velocity of A relative
+      to B is A's velocity minus B's, both measured in the same frame. That is why two
+      trains at the same speed on parallel tracks seem, to each other, not to move at
+      all. Because these are vector equations, you solve them component by component:
+      line up the across-stream parts and the downstream parts separately, then
+      recombine with Pythagoras for the speed and a tangent for the direction. The
+      across-stream motion sets how long the crossing takes; the downstream current
+      sets how far you drift while you cross. The two are independent, exactly as the
+      horizontal and vertical were in projectile motion.
+    board:
+      - id: chainEq
+        latex: "\\vec{v}_{AC} = \\vec{v}_{AB} + \\vec{v}_{BC}"
+        say: "v A C equals v A B plus v B C"
+        color: red
+      - id: flipEq
+        latex: "\\vec{v}_{AB} = -\\,\\vec{v}_{BA}"
+        say: "v A B equals minus v B A"
+        color: blue
+      - id: subEq
+        latex: "\\vec{v}_{AB} = \\vec{v}_{AG} - \\vec{v}_{BG}"
+        say: "v A B equals v A G minus v B G"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Speed over the ground. {statement} A boat is steered straight across a river at
+      a steady speed through the water, while the current flows downstream, {given};
+      find the boat's speed and direction relative to the ground. {find} The two
+      velocities are at right angles, so the ground speed is their Pythagorean sum,
+      {step1}: the square root of four squared plus three squared, a clean five metres
+      per second, {answer}. The direction, {step2}: the angle downstream from straight
+      across has a tangent of three over four, about thirty-seven degrees. The boat
+      moves faster over the ground than through the water, because the current adds a
+      push the water alone never gave it.
+    board:
+      - id: statement
+        text: "A boat steered straight across a current."
+      - id: given
+        latex: "v_{bw} = 4\\ \\text{m/s (across)}, \\quad v_{wg} = 3\\ \\text{m/s (down)}"
+        say: "v b w equals four metres per second across, v w g equals three metres per second downstream"
+        role: given
+      - id: find
+        text: "Find the ground speed and direction."
+        role: find
+      - id: step1
+        latex: "v_{bg} = \\sqrt{4^2 + 3^2}"
+        say: "v b g equals the square root of four squared plus three squared"
+        role: step
+        color: red
+      - id: answer
+        latex: "v_{bg} = 5\\ \\text{m/s}"
+        say: "v b g equals five metres per second"
+        role: answer
+        box: true
+        color: red
+      - id: step2
+        latex: "\\tan\\phi = \\tfrac{3}{4} \\Rightarrow \\phi \\approx 36.9^{\\circ}"
+        say: "tangent phi equals three over four, so phi is about thirty-seven degrees"
+        role: step
+        color: blue
+    check:
+      expr: "(4**2 + 3**2)**0.5"
+      value: 5
+      unit: "m/s"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Now the crossing itself. {statement2} The same boat crosses a river of known
+      width, still steered straight across, {given2}; find how long the crossing takes
+      and how far downstream it lands. {find2} Only the across-stream velocity carries
+      the boat over, so the time is the width over that speed, {step3}: eighty metres
+      over four metres per second, twenty seconds. In those twenty seconds the current
+      slides it downstream at three metres per second, {step4}: three times twenty is
+      sixty metres of drift, {answer2}. Steering straight across is the fastest way
+      over, but never the straightest path — to land directly opposite you would have
+      to aim upstream, and we take that up next.
+    board:
+      - id: statement2
+        text: "Crossing time and downstream drift."
+      - id: given2
+        latex: "w = 80\\ \\text{m}, \\quad v_{bw} = 4\\ \\text{m/s}, \\quad v_{wg} = 3\\ \\text{m/s}"
+        say: "width eighty metres, v b w four metres per second, v w g three metres per second"
+        role: given
+      - id: find2
+        text: "Find the crossing time and the drift."
+        role: find
+      - id: step3
+        latex: "t = \\dfrac{w}{v_{bw}} = \\dfrac{80}{4} = 20\\ \\text{s}"
+        say: "t equals width over v b w, eighty over four, twenty seconds"
+        role: step
+        color: green
+      - id: step4
+        latex: "x = v_{wg}\\,t = 3 \\times 20"
+        say: "drift equals v w g times t, three times twenty"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "x = 60\\ \\text{m}"
+        say: "the drift is sixty metres"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "3 * (80 / 4)"
+      value: 60
+      unit: "m"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: every velocity is relative to a frame, and to change frames you
+      add velocity vectors with the chain rule, v A C equals v A B plus v B C. Steer
+      straight across and the current still carries you downstream, because the two
+      motions are independent. Next: Newton's three laws, properly — what each one
+      actually says.

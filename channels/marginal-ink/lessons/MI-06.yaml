@@ -1,0 +1,222 @@
+# MI-06: Indifference curves and the budget constraint, visualised.
+# OpenStax Principles of Economics 3e, Appendix: Indifference Curves (CC BY 4.0).
+# ~7 minutes. Colour: indifference curves = blue, budget line = orange,
+# optimum = green, MRS/price ratio = purple.
+schema_version: 1
+id: MI-06
+channel: marginal-ink
+title: "Indifference curves and the budget constraint, visualised"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "Appendix: Indifference Curves"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/418-what-is-an-indifference-curve.md"
+  pages: "A-1 to A-8"
+thumbnail:
+  kicker: "Microeconomics"
+  hook: "Where the curves just kiss"
+  keyword: "just kiss"
+publish:
+  title: "Indifference Curves and the Budget Line: How Consumers Actually Choose"
+  summary: >
+    A consumer's best bundle sits where the budget line just touches the highest
+    indifference curve it can reach — the tangency. We build the picture from
+    scratch, explain why the curves bow inward, and turn the rule MRS = price
+    ratio into a quick method. Two worked examples follow.
+  hashtags: ["#economics", "#microeconomics", "#econ"]
+  tags:
+    - indifference curves
+    - budget constraint
+    - consumer choice
+    - utility maximisation
+    - marginal rate of substitution
+    - tangency condition
+    - microeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Give someone a fixed budget and two things to buy, and economics predicts the
+      exact bundle they will choose. The answer is a single point — where a line just
+      kisses a curve.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Two goods on the axes, {lowCurve}, x to the right and y upward. This blue curve
+      is an indifference curve: every bundle on it gives the same satisfaction, so the
+      consumer is indifferent between them. It slopes down because giving up some y
+      must be repaid with more x to stay equally happy, and it bows inward because the
+      more x you already have, the less y you will part with for still more of it —
+      diminishing willingness to trade. Curves further out mean more of both and so
+      more satisfaction, {highCurve}. The consumer would love the outer curve, but
+      cannot afford every bundle. The budget line, {budget}, in orange, shows what a
+      fixed income will buy at the going prices: spend it all on y and you reach the
+      top, all on x and you reach the right, and the straight line joins them. In
+      symbols it is simply this, {budgetEq}: spending on x, its price times its
+      quantity, plus spending on y, must add up to income. Its steepness is set by the
+      price ratio alone — raise the price of x and the line pivots inward at the
+      foot, shrinking what you can afford. Only bundles on or below the line are
+      affordable. So the best the consumer can do is the
+      highest indifference curve that still touches the budget line — and that happens
+      where the line is tangent to the curve, {optimum}, the point marked E. Reach for
+      any higher curve and the line falls short; settle for a lower one and you are
+      leaving satisfaction unspent.
+    animation:
+      primitive: indifference
+      params:
+        x_max: 10
+        y_max: 10
+        utility: {a: 2, b: 1}
+        budget: {px: 1, py: 1, m: 9}
+      steps:
+        - {id: lowCurve, action: curve, params: {level: 0.45, color: blue}}
+        - {id: highCurve, action: curve, params: {through_optimum: true, color: blue, label: "U"}}
+        - {id: budget, action: budget_line, params: {color: orange, label: "B"}}
+        - {id: optimum, action: optimum, params: {color: green, label: "E"}}
+    board:
+      - id: budgetEq
+        latex: "p_x\\,x + p_y\\,y = m"
+        say: "p x times x plus p y times y equals m"
+        color: orange
+        legend:
+          - {sym: "p_x, p_y", name: "prices of the two goods", unit: ""}
+          - {sym: "m", name: "income (the budget)", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Two slopes, {mrsEq}, meet at the tangency, and that is the key. The first is the
+      slope of the indifference curve, the marginal rate of substitution: the rate at
+      which the consumer is just willing to swap y for x, which equals the ratio of
+      the marginal utilities. It is the trade the consumer would happily accept in
+      their own head, with no prices in sight. The second slope is the price ratio, {priceEq}:
+      the rate at which the market lets them swap, how many y one x costs. At the best
+      bundle these two slopes are equal, {tangEq}: the rate you are willing to trade
+      matches the rate you are able to trade. If they differed — say you would give up
+      two y for an x, but the shop only charges one — you could trade at the market
+      rate and end up happier, so you would not yet be at the optimum. For the
+      Cobb-Douglas tastes drawn here, this rule has a clean consequence, {shareEq}: the
+      consumer spends a fixed share of income on each good, set by the exponents, a
+      over a-plus-b on x. The budget determines how far out you can reach; your
+      preferences, through the tangency, determine where along that line you stop.
+    board:
+      - id: mrsEq
+        latex: "\\text{MRS} = \\dfrac{MU_x}{MU_y}"
+        say: "M R S equals marginal utility of x over marginal utility of y"
+        color: blue
+      - id: priceEq
+        latex: "\\text{slope of budget} = \\dfrac{p_x}{p_y}"
+        say: "the slope of the budget line is p x over p y"
+        color: orange
+      - id: tangEq
+        latex: "\\dfrac{MU_x}{MU_y} = \\dfrac{p_x}{p_y}"
+        say: "marginal utility of x over marginal utility of y equals p x over p y"
+        color: purple
+        box: true
+      - id: shareEq
+        latex: "p_x\\,x^* = \\dfrac{a}{a+b}\\,m"
+        say: "spending on x equals a over a plus b, times income"
+        color: green
+
+  - id: s4
+    kind: problem
+    narration: >
+      Finding the bundle. {statement} Tastes are given by utility equal to x times y,
+      with prices and income as shown, {given}; find the best bundle. {find} For this
+      utility the marginal rate of substitution is y over x, so the tangency condition
+      sets y over x equal to the price ratio, {step1}: four over two, which is two, so
+      y equals two x. Put that into the budget, {step2}: four x plus two times two x is
+      twenty-four, giving eight x equals twenty-four, so x is three. Then y is twice
+      that, {step3}. The best bundle is three units of x and six of y, {answer}, and it
+      spends the income exactly: twelve pounds on each good.
+    board:
+      - id: statement
+        text: "The utility-maximising bundle."
+      - id: given
+        latex: "U = xy, \\quad p_x = 4,\\ p_y = 2,\\ m = 24"
+        say: "utility equals x y, price of x is four, price of y is two, income twenty-four"
+        role: given
+      - id: find
+        text: "Find the optimal x and y."
+        role: find
+      - id: step1
+        latex: "\\dfrac{y}{x} = \\dfrac{p_x}{p_y} = 2 \\Rightarrow y = 2x"
+        say: "y over x equals the price ratio, two, so y equals two x"
+        role: step
+        color: purple
+      - id: step2
+        latex: "4x + 2(2x) = 24 \\Rightarrow 8x = 24"
+        say: "four x plus two times two x equals twenty-four, so eight x equals twenty-four"
+        role: step
+        color: orange
+      - id: step3
+        latex: "x = 3, \\quad y = 2x = 6"
+        say: "x equals three, y equals two x, which is six"
+        role: step
+        color: green
+      - id: answer
+        latex: "(x^*, y^*) = (3,\\ 6)"
+        say: "the best bundle is three, six"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(1/2) * (24 / 4)"
+      value: 3
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      The spending-share shortcut. {statement2} Now tastes put more weight on x,
+      utility equal to x cubed times y, with the price of x and income given, {given2};
+      find how much x the consumer buys. {find2} The exponents are three on x and one
+      on y, so the share rule says the fraction of income spent on x is three over
+      three-plus-one, {step4}: three quarters. Three quarters of forty pounds is thirty
+      pounds spent on x, {step5}. Divide by the price of five, {answer2}: six units of
+      x. The tangency has done all the work — once you know the exponents, the bundle
+      follows without solving a single simultaneous equation.
+    board:
+      - id: statement2
+        text: "Using the spending-share rule."
+      - id: given2
+        latex: "U = x^3 y, \\quad p_x = 5,\\ m = 40"
+        say: "utility equals x cubed y, price of x is five, income forty"
+        role: given
+      - id: find2
+        text: "Find the quantity of x."
+        role: find
+      - id: step4
+        latex: "\\text{share on } x = \\dfrac{3}{3+1} = \\dfrac{3}{4}"
+        say: "the share spent on x is three over three plus one, three quarters"
+        role: step
+        color: green
+      - id: step5
+        latex: "p_x\\,x^* = \\tfrac{3}{4}(40) = 30"
+        say: "spending on x is three quarters of forty, thirty"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "x^* = \\dfrac{30}{5} = 6"
+        say: "x equals thirty over five, six"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(3/4) * 40 / 5"
+      value: 6
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: indifference curves rank bundles by satisfaction, the budget line
+      shows what is affordable, and the best choice is their tangency — where the
+      marginal rate of substitution equals the price ratio. Next: Income and
+      substitution effects — the Slutsky decomposition, step by step.

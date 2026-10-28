@@ -1,0 +1,212 @@
+# LA-06: The dot product explained visually — projection, angle, work.
+# Hefferon, Linear Algebra §1.II Linear Geometry of n-Space (CC BY-SA 3.0).
+# ~7 minutes. Colour: a = blue, b = orange, angle/projection = green, work = purple.
+schema_version: 1
+id: LA-06
+channel: chalk-and-vector
+title: "The dot product explained visually: projection, angle and work"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "§1.II Linear Geometry of n-Space"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/002-linear-geometry.md"
+  pages: "35-49"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "One number, two meanings"
+  keyword: "two meanings"
+publish:
+  title: "The Dot Product, Visually: Projection, Angle and Work in One Idea"
+  summary: >
+    The dot product turns two vectors into a single number — and that number
+    carries both an angle and a projection. We show why the component formula
+    and the length-times-cosine formula agree, read off acute, right and obtuse
+    from the sign, and use it to compute work. Two worked examples follow.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - dot product
+    - scalar product
+    - vector projection
+    - angle between vectors
+    - work physics
+    - linear algebra
+    - cosine formula
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Two vectors go in; one number comes out. That number quietly records both
+      the angle between them and how much one casts along the other.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here are two vectors, {drawA} {drawB}. The dot product combines them into a
+      single number, and the picture shows what that number means, {showDot}. Drop
+      a perpendicular from the tip of b onto the line of a: the green segment is the
+      projection of b onto a, how far b reaches in a's direction. The dot product is
+      the length of a times that projection. So it measures alignment — how much the
+      two vectors pull the same way. Written with the angle between them, it is this,
+      {dotEq}: the length of a, times the length of b, times the cosine of the angle.
+      That cosine carries everything. When the vectors point the same way the angle
+      is zero, the cosine is one, and the dot product is as large as it can be. When
+      they are perpendicular the cosine is zero, so the dot product is zero — which
+      is exactly how we shall test for a right angle. And when they point broadly
+      opposite the cosine is negative, and so is the dot product. One number, read
+      three ways: a projection, an angle, and a sign.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-1, 5, 1], y: [-1, 4, 1]}
+        vectors:
+          a: {to: [4, 1], color: blue, label: "a"}
+          b: {to: [2, 3], color: orange, label: "b"}
+      steps:
+        - {id: drawA, action: draw, params: {name: a}}
+        - {id: drawB, action: draw, params: {name: b}}
+        - {id: showDot, action: dot_product, params: {a: a, b: b, color: green}}
+    board:
+      - id: dotEq
+        latex: "\\vec{a}\\cdot\\vec{b} = |\\vec{a}|\\,|\\vec{b}|\\cos\\theta"
+        say: "a dot b equals the length of a, times the length of b, times cosine theta"
+        color: green
+        legend:
+          - {sym: "\\vec{a}\\cdot\\vec{b}", name: "dot product (a number)", unit: ""}
+          - {sym: "\\theta", name: "angle between the vectors", unit: "rad"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here is a second formula, {compEq}, that looks nothing like the first:
+      multiply the vectors entry by entry and add — a one times b one, plus a two
+      times b two. No angle, no cosine, just arithmetic you can do in your head. The
+      remarkable fact is that these two formulas always give the same number. You can
+      see why from the law of cosines applied to the triangle the two vectors make:
+      expanding the square of the third side, the cross terms collect exactly into the
+      entry-by-entry sum, while the rest rebuilds the two lengths. So the computation
+      on the right and the geometry on the left are not two definitions that happen to
+      agree — they are one thing, proved equal. That matters in practice, because the
+      component form is trivial to compute while the cosine form is what carries the
+      meaning, and now you may use whichever is convenient and trust the other. It also
+      hands us the angle for free, {cosEq}: rearrange to get the cosine
+      as the dot product over the two lengths. The sign of the dot product now reads
+      straight off as the shape of the angle. Positive means acute, the vectors lean
+      together; zero means a right angle, the test for perpendicularity; negative
+      means obtuse, they lean apart. And it gives a tidy definition of length itself:
+      a vector dotted with itself is the sum of its squared components, so its length
+      is the square root of that — the dot product of a vector with itself is its
+      length squared. One last use, straight from physics, {workEq}: the work done by
+      a force is the force dotted with the displacement, which picks out only the part
+      of the force that acts along the motion. A force at right angles to the motion
+      does no work at all, because its cosine is zero.
+    board:
+      - id: compEq
+        latex: "\\vec{a}\\cdot\\vec{b} = a_1 b_1 + a_2 b_2"
+        say: "a dot b equals a one b one plus a two b two"
+        color: green
+      - id: cosEq
+        latex: "\\cos\\theta = \\dfrac{\\vec{a}\\cdot\\vec{b}}{|\\vec{a}|\\,|\\vec{b}|}"
+        say: "cosine theta equals a dot b over the length of a times the length of b"
+        color: green
+      - id: workEq
+        latex: "W = \\vec{F}\\cdot\\vec{d}"
+        say: "work equals force dot displacement"
+        color: purple
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      A number and an angle. {statement} Two vectors are given, {given}; find their
+      dot product and the angle between them. {find} Entry by entry, {step1}: three
+      times two is six, four times one is four, so the dot product is ten. Now the
+      angle, {step2}: the length of a is the square root of nine plus sixteen, which
+      is five; the length of b is the square root of four plus one, root five. The
+      cosine is ten over five root five, about zero point eight nine, {step3}, giving
+      an angle of roughly twenty-seven degrees, {answer}. The positive dot product
+      already told us the angle was acute; the arithmetic just made it precise.
+    board:
+      - id: statement
+        text: "Dot product and angle."
+      - id: given
+        latex: "\\vec{a} = \\begin{pmatrix}3\\\\4\\end{pmatrix}, \\quad \\vec{b} = \\begin{pmatrix}2\\\\1\\end{pmatrix}"
+        say: "a equals three, four; b equals two, one"
+        role: given
+      - id: find
+        text: "Find a·b and the angle θ."
+        role: find
+      - id: step1
+        latex: "\\vec{a}\\cdot\\vec{b} = 3(2) + 4(1) = 10"
+        say: "a dot b equals three times two plus four times one, which is ten"
+        role: step
+        color: green
+      - id: step2
+        latex: "|\\vec{a}| = 5, \\quad |\\vec{b}| = \\sqrt{5}"
+        say: "the length of a is five, the length of b is root five"
+        role: step
+        color: blue
+      - id: step3
+        latex: "\\cos\\theta = \\dfrac{10}{5\\sqrt{5}} \\approx 0.894"
+        say: "cosine theta equals ten over five root five, about zero point eight nine four"
+        role: step
+        color: green
+      - id: answer
+        latex: "\\theta \\approx 26.6^{\\circ}"
+        say: "theta is about twenty-six point six degrees"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "np.degrees(np.arccos((3*2 + 4*1) / (5*np.sqrt(5))))"
+      value: 26.57
+      unit: "deg"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Now work. {statement2} A constant force pushes an object that moves in a
+      straight line, the force at an angle to the motion, {given2}; find the work
+      done. {find2} Work is force dotted with displacement, the length-times-cosine
+      form, {step4}: ten newtons, times four metres, times the cosine of sixty
+      degrees, which is a half. That is twenty joules, {answer2}. Only the component
+      of the force along the motion does work; the sideways component, at ninety
+      degrees, contributes nothing. Had the force been perpendicular, the work would
+      have been exactly zero.
+    board:
+      - id: statement2
+        text: "Work done by a force at an angle."
+      - id: given2
+        latex: "F = 10\\ \\text{N}, \\quad d = 4\\ \\text{m}, \\quad \\theta = 60^{\\circ}"
+        say: "force ten newtons, displacement four metres, angle sixty degrees"
+        role: given
+      - id: find2
+        text: "Find the work W = F·d."
+        role: find
+      - id: step4
+        latex: "W = F\\,d\\cos\\theta = 10 \\times 4 \\times \\cos 60^{\\circ}"
+        say: "work equals F d cosine theta, ten times four times cosine sixty"
+        role: step
+        color: purple
+      - id: answer2
+        latex: "W = 20\\ \\text{J}"
+        say: "work equals twenty joules"
+        role: answer
+        box: true
+        color: purple
+    check:
+      expr: "10 * 4 * cos(pi/3)"
+      value: 20
+      unit: "J"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the dot product is one number that equals both the entry-by-entry
+      sum and the lengths times the cosine of the angle; its sign tells acute from
+      right from obtuse, and it measures how much one vector projects onto another.
+      Next: What a matrix really does — matrices as transformations.
