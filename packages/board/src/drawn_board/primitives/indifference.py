@@ -80,10 +80,10 @@ class Indifference(Primitive):
         return pts
 
     def _axis_label(self, text, point, direction):
-        from manim import Text
+        # MathTex so subscripts like c_1, c_2 render properly (not literal "c_1")
+        from manim import MathTex
 
-        return Text(text, font=self.channel.font.handwriting, weight="BOLD",
-                    font_size=LABEL_FONT_SIZE, color=self.color(None)).next_to(
+        return MathTex(text, color=self.color(None), font_size=LABEL_FONT_SIZE + 6).next_to(
             point, direction=direction, buff=0.2)
 
     # -- steps -------------------------------------------------------------

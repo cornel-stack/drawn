@@ -115,15 +115,18 @@ class Circuit(Primitive):
     @step
     def current(self, run_time: float, branch: str = "left", direction: str = "up",
                 label: str = "I", color: str = "blue", **_):
-        """A current arrow along a vertical branch (up or down), labelled."""
+        """A current arrow on the UPPER part of a vertical branch (clear of the
+        component sitting at the branch centre), labelled to the side."""
         from manim import Arrow, GrowArrow, Write
 
         x = self._x[branch]
-        y0, y1 = self.cy - 0.6, self.cy + 0.6
+        top = self._yt
+        # sit the arrow between the component (at cy) and the top wire
+        y0, y1 = self.cy + 0.6, min(self.cy + 1.3, top - 0.15)
         if direction == "down":
             y0, y1 = y1, y0
         arr = Arrow([x, y0, 0], [x, y1, 0], buff=0, color=self.color(color),
-                    stroke_width=6, max_tip_length_to_length_ratio=0.3)
+                    stroke_width=6, max_tip_length_to_length_ratio=0.35)
         off = _left() if branch == "left" else _right()
         self.scene.play(GrowArrow(arr), run_time=run_time * 0.7)
         self.scene.play(Write(self._mlabel(label, arr.get_center(), color, off)),
@@ -137,9 +140,10 @@ class Circuit(Primitive):
 
         xc = (self._x["left"] + self._x["middle"]) / 2 if which == "left" \
             else (self._x["middle"] + self._x["right"]) / 2
-        r = 0.6
-        start = [xc + r, self.cy, 0]
-        end = [xc - r, self.cy, 0]
+        yc = self.cy - 0.55  # sit low in the loop, clear of the components
+        r = 0.5
+        start = [xc + r, yc, 0]
+        end = [xc - r, yc, 0]
         arc = CurvedArrow(np.array(start), np.array(end), angle=-5.0,
                           color=self.color(color), tip_length=0.2)
         self.scene.play(_create(arc), run_time=run_time * (0.8 if label else 1.0))
