@@ -187,6 +187,29 @@ class SupplyDemand(Primitive):
         self.scene.play(_grow(arrow), _write(lbl), run_time=run_time * 0.5)
 
     @step
+    def tax(self, run_time: float, t: float = 2.0, color: str = "red", **_):
+        """A per-unit tax t: shift supply up by t, mark the taxed quantity, and
+        draw the vertical wedge between the buyer price Pb (on demand) and the
+        seller price Ps (on supply), with Pb - Ps = t."""
+        from manim import DashedLine, Dot, DoubleArrow, MathTex
+
+        qt = (self.a - self.c - t) / (self.b + self.d)
+        pb = self.a - self.b * qt          # buyers pay (on demand)
+        ps = self.c + self.d * qt          # sellers receive (on original supply)
+        taxed = self._clip(lambda q: (self.c + t) + self.d * q, "blue")
+        taxed.set_stroke(opacity=0.5)
+        wedge = DoubleArrow(self.axes.c2p(qt, ps), self.axes.c2p(qt, pb),
+                            color=self.color(color), buff=0.02, tip_length=0.16, stroke_width=5)
+        tlbl = MathTex("t", color=self.color(color), font_size=LABEL_FONT_SIZE).next_to(
+            wedge, _right(), buff=0.1)
+        db = Dot(self.axes.c2p(qt, pb), color=self.color("orange"), radius=0.08)
+        ds = Dot(self.axes.c2p(qt, ps), color=self.color("blue"), radius=0.08)
+        guide = DashedLine(self.axes.c2p(qt, 0), self.axes.c2p(qt, pb),
+                           color=self.color(None), stroke_width=2)
+        self.scene.play(_create(taxed), _create(guide), run_time=run_time * 0.5)
+        self.scene.play(_grow(db), _grow(ds), _grow(wedge), _write(tlbl), run_time=run_time * 0.5)
+
+    @step
     def surplus(self, run_time: float, which: str = "both", cs_color: str = "green",
                 ps_color: str = "orange", **_):
         """Shade the consumer- and/or producer-surplus triangles at equilibrium.

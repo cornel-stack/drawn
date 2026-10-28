@@ -106,6 +106,26 @@ class Vectors(Primitive):
         self.scene.play(*anims, run_time=run_time)
 
     @step
+    def draw_at(self, run_time: float, name: str = None, basepoint=(0.0, 0.0), **_):
+        """Draw the same vector `name` as an arrow starting at `basepoint` rather
+        than the origin — the free-vector reading (same length and direction)."""
+        from manim import GrowArrow, Write
+
+        spec = self._specs[name]
+        x, y = spec["to"]
+        bx, by = float(basepoint[0]), float(basepoint[1])
+        arrow = self._arrow(self._c2p(bx, by), self._c2p(bx + x, by + y), spec.get("color"))
+        self._arrows[name] = arrow
+        self._coords[name] = (bx + x, by + y)
+        anims = [GrowArrow(arrow)]
+        if spec.get("label"):
+            lbl = self._label(spec["label"], arrow.get_end(), spec.get("color"),
+                              direction=_unit(arrow))
+            self._labels[name] = lbl
+            anims.append(Write(lbl))
+        self.scene.play(*anims, run_time=run_time)
+
+    @step
     def components(self, run_time: float, name: str = None,
                    cx: str = "blue", cy: str = "orange", **_):
         """Drop `name` onto the axes as component arrows Ax (x) + Ay (y)."""
