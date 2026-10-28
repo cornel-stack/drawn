@@ -1,0 +1,204 @@
+# MA-10: The IS curve, derived — goods-market equilibrium and the multiplier.
+# OpenStax Principles of Economics 3e, Keynesian cross + multiplier (CC BY 4.0) for
+# the goods-market/multiplier content; the IS curve itself is the standard
+# intermediate-macro construction (flagged in the review). ~7 minutes.
+# Colour: IS curve = blue, equilibria = green, multiplier = orange.
+schema_version: 1
+id: MA-10
+channel: marginal-ink
+title: "The IS curve, derived: goods-market equilibrium and the multiplier"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "Equilibrium in the Keynesian Cross and the Multiplier Effect"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/432-the-multiplier-effect.md"
+  pages: "AE-1 to AE-12"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "Why cheap money lifts output"
+  keyword: "cheap money"
+publish:
+  title: "The IS Curve, Derived: Goods-Market Equilibrium and the Multiplier"
+  summary: >
+    The IS curve traces every pair of interest rate and output at which the goods
+    market clears. We derive it from the condition that spending equals output,
+    show why it slopes down — a lower interest rate lifts investment and, through
+    the multiplier, output — and compute the multiplier itself. Two worked examples.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - IS curve
+    - Keynesian cross
+    - multiplier
+    - goods market equilibrium
+    - marginal propensity to consume
+    - macroeconomics
+    - IS-LM
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Cut interest rates and output tends to rise. The IS curve is the line that captures that
+      relationship exactly — every combination of interest rate and output at which the goods
+      market is in balance.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Output along the bottom, {drawIS}, the interest rate up the side, and this blue line is the
+      IS curve. Every point on it is a state where the goods market clears — where total planned
+      spending in the economy exactly equals what the economy produces. The striking feature is
+      its downward slope, and it is worth seeing why. Take a point high up, {markA}, at point A: a
+      high interest rate makes borrowing dear, firms invest little, spending is weak, and so
+      equilibrium output is low. Now drop the interest rate and move to point B, {markB}: cheaper
+      borrowing spurs investment, that extra spending ripples through the economy, and equilibrium
+      output is higher. Lower rates, higher output — that is the whole message of the curve, and
+      every point along it is a goods market in balance at a different interest rate. The curve
+      slopes down because investment responds to the interest rate, and output responds to
+      investment, amplified by something we must now pin down: the multiplier, {multEq}.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 10, 1]
+        y: [0, 10, 1]
+        x_length: 8.0
+        y_length: 3.6
+        x_label: "Y"
+        y_label: "r"
+      steps:
+        - {id: drawIS, action: plot_line, params: {name: is, a: 0.8, b: 1, c: 9, color: blue, label: "IS"}}
+        - {id: markA, action: mark_point, params: {x: 2.5, y: 7, color: green, label: "A"}}
+        - {id: markB, action: mark_point, params: {x: 7, y: 3.4, color: green, label: "B"}}
+    board:
+      - id: multEq
+        latex: "\\text{multiplier} = \\dfrac{1}{1 - \\text{MPC}}"
+        say: "the multiplier equals one over one minus the marginal propensity to consume"
+        color: orange
+        legend:
+          - {sym: "\\text{MPC}", name: "marginal propensity to consume", unit: ""}
+          - {sym: "Y", name: "output; r = interest rate", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here, {eqEq}, is the equilibrium condition: output equals total planned spending — consumption
+      plus investment plus government purchases. Consumption itself rises with income: for every extra
+      pound earned, households spend a fraction of it, the marginal propensity to consume. That feeds
+      back on itself. A pound of new spending becomes someone's income, who spends a fraction, which
+      becomes another's income, and so on down a shrinking chain. Summing that chain gives the
+      multiplier, {multEq2}: one over one minus the marginal propensity to consume. If people spend
+      four-fifths of each extra pound, the multiplier is five — every pound of new autonomous spending
+      ends up raising output by five. Now bring in the interest rate, {isLogic}. Investment falls when
+      the interest rate rises, so a lower rate means more investment, which is more autonomous spending,
+      which the multiplier turns into a larger rise in output. Run through every interest rate and you
+      trace out the whole IS curve, each point a goods market cleared at a different rate — and because
+      lower rates always lift output, the curve slopes down. One more thing the derivation hands us:
+      anything that raises autonomous spending at a given interest rate — a burst of government
+      spending, a wave of business optimism — shifts the entire IS curve to the right, and does so
+      magnified by the multiplier. That is the engine of fiscal policy, and the reason the IS curve is
+      one half of the famous IS-LM model we build next. Two refinements keep the picture honest. The
+      simple multiplier assumes people spend a fixed fraction of every extra pound, but in reality some
+      of that spending leaks away — into taxes, into savings, into imports — and each leak shrinks the
+      multiplier below the simple figure, because less of each round comes back as domestic income. And
+      the multiplier cuts both ways: just as a rise in spending is amplified into a larger rise in
+      output, a fall in spending is amplified into a larger fall, which is how a modest drop in
+      investment can tip an economy into a deep recession. The IS curve captures all of this in one
+      downward line: its slope reflects how strongly investment answers the interest rate, and its
+      position reflects every other source of spending.
+    board:
+      - id: eqEq
+        latex: "Y = C + I + G"
+        say: "output equals consumption plus investment plus government spending"
+        color: blue
+      - id: multEq2
+        latex: "\\text{multiplier} = \\dfrac{1}{1-\\text{MPC}}"
+        say: "the multiplier is one over one minus the marginal propensity to consume"
+        color: orange
+        box: true
+      - id: isLogic
+        latex: "r \\downarrow \\;\\Rightarrow\\; I \\uparrow \\;\\Rightarrow\\; Y \\uparrow"
+        say: "a lower interest rate raises investment, which raises output"
+        color: green
+
+  - id: s4
+    kind: problem
+    narration: >
+      The multiplier. {statement} The marginal propensity to consume is given, {given}; find the
+      multiplier. {find} The multiplier is one over one minus the propensity to consume, {step1}: one
+      over one minus nought point eight, which is one over nought point two. That is five, {answer}. So
+      each pound of new autonomous spending — investment, government purchases, whatever — ultimately
+      raises total output by five pounds, as it circulates and re-circulates through the economy.
+    board:
+      - id: statement
+        text: "Compute the spending multiplier."
+      - id: given
+        latex: "\\text{MPC} = 0.8"
+        say: "the marginal propensity to consume is nought point eight"
+        role: given
+      - id: find
+        text: "Find the multiplier."
+        role: find
+      - id: step1
+        latex: "\\text{multiplier} = \\dfrac{1}{1 - 0.8} = \\dfrac{1}{0.2}"
+        say: "the multiplier is one over one minus nought point eight, one over nought point two"
+        role: step
+        color: orange
+      - id: answer
+        latex: "\\text{multiplier} = 5"
+        say: "the multiplier is five"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "1 / (1 - 0.8)"
+      value: 5
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Fiscal policy through the multiplier. {statement2} Government spending rises by a given amount,
+      with the same propensity to consume, {given2}; find the eventual change in output. {find2} The
+      change in output is the multiplier times the change in spending, {step1b}: five times twenty
+      billion. That is one hundred billion, {answer2}. A twenty-billion injection lifts output by a
+      hundred billion, because the first round of spending becomes income that is partly spent again,
+      and again, five times over in total. The multiplier is exactly why a given dose of fiscal policy
+      moves the economy by far more than the dose itself — and why the IS curve shifts so far when
+      spending changes.
+    board:
+      - id: statement2
+        text: "Output change from a spending rise."
+      - id: given2
+        latex: "\\Delta G = 20,\\quad \\text{MPC} = 0.8"
+        say: "government spending rises by twenty, marginal propensity to consume nought point eight"
+        role: given
+      - id: find2
+        text: "Find the change in output ΔY."
+        role: find
+      - id: step1b
+        latex: "\\Delta Y = \\dfrac{1}{1-0.8}\\,\\Delta G = 5 \\times 20"
+        say: "change in output is the multiplier times the change in spending, five times twenty"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "\\Delta Y = 100"
+        say: "output rises by one hundred"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "5 * 20"
+      value: 100
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the IS curve shows every interest rate and output pair at which planned spending
+      equals output; it slopes down because a lower interest rate raises investment and, through the
+      multiplier, output; and the multiplier is one over one minus the marginal propensity to consume.
+      Next: The LM curve, derived — money-market equilibrium.

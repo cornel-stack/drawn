@@ -1,0 +1,209 @@
+# LA-13: The inverse matrix — undoing a transformation (and when you can't).
+# Hefferon, Linear Algebra §III Matrix Operations / Inverses (CC BY-SA 3.0). ~7 minutes.
+# Colour: i-hat = blue, j-hat = green, inverse/return = orange, determinant = yellow.
+schema_version: 1
+id: LA-13
+channel: chalk-and-vector
+title: "The inverse matrix: undoing a transformation (and when you can't)"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "§III Matrix Operations: Inverses"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/018-matrix-operations.md"
+  pages: "234-250"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "When can you hit undo?"
+  keyword: "undo"
+publish:
+  title: "The Inverse Matrix: Undoing a Transformation, and When You Can't"
+  summary: >
+    The inverse of a matrix is the transformation that undoes it — apply one then
+    the other and you are back where you started. We show the 2x2 formula, why the
+    determinant sits in the denominator, and why a matrix that collapses space can
+    never be inverted. Two worked examples follow.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - inverse matrix
+    - matrix inverse
+    - determinant
+    - singular matrix
+    - linear algebra
+    - invertible
+    - undo transformation
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Every transformation raises a question: can it be undone? For a matrix, the answer is a
+      second matrix, its inverse — and sometimes, tellingly, no inverse exists at all.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Start with the basis vectors, {drawBasis}. Apply a matrix and the whole plane deforms,
+      {applyA}: the grid is sheared and stretched into a new shape. The inverse is the
+      transformation that exactly reverses this. Apply it now, {applyInv}, and watch every
+      point retrace its steps: the grid unshears, unstretches, and settles back precisely onto
+      the original square grid we began with. That is what an inverse does — it is the undo
+      button. Doing A and then its inverse leaves the plane untouched, which is the same as
+      doing nothing at all, the identity, {invEq}. So the inverse undoes A, and A undoes the inverse;
+      the two are perfect opposites. But this only works if A did not destroy anything on the
+      way. If the matrix had collapsed the plane onto a line, no transformation could ever pull
+      it back out into a full plane again — the information of which point went where would be
+      gone for good. Whether an inverse exists comes down to exactly that: did the matrix keep
+      everything, or did it crush the plane?
+    animation:
+      primitive: linear_transform
+      params:
+        x_range: [-5, 5]
+        y_range: [-3, 3]
+        matrix: [[2, 1], [1, 1]]
+      steps:
+        - {id: drawBasis, action: draw_basis, params: {i_color: blue, j_color: green}}
+        - {id: applyA, action: apply_matrix, params: {matrix: [[2, 1], [1, 1]]}}
+        - {id: applyInv, action: apply_matrix, params: {matrix: [[1, -1], [-1, 2]]}}
+    board:
+      - id: invEq
+        latex: "A\\,A^{-1} = I"
+        say: "A times A inverse equals the identity"
+        color: orange
+        legend:
+          - {sym: "A^{-1}", name: "the matrix that undoes A", unit: ""}
+          - {sym: "I", name: "identity: changes nothing", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Define it precisely, {invEq2}: the inverse of A is the matrix that, multiplied with A,
+      gives the identity — the do-nothing matrix. For a two-by-two matrix there is a tidy
+      formula, {formulaEq}: swap the two diagonal entries, negate the other two, and divide the
+      whole thing by the determinant. That determinant in the denominator is the heart of the
+      matter. If the determinant is anything other than zero, you divide happily and the inverse
+      exists. But if the determinant is zero, you are dividing by zero, and the formula breaks
+      down, {singEq} — there is simply no inverse. This is not a quirk of the formula; it is the
+      geometry we saw. A zero determinant means the matrix flattened the plane onto a line,
+      crushing a whole direction to nothing, and no map can un-crush it. So all our conditions
+      line up into one chain: a matrix is invertible exactly when its determinant is non-zero,
+      which is exactly when its columns are independent, its rank is full, and its nullity is
+      zero. These are five ways of saying the same single thing — the transformation loses
+      nothing, so it can be undone. And the inverse is genuinely useful: it solves a whole
+      system of equations in one stroke, because if A x equals b, then x is A inverse times b.
+      Finding the inverse is finding the universal undo for every right-hand side at once. A word of
+      caution worth carrying forward: for larger matrices this little formula no longer applies, and
+      computing an inverse by hand becomes real work — row reduction is the usual method. In practice,
+      too, you rarely want the inverse itself. If all you need is to solve one system, it is faster and
+      more accurate to solve it directly than to build the whole inverse and multiply. The inverse
+      earns its keep when you must undo the same transformation again and again, for many different
+      inputs — then computing it once pays off every time afterwards. But the idea matters more than the
+      arithmetic: an invertible matrix is a transformation you can run backwards, a change of
+      coordinates you can always translate back out of, and that reversibility is what makes it safe to
+      build whole theories on top of.
+    board:
+      - id: invEq2
+        latex: "A^{-1}A = AA^{-1} = I"
+        say: "A inverse A equals A A inverse equals the identity"
+        color: orange
+      - id: formulaEq
+        latex: "A^{-1} = \\dfrac{1}{\\det A}\\begin{pmatrix}d & -b\\\\-c & a\\end{pmatrix}"
+        say: "A inverse equals one over the determinant, times d, minus b, minus c, a"
+        color: yellow
+        box: true
+      - id: singEq
+        latex: "\\det A = 0 \\;\\Rightarrow\\; \\text{no inverse}"
+        say: "if the determinant is zero, there is no inverse"
+        color: blue
+
+  - id: s4
+    kind: problem
+    narration: >
+      Finding an inverse. {statement} A matrix is given, {given}; find its inverse. {find} First
+      the determinant, {step1}: two times one minus one times one, which is one. It is not zero,
+      so an inverse exists. Now apply the formula, {step2}: swap the diagonal, giving one and
+      two; negate the off-diagonal, giving minus one and minus one; and divide by the
+      determinant of one, which changes nothing. The inverse is this, {answer}. You can check it:
+      multiply it by the original and you get the identity, confirming the undo is exact.
+    board:
+      - id: statement
+        text: "Find the inverse of the matrix."
+      - id: given
+        latex: "A = \\begin{pmatrix}2 & 1\\\\1 & 1\\end{pmatrix}"
+        say: "A is two, one, one, one"
+        role: given
+      - id: find
+        text: "Find A⁻¹."
+        role: find
+      - id: step1
+        latex: "\\det A = 2(1) - 1(1) = 1"
+        say: "the determinant is two times one minus one times one, one"
+        role: step
+        color: yellow
+      - id: step2
+        latex: "A^{-1} = \\dfrac{1}{1}\\begin{pmatrix}1 & -1\\\\-1 & 2\\end{pmatrix}"
+        say: "A inverse is one over one, times one, minus one, minus one, two"
+        role: step
+        color: orange
+      - id: answer
+        latex: "A^{-1} = \\begin{pmatrix}1 & -1\\\\-1 & 2\\end{pmatrix}"
+        say: "A inverse equals one, minus one, minus one, two"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "2*1 - 1*1"
+      value: 1
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      When there is no inverse. {statement2} A second matrix is given, {given2}; decide whether
+      it can be inverted. {find2} Compute the determinant, {step1b}: one times four minus two
+      times two, which is zero. The determinant is zero, {step2b}, so the matrix is singular and
+      has no inverse. Look at why: the second row is exactly twice the first, so the matrix
+      crushes the plane onto a line, losing a whole dimension. No transformation can recover
+      what was thrown away, {answer2}. A zero determinant is the unmistakable sign that undo is
+      impossible.
+    board:
+      - id: statement2
+        text: "Can this matrix be inverted?"
+      - id: given2
+        latex: "B = \\begin{pmatrix}1 & 2\\\\2 & 4\\end{pmatrix}"
+        say: "B is one, two, two, four"
+        role: given
+      - id: find2
+        text: "Is B invertible?"
+        role: find
+      - id: step1b
+        latex: "\\det B = 1(4) - 2(2) = 0"
+        say: "the determinant is one times four minus two times two, zero"
+        role: step
+        color: yellow
+      - id: step2b
+        latex: "\\det B = 0 \\;\\Rightarrow\\; \\text{singular}"
+        say: "the determinant is zero, so B is singular"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "\\text{no inverse exists}"
+        say: "no inverse exists"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "1*4 - 2*2"
+      value: 0
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the inverse of a matrix undoes its transformation, with A times A inverse
+      equal to the identity; the two-by-two formula divides by the determinant, so a zero
+      determinant means no inverse; and a matrix is invertible exactly when it collapses nothing.
+      Next: Why is the determinant like that? Area, volume and sign.

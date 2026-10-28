@@ -1,0 +1,203 @@
+# EM-10: Torque on a current loop in a magnetic field (how a motor works).
+# OpenStax University Physics Vol. 2 §11.5 (CC BY 4.0). ~7 minutes.
+# Colour: magnetic moment mu = blue, field B = purple, torque tau = green, current = orange.
+schema_version: 1
+id: EM-10
+channel: pen-and-pendulum
+title: "Torque on a current loop in a magnetic field: how a motor works"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "§11.5 Force and Torque on a Current Loop"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/095-11-5-force-and-torque-on-a-current-loop.md"
+  pages: "517-528"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "The twist that spins a motor"
+  keyword: "spins a motor"
+publish:
+  title: "Torque on a Current Loop: The Physics of the Electric Motor"
+  summary: >
+    A loop of current in a magnetic field feels a twist. We show why — the forces on
+    its opposite sides form a couple — derive the torque tau = NIAB sin theta and the
+    magnetic moment, write it as the cross product tau = mu x B, and explain how a
+    commutator turns that twist into the continuous spin of a motor. Two worked
+    examples follow.
+  hashtags: ["#physics", "#electromagnetism", "#motor"]
+  tags:
+    - torque on a current loop
+    - magnetic moment
+    - electric motor
+    - magnetic dipole
+    - electromagnetism
+    - physics
+    - commutator
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A loop of wire carrying a current, placed in a magnetic field, feels a twist. That single
+      twist, repeated and redirected, is the working heart of every electric motor.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawMu}, is the loop's magnetic moment, mu in blue. A current loop behaves like a tiny
+      bar magnet, and this one vector captures it, pointing straight out of the face of the loop.
+      Place it in a magnetic field, {drawB}, B in purple, pointing elsewhere. The field does not push
+      the loop sideways; instead it twists it, and that twist is a torque given by a cross product,
+      {crossT}: tau equals mu cross B, {crossEq}, drawn in green. Like any cross product, the torque is perpendicular to
+      both the moment and the field, and it acts to rotate the loop so that its moment swings into
+      line with the field — the same way a compass needle turns to point along the Earth's field.
+      The twist is strongest when the loop's moment sits at right angles to the field, and it falls
+      to nothing once the two line up, which is the loop's resting position. A motor is built to
+      exploit exactly this torque, and to stop it from simply settling at rest.
+    animation:
+      primitive: vectors3d
+      params:
+        show_axes: true
+        vectors:
+          mu: {to: [1.7, 0, 0], color: blue, label: "\\mu"}
+          B: {to: [0, 0, 1.7], color: purple, label: "B"}
+      steps:
+        - {id: drawMu, action: draw, params: {name: mu}}
+        - {id: drawB, action: draw, params: {name: B}}
+        - {id: crossT, action: cross, params: {a: mu, b: B, color: green, label: "\\tau = \\mu\\times B"}}
+    board:
+      - id: crossEq
+        latex: "\\vec{\\tau} = \\vec{\\mu}\\times\\vec{B}"
+        say: "tau equals mu cross B"
+        color: green
+        legend:
+          - {sym: "\\vec{\\mu}", name: "magnetic moment of the loop", unit: "A·m^2"}
+          - {sym: "\\vec{B}", name: "magnetic field", unit: "T"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here, {forceSides}, are the forces on the loop's sides, and they explain the twist. Each
+      side carries current across the field and feels a force of size B I L. On two opposite sides
+      the currents run in opposite directions, so the forces point opposite ways — one side is
+      pushed up, the other down. Equal and opposite forces that do not share a line make a couple,
+      and a couple is a pure torque: it does not shove the loop anywhere, it only spins it. Add up
+      the geometry and the torque is this, {torqueEq}: the number of turns, times the current, times
+      the loop's area, times the field, times the sine of the angle between the loop's moment and
+      the field. The combination of turns, current and area is bundled into one quantity, the
+      magnetic moment, {momentEq}: mu equals N I A. With it, the torque is simply mu cross B,
+      {crossEq2} — the compact form from the picture. The sine captures the whole rotation: the
+      torque is greatest when the loop lies edge-on to the field and vanishes when it faces the
+      field square on. Left alone, the loop would swing to that face-on position and oscillate about
+      it, going nowhere useful. The trick of the motor is a commutator, a rotary switch that reverses
+      the current every half turn. Just as the loop would settle, the current flips, the torque
+      reverses with it, and the loop is pushed onward through another half turn — over and over,
+      turning the back-and-forth twist into smooth continuous rotation. That is how electrical energy
+      becomes spinning motion. The same torque, read the other way, is also how we measure things. A
+      galvanometer — the movement behind an old analogue meter — is just a coil on a spring in a field:
+      a current twists the coil, the spring resists, and the needle settles at an angle that reports the
+      current. And the torque is the root of magnetic potential energy: a loop out of line with the
+      field stores energy, lowest when the moment points along the field and highest when it points
+      against it, which is why a compass needle, or any magnetic dipole, snaps round to align. Motor,
+      meter and compass are three faces of the one equation, tau equals mu cross B — a field twisting a
+      magnetic moment toward alignment.
+    board:
+      - id: forceSides
+        latex: "F = BIL \\;\\text{(on each side)}"
+        say: "the force on each side is B I L"
+        color: orange
+      - id: torqueEq
+        latex: "\\tau = NIAB\\sin\\theta"
+        say: "tau equals N I A B sine theta"
+        color: green
+      - id: momentEq
+        latex: "\\mu = NIA"
+        say: "mu equals N I A"
+        color: blue
+      - id: crossEq2
+        latex: "\\vec{\\tau} = \\vec{\\mu}\\times\\vec{B}"
+        say: "tau equals mu cross B"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      The torque on a loop. {statement} A coil with several turns carries a current in a field,
+      lying edge-on so the angle is ninety degrees, {given}; find the torque on it. {find} At ninety
+      degrees the sine is one, so the torque is N I A B, {step1}: ten turns, times two amperes, times
+      one-hundredth of a square metre, times nought point five tesla. That works out to nought point
+      one newton metres, {answer}. That is the twist available to start the coil turning — modest for
+      one small coil, but multiplied by many turns and repeated every half rotation, it is enough to
+      drive a real motor.
+    board:
+      - id: statement
+        text: "Torque on a current-carrying coil."
+      - id: given
+        latex: "N=10,\\ I=2\\ \\text{A},\\ A=0.01\\ \\text{m}^2,\\ B=0.5\\ \\text{T},\\ \\theta=90^{\\circ}"
+        say: "ten turns, two amperes, area nought point zero one square metres, field nought point five tesla, angle ninety degrees"
+        role: given
+      - id: find
+        text: "Find τ = NIAB sin θ."
+        role: find
+      - id: step1
+        latex: "\\tau = NIAB = (10)(2)(0.01)(0.5)"
+        say: "tau equals N I A B, ten times two times nought point zero one times nought point five"
+        role: step
+        color: green
+      - id: answer
+        latex: "\\tau = 0.1\\ \\text{N·m}"
+        say: "tau equals nought point one newton metres"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "10*2*0.01*0.5"
+      value: 0.1
+      unit: "N·m"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      The magnetic moment. {statement2} Take the same coil, {given2}; find its magnetic moment. {find2}
+      The moment is turns times current times area, {step2}: ten times two times one-hundredth of a
+      square metre. That is nought point two ampere square metres, {answer2}. This single number stands
+      in for the whole coil as a magnet; multiply it by the field and the sine of the angle and you have
+      the torque straightaway. The bigger the moment — more turns, more current, more area — the stronger
+      the magnet the coil imitates, and the harder the field can twist it.
+    board:
+      - id: statement2
+        text: "Magnetic moment of the coil."
+      - id: given2
+        latex: "N = 10, \\quad I = 2\\ \\text{A}, \\quad A = 0.01\\ \\text{m}^2"
+        say: "ten turns, two amperes, area nought point zero one square metres"
+        role: given
+      - id: find2
+        text: "Find μ = NIA."
+        role: find
+      - id: step2
+        latex: "\\mu = NIA = (10)(2)(0.01)"
+        say: "mu equals N I A, ten times two times nought point zero one"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "\\mu = 0.2\\ \\text{A·m}^2"
+        say: "mu equals nought point two ampere square metres"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "10*2*0.01"
+      value: 0.2
+      unit: "A·m^2"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: a current loop has a magnetic moment mu equal to N I A, and a magnetic field exerts
+      a torque tau equals mu cross B, of size N I A B sine theta, that twists it into alignment; a
+      commutator reverses the current each half turn to keep a motor spinning. Next: The Biot-Savart law
+      — the field of a straight wire and a loop, derived.
