@@ -46,11 +46,12 @@ class SupplyDemand(Primitive):
         self.axes.move_to(style.ANIM_CENTER)
         self.scene.add(self.axes)
         # axis captions default to Q (quantity) and P (price), but can be relabelled
-        # for other markets — e.g. L and W for the labour market.
-        self.scene.add(self._axis_label(self.params.get("x_label", "Q"),
-                                        self.axes.x_axis.get_end(), _right()))
-        self.scene.add(self._axis_label(self.params.get("y_label", "P"),
-                                        self.axes.y_axis.get_end(), _up()))
+        # for other markets — e.g. L and W for the labour market. The equilibrium
+        # markers reuse these so they read Q*/P* or L*/W* to match.
+        self._xlab = self.params.get("x_label", "Q")
+        self._ylab = self.params.get("y_label", "P")
+        self.scene.add(self._axis_label(self._xlab, self.axes.x_axis.get_end(), _right()))
+        self.scene.add(self._axis_label(self._ylab, self.axes.y_axis.get_end(), _up()))
         self._lines: dict = {}
 
     # -- geometry ----------------------------------------------------------
@@ -134,9 +135,11 @@ class SupplyDemand(Primitive):
                            color=self.color(None), stroke_width=2)
         vline = DashedLine(self.axes.c2p(q, 0), self.axes.c2p(q, p),
                            color=self.color(None), stroke_width=2)
-        pstar = MathTex("P^*", color=self.color(color), font_size=LABEL_FONT_SIZE).next_to(
+        pstar = MathTex(f"{self._ylab}^*", color=self.color(color),
+                        font_size=LABEL_FONT_SIZE).next_to(
             self.axes.c2p(0, p), direction=_left(), buff=0.15)
-        qstar = MathTex("Q^*", color=self.color(color), font_size=LABEL_FONT_SIZE).next_to(
+        qstar = MathTex(f"{self._xlab}^*", color=self.color(color),
+                        font_size=LABEL_FONT_SIZE).next_to(
             self.axes.c2p(q, 0), direction=_down(), buff=0.15)
         self._eq_dot = dot
         self.scene.play(_create(hline), _create(vline), run_time=run_time * 0.5)

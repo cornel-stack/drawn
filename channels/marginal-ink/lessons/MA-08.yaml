@@ -71,7 +71,7 @@ scenes:
         - {id: drawSupply, action: draw_supply, params: {color: blue}}
         - {id: drawDemand, action: draw_demand, params: {color: orange}}
         - {id: mark, action: equilibrium, params: {color: green}}
-        - {id: gap, action: show_gap, params: {price: 6.0, color: red, label: "unemployment"}}
+        - {id: gap, action: show_gap, params: {price: 5.5, color: red, label: "unemployment"}}
     board:
       - id: rateEq
         latex: "u = \\dfrac{U}{E + U}"
@@ -79,8 +79,7 @@ scenes:
         color: red
         legend:
           - {sym: "U", name: "unemployed", unit: ""}
-          - {sym: "E", name: "employed", unit: ""}
-          - {sym: "E+U", name: "the labour force", unit: ""}
+          - {sym: "E+U", name: "labour force", unit: ""}
 
   - id: s3
     kind: derivation

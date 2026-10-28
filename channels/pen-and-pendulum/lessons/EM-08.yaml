@@ -68,7 +68,7 @@ scenes:
         y_label: "V"
       steps:
         - {id: chargeCurve, action: plot_function, params: {func: rc_charge, color: blue, label: "charge"}}
-        - {id: finalLine, action: plot_line, params: {name: v0, a: 0, b: 1, c: 5, color: green, label: "V_0"}}
+        - {id: finalLine, action: plot_line, params: {name: v0, a: 0, b: 1, c: 5, color: green}}
         - {id: tauMark, action: mark_point, params: {x: 1, y: 3.16, color: yellow, label: "\\tau"}}
         - {id: dischargeCurve, action: plot_function, params: {func: rc_discharge, color: red, label: "discharge"}}
     board:
@@ -78,7 +78,7 @@ scenes:
         color: yellow
         legend:
           - {sym: "\\tau", name: "time constant", unit: "s"}
-          - {sym: "R", name: "resistance", unit: "\\Omega"}
+          - {sym: "R", name: "resistance", unit: "ohms"}
           - {sym: "C", name: "capacitance", unit: "F"}
 
   - id: s3
