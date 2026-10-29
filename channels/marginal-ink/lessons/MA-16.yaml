@@ -53,7 +53,7 @@ scenes:
       while and then levels off — the burden stabilises on its own. The red curve, {plotSnow}, is the same
       borrowing when the interest rate outpaces growth: the ratio climbs, and the climb feeds itself,
       because interest is charged on a debt that is itself growing. The dividing line is a comparison of two
-      rates, {ruleEq}: the interest rate the government pays against the growth rate of the economy. When
+      rates: the interest rate the government pays against the growth rate of the economy. When
       growth wins, debt shrinks relative to the economy even if it never shrinks in dollars; when interest
       wins, the debt snowballs. This is why the debt-to-GDP ratio, not the raw dollar figure, is the number
       economists watch, {ratioEq}: a billion is crushing for a village and trivial for a continent, so debt
@@ -72,17 +72,13 @@ scenes:
         - {id: plotStable, action: plot_function, params: {func: debt_stable, color: green, label: "g>r"}}
         - {id: plotSnow, action: plot_function, params: {func: debt_snowball, color: red, label: "r>g"}}
     board:
-      - id: ruleEq
-        latex: "g \\;\\gtrless\\; r"
-        say: "compare the growth rate against the interest rate"
-        color: orange
       - id: ratioEq
         latex: "b = \\dfrac{D}{Y}"
         say: "the debt ratio is debt divided by GDP"
         color: blue
         legend:
-          - {sym: "D", name: "the national debt", unit: "\\$"}
-          - {sym: "Y", name: "GDP", unit: "\\$"}
+          - {sym: "D", name: "the national debt", unit: "$"}
+          - {sym: "Y", name: "GDP", unit: "$"}
 
   - id: s3
     kind: derivation

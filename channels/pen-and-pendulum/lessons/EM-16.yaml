@@ -49,7 +49,8 @@ scenes:
       from below. Why the delay? A changing current changes the magnetic flux the coil threads through
       itself, and by Faraday's law a changing flux induces an opposing voltage, {emfEq}. The faster you try to
       change the current, the harder the coil pushes back. The constant of proportionality is the
-      self-inductance, {induEq}, measured in henries. Early on the current changes quickly, so the opposing
+      self-inductance L, the flux linkage per unit current, measured in henries. Early on the current changes
+      quickly, so the opposing
       voltage is large and the rise is steep; as the current nears its final value the rate of change falls,
       the opposition fades, and the curve flattens. The steady current it approaches is just the source
       voltage over the resistance, {markSteady}, exactly what you would get with no coil at all — the coil
@@ -78,13 +79,6 @@ scenes:
         legend:
           - {sym: "\\varepsilon", name: "the induced emf", unit: "V"}
           - {sym: "dI/dt", name: "rate of change of current", unit: "A/s"}
-      - id: induEq
-        latex: "L = \\dfrac{N\\,\\Phi_m}{I}"
-        say: "the self-inductance is the flux linkage per unit current"
-        color: blue
-        legend:
-          - {sym: "L", name: "self-inductance", unit: "H"}
-          - {sym: "\\Phi_m", name: "flux through one turn", unit: "Wb"}
 
   - id: s3
     kind: derivation
