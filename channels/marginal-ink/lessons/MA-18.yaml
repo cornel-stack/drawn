@@ -71,7 +71,7 @@ scenes:
         - {id: edgeFloat, action: highlight_edge, params: {edge: bottom, label: "Floating rate", color: green}}
         - {id: edgeUnion, action: highlight_edge, params: {edge: left, label: "Currency union", color: blue}}
         - {id: edgeControl, action: highlight_edge, params: {edge: right, label: "Capital controls", color: orange}}
-        - {id: markX, action: mark_center, params: {color: red, label: "impossible"}}
+        - {id: markX, action: mark_center, params: {color: red, label: "unreachable"}}
 
   - id: s3
     kind: derivation

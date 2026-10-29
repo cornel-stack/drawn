@@ -100,12 +100,14 @@ class Trilemma(Primitive):
         seg = Line(ends[0], ends[1], color=self.color(color), stroke_width=11)
         self.scene.play(Create(seg), run_time=run_time * 0.55)
         if label:
-            # fixed, well-separated anchors just inside each edge so the three
-            # regime labels never collide with one another or with the goal names.
+            # fixed, well-separated anchors: the two side regimes sit outboard of
+            # their edges (upper-left / upper-right), the third hugs the bottom
+            # edge from inside — so the three never collide with one another, the
+            # goal names, or the centre cross.
             anchor = {
-                "left": np.array([-1.55, 0.6, 0.0]),
-                "right": np.array([1.55, 0.6, 0.0]),
-                "bottom": np.array([0.0, -0.75, 0.0]),
+                "left": np.array([-2.95, 1.05, 0.0]),
+                "right": np.array([2.95, 1.05, 0.0]),
+                "bottom": np.array([0.0, -0.95, 0.0]),
             }[edge]
             lbl = self._text(label, None, color, at=anchor)
             self.scene.play(Write(lbl), run_time=run_time * 0.45)
@@ -124,5 +126,6 @@ class Trilemma(Primitive):
                   color=self.color(color), stroke_width=10)
         self.scene.play(Create(l1), Create(l2), run_time=run_time * (0.6 if label else 1.0))
         if label:
-            lbl = self._text(label, centre, color, DOWN)
+            # label sits just above the cross, clear of the bottom-edge regime text.
+            lbl = self._text(label, None, color, at=centre + np.array([0.0, 0.55, 0.0]))
             self.scene.play(Write(lbl), run_time=run_time * 0.4)
