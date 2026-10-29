@@ -78,8 +78,8 @@ scenes:
       Put the rule precisely, {expEq2}: the determinant is the sum, along a row, of each entry times
       its cofactor. A cofactor is just a minor with a sign attached, {minorEq}: the minor is the
       smaller determinant from deleting the entry's row and column, and the sign is minus one raised
-      to the row plus column. That exponent produces a checkerboard of signs, {signEq}, plus and
-      minus alternating across the matrix, starting with a plus in the top-left corner. Memorise the
+      to the row plus column. That exponent produces a checkerboard of signs across the matrix, plus
+      then minus then plus, alternating in every direction and starting with a plus in the top-left corner. Memorise the
       checkerboard, not a formula, and you will never get a sign wrong. Two things make the method
       genuinely easy. First, it is recursive: a four-by-four reduces to four three-by-threes, each
       of which reduces to two-by-twos, all the way down. Second, and this is the real trick, you may
@@ -111,10 +111,6 @@ scenes:
         say: "the cofactor is minus one to the i plus j, times the minor M i j"
         color: orange
         box: true
-      - id: signEq
-        latex: "\\begin{pmatrix}+ & - & +\\\\- & + & -\\\\+ & - & +\\end{pmatrix}"
-        say: "the signs form a checkerboard, plus minus plus"
-        color: yellow
 
   - id: s4
     kind: problem
