@@ -47,6 +47,9 @@ _FUNCS = {
     # 4.8 so the near-wire divergence stays inside a y-axis that tops out at 5
     # (it reads as "off the top of the scale near the wire").
     "inverse_r": (lambda x: np.minimum(4.0 / np.clip(x, 0.25, None), 4.8), r"\dfrac{\mu_0 I}{2\pi r}"),
+    # a solenoid's field: uniform inside (here the interval 1 < x < 4), ~zero
+    # outside — the headline result of Ampere's law, B = mu0 n I inside.
+    "solenoid_field": (lambda x: np.where((x > 1.0) & (x < 4.0), 4.0, 0.0), r"\mu_0 n I"),
 }
 
 # Named right-hand sides f(x, y) for a first-order ODE y' = f(x, y), and the
