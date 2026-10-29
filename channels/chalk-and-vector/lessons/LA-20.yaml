@@ -167,8 +167,8 @@ scenes:
   - id: s5
     kind: problem
     narration: >
-      A second eigenvector, a different eigenvalue. {statement2} The same matrix meets a new candidate,
-      {given2}; find its eigenvalue. {find2} Multiply again, {step1b}: the top row is two times one plus one
+      A second eigenvector. {statement2} The same matrix now meets a new candidate with a different
+      eigenvalue, {given2}; find it. {find2} Multiply again, {step1b}: the top row is two times one plus one
       times minus one, which is one; the bottom row is one times one plus two times minus one, which is
       minus one. The result is the vector one, minus one, {step2b}, which is one times the original vector.
       The eigenvalue is one, {answer2}. So the same matrix holds two different directions fixed — the
