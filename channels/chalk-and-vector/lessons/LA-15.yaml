@@ -59,7 +59,7 @@ scenes:
       params:
         rows: [[2, 1, 1], [1, 2, 1], [1, 1, 2]]
       steps:
-        - {id: drawM, action: draw, params: {rows: [[2, 1, 1], [1, 2, 1], [1, 1, 2]]}}
+        - {id: drawM, action: draw, params: {rows: [[2, 1, 1], [1, 2, 1], [1, 1, 2]], augmented: false}}
         - {id: hlA, action: highlight, params: {i: 0, col: 0, color: blue}}
         - {id: hlB, action: highlight, params: {i: 0, col: 1, color: orange}}
         - {id: hlC, action: highlight, params: {i: 0, col: 2, color: blue}}

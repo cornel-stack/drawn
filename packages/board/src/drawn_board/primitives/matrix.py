@@ -89,18 +89,24 @@ class Matrix(Primitive):
             b = Line([x, bot, 0], [x + inward * ser, bot, 0], color=col, stroke_width=3)
             return VGroup(v, t, b)
 
-        # vertical augmentation bar between the last two columns
-        bar_x = (self._pos(0, ncols - 2)[0] + self._pos(0, ncols - 1)[0]) / 2.0
-        bar = Line([bar_x, top, 0], [bar_x, bot, 0], color=col, stroke_width=2)
-        return VGroup(brack(xl, +1), brack(xr, -1), bar)
+        parts = [brack(xl, +1), brack(xr, -1)]
+        # vertical augmentation bar between the last two columns (only for augmented
+        # systems; a plain matrix, e.g. for a determinant, omits it)
+        if getattr(self, "_augmented", True) and ncols >= 2:
+            bar_x = (self._pos(0, ncols - 2)[0] + self._pos(0, ncols - 1)[0]) / 2.0
+            parts.append(Line([bar_x, top, 0], [bar_x, bot, 0], color=col, stroke_width=2))
+        return VGroup(*parts)
 
     # -- steps -------------------------------------------------------------
 
     @step
-    def draw(self, run_time: float, rows: list = None, **_):
-        """Draw the augmented matrix from `rows` (each row a list; last = constant)."""
+    def draw(self, run_time: float, rows: list = None, augmented: bool = True, **_):
+        """Draw the matrix from `rows`. With augmented=True (default) a vertical bar
+        separates the last column (the augmented system of a linear-equations lesson);
+        augmented=False draws a plain matrix, e.g. for a determinant."""
         from manim import Create, VGroup, Write
 
+        self._augmented = bool(augmented)
         self.M = [[float(v) for v in r] for r in (rows or [])]
         self.cells = [[self._mk(self.M[i][j], i, j) for j in range(len(self.M[i]))]
                       for i in range(len(self.M))]
