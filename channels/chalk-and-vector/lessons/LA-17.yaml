@@ -1,0 +1,207 @@
+# LA-17: Orthogonal projection — the closest point and why it matters.
+# Hefferon, Linear Algebra, Projection (CC BY-SA 3.0). ~7 minutes.
+# Colour: v = blue, u/line = orange, projection = green, residual = red.
+schema_version: 1
+id: LA-17
+channel: chalk-and-vector
+title: "Orthogonal projection: the closest point and why it matters"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "Topic: Projection"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/020-projection.md"
+  pages: "267-282"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "The shadow that's closest"
+  keyword: "closest"
+publish:
+  title: "Orthogonal Projection Explained: The Closest Point on a Line"
+  summary: >
+    Projecting a vector onto a line is finding its shadow — the closest point on
+    the line, with the leftover piece sticking out at a right angle. We derive the
+    projection formula from that perpendicularity, show why it gives the closest
+    point, and connect it to least squares. Two worked examples follow.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - orthogonal projection
+    - vector projection
+    - closest point
+    - least squares
+    - linear algebra
+    - dot product
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Shine a light straight down on a vector and it casts a shadow on the line below. That shadow is
+      the orthogonal projection — and it is the single closest point the line has to the vector.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here are two vectors, {drawU} {drawV}: the line we project onto runs along u in orange, and v in
+      blue is the vector we want to cast onto it. Drop a perpendicular from the tip of v straight down
+      to the line, {project}: where it lands, the green segment, is the projection of v onto u, {projEq}. Two
+      facts make this the right notion of shadow. First, the little piece left over — v minus its
+      projection, the dashed line — meets the line at a perfect right angle; the shadow captures
+      everything of v that lies along u, and the leftover is purely perpendicular. Second, and this is
+      the payoff, that foot of the perpendicular is the closest point on the whole line to the tip of
+      v. Any other point on the line is further away, because moving along the line from the foot only
+      adds a sideways distance by Pythagoras. So the orthogonal projection answers a question that comes
+      up everywhere: of all the points on this line, which one best approximates my vector? The
+      perpendicular one, always.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-1, 5, 1], y: [-1, 4, 1]}
+        vectors:
+          u: {to: [4, 1], color: orange, label: "u"}
+          v: {to: [2, 3], color: blue, label: "v"}
+      steps:
+        - {id: drawU, action: draw, params: {name: u}}
+        - {id: drawV, action: draw, params: {name: v}}
+        - {id: project, action: dot_product, params: {a: u, b: v, color: green}}
+    board:
+      - id: projEq
+        latex: "\\text{proj}_u(v) = \\dfrac{v\\cdot u}{u\\cdot u}\\,u"
+        say: "the projection of v onto u equals v dot u over u dot u, times u"
+        color: green
+        legend:
+          - {sym: "v\\cdot u", name: "how much v leans along u", unit: ""}
+          - {sym: "u\\cdot u", name: "the length of u, squared", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here is the formula, {projEq2}, and it drops straight out of that right angle. The projection is
+      some multiple of u — call it c times u — because it lies along the line. The condition that makes
+      it the projection is that the leftover, v minus c u, is perpendicular to u, {closestEq}, which
+      means their dot product is zero. Expand that: v dot u minus c times u dot u equals zero, so c is
+      v dot u over u dot u. Put it back and the projection is that scalar times u — exactly the formula.
+      The numerator, v dot u, measures how much v leans along u; the denominator normalises by the
+      length of u squared. If u happens to be a unit vector, the denominator is one and the projection
+      is simply v dot u, times u. Now the reason this matters so much, {lsEq}. The projection is the
+      closest point on the line to v, so projection is the mathematics of best approximation. When you
+      fit a straight line to scattered data by least squares — the workhorse of all statistics — you
+      are doing exactly this: projecting the vector of observations onto the space of possible
+      predictions, and the residuals, the errors, come out perpendicular to that space. Regression is
+      projection in disguise. The same idea scales from a single line to any subspace: project onto a
+      plane, onto a higher-dimensional space, and you always get the closest point, with the error at
+      right angles. Orthogonal projection is how linear algebra finds the best possible answer when an
+      exact one is out of reach. It is worth dwelling on that phrase, out of reach, {hl:lsEq}. Often you
+      have a system of equations with no exact solution — more measurements than unknowns, each nudged by
+      noise, so no single answer satisfies them all. Projection gives the next best thing: the answer
+      that misses by the least, measured by total squared error. Geometrically, the vector of
+      observations sticks up out of the space of achievable predictions; project it down and the foot is
+      the closest reachable point, the least-squares fit, with the residual pointing straight out,
+      orthogonal to everything you could have predicted. That orthogonality of the residual is not a
+      technicality — it is the very signature of a best fit, the statement that you have squeezed out
+      every last drop of signal that the model could capture, leaving only noise behind. From fitting a
+      trend line, to compressing an image, to the recommendation engines that guess what you will watch
+      next, the same move recurs: project onto what you can represent, {hl:closestEq}, and accept the
+      perpendicular remainder as the irreducible error. Master projection and you hold the key to
+      approximation across the whole of applied mathematics.
+    board:
+      - id: projEq2
+        latex: "\\text{proj}_u(v) = c\\,u, \\quad c = \\dfrac{v\\cdot u}{u\\cdot u}"
+        say: "the projection is c times u, with c equal to v dot u over u dot u"
+        color: green
+      - id: closestEq
+        latex: "(v - cu)\\cdot u = 0"
+        say: "the leftover, v minus c u, is perpendicular to u"
+        color: red
+        box: true
+      - id: lsEq
+        latex: "\\text{least squares} = \\text{projection}"
+        say: "least squares fitting is orthogonal projection"
+        color: blue
+
+  - id: s4
+    kind: problem
+    narration: >
+      Projecting onto an axis. {statement} A vector is projected onto the horizontal direction, {given};
+      find the projection. {find} The direction u is one, zero, a unit vector, so the projection is just
+      v dot u times u, {step1}: v dot u is four times one plus two times zero, which is four. So the
+      projection is four times the direction, {answer}: the point four, zero. Projecting onto the
+      horizontal axis simply keeps the horizontal part of v and discards the vertical — the shadow a
+      vertical light would cast.
+    board:
+      - id: statement
+        text: "Project a vector onto the x-axis."
+      - id: given
+        latex: "\\vec{v} = \\begin{pmatrix}4\\\\2\\end{pmatrix}, \\quad \\vec{u} = \\begin{pmatrix}1\\\\0\\end{pmatrix}"
+        say: "v is four, two; u is one, zero"
+        role: given
+      - id: find
+        text: "Find proj_u(v)."
+        role: find
+      - id: step1
+        latex: "v\\cdot u = 4(1) + 2(0) = 4"
+        say: "v dot u is four times one plus two times zero, four"
+        role: step
+        color: green
+      - id: answer
+        latex: "\\text{proj}_u(v) = (4, 0)"
+        say: "the projection is four, zero"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "4*1 + 2*0"
+      value: 4
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Projecting onto a diagonal. {statement2} Now project onto a diagonal line, {given2}; find the
+      projection. {find2} Here u is one, one, which is not a unit vector, so we need the full formula.
+      The numerator, v dot u, {step1b}: three times one plus one times one, four. The denominator, u dot
+      u, is one plus one, two. So the scalar c is four over two, which is two, {step2b}. The projection
+      is two times u, {answer2}: the point two, two. The leftover, v minus two, two, is one, minus one —
+      and you can check it is perpendicular to u, since its dot product with one, one is zero, just as
+      the theory demands.
+    board:
+      - id: statement2
+        text: "Project onto the line y = x."
+      - id: given2
+        latex: "\\vec{v} = \\begin{pmatrix}3\\\\1\\end{pmatrix}, \\quad \\vec{u} = \\begin{pmatrix}1\\\\1\\end{pmatrix}"
+        say: "v is three, one; u is one, one"
+        role: given
+      - id: find2
+        text: "Find proj_u(v)."
+        role: find
+      - id: step1b
+        latex: "v\\cdot u = 3 + 1 = 4, \\quad u\\cdot u = 2"
+        say: "v dot u is three plus one, four; u dot u is two"
+        role: step
+        color: green
+      - id: step2b
+        latex: "c = \\dfrac{4}{2} = 2"
+        say: "c equals four over two, two"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "\\text{proj}_u(v) = 2u = (2, 2)"
+        say: "the projection is two u, the point two, two"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(3 + 1) / 2"
+      value: 2
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the orthogonal projection of v onto u is v dot u over u dot u, times u; it is the
+      closest point on the line to v, with the residual at a right angle; and because it is the best
+      approximation, it is the engine behind least squares and regression. Next: Gram-Schmidt in three
+      dimensions — building an orthonormal basis step by step.

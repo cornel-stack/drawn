@@ -1,0 +1,203 @@
+# EM-14: Motional emf — the sliding rod, derived two ways.
+# OpenStax University Physics Vol. 2 §13.3 (CC BY 4.0). ~7 minutes.
+# Colour: velocity v = blue, field B = purple, force on charges = green, emf = yellow.
+schema_version: 1
+id: EM-14
+channel: pen-and-pendulum
+title: "Motional emf: the sliding rod, derived two ways"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "§13.3 Motional Emf"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/113-13-3-motional-emf.md"
+  pages: "597-610"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "A moving rod is a battery"
+  keyword: "a battery"
+publish:
+  title: "Motional Emf: Why a Moving Rod Acts Like a Battery (Two Derivations)"
+  summary: >
+    Slide a conducting rod through a magnetic field and a voltage appears across
+    it. We derive that motional emf two independent ways — from Faraday's changing
+    flux, and from the magnetic force on the charges inside the rod — and both give
+    the same clean result, emf = BLv. Two worked examples follow.
+  hashtags: ["#physics", "#electromagnetism", "#induction"]
+  tags:
+    - motional emf
+    - electromagnetic induction
+    - Faraday's law
+    - magnetic force
+    - sliding rod
+    - electromagnetism
+    - physics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Slide a plain metal rod through a magnetic field and a voltage springs up across its ends. The
+      rod becomes a battery, and two completely different arguments explain why, both landing on the
+      same simple answer.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      A conducting rod moves with velocity, {drawV}, v in blue, through a magnetic field, {drawB}, B in
+      purple. The rod is full of free charges, and they are carried along at the rod's velocity. So each
+      of them feels the magnetic force on a moving charge, {crossF}: F equals q v cross B, drawn in
+      green, pointing along the length of the rod. That force drives the charges towards one end, so
+      positive charge gathers at one tip and negative at the other, and a voltage builds up across the
+      rod — exactly as a battery maintains a voltage across its terminals. This is the motional e m f,
+      {emfEq}: an e m f produced not by a chemical reaction or a changing field, but purely by motion
+      through a field. The faster the rod moves, the harder the magnetic force pushes, and the larger the voltage.
+      Connect the rod's ends through a circuit and this voltage drives a current, and the moving rod
+      powers it, turning mechanical motion into electrical energy — the seed of every generator.
+    animation:
+      primitive: vectors3d
+      params:
+        show_axes: true
+        vectors:
+          v: {to: [1.7, 0, 0], color: blue, label: "v"}
+          B: {to: [0, 0, 1.7], color: purple, label: "B"}
+      steps:
+        - {id: drawV, action: draw, params: {name: v}}
+        - {id: drawB, action: draw, params: {name: B}}
+        - {id: crossF, action: cross, params: {a: v, b: B, color: green, label: "F = qv\\times B"}}
+    board:
+      - id: emfEq
+        latex: "\\mathcal{E} = BLv"
+        say: "the motional e m f equals B L v"
+        color: yellow
+        legend:
+          - {sym: "B", name: "magnetic field", unit: "T"}
+          - {sym: "L", name: "length of the rod", unit: "m"}
+          - {sym: "v", name: "speed of the rod", unit: "m/s"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here, {fluxWay}, is the first way, through Faraday's law. Let the rod slide along two
+      rails a distance L apart, so the rod and rails enclose a rectangle. As the rod moves, that
+      rectangle's area grows, and the flux through it is the field times the area, B times L times the
+      position x. The rate of change of flux is therefore B times L times the rate of change of x, which
+      is the speed v — so the e m f, the rate of change of flux, is B L v. Now the second way, through
+      the force on the charges, {forceWay}, with no mention of flux at all. Each charge feels a magnetic
+      push q v B along the rod, so charge piles up at the ends; but as it does, it creates an electric
+      field inside the rod pointing the other way, and charge keeps flowing until that electric field
+      exactly cancels the magnetic push. Balance them: q E equals q v B, so the electric field settles
+      at E equals v B. The e m f is that field times the length of the rod, which is v B times L —
+      again B L v, {emfEq2}. Two arguments from utterly different starting points, the geometry of
+      changing area and the force on individual charges, meet at the identical result. That agreement
+      is not a coincidence; it is a glimpse of the deep unity between the two faces of induction, and it
+      is why the moving rod, closed into a circuit, is the simplest electrical generator there is —
+      push it along and it pumps out current, resisting you with a force you feel as the price of the
+      electricity it makes, {hl:emfEq2}. It is worth seeing why having two derivations matters, beyond
+      mere reassurance. The flux argument is blind to what carries the current — it only cares that the
+      area, and so the flux, is changing; it would give the same e m f for a loop of any material, or
+      even an imaginary loop in empty space. The force argument is the opposite: it speaks only of the
+      charges, the magnetic push on each one, with no mention of area or flux at all. That two such
+      different pictures agree exactly tells us the flux rule is not a separate law bolted on, but a
+      bookkeeping summary of the force on moving charges. This matters because there are cases the two
+      seem to disagree — a flux that changes with no force on any charge, or a force with no obvious flux
+      change — and sorting those out, {hl:fluxWay}, was one of the puzzles that pushed physics towards the
+      unified field theory of Maxwell and, ultimately, towards relativity, where electric and magnetic
+      fields turn out to be two views of a single thing seen from different frames of motion. The humble
+      sliding rod sits at the start of that long road.
+    board:
+      - id: fluxWay
+        latex: "\\Phi = BLx \\;\\Rightarrow\\; \\mathcal{E} = \\dfrac{d\\Phi}{dt} = BLv"
+        say: "flux is B L x, so the e m f is its rate of change, B L v"
+        color: purple
+      - id: forceWay
+        latex: "qE = qvB \\;\\Rightarrow\\; E = vB"
+        say: "the electric field balances the magnetic push, so E equals v B"
+        color: green
+      - id: emfEq2
+        latex: "\\mathcal{E} = EL = BLv"
+        say: "the e m f is E times L, which is B L v"
+        color: yellow
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Here, {statement}, a rod slides. A rod of known length slides at a steady speed through
+      a field, {given}; find the motional e m f. {find} Straight into the formula, {step1}: B times L
+      times v, nought point five tesla, times nought point two metres, times three metres per second.
+      That is nought point three volts, {answer} — three hundred millivolts across the ends of the rod,
+      from nothing but its motion. Double the speed, or lengthen the rod, and the voltage rises in
+      exact proportion.
+    board:
+      - id: statement
+        text: "Motional emf of a sliding rod."
+      - id: given
+        latex: "B = 0.5\\ \\text{T}, \\quad L = 0.2\\ \\text{m}, \\quad v = 3\\ \\text{m/s}"
+        say: "field nought point five tesla, length nought point two metres, speed three metres per second"
+        role: given
+      - id: find
+        text: "Find the emf = BLv."
+        role: find
+      - id: step1
+        latex: "\\mathcal{E} = BLv = (0.5)(0.2)(3)"
+        say: "the e m f is B L v, nought point five times nought point two times three"
+        role: step
+        color: yellow
+      - id: answer
+        latex: "\\mathcal{E} = 0.3\\ \\text{V}"
+        say: "the e m f is nought point three volts"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "0.5 * 0.2 * 3"
+      value: 0.3
+      unit: "V"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      The current it drives. {statement2} The same rod is connected through a resistor, {given2}; find
+      the current that flows. {find2} The rod acts as a battery of nought point three volts, so the
+      current is that e m f divided by the resistance, {step2}: nought point three volts over two ohms.
+      That is nought point one five amperes, {answer2}. This current, flowing in the field, feels a
+      retarding force that opposes the rod's motion — Lenz's law again — so you must keep pushing the
+      rod to keep the current flowing, and the work you do is exactly the electrical energy delivered to
+      the resistor.
+    board:
+      - id: statement2
+        text: "Current driven through a resistor."
+      - id: given2
+        latex: "\\mathcal{E} = 0.3\\ \\text{V}, \\quad R = 2\\ \\Omega"
+        say: "e m f nought point three volts, resistance two ohms"
+        role: given
+      - id: find2
+        text: "Find the current I = ε/R."
+        role: find
+      - id: step2
+        latex: "I = \\dfrac{\\mathcal{E}}{R} = \\dfrac{0.3}{2}"
+        say: "the current is the e m f over the resistance, nought point three over two"
+        role: step
+        color: yellow
+      - id: answer2
+        latex: "I = 0.15\\ \\text{A}"
+        say: "the current is nought point one five amperes"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "0.3 / 2"
+      value: 0.15
+      unit: "A"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: a rod moving through a magnetic field develops a motional e m f equal to B L v,
+      derivable both from the changing flux it sweeps and from the magnetic force on its charges; close
+      the circuit and it drives a current, resisting the motion that powers it. Next: Generators, back
+      emf and eddy currents — induction in the real world.

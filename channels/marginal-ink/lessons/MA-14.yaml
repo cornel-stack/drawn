@@ -1,0 +1,212 @@
+# MA-14: The Phillips curve — why it worked, broke, and came back.
+# OpenStax Principles of Economics 3e, §25.3 The Phillips Curve (CC BY 4.0). ~7 minutes.
+# Colour: short-run Phillips = blue, long-run = red, expectations shift = orange.
+schema_version: 1
+id: MA-14
+channel: marginal-ink
+title: "The Phillips curve: why it worked, broke, and came back"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§25.3 The Phillips Curve"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/293-25-3-the-phillips-curve.md"
+  pages: "619-632"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "The trade-off that broke"
+  keyword: "broke"
+publish:
+  title: "The Phillips Curve: Why the Inflation-Unemployment Trade-off Broke and Returned"
+  summary: >
+    The Phillips curve promised a stable trade-off between unemployment and
+    inflation — then the 1970s shattered it. We show the short-run curve, why
+    rising expectations shift it up and make the long-run curve vertical at the
+    natural rate, and why anchored expectations brought the trade-off back. Two
+    worked examples follow.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - Phillips curve
+    - inflation unemployment
+    - stagflation
+    - natural rate
+    - expectations
+    - macroeconomics
+    - trade-off
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      For a while, economics seemed to offer governments a simple menu: pick less unemployment, pay for
+      it with more inflation. The Phillips curve was that menu — until it stopped working, and
+      understanding why is one of the great lessons of macroeconomics.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawPC}, is the short-run Phillips curve, in blue — unemployment along the bottom, inflation
+      up the side. It slopes down, capturing an inverse relationship that the economist Bill Phillips
+      found in the data, {phillipsEq}: when unemployment is low, inflation tends to be high, and when
+      unemployment is high, inflation tends to be low. Read as a menu, {markPoint}, it seems to promise a trade-off — a
+      government could push the economy to the left, to lower unemployment, and accept a move up the
+      curve to higher inflation as the price. For the nineteen-fifties and sixties the relationship held
+      remarkably well, and policymakers treated it as a reliable dial they could turn. The whole drama of
+      this lesson is what happened when they leaned on that dial too hard, and the curve, which had seemed
+      so dependable, moved beneath their feet.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 10, 1]
+        y: [0, 10, 1]
+        x_length: 8.0
+        y_length: 3.6
+        x_label: "u"
+        y_label: "\\pi"
+      steps:
+        - {id: drawPC, action: plot_line, params: {name: pc, a: 1, b: 1, c: 8, color: blue, label: "SR Phillips"}}
+        - {id: markPoint, action: mark_point, params: {x: 3, y: 5, color: green, label: "A"}}
+    board:
+      - id: phillipsEq
+        latex: "\\pi = \\pi_e - \\beta\\,(u - u_n)"
+        say: "inflation equals expected inflation, minus beta times the gap between unemployment and its natural rate"
+        color: blue
+        legend:
+          - {sym: "\\pi_e", name: "expected inflation", unit: ""}
+          - {sym: "u_n", name: "natural rate of unemployment", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here is the modern form, {phillipsEq2}: inflation equals expected inflation, minus a factor times
+      the gap between unemployment and its natural rate. When unemployment is below its natural rate, a
+      tight labour market, inflation runs above what people expected; when unemployment is above it,
+      inflation falls below expectations. That expectations term is the key the original curve was
+      missing, and it explains everything that followed. The curve worked in the fifties and sixties because
+      inflation was low and steady, so expected inflation sat still, and the trade-off looked stable. It
+      broke in the nineteen-seventies, {expectEq}. Governments kept exploiting the trade-off, inflation
+      stayed high, and people came to expect high inflation — so expected inflation rose, and the entire
+      curve shifted upward. The result was the nightmare the simple curve called impossible: high
+      inflation and high unemployment together, stagflation. The trade-off had not just worsened; the map
+      itself had moved. From this came a deeper truth, {longRunEq}: in the long run the Phillips curve is
+      vertical, standing at the natural rate of unemployment. There is no permanent trade-off at all.
+      Push unemployment below its natural rate and you buy a temporary fall only at the cost of
+      ever-accelerating inflation, as expectations chase the reality; let expectations catch up and
+      unemployment returns to its natural rate with higher inflation to show for it. And the curve came
+      back, in a sense, once central banks learned to anchor expectations. By committing credibly to low,
+      stable inflation — an inflation target — they hold expected inflation still, and with it fixed the
+      short-run downward trade-off reappears as a usable relationship, now understood for what it always
+      was: a short-run phenomenon that lives or dies by what people expect, {hl:longRunEq}. The whole
+      episode left economics with a lesson far larger than the curve itself. It showed that a
+      relationship can be rock-solid in the data for twenty years and still not be a law you can exploit,
+      because the moment policy leans on it, the behaviour that produced it changes — people learn, they
+      form new expectations, and the old pattern dissolves. This idea, that you cannot treat a historical
+      correlation as a fixed menu when your own actions will shift it, is one of the most important in all
+      of macroeconomics, {hl:expectEq}. It is why modern central banks obsess over expectations and
+      credibility rather than trying to fine-tune unemployment directly, and why a hard-won reputation for
+      keeping inflation low is treated as a precious asset: it is the thing that keeps expected inflation
+      anchored, and so keeps the short-run trade-off gentle and usable rather than vicious and vanishing.
+      The Phillips curve, in the end, is less a dial to turn than a mirror held up to the beliefs of the
+      people living inside the economy.
+    board:
+      - id: phillipsEq2
+        latex: "\\pi = \\pi_e - \\beta\\,(u - u_n)"
+        say: "inflation equals expected inflation minus beta times the unemployment gap"
+        color: blue
+      - id: expectEq
+        latex: "\\pi_e \\uparrow \\;\\Rightarrow\\; \\text{curve shifts up}"
+        say: "higher expected inflation shifts the whole curve up"
+        color: orange
+      - id: longRunEq
+        latex: "\\text{long run: vertical at } u_n"
+        say: "in the long run the Phillips curve is vertical at the natural rate"
+        color: red
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Inflation below the natural rate. {statement} Expected inflation, the natural rate and the actual
+      unemployment are given, {given}; find the inflation rate. {find} Put the numbers into the Phillips
+      relation, {step1}: expected inflation of two per cent, minus a half times the gap of four per cent
+      unemployment minus the natural six per cent. That gap is minus two, {step2}, and minus a half times
+      minus two is plus one. So inflation is two plus one, which is three per cent, {answer}. Unemployment
+      below its natural rate pushed inflation one point above expectations — the tight labour market
+      bidding wages and prices up, exactly as the curve predicts.
+    board:
+      - id: statement
+        text: "Inflation when unemployment is low."
+      - id: given
+        latex: "\\pi_e = 2\\%,\\ \\beta = 0.5,\\ u = 4\\%,\\ u_n = 6\\%"
+        say: "expected inflation two per cent, beta a half, unemployment four, natural rate six"
+        role: given
+      - id: find
+        text: "Find the inflation π."
+        role: find
+      - id: step1
+        latex: "\\pi = 2 - 0.5\\,(4 - 6)"
+        say: "inflation equals two minus a half times, four minus six"
+        role: step
+        color: blue
+      - id: step2
+        latex: "= 2 - 0.5(-2) = 2 + 1"
+        say: "equals two minus a half times minus two, two plus one"
+        role: step
+        color: orange
+      - id: answer
+        latex: "\\pi = 3\\%"
+        say: "inflation is three per cent"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "2 - 0.5*(4 - 6)"
+      value: 3
+      unit: "%"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      At the natural rate. {statement2} Now suppose unemployment sits exactly at its natural rate,
+      {given2}; find the inflation. {find2} The gap between unemployment and the natural rate is now zero,
+      {step1b}, so the whole second term vanishes. Inflation is simply equal to expected inflation,
+      {answer2}: two per cent. This is the heart of the long-run result. When unemployment is at its
+      natural rate, inflation is whatever people expect it to be — no more, no less — which is exactly why
+      the long-run Phillips curve stands vertical at the natural rate, and why there is no lasting
+      trade-off to exploit.
+    board:
+      - id: statement2
+        text: "Inflation at the natural rate."
+      - id: given2
+        latex: "\\pi_e = 2\\%, \\quad u = u_n = 6\\%"
+        say: "expected inflation two per cent, unemployment at the natural rate of six"
+        role: given
+      - id: find2
+        text: "Find π when u = u_n."
+        role: find
+      - id: step1b
+        latex: "\\pi = 2 - 0.5\\,(6 - 6) = 2 - 0"
+        say: "inflation equals two minus a half times, six minus six, which is two minus zero"
+        role: step
+        color: red
+      - id: answer2
+        latex: "\\pi = \\pi_e = 2\\%"
+        say: "inflation equals expected inflation, two per cent"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "2 - 0.5*(6 - 6)"
+      value: 2
+      unit: "%"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the short-run Phillips curve offers an inverse trade-off between unemployment and
+      inflation; rising expected inflation shifts it upward, which produced stagflation and revealed a
+      vertical long-run curve at the natural rate; and anchoring expectations restores the short-run
+      trade-off. Next: Monetary policy and the Taylor rule — how central banks set rates.
