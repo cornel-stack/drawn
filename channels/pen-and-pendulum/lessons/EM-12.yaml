@@ -1,0 +1,202 @@
+# EM-12: Ampere's law — the wire, the solenoid and the toroid.
+# OpenStax University Physics Vol. 2 §12.5-12.6 (CC BY 4.0). ~7 minutes.
+# Colour: field B = purple, current = orange, Amperian loop = green.
+schema_version: 1
+id: EM-12
+channel: pen-and-pendulum
+title: "Ampere's law: the wire, the solenoid and the toroid"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "§12.5-12.6 Ampere's Law, Solenoids and Toroids"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/105-12-5-amp-re-s-law.md"
+  pages: "567-586"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "The shortcut Biot-Savart envies"
+  keyword: "shortcut"
+publish:
+  title: "Ampere's Law Explained: The Wire, the Solenoid and the Toroid"
+  summary: >
+    Ampere's law finds magnetic fields the way Gauss's law finds electric ones —
+    by exploiting symmetry. We state it, use it to recover the straight-wire field
+    in two lines, and derive the uniform field of a solenoid, B = mu0 n I. Two
+    worked examples follow.
+  hashtags: ["#physics", "#electromagnetism", "#magnetism"]
+  tags:
+    - Ampere's law
+    - solenoid
+    - toroid
+    - magnetic field
+    - electromagnetism
+    - physics
+    - Amperian loop
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Adding up the Biot-Savart law element by element is hard work. Ampere's law offers a shortcut
+      that, where there is symmetry, gives the same fields in a line or two.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Consider a solenoid, {drawField}, a long coil of wire, and the magnetic field along a line
+      cutting across it. This purple curve shows the result Ampere's law delivers: inside the coil
+      the field is strong and, remarkably, completely uniform — the same everywhere, shown by the
+      flat top. Step outside the coil and the field drops almost to nothing, shown by the plunge to
+      zero at each end. A solenoid, in other words, bottles a uniform magnetic field inside itself
+      and leaks almost none outside, which is exactly why solenoids are used wherever a steady,
+      controllable field is needed, from magnetic locks to the heart of an MRI scanner. The strength
+      of that inside field is beautifully simple, {solenoidEq}: it depends only on how tightly the wire is
+      wound and how much current flows, and not at all on where inside the coil you measure it. Ampere's
+      law is what makes this flat, uniform field so easy to prove.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 5, 1]
+        y: [0, 5, 1]
+        x_length: 8.0
+        y_length: 3.6
+        x_label: "position"
+        y_label: "B"
+      steps:
+        - {id: drawField, action: plot_function, params: {func: solenoid_field, color: purple, label: "B = \\mu_0 n I"}}
+    board:
+      - id: solenoidEq
+        latex: "B = \\mu_0 n I"
+        say: "B equals mu nought n I"
+        color: purple
+        legend:
+          - {sym: "n", name: "turns per unit length", unit: "1/m"}
+          - {sym: "I", name: "current", unit: "A"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here, {ampereEq}, is Ampere's law: the line integral of the magnetic field around any closed
+      loop equals mu nought times the total current passing through that loop. The art is choosing the
+      loop — an Amperian loop — to match the symmetry, so that B is either constant and along the loop,
+      or perpendicular to it and contributing nothing. Try it on a straight wire. Take a circle of
+      radius r centred on the wire: by symmetry B has the same size all the way round and points along
+      the circle, so the integral is just B times the circumference, two pi r, and it equals mu nought
+      I. Rearrange, {wireEq}, and out drops B equals mu nought I over two pi r — the same field we
+      laboured to get from Biot-Savart, now in two lines. Now the solenoid. Choose a rectangular loop
+      with one long side threaded down the inside of the coil and the opposite side outside, where the
+      field is zero. Only the inside side contributes, giving B times its length; the current it
+      encloses is the number of turns it crosses times I. Equate them and the lengths cancel, leaving
+      {solenoidEq2}: B equals mu nought n I, with n the turns per unit length — uniform, and
+      independent of position, exactly as the picture showed. Bend that solenoid into a doughnut and
+      the same method gives the toroid, with its field confined entirely within the ring. Ampere's law
+      is to magnetism what Gauss's law is to electricity: always true, but a true shortcut only when
+      the symmetry is there to exploit. It is worth being honest about that limitation. Ampere's law in
+      this simple form holds for every magnetic field there is, but it only hands you the field directly
+      when you can find a loop on which B is uniform and either along the loop or across it. A straight
+      wire, an ideal solenoid, a toroid — these have the symmetry, and the field drops out in a line. A
+      short bar magnet or a finite coil does not, and for those you are thrown back on the harder sum of
+      Biot-Savart, or on a computer. There is also a deeper point lurking here. The enclosed current in
+      Ampere's law counts charges actually flowing through the loop — but a changing electric field, as
+      in the gap of a charging capacitor, produces a magnetic field too, with no real current present at
+      all. Patching Ampere's law to include that effect was Maxwell's great insight, the displacement
+      current, and it is what finally knits electricity and magnetism into a single theory and predicts
+      light itself. For now, with steady currents and good symmetry, Ampere's law stands as the fastest
+      route to a magnetic field we have.
+    board:
+      - id: ampereEq
+        latex: "\\oint \\vec{B}\\cdot d\\vec{l} = \\mu_0 I_{enc}"
+        say: "the closed loop integral of B dot d l equals mu nought times the enclosed current"
+        color: green
+      - id: wireEq
+        latex: "B_{wire} = \\dfrac{\\mu_0 I}{2\\pi r}"
+        say: "the wire field is mu nought I over two pi r"
+        color: purple
+      - id: solenoidEq2
+        latex: "B_{sol} = \\mu_0 n I"
+        say: "the solenoid field is mu nought n I"
+        color: purple
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      The field inside a solenoid. {statement} A solenoid is wound at a known density and carries a
+      current, {given}; find the field inside. {find} Use Ampere's result, {step1}: mu nought, four pi
+      times ten to the minus seven, times a thousand turns per metre, times two amperes. Working it
+      through gives about two and a half times ten to the minus three tesla, {answer} — a few
+      millitesla, far stronger than the field of a single wire at the same current, because every turn
+      of the coil adds its contribution inside. Wind more turns per metre, or push more current, and
+      the field rises in direct proportion.
+    board:
+      - id: statement
+        text: "Field inside a solenoid."
+      - id: given
+        latex: "n = 1000\\ \\text{m}^{-1}, \\quad I = 2\\ \\text{A}"
+        say: "a thousand turns per metre, current two amperes"
+        role: given
+      - id: find
+        text: "Find B = μ₀nI."
+        role: find
+      - id: step1
+        latex: "B = (4\\pi\\times10^{-7})(1000)(2)"
+        say: "B equals four pi times ten to the minus seven, times one thousand, times two"
+        role: step
+        color: purple
+      - id: answer
+        latex: "B \\approx 2.5\\times 10^{-3}\\ \\text{T}"
+        say: "B is about two point five times ten to the minus three tesla"
+        role: answer
+        box: true
+        color: purple
+    check:
+      expr: "(4*np.pi*1e-7) * 1000 * 2"
+      value: 2.51e-3
+      unit: "T"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Now the wire, {statement2}, the quick way. A straight wire carries a current; find the field a
+      short distance from it, {given2}, using Ampere's law. {find2} The Amperian result for a wire,
+      {step2}: mu nought times five amperes, over two pi times the distance of two centimetres. The pi
+      cancels against the one in mu nought, and the arithmetic gives five times ten to the minus five
+      tesla, {answer2}. The point is not the number but the ease: a result that took a page of
+      integration with Biot-Savart falls out of Ampere's law in a single step, purely because a
+      straight wire has the circular symmetry that the law rewards.
+    board:
+      - id: statement2
+        text: "Wire field via Ampere's law."
+      - id: given2
+        latex: "I = 5\\ \\text{A}, \\quad r = 0.02\\ \\text{m}"
+        say: "current five amperes, distance two centimetres"
+        role: given
+      - id: find2
+        text: "Find B = μ₀I/(2πr)."
+        role: find
+      - id: step2
+        latex: "B = \\dfrac{(4\\pi\\times10^{-7})(5)}{2\\pi(0.02)}"
+        say: "B equals four pi times ten to the minus seven, times five, over two pi times nought point zero two"
+        role: step
+        color: purple
+      - id: answer2
+        latex: "B = 5\\times 10^{-5}\\ \\text{T}"
+        say: "B equals five times ten to the minus five tesla"
+        role: answer
+        box: true
+        color: purple
+    check:
+      expr: "(4*np.pi*1e-7 * 5) / (2*np.pi*0.02)"
+      value: 5e-5
+      unit: "T"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: Ampere's law says the loop integral of B equals mu nought times the enclosed
+      current; matched to a symmetric Amperian loop it gives the straight-wire field in two lines and
+      the uniform solenoid field B equals mu nought n I. Next: Faraday's law and Lenz's law —
+      electromagnetic induction in one animation.

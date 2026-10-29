@@ -1,0 +1,215 @@
+# LA-15: Cofactor expansion without tears — where the formula comes from.
+# Hefferon, Linear Algebra, Laplace's Formula (CC BY-SA 3.0). ~7 minutes.
+# Colour: matrix = white, expansion row = blue, minors = orange, signs = yellow.
+schema_version: 1
+id: LA-15
+channel: chalk-and-vector
+title: "Cofactor expansion without tears: where the formula comes from"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "Laplace's Formula (Cofactor Expansion)"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/028-laplace-s-formula.md"
+  pages: "367-378"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "Big determinants, small pieces"
+  keyword: "small pieces"
+publish:
+  title: "Cofactor Expansion Explained: How to Compute Any Determinant"
+  summary: >
+    The cofactor expansion turns a big determinant into a handful of smaller ones.
+    We show the rule — each entry of a row times its minor, with a checkerboard of
+    signs — why it works, and how choosing a row full of zeros makes it almost
+    effortless. Two worked examples follow.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - cofactor expansion
+    - Laplace expansion
+    - determinant
+    - minors and cofactors
+    - linear algebra
+    - 3x3 determinant
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Computing a determinant bigger than two-by-two looks forbidding. Cofactor expansion tames
+      it with one idea: break the big determinant into smaller ones, and keep going until they are
+      small enough to do by hand.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawM}, is a three-by-three matrix. To find its determinant by cofactor expansion, we
+      march along one row — take the top row. Look at its first entry, {hlA}: cross out the row and
+      the column it sits in, and what is left is a two-by-two determinant, its minor. Multiply the
+      entry by that minor. Move to the second entry, {hlB}, delete its row and column, and multiply
+      it by the two-by-two left behind — but this one comes in with a minus sign. The third entry,
+      {hlC}, takes a plus again. So the determinant is the first entry times its minor, minus the
+      second times its minor, plus the third times its minor, {expEq}. A three-by-three has become three
+      two-by-twos, each of which we already know how to compute. That is the whole method: expand
+      along a row, each entry weighted by the smaller determinant you get from deleting its row and
+      column, with the signs alternating plus, minus, plus. The forbidding has become routine.
+    animation:
+      primitive: matrix
+      params:
+        rows: [[2, 1, 1], [1, 2, 1], [1, 1, 2]]
+      steps:
+        - {id: drawM, action: draw, params: {rows: [[2, 1, 1], [1, 2, 1], [1, 1, 2]]}}
+        - {id: hlA, action: highlight, params: {i: 0, col: 0, color: blue}}
+        - {id: hlB, action: highlight, params: {i: 0, col: 1, color: orange}}
+        - {id: hlC, action: highlight, params: {i: 0, col: 2, color: blue}}
+    board:
+      - id: expEq
+        latex: "\\det A = \\sum_j a_{1j} C_{1j}"
+        say: "the determinant is the sum over j of a one j times its cofactor C one j"
+        color: blue
+        legend:
+          - {sym: "a_{1j}", name: "entries of the chosen row", unit: ""}
+          - {sym: "C_{1j}", name: "signed minors (cofactors)", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Put the rule precisely, {expEq2}: the determinant is the sum, along a row, of each entry times
+      its cofactor. A cofactor is just a minor with a sign attached, {minorEq}: the minor is the
+      smaller determinant from deleting the entry's row and column, and the sign is minus one raised
+      to the row plus column. That exponent produces a checkerboard of signs, {signEq}, plus and
+      minus alternating across the matrix, starting with a plus in the top-left corner. Memorise the
+      checkerboard, not a formula, and you will never get a sign wrong. Two things make the method
+      genuinely easy. First, it is recursive: a four-by-four reduces to four three-by-threes, each
+      of which reduces to two-by-twos, all the way down. Second, and this is the real trick, you may
+      expand along any row or any column you like, and the answer is always the same. So pick the
+      row or column with the most zeros — every zero entry kills an entire minor, since it multiplies
+      to nothing. A determinant with a row of mostly zeros collapses almost instantly. This is why a
+      triangular matrix, with zeros filling one corner, has a determinant that is simply the product
+      of its diagonal: expand down the sparse column each time and only the diagonal survives. The
+      cleverness is never in grinding through the arithmetic; it is in choosing the lazy row before
+      you start. It is worth seeing where the alternating signs actually come from, because they are not
+      arbitrary. Deleting an entry's row and column leaves the minor, but to line that minor up as a
+      proper sub-determinant you must slide the deleted row and column out past the others, and each swap
+      of adjacent rows or columns flips the sign of a determinant — we saw that in the area picture,
+      where exchanging two edges reverses orientation. The number of swaps needed is exactly i plus j, so
+      the sign is minus one to that power: the checkerboard is just bookkeeping for all those orientation
+      flips. Expansion is also the bridge to the general theory, since the same formula defines the
+      determinant for a matrix of any size purely in terms of smaller ones. That is why every property we
+      have met — that a zero row gives zero, that a triangular matrix multiplies its diagonal, that
+      swapping rows flips the sign — can be proved once and for all by induction on the size. For hand
+      computation it is unbeatable on small or sparse matrices; for large dense ones, row reduction is
+      faster, but the idea underneath is the same determinant, approached from a different side.
+    board:
+      - id: expEq2
+        latex: "\\det A = \\sum_j a_{ij}\\,C_{ij}"
+        say: "the determinant is the sum of each entry times its cofactor"
+        color: blue
+      - id: minorEq
+        latex: "C_{ij} = (-1)^{i+j} M_{ij}"
+        say: "the cofactor is minus one to the i plus j, times the minor M i j"
+        color: orange
+        box: true
+      - id: signEq
+        latex: "\\begin{pmatrix}+ & - & +\\\\- & + & -\\\\+ & - & +\\end{pmatrix}"
+        say: "the signs form a checkerboard, plus minus plus"
+        color: yellow
+
+  - id: s4
+    kind: problem
+    narration: >
+      Expanding a three-by-three. {statement} A matrix is given, {given}; find its determinant by
+      cofactor expansion along the top row. {find} First entry, two, times its minor, {step1}: the
+      two-by-two left after deleting its row and column is two, two, one, two, with determinant
+      three. Second entry, one, with a minus sign, times its minor, {step2}, which is one. Third
+      entry, one, with a plus, times its minor, which is minus one. Collect them, {step3}: two times
+      three, minus one, plus minus one, is six minus one minus one. The determinant is four, {answer}.
+      Three small determinants, combined with the checkerboard signs — no more than that.
+    board:
+      - id: statement
+        text: "Determinant by cofactor expansion."
+      - id: given
+        latex: "A = \\begin{pmatrix}2 & 1 & 1\\\\1 & 2 & 1\\\\1 & 1 & 2\\end{pmatrix}"
+        say: "A is two, one, one; one, two, one; one, one, two"
+        role: given
+      - id: find
+        text: "Find det A."
+        role: find
+      - id: step1
+        latex: "2\\begin{vmatrix}2 & 1\\\\1 & 2\\end{vmatrix} = 2(3)"
+        say: "two times the minor two, one, one, two, which is two times three"
+        role: step
+        color: blue
+      - id: step2
+        latex: "-\\,1\\begin{vmatrix}1 & 1\\\\1 & 2\\end{vmatrix} + 1\\begin{vmatrix}1 & 2\\\\1 & 1\\end{vmatrix}"
+        say: "minus one times its minor, plus one times its minor"
+        role: step
+        color: orange
+      - id: step3
+        latex: "\\det A = 2(3) - 1(1) + 1(-1)"
+        say: "the determinant is two times three, minus one, plus minus one"
+        role: step
+        color: yellow
+      - id: answer
+        latex: "\\det A = 4"
+        say: "the determinant is four"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "2*(2*2-1*1) - 1*(1*2-1*1) + 1*(1*1-2*1)"
+      value: 4
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      The triangular shortcut. {statement2} A triangular matrix is given, with zeros below the
+      diagonal, {given2}; find its determinant. {find2} Here the method pays off instantly. Expand
+      down the first column, {step1b}: only the top entry, three, is non-zero, so every other term
+      vanishes, and the determinant is three times the two-by-two in the corner. That two-by-two is
+      itself triangular, so its determinant is two times five, ten. Altogether, {step2b}, the answer
+      is three times two times five — simply the product of the diagonal, {answer2}, which is thirty.
+      For any triangular matrix the determinant is just the diagonal entries multiplied together, and
+      cofactor expansion is why.
+    board:
+      - id: statement2
+        text: "Determinant of a triangular matrix."
+      - id: given2
+        latex: "B = \\begin{pmatrix}3 & 2 & 1\\\\0 & 2 & 4\\\\0 & 0 & 5\\end{pmatrix}"
+        say: "B is three, two, one; zero, two, four; zero, zero, five"
+        role: given
+      - id: find2
+        text: "Find det B."
+        role: find
+      - id: step1b
+        latex: "\\det B = 3\\begin{vmatrix}2 & 4\\\\0 & 5\\end{vmatrix}"
+        say: "expanding the first column, three times the minor two, four, zero, five"
+        role: step
+        color: orange
+      - id: step2b
+        latex: "= 3 \\times 2 \\times 5"
+        say: "equals three times two times five"
+        role: step
+        color: yellow
+      - id: answer2
+        latex: "\\det B = 30"
+        say: "the determinant is thirty"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "3*2*5"
+      value: 30
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: cofactor expansion computes a determinant by running along a row, each entry
+      times the smaller determinant from deleting its row and column, with a checkerboard of signs;
+      you may expand along any row or column, so choose the one with the most zeros. Next: Change of
+      basis — the same vector in two languages.

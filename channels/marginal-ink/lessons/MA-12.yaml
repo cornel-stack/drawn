@@ -1,0 +1,213 @@
+# MA-12: The IS-LM model — fiscal and monetary policy in one diagram.
+# OpenStax Principles of Economics 3e, Keynesian cross + monetary policy (CC BY 4.0)
+# for the components; the IS-LM diagram is the standard intermediate-macro synthesis
+# of the IS curve (MA-10) and LM curve (MA-11), flagged in the review. ~7 minutes.
+# Colour: IS = orange, LM = blue, equilibrium = green.
+schema_version: 1
+id: MA-12
+channel: marginal-ink
+title: "The IS-LM model: fiscal and monetary policy in one diagram"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "Keynesian Cross and Monetary Policy (IS-LM synthesis)"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/328-28-4-monetary-policy-and-economic-outcomes.md"
+  pages: "685-700"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "Two markets, one crossing"
+  keyword: "one crossing"
+publish:
+  title: "The IS-LM Model: Fiscal and Monetary Policy in One Diagram"
+  summary: >
+    The IS-LM model puts the goods market and the money market on a single diagram.
+    Their crossing fixes the interest rate and output where both markets clear. We
+    build it from the IS and LM curves, then show how fiscal policy shifts one curve
+    and monetary policy the other. Two worked examples follow.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - IS-LM model
+    - fiscal policy
+    - monetary policy
+    - macroeconomics
+    - goods market money market
+    - crowding out
+    - equilibrium
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      The goods market gave us a downward curve, the money market an upward one. Put them on the
+      same axes and where they cross is the whole short-run economy, fixed in a single point.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is the goods market, {drawIS}, the downward IS curve in orange, and the money market,
+      {drawLM}, the upward LM curve in blue. Each on its own gives a whole line of possibilities; only
+      where they cross, {mark}, is both markets satisfied at once, {eqEq}. That crossing fixes two numbers
+      together: the equilibrium interest rate and the equilibrium level of output. It is the single
+      interest rate at which the amount firms want to borrow and invest, and the amount people want to
+      hold as money, are both exactly met. Everywhere else, at least one market is out of balance and
+      forces are pushing the economy back toward this point. The power of the diagram is what happens
+      when you shift a curve. Policies that change spending move the IS curve; policies that change
+      the money supply move the LM curve; and from the new crossing you can read off exactly what each
+      policy does to interest rates and output. The two great levers of short-run macroeconomics,
+      fiscal and monetary policy, each live on one of these two curves.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 10, 1]
+        y: [0, 10, 1]
+        x_length: 8.0
+        y_length: 3.6
+        x_label: "Y"
+        y_label: "r"
+      steps:
+        - {id: drawIS, action: plot_line, params: {name: is, a: 1, b: 1, c: 10, color: orange, label: "IS"}}
+        - {id: drawLM, action: plot_line, params: {name: lm, a: -1, b: 1, c: 0, color: blue, label: "LM"}}
+        - {id: mark, action: intersect, params: {line1: is, line2: lm, color: green, label: "E"}}
+    board:
+      - id: eqEq
+        latex: "\\text{IS} \\cap \\text{LM} = (Y^*, r^*)"
+        say: "the IS and LM curves cross at the equilibrium output and interest rate"
+        color: green
+        legend:
+          - {sym: "IS", name: "goods-market equilibrium", unit: ""}
+          - {sym: "LM", name: "money-market equilibrium", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Two curves, {isEq} {lmEq}, are the two markets: the IS curve is every interest rate and
+      output at which planned spending equals output, and the LM curve is every pair at which money
+      demand equals the fixed money supply. The economy must sit on both at once, so it sits at their
+      crossing, {eqEq2}: the one output and interest rate that clear the goods market and the money
+      market together. Now work the levers. A fiscal expansion — more government spending, or a tax
+      cut — raises planned spending at every interest rate, so it shifts the IS curve to the right.
+      The crossing moves up the LM curve: output rises, but so does the interest rate, and that higher
+      rate chokes off some private investment, a damping effect called crowding out. A monetary
+      expansion — the central bank increasing the money supply — shifts the LM curve to the right
+      instead. Now the crossing slides down the IS curve: output rises, but the interest rate falls,
+      the opposite effect on rates. So the diagram does something no single market could: it tells the
+      two policies apart. Both can lift output in a slump, but fiscal policy does it by pushing rates
+      up and monetary policy by pulling them down — and knowing which lever moves which curve is the
+      heart of managing an economy in the short run. The model also explains why the two policies are
+      sometimes used together. A fiscal expansion on its own drives interest rates up and crowds out
+      private investment; pair it with a monetary expansion, and the central bank can hold rates down
+      while government spending lifts output, so the two levers pull the same way on output without the
+      crowding out — loose money alongside a fiscal push, the textbook response to a deep recession. The
+      diagram carries its own cautions, too. It is a short-run picture, with prices held fixed; over the
+      longer run prices adjust and the simple picture changes. And the slopes matter enormously: if
+      investment barely responds to interest rates, the IS curve is steep, monetary policy loses its
+      grip, and fiscal policy becomes especially powerful. For all those caveats, IS-LM remains the first
+      diagram economists reach for to think through a downturn, because it holds the two great policy
+      levers, and their effects on output and interest rates, in one clear picture.
+    board:
+      - id: isEq
+        latex: "\\text{IS}: \\; Y = C + I + G"
+        say: "the IS curve is where output equals planned spending"
+        color: orange
+      - id: lmEq
+        latex: "\\text{LM}: \\; M/P = L(Y, r)"
+        say: "the LM curve is where money supply equals money demand"
+        color: blue
+      - id: eqEq2
+        latex: "\\text{solve IS} = \\text{LM} \\;\\Rightarrow\\; (Y^*, r^*)"
+        say: "solving IS equals LM gives the equilibrium output and interest rate"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Finding the equilibrium. {statement} The IS and LM curves are given as simple lines, {given};
+      find the equilibrium output. {find} At the crossing the two interest rates are equal, so set the
+      curves equal, {step1}: ten minus Y equals Y. Bring the Y's together, {step2}: ten equals two Y,
+      so Y is five. Output settles at five, {answer}, and putting that back into either curve gives an
+      interest rate of five as well. That single pair is the only state in which both the goods market
+      and the money market are simultaneously in balance.
+    board:
+      - id: statement
+        text: "Equilibrium of the IS-LM model."
+      - id: given
+        latex: "\\text{IS}: r = 10 - Y, \\quad \\text{LM}: r = Y"
+        say: "IS is r equals ten minus Y; LM is r equals Y"
+        role: given
+      - id: find
+        text: "Find Y* where IS = LM."
+        role: find
+      - id: step1
+        latex: "10 - Y = Y"
+        say: "ten minus Y equals Y"
+        role: step
+        color: orange
+      - id: step2
+        latex: "10 = 2Y \\;\\Rightarrow\\; Y = 5"
+        say: "ten equals two Y, so Y is five"
+        role: step
+        color: blue
+      - id: answer
+        latex: "Y^* = 5, \\quad r^* = 5"
+        say: "equilibrium output five, interest rate five"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "10 / 2"
+      value: 5
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      A fiscal expansion. {statement2} Government spending rises, shifting the IS curve up, {given2};
+      find the new equilibrium output. {find2} The new IS curve sets the interest rate two higher at
+      every output, so set it equal to the unchanged LM, {step1b}: twelve minus Y equals Y. Solve,
+      {step2b}: twelve equals two Y, so Y is six. Output has risen from five to six, {answer2}, and the
+      equilibrium interest rate has climbed from five to six with it. The fiscal expansion lifted
+      output, but the higher interest rate it brought is the crowding out working against it — exactly
+      what the diagram predicts.
+    board:
+      - id: statement2
+        text: "Output after a fiscal expansion."
+      - id: given2
+        latex: "\\text{IS}': r = 12 - Y, \\quad \\text{LM}: r = Y"
+        say: "the new IS is r equals twelve minus Y; LM unchanged at r equals Y"
+        role: given
+      - id: find2
+        text: "Find the new Y*."
+        role: find
+      - id: step1b
+        latex: "12 - Y = Y"
+        say: "twelve minus Y equals Y"
+        role: step
+        color: orange
+      - id: step2b
+        latex: "12 = 2Y \\;\\Rightarrow\\; Y = 6"
+        say: "twelve equals two Y, so Y is six"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "Y^* = 6 \\;(\\text{up from } 5)"
+        say: "equilibrium output six, up from five"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "12 / 2"
+      value: 6
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the IS-LM model crosses the goods-market and money-market curves to fix output
+      and the interest rate together; fiscal policy shifts the IS curve, raising output and rates;
+      and monetary policy shifts the LM curve, raising output but lowering rates. Next: The AD-AS
+      model — demand and supply shocks, short run to long run.
