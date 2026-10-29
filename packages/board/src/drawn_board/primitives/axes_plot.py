@@ -50,6 +50,15 @@ _FUNCS = {
     # a solenoid's field: uniform inside (here the interval 1 < x < 4), ~zero
     # outside — the headline result of Ampere's law, B = mu0 n I inside.
     "solenoid_field": (lambda x: np.where((x > 1.0) & (x < 4.0), 4.0, 0.0), r"\mu_0 n I"),
+    # debt/GDP trajectories from the government budget constraint. When the growth
+    # rate exceeds the interest rate (g > r) a constant primary deficit leaves the
+    # ratio converging to a finite steady state; when r > g the same deficit makes
+    # it snowball away. Both start at a ratio of 2 (i.e. 20 on a y-axis of 0..100
+    # read as a percentage of GDP), over a 0..10 horizon.
+    "debt_stable": (lambda x: 60.0 - 40.0 * np.exp(-0.45 * np.clip(x, 0.0, None)),
+                    r"g > r:\ \text{converges}"),
+    "debt_snowball": (lambda x: 20.0 * np.exp(0.15 * np.clip(x, 0.0, None)),
+                      r"r > g:\ \text{snowballs}"),
 }
 
 # Named right-hand sides f(x, y) for a first-order ODE y' = f(x, y), and the
@@ -198,6 +207,24 @@ class AxesPlot(Primitive):
 
             self.scene.play(Write(self._mlabel(label, pt, color, _up() + _right())),
                             run_time=run_time * 0.3)
+
+    @step
+    def residual(self, run_time: float, line: str = None, x: float = 0.0, y: float = 0.0,
+                 point_color: str = "orange", color: str = "red", **_):
+        """Draw the data point (x, y) and the vertical residual — the gap between
+        the point and the fit `line` at that x. The sum of the squares of these
+        gaps is exactly what least squares minimises, so drawing them makes the
+        'best fit' concrete."""
+        from manim import Dot, Line
+
+        (_, a, b, c) = self._lines[line]
+        y_fit = (c - a * x) / b
+        pt = self.axes.c2p(x, y)
+        foot = self.axes.c2p(x, y_fit)
+        dot = Dot(pt, color=self.color(point_color), radius=0.09)
+        seg = Line(pt, foot, color=self.color(color), stroke_width=5)
+        self.scene.play(_grow(dot), run_time=run_time * 0.5)
+        self.scene.play(_create(seg), run_time=run_time * 0.5)
 
     @step
     def tangent(self, run_time: float, func: str = "parabola", x0: float = 1.0,

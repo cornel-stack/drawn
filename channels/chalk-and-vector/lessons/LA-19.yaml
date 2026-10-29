@@ -1,0 +1,220 @@
+# LA-19: Least squares explained visually — regression is projection.
+# Hefferon, Linear Algebra, Topic: Line of Best Fit (CC BY-SA 3.0). ~7 minutes.
+# Colour: data = orange, fit line = blue, residuals = red, projection = green.
+schema_version: 1
+id: LA-19
+channel: chalk-and-vector
+title: "Least squares explained visually: regression is projection"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "Topic: Line of Best Fit"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/021-topic-line-of-best-fit.md"
+  pages: "305-310"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "A best-fit line is a shadow"
+  keyword: "a shadow"
+publish:
+  title: "Least Squares Is Just Projection: The Hidden Geometry of Regression"
+  summary: >
+    The line of best fit looks like statistics, but underneath it is pure
+    geometry. When a system has no solution, least squares finds the nearest one
+    by projecting the data onto what the model can reach — and the perpendicular
+    residual gives the normal equations. We build the picture and solve two fits.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - least squares
+    - line of best fit
+    - linear regression
+    - orthogonal projection
+    - normal equations
+    - linear algebra
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A line of best fit looks like a problem in statistics. Underneath, it is a problem in geometry —
+      and the answer is a projection, the same one that drops a vector onto a subspace.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is the situation, {plotData}: a handful of data points in orange that do not lie on any straight
+      line. We still want the single line that best describes them, {plotFit}, in blue. What should best
+      mean? For each point, measure the vertical gap between it and the line — the error the line makes
+      there, {res1} {res2} {res3}. These red gaps are the residuals. Least squares chooses the line that
+      makes the total of their squares as small as possible, {sseEq}. Squaring keeps every error positive
+      and punishes large misses hardest, so no single point can be ignored. Judging such a line by eye
+      would be guesswork; minimising this sum gives one definite answer, and the next scene shows that the
+      answer is a projection in disguise. For now notice only this: the best line does not pass through the
+      points, it passes as near to all of them at once as the vertical distances will allow.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 6, 1]
+        y: [0, 6, 1]
+        x_length: 7.6
+        y_length: 3.6
+        x_label: "x"
+        y_label: "y"
+      steps:
+        - {id: plotData, action: mark_point, params: {x: 1, y: 2, color: orange, dashed: false}}
+        - {id: plotFit, action: plot_line, params: {name: fit, a: -0.8, b: 1, c: 1.2, color: blue, label: "\\hat{y}=mx+b"}}
+        - {id: res1, action: residual, params: {line: fit, x: 2, y: 3.4, color: red, point_color: orange}}
+        - {id: res2, action: residual, params: {line: fit, x: 3.5, y: 3.2, color: red, point_color: orange}}
+        - {id: res3, action: residual, params: {line: fit, x: 5, y: 5.6, color: red, point_color: orange}}
+    board:
+      - id: sseEq
+        latex: "\\min \\sum_i (y_i - \\hat{y}_i)^2"
+        say: "minimise the sum over all points of the squared vertical error"
+        color: red
+        legend:
+          - {sym: "y_i", name: "the observed value", unit: ""}
+          - {sym: "\\hat{y}_i", name: "the value the line predicts", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Now the geometry, {sysEq}. Writing the fit as a linear system puts one equation per data point, asking
+      the line to pass through it exactly. Stack those into a matrix times the unknowns equals the data vector,
+      {matEq}. Because the points are not collinear, this system has no solution — the data vector, {hl:matEq},
+      simply does not lie in the set of vectors the matrix can produce. That set, every combination of the
+      matrix's columns, is its column space, a flat subspace sitting inside the higher-dimensional data
+      space. We cannot hit the data vector, so we aim for the closest point we can reach. The closest point
+      in a subspace to an outside vector is its orthogonal projection, {projEq}: drop the data vector
+      straight down onto the column space. The little error left over — the data vector minus its
+      projection — is the residual vector, and it stands perpendicular to the whole column space. That one
+      word, perpendicular, is the entire method. Perpendicular to the column space means perpendicular to
+      every column, so the matrix-transpose times the residual is zero, {orthoEq}. Rearrange, and the
+      unknowns satisfy the normal equations, {normalEq}: matrix-transpose-matrix times the coefficients
+      equals matrix-transpose times the data. Solve that small square system and you have the best fit,
+      {solveEq}. So least squares is not a statistical trick bolted onto regression; it is the same
+      projection that drops any vector onto any subspace, applied to the data vector and the column space of
+      the model. The vertical gaps we minimised in the picture are exactly the length of that perpendicular
+      residual, and minimising their squared total is exactly what projection does. The sum-of-squares
+      picture and the drop-a-shadow picture are one and the same. Everything that makes orthonormal bases
+      pleasant — that the projection is unique, that the residual is perpendicular, that the answer is a
+      clean matrix formula — is now working for us, turning a hopeless system into a single best answer.
+    board:
+      - id: sysEq
+        latex: "b + m x_i = y_i"
+        say: "for each point, intercept plus slope times x equals y"
+        color: blue
+      - id: matEq
+        latex: "A\\,\\mathbf{x} = \\mathbf{v}"
+        say: "a matrix times the unknowns equals the data vector"
+        color: orange
+      - id: projEq
+        latex: "\\mathbf{p} = \\text{proj}_{\\,\\text{col}(A)}\\,\\mathbf{v}"
+        say: "the projection of the data vector onto the column space"
+        color: green
+      - id: orthoEq
+        latex: "A^{\\mathsf{T}}(\\mathbf{v} - A\\hat{\\mathbf{x}}) = \\mathbf{0}"
+        say: "the matrix transpose times the residual is zero"
+        color: red
+      - id: normalEq
+        latex: "A^{\\mathsf{T}}A\\,\\hat{\\mathbf{x}} = A^{\\mathsf{T}}\\mathbf{v}"
+        say: "A transpose A times the coefficients equals A transpose v"
+        color: blue
+        box: true
+      - id: solveEq
+        latex: "\\hat{\\mathbf{x}} = (A^{\\mathsf{T}}A)^{-1} A^{\\mathsf{T}}\\mathbf{v}"
+        say: "the coefficients equal, A transpose A inverse, times A transpose v"
+        color: green
+
+  - id: s4
+    kind: problem
+    narration: >
+      A fit through the origin. {statement} A penny is flipped in three batches and we record flips against
+      heads, expecting heads to be about one slope times flips with no intercept, {given}; find the
+      least-squares slope. {find} With a single unknown the matrix is one column, so the normal equation is
+      just the data dotted with the flips over the flips dotted with themselves, {step1}. The top is thirty
+      times sixteen, plus sixty times thirty-four, plus ninety times fifty-one, which is seventy-one ten;
+      the bottom is thirty squared plus sixty squared plus ninety squared, which is twelve thousand six
+      hundred, {step2}. Divide, {answer}: the best slope is about fifty-six hundredths, a shade above a half,
+      so the penny looks close to fair.
+    board:
+      - id: statement
+        text: "Least-squares slope through the origin."
+      - id: given
+        latex: "(30,16),\\ (60,34),\\ (90,51)"
+        say: "thirty flips sixteen heads, sixty flips thirty-four heads, ninety flips fifty-one heads"
+        role: given
+      - id: find
+        text: "Find the slope m = (v·a)/(a·a)."
+        role: find
+      - id: step1
+        latex: "m = \\dfrac{\\mathbf{v}\\cdot\\mathbf{a}}{\\mathbf{a}\\cdot\\mathbf{a}}"
+        say: "m equals the data dotted with the flips, over the flips dotted with themselves"
+        role: step
+        color: blue
+      - id: step2
+        latex: "= \\dfrac{30(16)+60(34)+90(51)}{30^2+60^2+90^2} = \\dfrac{7110}{12600}"
+        say: "equals seventy-one ten over twelve thousand six hundred"
+        role: step
+        color: green
+      - id: answer
+        latex: "m \\approx 0.564"
+        say: "the slope is about zero point five six"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "(30*16 + 60*34 + 90*51) / (30**2 + 60**2 + 90**2)"
+      value: 0.5643
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Checking the perpendicular. {statement2} Suppose a fit leaves the residual vector and the model has a
+      single column, the flips, {given2}; confirm the residual really is perpendicular to it. {find2} Two
+      vectors are perpendicular exactly when their dot product is zero, so dot the flips with the residual,
+      {step1b}: thirty times minus zero-point-four, plus sixty times zero-point-two. That is minus twelve
+      plus twelve, {step2b}, which is zero, {answer2}. The residual is orthogonal to the column, exactly as
+      the normal equations demand — the projection was built precisely so this would hold, and that right
+      angle is what makes the fit the best one possible.
+    board:
+      - id: statement2
+        text: "Verify the residual is orthogonal."
+      - id: given2
+        latex: "\\mathbf{a} = \\begin{pmatrix}30\\\\60\\end{pmatrix},\\ \\mathbf{r} = \\begin{pmatrix}-0.4\\\\0.2\\end{pmatrix}"
+        say: "the flips thirty, sixty; the residual minus zero point four, zero point two"
+        role: given
+      - id: find2
+        text: "Check a·r = 0."
+        role: find
+      - id: step1b
+        latex: "\\mathbf{a}\\cdot\\mathbf{r} = 30(-0.4) + 60(0.2)"
+        say: "flips dot residual is thirty times minus zero point four, plus sixty times zero point two"
+        role: step
+        color: blue
+      - id: step2b
+        latex: "= -12 + 12"
+        say: "equals minus twelve plus twelve"
+        role: step
+        color: green
+      - id: answer2
+        latex: "\\mathbf{a}\\cdot\\mathbf{r} = 0 \\;\\checkmark"
+        say: "the dot product is zero, so they are perpendicular"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "30*(-0.4) + 60*0.2"
+      value: 0
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: when a system has no solution, least squares projects the data vector onto the model's
+      column space; the residual comes out perpendicular, which gives the normal equations, and solving them
+      yields the best fit. Regression is projection. Next: Eigenvectors and eigenvalues — the directions a
+      matrix doesn't turn.

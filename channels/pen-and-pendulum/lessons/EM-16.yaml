@@ -1,0 +1,232 @@
+# EM-16: Inductance — self-inductance, the RL circuit and magnetic-field energy.
+# OpenStax University Physics Vol. 2, Ch.14 Inductance (CC BY 4.0). ~7 minutes.
+# Colour: current = blue, induced emf = orange, energy = green, time constant = red.
+schema_version: 1
+id: EM-16
+channel: pen-and-pendulum
+title: "Inductance: self-inductance, the RL circuit and energy in a magnetic field"
+target_minutes: 7
+source:
+  book: "University Physics Volume 2 (OpenStax)"
+  section: "§14.2-14.4 Self-Inductance, Energy in a Magnetic Field, RL Circuits"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/122-14-2-self-inductance-and-inductors.md"
+  pages: "607-622"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "A coil fights every change"
+  keyword: "fights"
+publish:
+  title: "Inductance Explained: Why Coils Resist Change and Store Energy"
+  summary: >
+    An inductor is a component that opposes any change in the current through it.
+    We define self-inductance from Faraday's law, show how an RL circuit makes the
+    current rise gradually instead of instantly, and find the energy locked in the
+    magnetic field. Two worked examples: stored energy and the time constant.
+  hashtags: ["#physics", "#electromagnetism", "#circuits"]
+  tags:
+    - inductance
+    - self-inductance
+    - RL circuit
+    - inductor
+    - magnetic energy
+    - time constant
+    - electromagnetism
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A coil of wire has a strange stubbornness: it resists any change in the current flowing through it.
+      That single property, called inductance, shapes how circuits switch, store energy, and oscillate.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Close the switch, {plotRise}, and the current through a resistor and coil in series does not leap to
+      its final value; in blue, it climbs gradually along this curve and only approaches the steady value
+      from below. Why the delay? A changing current changes the magnetic flux the coil threads through
+      itself, and by Faraday's law a changing flux induces an opposing voltage, {emfEq}. The faster you try to
+      change the current, the harder the coil pushes back. The constant of proportionality is the
+      self-inductance, {induEq}, measured in henries. Early on the current changes quickly, so the opposing
+      voltage is large and the rise is steep; as the current nears its final value the rate of change falls,
+      the opposition fades, and the curve flattens. The steady current it approaches is just the source
+      voltage over the resistance, {markSteady}, exactly what you would get with no coil at all — the coil
+      changes the path taken, not the destination. The speed of that approach is set by one number, the time
+      constant, {markTau}: after one time constant the current has reached about sixty-three per cent of its
+      final value. A large inductance or a small resistance makes the coil more stubborn and the rise
+      slower.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 5, 1]
+        y: [0, 6, 1]
+        x_length: 7.6
+        y_length: 3.6
+        x_label: "t"
+        y_label: "I"
+      steps:
+        - {id: plotRise, action: plot_function, params: {func: rc_charge, color: blue, label: "I(t)"}}
+        - {id: markSteady, action: mark_point, params: {x: 5, y: 5, color: orange, label: "\\varepsilon/R"}}
+        - {id: markTau, action: mark_point, params: {x: 1, y: 3.15, color: red, label: "\\tau"}}
+    board:
+      - id: emfEq
+        latex: "\\varepsilon = -L\\,\\dfrac{dI}{dt}"
+        say: "the induced emf equals minus L times the rate of change of current"
+        color: orange
+        legend:
+          - {sym: "\\varepsilon", name: "the induced emf", unit: "V"}
+          - {sym: "dI/dt", name: "rate of change of current", unit: "A/s"}
+      - id: induEq
+        latex: "L = \\dfrac{N\\,\\Phi_m}{I}"
+        say: "the self-inductance is the flux linkage per unit current"
+        color: blue
+        legend:
+          - {sym: "L", name: "self-inductance", unit: "H"}
+          - {sym: "\\Phi_m", name: "flux through one turn", unit: "Wb"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Write the loop rule, {kvlEq}. After the switch closes, around the loop the source voltage equals the
+      drop across the resistor plus the back-voltage of the coil: source equals current times resistance,
+      plus inductance times the rate of change of current. That is a first-order differential equation for
+      the current, and its solution is a rising exponential, {riseEq}: the current equals the final value,
+      source over resistance, times one minus e to the minus t over the time constant. At the first instant
+      the exponential is one, the bracket is zero, and the current starts from nothing; as time grows the
+      exponential decays to zero and the current settles at its final value. The time constant itself,
+      {tauEq}, is the inductance divided by the resistance — larger inductance, slower rise. Now ask where
+      the energy goes while the current builds. The source does work against the back-voltage, and that
+      work is not dissipated in the resistor; it is stored in the magnetic field of the coil. Integrate the
+      power the inductor absorbs from the first instant until the current reaches its value, {workEq}, and
+      the stored energy comes out as a half times the inductance times the current squared, {energyEq}. The
+      form is worth a pause, {hl:energyEq}: it is the exact magnetic twin of the half C V squared stored in
+      a capacitor's electric field, and the half m v squared of a moving mass. A capacitor hoards energy in
+      an electric field between charges; an inductor hoards it in a magnetic field around a current; a mass
+      hoards it in motion. Three different systems, one quadratic bookkeeping. And because that energy is
+      real and takes time to build or release, you cannot change an inductor's current instantly any more
+      than you can stop a flywheel dead — there is no infinite voltage to do it. That stored energy, held
+      in the field and handed back when the current falls, is what lets an inductor smooth a supply, time a
+      switch, and, paired with a capacitor, trade energy back and forth to oscillate. The opposition to
+      change we started with and the energy in the field are two faces of the same coil.
+    board:
+      - id: kvlEq
+        latex: "\\varepsilon = IR + L\\,\\dfrac{dI}{dt}"
+        say: "source equals current times resistance, plus inductance times rate of change of current"
+        color: orange
+      - id: riseEq
+        latex: "I(t) = \\dfrac{\\varepsilon}{R}\\left(1 - e^{-t/\\tau}\\right)"
+        say: "the current equals the final value times, one minus e to the minus t over tau"
+        color: blue
+        box: true
+      - id: tauEq
+        latex: "\\tau = \\dfrac{L}{R}"
+        say: "the time constant is inductance over resistance"
+        color: red
+      - id: workEq
+        latex: "U = \\int_0^{I} L\\,i\\,di"
+        say: "the stored energy is the integral of inductance times current"
+        color: green
+      - id: energyEq
+        latex: "U = \\tfrac{1}{2}L I^2"
+        say: "the energy stored equals a half L I squared"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Energy in the field. {statement} A coil with a known inductance carries a steady current, {given};
+      find the energy stored in its magnetic field. {find} The energy is a half times the inductance times
+      the current squared, {step1}. Put in the numbers, {step2}: a half times zero-point-five henries times
+      two amperes squared. Two squared is four, a half of zero-point-five is a quarter, and a quarter times
+      four is one, {answer}. So the coil holds one joule in its magnetic field — energy that would be
+      returned to the circuit if the current were switched off.
+    board:
+      - id: statement
+        text: "Energy stored in an inductor."
+      - id: given
+        latex: "L = 0.5\\ \\text{H},\\quad I = 2\\ \\text{A}"
+        say: "inductance zero point five henries, current two amperes"
+        role: given
+      - id: find
+        text: "Find the stored energy U."
+        role: find
+      - id: step1
+        latex: "U = \\tfrac{1}{2} L I^2"
+        say: "energy equals a half L I squared"
+        role: step
+        color: green
+      - id: step2
+        latex: "= \\tfrac{1}{2}(0.5)(2)^2"
+        say: "equals a half times zero point five times two squared"
+        role: step
+        color: blue
+      - id: answer
+        latex: "U = 1\\ \\text{J}"
+        say: "the stored energy is one joule"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "0.5 * 0.5 * 2**2"
+      value: 1.0
+      unit: "J"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      How fast the current rises. {statement2} The same coil now sits in series with a resistor across a
+      battery, {given2}; find the time constant and the final current. {find2} The time constant is the
+      inductance over the resistance, {step1b}: zero-point-five henries over two hundred and fifty ohms,
+      which is two thousandths of a second, or two milliseconds, {step2b}. The final current is the battery
+      voltage over the resistance, {step3b}: ten volts over two hundred and fifty ohms, which is
+      zero-point-zero-four amperes, {answer2}. So within a few milliseconds the current has all but reached
+      forty milliamperes — fast on a human scale, but a world away from the instant jump you would get
+      without the coil.
+    board:
+      - id: statement2
+        text: "Time constant of an RL circuit."
+      - id: given2
+        latex: "L = 0.5\\ \\text{H},\\ R = 250\\ \\Omega,\\ \\varepsilon = 10\\ \\text{V}"
+        say: "inductance zero point five henries, resistance two hundred fifty ohms, source ten volts"
+        role: given
+      - id: find2
+        text: "Find τ and the final current."
+        role: find
+      - id: step1b
+        latex: "\\tau = \\dfrac{L}{R}"
+        say: "tau equals L over R"
+        role: step
+        color: red
+      - id: step2b
+        latex: "= \\dfrac{0.5}{250} = 2\\ \\text{ms}"
+        say: "equals zero point five over two hundred fifty, which is two milliseconds"
+        role: step
+        color: blue
+      - id: step3b
+        latex: "I_\\infty = \\dfrac{\\varepsilon}{R} = \\dfrac{10}{250}"
+        say: "the final current is ten over two hundred fifty"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "\\tau = 2\\ \\text{ms},\\ I_\\infty = 0.04\\ \\text{A}"
+        say: "the time constant is two milliseconds and the final current is forty milliamperes"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "0.5/250"
+      value: 0.002
+      unit: "s"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: an inductor opposes changes in current through a self-induced emf equal to minus L times
+      the rate of change; in an RL circuit this makes the current rise exponentially with time constant L
+      over R, and the coil stores a half L I squared of energy in its magnetic field. Next: LC oscillations
+      — a circuit that behaves exactly like a mass on a spring.

@@ -1,0 +1,220 @@
+# MA-16: Fiscal policy, deficits and debt — the government budget constraint.
+# OpenStax Principles of Economics 3e, §30.3 Federal Deficits and the National Debt
+# (CC BY 4.0) for the deficit/debt/ratio content; the budget-constraint identity and
+# the r-vs-g debt dynamics are the standard construction (flagged in the review).
+# ~7 minutes. Colour: debt/deficit = blue, interest = orange, growth = green, snowball = red.
+schema_version: 1
+id: MA-16
+channel: marginal-ink
+title: "Fiscal policy, deficits and debt: the government budget constraint"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§30.3 Federal Deficits and the National Debt"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/352-30-3-federal-deficits-and-the-national-debt.md"
+  pages: "746-748"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "When debt shrinks itself"
+  keyword: "shrinks itself"
+publish:
+  title: "Deficits vs Debt: The Government Budget Constraint Explained"
+  summary: >
+    A deficit and the national debt are not the same thing — one is a yearly flow,
+    the other an accumulated stock. We build the government budget constraint that
+    links them, show why the debt-to-GDP ratio is the number that matters, and why
+    a fast-growing economy can shrink its debt burden without ever repaying a cent.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - fiscal policy
+    - budget deficit
+    - national debt
+    - government budget constraint
+    - debt to GDP
+    - macroeconomics
+    - deficit vs debt
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A government deficit and the national debt are constantly confused, yet they are as different as a
+      month's overspending and the balance on the credit card. One is a flow; the other is a stock — and a
+      single equation links them.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      One picture decides it, {plotStable}: whether a debt is a problem turns not on its size but on whether
+      the debt-to-GDP ratio is heading up or down. The green curve shows a government whose economy grows
+      faster than the interest rate on its debt. Even while it keeps borrowing, the ratio rises for a
+      while and then levels off — the burden stabilises on its own. The red curve, {plotSnow}, is the same
+      borrowing when the interest rate outpaces growth: the ratio climbs, and the climb feeds itself,
+      because interest is charged on a debt that is itself growing. The dividing line is a comparison of two
+      rates, {ruleEq}: the interest rate the government pays against the growth rate of the economy. When
+      growth wins, debt shrinks relative to the economy even if it never shrinks in dollars; when interest
+      wins, the debt snowballs. This is why the debt-to-GDP ratio, not the raw dollar figure, is the number
+      economists watch, {ratioEq}: a billion is crushing for a village and trivial for a continent, so debt
+      only means something measured against the income that services it. The same deficit can be sustainable
+      or ruinous depending entirely on which of these two curves the economy is on.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 10, 2]
+        y: [0, 100, 20]
+        x_length: 7.6
+        y_length: 3.6
+        x_label: "t"
+        y_label: "\\text{debt/GDP }\\%"
+      steps:
+        - {id: plotStable, action: plot_function, params: {func: debt_stable, color: green, label: "g>r"}}
+        - {id: plotSnow, action: plot_function, params: {func: debt_snowball, color: red, label: "r>g"}}
+    board:
+      - id: ruleEq
+        latex: "g \\;\\gtrless\\; r"
+        say: "compare the growth rate against the interest rate"
+        color: orange
+      - id: ratioEq
+        latex: "b = \\dfrac{D}{Y}"
+        say: "the debt ratio is debt divided by GDP"
+        color: blue
+        legend:
+          - {sym: "D", name: "the national debt", unit: "\\$"}
+          - {sym: "Y", name: "GDP", unit: "\\$"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Build the link between the two, {defEq}. The budget deficit in any year is simply spending minus tax
+      revenue — what the government must borrow to cover the gap. A surplus is the same quantity with the
+      sign flipped. That deficit is a flow, a single year's borrowing. The national debt, {debtEq}, is the
+      stock: this year's debt is last year's debt plus this year's deficit. Run that forward and the debt is
+      nothing but the running total of every past deficit, minus every past surplus — the accumulated
+      record of the budget. Now comes the feature that makes debt dynamics bite, {constraintEq}. Split the
+      deficit into two parts: the primary deficit, spending minus taxes leaving interest aside, plus the
+      interest the government owes on the debt it already carries. That second term, {hl:constraintEq}, is
+      the trap. Even a government that balances its primary budget exactly — taxes covering every programme —
+      still adds the interest bill to its debt, and next year pays interest on that larger debt. Borrowing to
+      pay interest on borrowing is how a debt can grow with no new spending at all. Whether it runs away
+      depends on the race we saw, {ratioDyn}: the change in the debt ratio is roughly the primary deficit as
+      a share of GDP, plus the ratio times the gap between the interest rate and the growth rate. Read it
+      off. If growth exceeds the interest rate that last term is negative, pulling the ratio down and taming
+      even a modest deficit — the economy outgrows its debts. If the interest rate exceeds growth the term
+      is positive, and the ratio is pushed up year after year, the snowball. This is the government budget
+      constraint, and it reframes the whole debate. The question is never simply is there a deficit; a
+      growing economy can carry a permanent deficit and still see its debt burden fall. The real questions
+      are whether the primary balance is under control and whether growth outpaces the interest rate. Debt
+      is sustainable not when it is zero, but when the economy is growing fast enough to outrun it.
+    board:
+      - id: defEq
+        latex: "\\text{deficit} = G - T"
+        say: "the deficit is government spending minus tax revenue"
+        color: blue
+      - id: debtEq
+        latex: "D_t = D_{t-1} + \\text{deficit}_t"
+        say: "this year's debt is last year's debt plus this year's deficit"
+        color: blue
+        box: true
+      - id: constraintEq
+        latex: "\\text{deficit} = \\underbrace{(G - T)}_{\\text{primary}} + \\,rD"
+        say: "the deficit is the primary deficit plus interest on the existing debt"
+        color: orange
+      - id: ratioDyn
+        latex: "\\Delta b \\approx \\dfrac{G-T}{Y} + (r - g)\\,b"
+        say: "the change in the debt ratio is the primary deficit share plus, r minus g, times the ratio"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      How debt grows in a year. {statement} A government carries a debt and runs a primary deficit at a
+      given interest rate, {given}; find how much the debt rises this year. {find} The rise is the primary
+      deficit plus the interest on the existing debt, {step1}. Put in the numbers, {step2}: a primary deficit
+      of half a trillion, plus two-and-a-half per cent of a twenty-trillion debt, which is another half a
+      trillion of interest. Add them, {answer}: the debt grows by one trillion — and notice that half of
+      that increase is interest alone, bought by nothing but past borrowing.
+    board:
+      - id: statement
+        text: "One year's addition to the debt."
+      - id: given
+        latex: "D = 20,\\ (G{-}T) = 0.5,\\ r = 0.025\\ \\ (\\$\\text{tn})"
+        say: "debt twenty trillion, primary deficit half a trillion, interest rate two and a half per cent"
+        role: given
+      - id: find
+        text: "Find the rise in debt ΔD."
+        role: find
+      - id: step1
+        latex: "\\Delta D = (G - T) + rD"
+        say: "the change in debt is the primary deficit plus interest on the debt"
+        role: step
+        color: blue
+      - id: step2
+        latex: "= 0.5 + 0.025(20)"
+        say: "equals zero point five plus zero point zero two five times twenty"
+        role: step
+        color: orange
+      - id: answer
+        latex: "\\Delta D = 1.0\\ \\$\\text{tn}"
+        say: "the debt grows by one trillion dollars"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "0.5 + 0.025*20"
+      value: 1.0
+      unit: "$tn"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      When growth does the work. {statement2} Now a country balances its primary budget exactly and we ask
+      what happens to its debt ratio, {given2}; find the change in the debt-to-GDP ratio. {find2} With the
+      primary deficit zero, the change is just the ratio times the gap between the interest rate and the
+      growth rate, {step1b}. Put in the numbers, {step2b}: the ratio of one, times three per cent minus five
+      per cent. The gap is minus two per cent, so the change is minus zero-point-zero-two, {answer2}. The
+      debt ratio falls by two percentage points in a single year, with no spending cuts and no tax rises —
+      the economy simply grew faster than the interest on its debt. That is the quiet power of growth over a
+      budget.
+    board:
+      - id: statement2
+        text: "The debt ratio when growth beats interest."
+      - id: given2
+        latex: "b = 1.0,\\ (G{-}T) = 0,\\ r = 0.03,\\ g = 0.05"
+        say: "ratio one, primary balance zero, interest three per cent, growth five per cent"
+        role: given
+      - id: find2
+        text: "Find the change in the ratio Δb."
+        role: find
+      - id: step1b
+        latex: "\\Delta b \\approx (r - g)\\,b"
+        say: "the change in the ratio is, r minus g, times the ratio"
+        role: step
+        color: green
+      - id: step2b
+        latex: "= (0.03 - 0.05)(1.0)"
+        say: "equals three per cent minus five per cent, times one"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "\\Delta b = -0.02"
+        say: "the ratio falls by two percentage points"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(0.03 - 0.05)*1.0"
+      value: -0.02
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the deficit is a yearly flow, the debt is the accumulated stock, and the budget
+      constraint links them — this year's debt is last year's plus the deficit, which itself includes
+      interest on past debt. Whether the debt-to-GDP ratio rises or falls turns on the race between the
+      interest rate and the growth rate. Next: Exchange rates and the balance of payments, explained.
