@@ -1,0 +1,210 @@
+# MA-19: Bank runs and financial crises — the Diamond-Dybvig idea.
+# FLAGGED source: intro OpenStax does not cover the formal Diamond-Dybvig model.
+# Grounded in OpenStax Principles 3e §28.2 Bank Regulation (bank runs, deposit
+# insurance, lender of last resort) + §27 money and banking (CC BY 4.0); the
+# two-equilibria model is the standard construction (flagged in the review).
+# ~7 minutes. Colour: deposits = blue, reserves = green, loans = orange, run = red.
+schema_version: 1
+id: MA-19
+channel: marginal-ink
+title: "Bank runs and financial crises: the Diamond-Dybvig idea"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§28.2 Bank Regulation (with §27 Money and Banking)"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/326-28-2-bank-regulation.md"
+  pages: "700-706"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "A healthy bank can still collapse"
+  keyword: "still collapse"
+publish:
+  title: "Bank Runs Explained: Why a Healthy Bank Can Still Collapse"
+  summary: >
+    A bank run is not caused by a bad bank — it can destroy a perfectly sound one.
+    The Diamond-Dybvig idea shows why: banks turn callable deposits into illiquid
+    loans, which creates two outcomes, one calm and one a self-fulfilling panic. We
+    show the fragility, why deposit insurance stops it, and work two examples.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - bank run
+    - Diamond-Dybvig
+    - deposit insurance
+    - financial crisis
+    - maturity transformation
+    - macroeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A bank run does not need a bad bank. Under the right fears, a perfectly healthy bank, with every loan
+      sound, can be destroyed in an afternoon — purely because its depositors believe it will be. Understanding
+      why is one of the deepest ideas in economics.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawRes}, is what a bank actually holds. On the left are its assets. A small slice is cash
+      reserves, in green, kept on hand for withdrawals. The rest, the tall orange block, is loans, {drawLoans}
+      — lent out for years to businesses and homebuyers, and impossible to call back quickly. On the right sit
+      its deposits, {drawDep}, in blue: the money savers have placed with the bank, every penny of which can be
+      demanded back today. That is the fault line, {markLiquid}: the red line marks how much the bank can
+      actually pay out at once — only the reserves. The bank has promised everyone their money on demand, but
+      has lent most of it out long-term. This mismatch, {mismatchEq}, is called maturity transformation, and it
+      is not a flaw — it is the bank's whole purpose, turning idle savings into productive loans while still
+      offering savers instant access. On a normal day only a few depositors want cash, the reserves cover them,
+      and all is well. The danger is what happens if they all come at once.
+    animation:
+      primitive: bars
+      params:
+        value_max: 110
+        bar_width: 1.3
+      steps:
+        - {id: drawRes, action: segment, params: {stack: assets, value: 10, color: green, label: "reserves", x: -2.2, col_label: "Assets"}}
+        - {id: drawLoans, action: segment, params: {stack: assets, value: 90, color: orange, label: "loans", x: -2.2}}
+        - {id: drawDep, action: segment, params: {stack: deposits, value: 100, color: blue, label: "deposits", x: 2.2, col_label: "Deposits"}}
+        - {id: markLiquid, action: level, params: {value: 10, color: red, label: "payable now"}}
+    board:
+      - id: mismatchEq
+        latex: "R \\ll D"
+        say: "reserves are far smaller than total deposits"
+        color: red
+        legend:
+          - {sym: "R", name: "cash reserves (payable now)", unit: ""}
+          - {sym: "D", name: "deposits (all callable)", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      The trap, {runEq}: the bank can pay withdrawals only from its reserves, so
+      it survives as long as the fraction of depositors who withdraw, times total deposits, stays below those
+      reserves. Now put yourself in a depositor's shoes. If you believe everyone else will stay calm, only a
+      few withdraw, the bank is fine, and you happily leave your money in. But if you believe everyone else
+      will rush to withdraw, the reserves will empty, and the bank will have to dump its loans at fire-sale
+      prices and fail — so you had better get your money out first, before it is gone. The system has two
+      self-consistent outcomes, {twoEq}. In the calm one, confidence is rewarded and nobody runs. In the panic
+      one, fear is rewarded and everybody runs — and the run itself is what causes the failure. This is the
+      heart of the Diamond-Dybvig idea, {hl:runEq}: the bad outcome is a self-fulfilling prophecy. The bank's
+      loans may be perfectly sound; nothing real has changed. The run happens purely because each person
+      expects it, and acting on that expectation makes it come true. It is a coordination failure, driven by
+      belief, not by fundamentals. Which outcome occurs turns on nothing more than confidence — which is why
+      panics spread by rumour and why they can strike the healthy and the sick alike. So how do you kill the
+      bad equilibrium? You remove the reason to run, {insureEq}. If the government guarantees deposits — deposit
+      insurance — then even in a panic you know your money is safe whether you run or not, so you do not run,
+      and the panic never forms. The guarantee works precisely because, by making the run pointless, it almost
+      never has to be used. A lender of last resort, a central bank that lends a solvent bank cash against its
+      good loans, does the same job from the other side. These are not bailouts of bad banks; they are devices
+      that select the good equilibrium over the bad one. The lesson Diamond and Dybvig drew is sobering and
+      liberating at once: fragility is built into the very function of banking, but it can be tamed, and the
+      institutions that tame it — deposit insurance, the lender of last resort — are among the quiet
+      foundations of a modern economy.
+    board:
+      - id: runEq
+        latex: "f \\cdot D > R \\;\\Rightarrow\\; \\text{failure}"
+        say: "if the withdrawing fraction times deposits exceeds reserves, the bank fails"
+        color: red
+        box: true
+      - id: twoEq
+        latex: "\\text{confidence} \\to \\text{calm}, \\quad \\text{fear} \\to \\text{run}"
+        say: "two outcomes: confidence gives calm, fear gives a run"
+        color: blue
+      - id: insureEq
+        latex: "\\text{deposit insurance} \\Rightarrow \\text{no reason to run}"
+        say: "deposit insurance removes the reason to run"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      {statement} A bank holds reserves against its deposits, and one day a fraction of depositors demand their
+      money, {given}. How much short does the bank fall? {find} The cash demanded is the withdrawing fraction
+      times total deposits, {step1}: thirty per cent of one hundred million is thirty million. The bank has
+      only ten million in reserves, so the shortfall is thirty minus ten, {step2}: twenty million, {answer}. To
+      find that twenty million the bank must call in loans it cannot recover quickly, selling them at a loss —
+      and that loss is what can turn a liquidity scare into real insolvency.
+    board:
+      - id: statement
+        text: "The shortfall in a partial run."
+      - id: given
+        latex: "D = 100,\\ R = 10,\\ f = 0.30\\ \\ (\\$\\text{m})"
+        say: "deposits one hundred million, reserves ten million, withdrawing fraction thirty per cent"
+        role: given
+      - id: find
+        text: "Find the cash shortfall."
+        role: find
+      - id: step1
+        latex: "f \\cdot D = 0.30 \\times 100 = 30"
+        say: "the cash demanded is thirty per cent of one hundred, which is thirty million"
+        role: step
+        color: blue
+      - id: step2
+        latex: "\\text{shortfall} = fD - R = 30 - 10"
+        say: "the shortfall is thirty minus ten"
+        role: step
+        color: orange
+      - id: answer
+        latex: "\\text{shortfall} = \\$20\\,\\text{m}"
+        say: "the shortfall is twenty million"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "0.30*100 - 10"
+      value: 20
+      unit: "$m"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} Using the same bank, find the tipping point — the largest fraction of depositors it can pay
+      before it is forced to sell loans, {given2}. {find2} The bank survives as long as the withdrawn fraction
+      times deposits stays within reserves, so the critical fraction is simply reserves over deposits, {step1b}.
+      Put in the numbers, {step2b}: ten million over one hundred million. That is one tenth, {answer2}: just ten
+      per cent. If even a ninth of depositors lose their nerve, the reserves are gone. That knife-edge — a sound
+      bank undone by a tenth of its customers — is exactly why confidence, and the policies that protect it,
+      matter so much.
+    board:
+      - id: statement2
+        text: "The critical withdrawal fraction."
+      - id: given2
+        latex: "D = 100,\\ R = 10\\ \\ (\\$\\text{m})"
+        say: "deposits one hundred million, reserves ten million"
+        role: given
+      - id: find2
+        text: "Find the critical fraction f*."
+        role: find
+      - id: step1b
+        latex: "f^* = \\dfrac{R}{D}"
+        say: "the critical fraction is reserves over deposits"
+        role: step
+        color: green
+      - id: step2b
+        latex: "= \\dfrac{10}{100}"
+        say: "equals ten over one hundred"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "f^* = 0.10 = 10\\%"
+        say: "the critical fraction is ten per cent"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "10 / 100"
+      value: 0.10
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: banks turn callable deposits into illiquid loans, holding only a sliver of reserves. This
+      maturity transformation creates two equilibria — a calm one and a self-fulfilling run — and a run can
+      destroy a perfectly healthy bank through nothing but a loss of confidence. Deposit insurance and a lender
+      of last resort work by removing the reason to run. Next: Classical versus Keynesian — what they
+      actually disagree about.

@@ -1,0 +1,210 @@
+# EM-19: How a transformer works — and why the grid runs on AC.
+# OpenStax University Physics Vol. 2, §15.6 Transformers (CC BY 4.0). ~7 minutes.
+# Colour: voltage = blue, turns/windings = orange, current = green, line loss = red.
+schema_version: 1
+id: EM-19
+channel: pen-and-pendulum
+title: "How a transformer works (and why the grid runs on AC)"
+target_minutes: 7
+source:
+  book: "University Physics Volume 2 (OpenStax)"
+  section: "§15.6 Transformers"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/135-15-6-transformers.md"
+  pages: "646-650"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "Why the grid can't run on DC"
+  keyword: "can't run on DC"
+publish:
+  title: "How Transformers Work — and Why the Power Grid Runs on AC"
+  summary: >
+    A transformer changes voltage using nothing but two coils and a shared
+    magnetic field. We derive the turns-ratio rule, show how power is conserved so
+    voltage up means current down, and explain why sending power at high voltage
+    slashes the losses — the reason the grid runs on alternating current.
+  hashtags: ["#physics", "#electromagnetism", "#circuits"]
+  tags:
+    - transformer
+    - turns ratio
+    - power transmission
+    - alternating current
+    - step-up step-down
+    - electromagnetism
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A transformer has no moving parts — just two coils of wire sharing an iron core. Yet it is the single
+      device that makes a nationwide power grid possible, and it is the reason that grid runs on alternating
+      current rather than direct.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is the grid's problem, {plotLoss}: the power wasted as heat in the transmission lines,
+      in red, plotted against the voltage used to send it. The curve plunges as the voltage rises. The reason
+      is that the power lost in a wire is the current squared times the wire's resistance, and to deliver a
+      fixed amount of power you can trade voltage against current — the same power is voltage times current.
+      Send it at high voltage and the current is small, so the loss, which depends on the current squared,
+      becomes tiny. This is why power is transmitted at hundreds of thousands of volts. But generators produce
+      a far lower voltage, and homes need a lower one still, so something must step the voltage up to cross
+      the country and back down for use. That something is the transformer, governed by one simple rule,
+      {turnsEq}: the ratio of the output voltage to the input voltage equals the ratio of the number of turns
+      on the two coils. More turns on the output coil, higher voltage out; fewer turns, lower. A whole grid
+      of voltages, set by nothing but counting loops of wire.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 6, 1]
+        y: [0, 10, 2]
+        x_length: 7.8
+        y_length: 3.6
+        x_label: "V"
+        y_label: "P_{\\text{loss}}"
+      steps:
+        - {id: plotLoss, action: plot_function, params: {func: line_loss, color: red, label: "P_{\\text{loss}}"}}
+    board:
+      - id: turnsEq
+        latex: "\\dfrac{V_s}{V_p} = \\dfrac{N_s}{N_p}"
+        say: "the secondary voltage over the primary voltage equals the secondary turns over the primary turns"
+        color: blue
+        legend:
+          - {sym: "N_p", name: "turns on the primary coil", unit: ""}
+          - {sym: "N_s", name: "turns on the secondary coil", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      From Faraday's law, {fluxEq}, applied twice. The two coils are wound on
+      the same iron core, so the same changing magnetic flux threads through every turn of both. Faraday's law
+      says the voltage induced in a coil is the number of turns times the rate of change of that shared flux.
+      Write it for each coil and divide one by the other, {divideEq}: the shared flux cancels, and the voltage
+      ratio is left equal to the turns ratio. That is the whole principle. Now bring in energy. An ideal
+      transformer creates no power; it only passes it along, so the power into the primary equals the power
+      out of the secondary, {powerEq}: primary voltage times primary current equals secondary voltage times
+      secondary current. Rearrange, {currentEq}, and the current ratio is the inverse of the voltage ratio. So
+      a transformer that doubles the voltage must halve the current — you never get something for nothing. Step
+      the voltage up for transmission and the current drops in proportion, which is exactly what cuts the line
+      losses. And here, at last, is why the grid cannot run on direct current, {hl:fluxEq}. A transformer
+      needs a changing flux to induce any voltage at all; a steady direct current produces a steady flux,
+      whose rate of change is zero, so a transformer fed with direct current does nothing. Only alternating
+      current, forever changing, keeps the flux changing and the transformer working. The ability to step
+      voltages up and down with simple, efficient transformers is the decisive advantage of alternating
+      current, and it is why the war of the currents, fought in the eighteen-nineties, ended with alternating
+      current powering the world. Two coils, one core, and Faraday's law — that is the device on every power
+      pole, quietly handing the grid its voltages.
+    board:
+      - id: fluxEq
+        latex: "V = N\\dfrac{d\\Phi}{dt}"
+        say: "the induced voltage is the number of turns times the rate of change of flux"
+        color: orange
+      - id: divideEq
+        latex: "\\dfrac{V_s}{V_p} = \\dfrac{N_s}{N_p}"
+        say: "dividing one coil by the other, the voltage ratio equals the turns ratio"
+        color: blue
+        box: true
+      - id: powerEq
+        latex: "V_p I_p = V_s I_s"
+        say: "primary voltage times current equals secondary voltage times current"
+        color: green
+      - id: currentEq
+        latex: "\\dfrac{I_s}{I_p} = \\dfrac{N_p}{N_s}"
+        say: "so the current ratio is the inverse of the turns ratio"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      A step-down transformer. {statement} A transformer takes the local line voltage on its primary and has
+      known turn counts on its two coils, {given}; find the secondary voltage it delivers. {find} The voltage
+      ratio equals the turns ratio, so the secondary voltage is the primary voltage times the secondary turns
+      over the primary turns, {step1}. Put in the numbers, {step2}: two thousand four hundred volts, times one
+      hundred turns over one thousand turns. That is two thousand four hundred times a tenth, {answer}: two
+      hundred and forty volts — the voltage at a wall socket. Fewer turns on the secondary, so the voltage is
+      stepped down tenfold.
+    board:
+      - id: statement
+        text: "Secondary voltage of a step-down transformer."
+      - id: given
+        latex: "V_p = 2400\\,\\text{V},\\ N_p = 1000,\\ N_s = 100"
+        say: "primary voltage two thousand four hundred volts, primary turns one thousand, secondary turns one hundred"
+        role: given
+      - id: find
+        text: "Find the secondary voltage V_s."
+        role: find
+      - id: step1
+        latex: "V_s = V_p\\dfrac{N_s}{N_p}"
+        say: "secondary voltage is primary voltage times secondary turns over primary turns"
+        role: step
+        color: blue
+      - id: step2
+        latex: "= 2400 \\times \\dfrac{100}{1000}"
+        say: "equals two thousand four hundred times one hundred over one thousand"
+        role: step
+        color: orange
+      - id: answer
+        latex: "V_s = 240\\,\\text{V}"
+        say: "the secondary voltage is two hundred and forty volts"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "2400 * 100 / 1000"
+      value: 240
+      unit: "V"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} The same transformer runs in reverse as a step-up, and we know the current drawn on its
+      low-voltage side, {given2}; find the current on the high-voltage side. {find2} Power is conserved, so
+      the primary current times its voltage equals the secondary current times its voltage; rearranged, the
+      high-voltage current is the low-voltage current times the ratio of the voltages, {step1b}. Put in the
+      numbers, {step2b}: ten amperes, times two hundred and forty volts over two thousand four hundred volts.
+      That is ten times a tenth, {answer2}: one ampere. The voltage was stepped up tenfold, so the current
+      fell tenfold — power in equals power out, every time.
+    board:
+      - id: statement2
+        text: "Current on the high-voltage side."
+      - id: given2
+        latex: "I_{low} = 10\\,\\text{A},\\ V_{low} = 240\\,\\text{V},\\ V_{high} = 2400\\,\\text{V}"
+        say: "low-side current ten amperes, low voltage two hundred forty, high voltage two thousand four hundred"
+        role: given
+      - id: find2
+        text: "Find the high-voltage current."
+        role: find
+      - id: step1b
+        latex: "I_{high} = I_{low}\\dfrac{V_{low}}{V_{high}}"
+        say: "high-side current is low-side current times the ratio of the voltages"
+        role: step
+        color: green
+      - id: step2b
+        latex: "= 10 \\times \\dfrac{240}{2400}"
+        say: "equals ten times two hundred forty over two thousand four hundred"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "I_{high} = 1\\,\\text{A}"
+        say: "the high-voltage current is one ampere"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "10 * 240 / 2400"
+      value: 1
+      unit: "A"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: a transformer shares one changing magnetic flux between two coils, so the voltage ratio
+      equals the turns ratio, and because power is conserved the current ratio is its inverse. Stepping voltage
+      up for transmission cuts the current and so the line losses, and because transformers need a changing
+      flux, the grid must run on alternating current. Next: Maxwell's four equations, explained one picture at
+      a time.

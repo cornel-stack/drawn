@@ -1,0 +1,213 @@
+# LA-22: Diagonalisation — why A = PDP⁻¹ makes everything easy.
+# Hefferon, Linear Algebra, Five.II.2 Diagonalizability (CC BY-SA 3.0); the powers
+# application follows the Topic: Linear Recurrences (Fibonacci via eigenvalues).
+# Completes the eigen arc (LA-20 concept, LA-21 computation) with A=[[2,1],[1,2]].
+# ~7 minutes. Colour: eigenvectors/P = blue, eigenvalues/D = red, powers = green.
+schema_version: 1
+id: LA-22
+channel: chalk-and-vector
+title: "Diagonalisation: why A = PDP⁻¹ makes everything easy"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "Five.II.2 Diagonalizability (with Topic: Linear Recurrences)"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/041-topic-linear-recurrences.md"
+  pages: "484-491"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "Raise a matrix to the 100th power"
+  keyword: "100th power"
+publish:
+  title: "Diagonalisation: The Trick That Makes Matrix Powers Trivial"
+  summary: >
+    In its own eigenbasis a matrix stops mixing coordinates and simply scales each
+    axis — that is diagonalisation, A = PDP⁻¹. We show what the pieces mean, why it
+    turns the hundredth power of a matrix into three easy steps, and work two
+    examples: building the decomposition and using it to take a power.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - diagonalisation
+    - eigenvalues
+    - eigenvectors
+    - matrix powers
+    - change of basis
+    - linear algebra
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A matrix usually mixes coordinates together in a tangle. But viewed along its own eigenvectors it does
+      something far simpler — it merely scales each direction. Capturing that is diagonalisation, and it
+      turns hard calculations into easy ones.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Recall the eigenvectors of our matrix, {drawV1}: along v-one, in blue, the matrix stretches by its
+      eigenvalue three, sending v-one to three times itself, {drawAv1}. Along the second eigenvector, {drawV2},
+      in green, the eigenvalue is one, so the matrix leaves it untouched. Here is the key idea. Any vector at
+      all can be written as a combination of these two eigenvectors — they form a basis. And on that basis the
+      matrix does nothing but scale: triple whatever lies along v-one, leave whatever lies along v-two. All
+      the mixing has vanished; in the right coordinates the matrix is diagonal. Diagonalisation is just the
+      bookkeeping that writes this down, {diagEq}: the matrix equals P, whose columns are the eigenvectors,
+      times D, a diagonal matrix of the eigenvalues, times P inverse. Read right to left, it is a recipe:
+      change into the eigenbasis with P inverse, scale each axis with D, then change back with P. The tangled
+      action, split into a change of view and a set of independent stretches.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-1, 5, 1], y: [-3, 5, 1]}
+        vectors:
+          v1: {to: [1.3, 1.3], color: blue, label: "v_{1}"}
+          Av1: {to: [3.9, 3.9], color: blue, label: "3v_{1}"}
+          v2: {to: [1.3, -1.3], color: green, label: "v_{2}"}
+      steps:
+        - {id: drawV1, action: draw, params: {name: v1}}
+        - {id: drawAv1, action: draw, params: {name: Av1}}
+        - {id: drawV2, action: draw, params: {name: v2}}
+    board:
+      - id: diagEq
+        latex: "A = P D P^{-1}"
+        say: "A equals P, D, P inverse"
+        color: red
+        legend:
+          - {sym: "P", name: "columns are the eigenvectors", unit: ""}
+          - {sym: "D", name: "diagonal of eigenvalues", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Start here, {eigEq}: each eigenvector satisfies A times the eigenvector equals its eigenvalue times the
+      eigenvector. That is what makes the factorisation hold. Stack both
+      eigenvectors as the columns of a matrix P, and all the equations at once become one, {stackEq}: A times
+      P equals P times D, where D carries the eigenvalues on its diagonal. The order matters — multiplying P
+      by the diagonal D scales each column by the matching eigenvalue, exactly what the matrix did. Now, as
+      long as the eigenvectors are independent, P has an inverse, so multiply on the right by P inverse and
+      the decomposition falls out, {diagEq2}: A equals P D P inverse. The one requirement is that the
+      eigenvectors form a basis; a matrix whose eigenvectors span the space is called diagonalisable, and
+      almost all are. Here is where it pays off, {powerEq}. Suppose you want the hundredth power of A.
+      Multiplying the matrix by itself a hundred times is punishing. But watch what happens to the
+      factorisation: A squared is P D P inverse, times P D P inverse, and the inner P inverse P collapses to
+      the identity, leaving P D squared P inverse. Every power does the same, {hl:powerEq}: A to the n is
+      simply P, D to the n, P inverse. And powers of a diagonal matrix are effortless — you just raise each
+      eigenvalue on the diagonal to that power, nothing more. A hundredth power of a full matrix becomes a
+      hundredth power of a few numbers. This is the engine behind Fibonacci formulas, behind the long-run
+      behaviour of systems that step forward by a matrix, behind solving linear differential equations and
+      the stability of equilibria: in every case, diagonalise, do the easy thing to the eigenvalues, and
+      change back. The whole power of the method is that a matrix, seen in its own natural directions, stops
+      being a tangle and becomes a simple list of stretches.
+    board:
+      - id: eigEq
+        latex: "A v_i = \\lambda_i v_i"
+        say: "A times each eigenvector equals its eigenvalue times the eigenvector"
+        color: blue
+      - id: stackEq
+        latex: "A P = P D"
+        say: "A times P equals P times D"
+        color: red
+      - id: diagEq2
+        latex: "A = P D P^{-1}"
+        say: "A equals P D P inverse"
+        color: red
+        box: true
+      - id: powerEq
+        latex: "A^n = P D^n P^{-1}"
+        say: "A to the n equals P, D to the n, P inverse"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Building the decomposition. {statement} Our matrix has eigenvalues one and three with their
+      eigenvectors, {given}; assemble P and D. {find} The matrix P takes the eigenvectors as its columns,
+      {step1}: the eigenvector for one, which is one and minus one, beside the eigenvector for three, which is
+      one and one. The diagonal matrix D carries the matching eigenvalues in the same order, {step2}: one in
+      the top-left for the first column, three in the bottom-right for the second. That is the whole
+      decomposition, {answer}: with these P and D, the product P D P inverse rebuilds the original matrix
+      exactly. The only rule is to keep the order consistent — each eigenvalue in D must sit in the column
+      matching its eigenvector in P.
+    board:
+      - id: statement
+        text: "Assemble P and D."
+      - id: given
+        latex: "\\lambda_1=1:\\begin{pmatrix}1\\\\-1\\end{pmatrix},\\quad \\lambda_2=3:\\begin{pmatrix}1\\\\1\\end{pmatrix}"
+        say: "eigenvalue one with eigenvector one, minus one; eigenvalue three with eigenvector one, one"
+        role: given
+      - id: find
+        text: "Write P and D."
+        role: find
+      - id: step1
+        latex: "P = \\begin{pmatrix}1 & 1\\\\-1 & 1\\end{pmatrix}"
+        say: "P has the two eigenvectors as its columns"
+        role: step
+        color: blue
+      - id: step2
+        latex: "D = \\begin{pmatrix}1 & 0\\\\0 & 3\\end{pmatrix}"
+        say: "D has the eigenvalues one and three on its diagonal"
+        role: step
+        color: red
+      - id: answer
+        latex: "A = P D P^{-1}"
+        say: "A equals P D P inverse"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "1*1 - 1*(-1)"
+      value: 2
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} Use the decomposition to take a power — find the eigenvalues of A raised to the tenth,
+      {given2}. {find2} The powers rule says A to the tenth is P, D to the tenth, P inverse, and D to the
+      tenth just raises each diagonal eigenvalue to the tenth, {step1b}. One to the tenth is one; three to the
+      tenth is fifty-nine thousand and forty-nine, {step2b}. So A to the tenth has the very same eigenvectors
+      as A, but its eigenvalues are one and fifty-nine thousand and forty-nine, {answer2}. We found the tenth
+      power's key numbers without multiplying the matrix even once — just by taking a power of two numbers.
+      That is the quiet power of diagonalisation.
+    board:
+      - id: statement2
+        text: "Take a matrix power."
+      - id: given2
+        latex: "A^{10} = P D^{10} P^{-1}"
+        say: "A to the tenth is P, D to the tenth, P inverse"
+        role: given
+      - id: find2
+        text: "Find the eigenvalues of A¹⁰."
+        role: find
+      - id: step1b
+        latex: "D^{10} = \\begin{pmatrix}1^{10} & 0\\\\0 & 3^{10}\\end{pmatrix}"
+        say: "D to the tenth raises each eigenvalue to the tenth"
+        role: step
+        color: red
+      - id: step2b
+        latex: "3^{10} = 59049"
+        say: "three to the tenth is fifty-nine thousand and forty-nine"
+        role: step
+        color: green
+      - id: answer2
+        latex: "\\lambda(A^{10}) = 1,\\ 59049"
+        say: "the eigenvalues of A to the tenth are one and fifty-nine thousand forty-nine"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "3**10"
+      value: 59049
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: a diagonalisable matrix factors as P D P inverse, where P holds its eigenvectors and D
+      the eigenvalues; in the eigenbasis the matrix is a pure set of stretches. This makes powers trivial —
+      A to the n is P, D to the n, P inverse — because you need only raise the eigenvalues to that power. Next:
+      Matrix powers, Fibonacci and the closed form — diagonalisation in action.

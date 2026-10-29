@@ -59,6 +59,12 @@ _FUNCS = {
     # I = V/R = 5 (maximum current) and falls away on either side.
     "resonance": (lambda x: 5.0 / np.sqrt(1.0 + (x - 9.0 / np.clip(x, 0.3, None)) ** 2),
                   r"I(\omega)"),
+    # power lost in a transmission line as a function of the transmission voltage:
+    # P_loss = I^2 R = (P/V)^2 R falls as 1/V^2, so sending power at high voltage
+    # (and low current) slashes the loss. Scaled to 9 at V=1, capped so the near-
+    # zero-V spike stays on a y-axis that tops out at ~10.
+    "line_loss": (lambda x: np.minimum(9.0 / np.clip(x, 0.3, None) ** 2, 9.8),
+                  r"\dfrac{P^2 R}{V^2}"),
     # debt/GDP trajectories from the government budget constraint. When the growth
     # rate exceeds the interest rate (g > r) a constant primary deficit leaves the
     # ratio converging to a finite steady state; when r > g the same deficit makes
