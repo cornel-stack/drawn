@@ -63,9 +63,9 @@ scenes:
       primitive: trilemma
       params:
         corners:
-          top: "Fixed exchange rate"
-          left: "Free capital flows"
-          right: "Own interest rate"
+          top: "Fixed rate"
+          left: "Free capital"
+          right: "Own policy"
       steps:
         - {id: drawTri, action: draw_triangle, params: {corner_color: blue}}
         - {id: edgeFloat, action: highlight_edge, params: {edge: bottom, label: "Floating rate", color: green}}

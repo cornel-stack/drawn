@@ -43,13 +43,16 @@ class Trilemma(Primitive):
 
     # -- helpers -----------------------------------------------------------
 
-    def _text(self, s, point, color, direction):
+    def _text(self, s, point, color, direction=None, at=None):
         from manim import Text
 
         lbl = Text(s, font=self.channel.font.handwriting, weight="BOLD",
-                   font_size=LABEL_FONT_SIZE - 2, color=self.color(color),
+                   font_size=LABEL_FONT_SIZE - 4, color=self.color(color),
                    stroke_width=GLYPH_STROKE_WIDTH, stroke_color=self.color(color))
-        lbl.next_to(point, direction=direction, buff=0.22)
+        if at is not None:
+            lbl.move_to(at)
+        else:
+            lbl.next_to(point, direction=direction, buff=0.2)
         return lbl
 
     # -- steps -------------------------------------------------------------
@@ -61,20 +64,26 @@ class Trilemma(Primitive):
         labels pinned outside their corners."""
         from manim import Create, Dot, FadeIn, Polygon, Write
 
-        tri = Polygon(_TOP, _LEFT, _RIGHT, color=self.color(color), stroke_width=6)
-        self.scene.play(Create(tri), run_time=run_time * 0.5)
-        from manim import DOWN, LEFT, RIGHT, UP
+        from manim import UP
 
-        dirs = {"top": UP, "left": LEFT + DOWN, "right": RIGHT + DOWN}
+        tri = Polygon(_TOP, _LEFT, _RIGHT, color=self.color(color), stroke_width=6)
+        # label anchor points, pulled clear of the frame edges and caption band so
+        # even long goal names stay fully on screen: apex above, feet below-inboard.
+        anchors = {
+            "top": _TOP + np.array([0.0, 0.45, 0.0]),
+            "left": _LEFT + np.array([0.3, -0.55, 0.0]),
+            "right": _RIGHT + np.array([-0.3, -0.55, 0.0]),
+        }
         dots, labels = [], []
         for key, point in self._verts.items():
             dots.append(Dot(point, color=self.color(corner_color), radius=0.08))
             if self._corners.get(key):
-                labels.append(self._text(self._corners[key], point,
-                                          corner_color, dirs[key]))
-        self.scene.play(*[FadeIn(d) for d in dots], run_time=run_time * 0.2)
-        if labels:
-            self.scene.play(*[Write(l) for l in labels], run_time=run_time * 0.3)
+                labels.append(self._text(self._corners[key], point, corner_color,
+                                         at=anchors[key]))
+        self.scene.play(Create(tri), run_time=run_time * 0.55)
+        # dots and goal labels together, so the corners are named as they appear.
+        self.scene.play(*[FadeIn(d) for d in dots], *[Write(l) for l in labels],
+                        run_time=run_time * 0.45)
 
     @step
     def highlight_edge(self, run_time: float, edge: str = "bottom",
@@ -91,11 +100,14 @@ class Trilemma(Primitive):
         seg = Line(ends[0], ends[1], color=self.color(color), stroke_width=11)
         self.scene.play(Create(seg), run_time=run_time * 0.55)
         if label:
-            mid = self._edge_mid[edge]
-            pull = (np.array([0.0, 0.0, 0.0]) - mid)
-            pull = pull / (np.linalg.norm(pull) or 1.0) * 0.9
-            lbl = self._text(label, mid + pull, color, direction=np.array([0.0, 0.0, 0.0]))
-            lbl.move_to(mid + pull)
+            # fixed, well-separated anchors just inside each edge so the three
+            # regime labels never collide with one another or with the goal names.
+            anchor = {
+                "left": np.array([-1.55, 0.6, 0.0]),
+                "right": np.array([1.55, 0.6, 0.0]),
+                "bottom": np.array([0.0, -0.75, 0.0]),
+            }[edge]
+            lbl = self._text(label, None, color, at=anchor)
             self.scene.play(Write(lbl), run_time=run_time * 0.45)
 
     @step
