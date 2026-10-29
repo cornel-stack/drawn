@@ -43,8 +43,10 @@ _FUNCS = {
     "rc_charge": (lambda x: 5.0 * (1.0 - np.exp(-np.clip(x, 0.0, None))), r"V_0(1-e^{-t/RC})"),
     "rc_discharge": (lambda x: 5.0 * np.exp(-np.clip(x, 0.0, None)), r"V_0 e^{-t/RC}"),
     # inverse-distance falloff, e.g. the magnetic field of a straight wire
-    # B = mu0 I / (2 pi r), which drops as 1/r. Scaled to 4 at r = 1.
-    "inverse_r": (lambda x: 4.0 / np.clip(x, 0.25, None), r"\dfrac{\mu_0 I}{2\pi r}"),
+    # B = mu0 I / (2 pi r), which drops as 1/r. Scaled to 4 at r = 1, and capped at
+    # 4.8 so the near-wire divergence stays inside a y-axis that tops out at 5
+    # (it reads as "off the top of the scale near the wire").
+    "inverse_r": (lambda x: np.minimum(4.0 / np.clip(x, 0.25, None), 4.8), r"\dfrac{\mu_0 I}{2\pi r}"),
 }
 
 # Named right-hand sides f(x, y) for a first-order ODE y' = f(x, y), and the
