@@ -59,7 +59,7 @@ scenes:
     animation:
       primitive: supply_demand
       params:
-        x_label: "Q_{\\$}"
+        x_label: "Q"
         y_label: "E"
       steps:
         - {id: drawD, action: draw_demand, params: {color: blue}}
