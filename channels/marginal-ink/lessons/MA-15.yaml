@@ -1,0 +1,201 @@
+# MA-15: Monetary policy and the Taylor rule — how central banks set rates.
+# OpenStax Principles of Economics 3e, §28.3-28.4 monetary policy (CC BY 4.0) for
+# the policy content; the Taylor rule itself is the standard construction (flagged
+# in the review). ~7 minutes. Colour: Taylor response = blue, points = green.
+schema_version: 1
+id: MA-15
+channel: marginal-ink
+title: "Monetary policy and the Taylor rule: how central banks set rates"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§28.3-28.4 How a Central Bank Executes Monetary Policy"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/327-28-3-how-a-central-bank-executes-monetary-policy.md"
+  pages: "673-692"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "The formula behind interest rates"
+  keyword: "the formula"
+publish:
+  title: "The Taylor Rule: How Central Banks Decide Interest Rates"
+  summary: >
+    Central banks do not set interest rates at random. The Taylor rule captures
+    what they roughly do — raise rates when inflation is high or the economy runs
+    hot. We build the rule, explain the all-important Taylor principle that rates
+    must rise more than one-for-one with inflation, and apply it. Two examples.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - Taylor rule
+    - monetary policy
+    - interest rates
+    - central bank
+    - inflation targeting
+    - macroeconomics
+    - Taylor principle
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      When a central bank raises or cuts interest rates, it is not guessing. A simple rule, named after
+      the economist John Taylor, captures the logic behind the decision, and one feature of it holds the
+      secret to taming inflation.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawTR}, is the interest rate a central bank should set, in blue, plotted against the rate
+      of inflation. The line slopes upward, {taylorEq}: when inflation is higher, the bank sets a higher interest
+      rate to cool the economy; when inflation is low, it sets a lower rate to warm it. So far this is
+      common sense. But look carefully at how steep the line is, {markLow} {markHigh}. It rises faster
+      than one-for-one: a one-point rise in inflation lifts the interest rate by more than one point. That
+      steepness is not an accident — it is the whole point. Because the rate rises by more than inflation
+      does, the real interest rate, the nominal rate minus inflation, actually goes up when inflation
+      climbs, which is what genuinely discourages borrowing and spending and brings inflation back down.
+      A central bank that raised rates only one-for-one would leave the real rate unchanged and let
+      inflation drift. The extra steepness is the mechanism that gives a central bank real control.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 6, 1]
+        y: [0, 10, 1]
+        x_length: 8.0
+        y_length: 3.6
+        x_label: "\\pi"
+        y_label: "i"
+      steps:
+        - {id: drawTR, action: plot_line, params: {name: tr, a: -1.5, b: 1, c: 1, color: blue, label: "Taylor rule"}}
+        - {id: markLow, action: mark_point, params: {x: 2, y: 4, color: green, label: "A"}}
+        - {id: markHigh, action: mark_point, params: {x: 4, y: 7, color: green, label: "B"}}
+    board:
+      - id: taylorEq
+        latex: "i = r^* + \\pi + 0.5(\\pi - \\pi^*) + 0.5\\,g"
+        say: "the interest rate equals the neutral real rate, plus inflation, plus a half the inflation gap, plus a half the output gap"
+        color: blue
+        legend:
+          - {sym: "\\pi^*", name: "the inflation target", unit: ""}
+          - {sym: "g", name: "the output gap", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here, {taylorEq2}, is the rule in full. The interest rate the bank sets equals four pieces added
+      together: the neutral real rate of interest, the one that neither stimulates nor restrains; plus
+      current inflation, which keeps the real rate on target as prices rise; plus a half times the gap
+      between inflation and its target; plus a half times the output gap, how far output is above or
+      below potential. The two gap terms are the bank's active response. When inflation runs above target
+      the third term pushes the rate up; when the economy overheats, output above potential, the fourth
+      term pushes it up too. Now the single most important feature, hidden in that first-plus-a-half,
+      {principleEq}. Add the current inflation to the half of the inflation gap and a one-point rise in
+      inflation raises the nominal rate by one and a half points. That is the Taylor principle: a central
+      bank must raise rates by more than the rise in inflation. Do that, and the real interest rate
+      climbs with inflation, cooling the economy and pulling inflation back; fail to do it, respond less
+      than one-for-one, and the real rate falls as inflation rises, feeding the fire — which is exactly
+      the mistake many economists blame for the runaway inflation of the nineteen-seventies. The rule is
+      not a mechanical command a central bank blindly obeys; it is a benchmark, a description of what good
+      monetary policy roughly looks like, against which actual decisions can be judged. Its lasting
+      lesson is that credible, systematic, more-than-proportionate responses to inflation are what keep an
+      economy stable.
+    board:
+      - id: taylorEq2
+        latex: "i = r^* + \\pi + 0.5(\\pi - \\pi^*) + 0.5\\,g"
+        say: "the rate equals the neutral real rate, plus inflation, plus a half the inflation gap, plus a half the output gap"
+        color: blue
+      - id: principleEq
+        latex: "\\dfrac{\\Delta i}{\\Delta \\pi} = 1.5 > 1"
+        say: "a one point rise in inflation raises the rate by one and a half points"
+        color: orange
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Setting the rate. {statement} The neutral rate, inflation, the target and the output gap are given,
+      {given}; find the interest rate the Taylor rule recommends. {find} Add the four pieces, {step1}: the
+      neutral real rate of two, plus inflation of three, plus a half of the inflation gap, three minus
+      two, plus a half of the output gap of one. The inflation-gap term is a half, the output-gap term is
+      a half, {step2}. Two plus three plus a half plus a half is six, {answer}. So with inflation one
+      point above target and the economy a little hot, the rule calls for a six per cent interest rate.
+    board:
+      - id: statement
+        text: "Apply the Taylor rule."
+      - id: given
+        latex: "r^*=2,\\ \\pi=3,\\ \\pi^*=2,\\ g=1"
+        say: "neutral rate two, inflation three, target two, output gap one"
+        role: given
+      - id: find
+        text: "Find the Taylor-rule rate i."
+        role: find
+      - id: step1
+        latex: "i = 2 + 3 + 0.5(3 - 2) + 0.5(1)"
+        say: "i equals two plus three, plus a half times, three minus two, plus a half times one"
+        role: step
+        color: blue
+      - id: step2
+        latex: "= 2 + 3 + 0.5 + 0.5"
+        say: "equals two plus three plus a half plus a half"
+        role: step
+        color: green
+      - id: answer
+        latex: "i = 6\\%"
+        say: "the interest rate is six per cent"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "2 + 3 + 0.5*(3 - 2) + 0.5*1"
+      value: 6
+      unit: "%"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      The Taylor principle in action. {statement2} Now inflation jumps to five per cent, everything else
+      the same, {given2}; find the new rate. {find2} Put in the numbers, {step1b}: two plus five, plus a
+      half of the gap five minus two, plus a half of the output gap. The inflation gap is now three, so
+      its half is one and a half. Add it up, {step2b}: two plus five plus one and a half plus a half is
+      nine, {answer2}. Inflation rose by two points, from three to five, and the recommended rate rose by
+      three, from six to nine — more than one-for-one, exactly the Taylor principle at work, lifting the
+      real rate to bear down on the higher inflation.
+    board:
+      - id: statement2
+        text: "A jump in inflation."
+      - id: given2
+        latex: "r^*=2,\\ \\pi=5,\\ \\pi^*=2,\\ g=1"
+        say: "neutral rate two, inflation five, target two, output gap one"
+        role: given
+      - id: find2
+        text: "Find the new rate i."
+        role: find
+      - id: step1b
+        latex: "i = 2 + 5 + 0.5(5 - 2) + 0.5(1)"
+        say: "i equals two plus five, plus a half times, five minus two, plus a half times one"
+        role: step
+        color: blue
+      - id: step2b
+        latex: "= 2 + 5 + 1.5 + 0.5"
+        say: "equals two plus five plus one and a half plus a half"
+        role: step
+        color: green
+      - id: answer2
+        latex: "i = 9\\% \\;(\\text{up } 3 \\text{ for } \\Delta\\pi = 2)"
+        say: "the rate is nine per cent, up three for a two-point rise in inflation"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "2 + 5 + 0.5*(5 - 2) + 0.5*1"
+      value: 9
+      unit: "%"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the Taylor rule sets the interest rate as the neutral rate plus inflation plus a
+      response to the inflation and output gaps; its defining feature is the Taylor principle, that rates
+      rise more than one-for-one with inflation, so the real rate climbs and inflation is tamed. Next:
+      Fiscal policy, deficits and debt — the government budget constraint.

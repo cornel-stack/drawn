@@ -1,0 +1,194 @@
+# EM-15: Generators, back emf and eddy currents — induction in the real world.
+# OpenStax University Physics Vol. 2 §13.5-13.6 (CC BY 4.0). ~7 minutes.
+# Colour: EMF = green, flux = purple, back emf = orange, eddy = red.
+schema_version: 1
+id: EM-15
+channel: pen-and-pendulum
+title: "Generators, back emf and eddy currents: induction in the real world"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "§13.5-13.6 Eddy Currents, Electric Generators and Back Emf"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/116-13-6-electric-generators-and-back-emf.md"
+  pages: "611-628"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "How a spinning coil makes AC"
+  keyword: "makes AC"
+publish:
+  title: "Generators, Back Emf and Eddy Currents: Induction in the Real World"
+  summary: >
+    A spinning coil in a magnetic field is an electrical generator, and the voltage
+    it makes is a sine wave. We derive that alternating emf, explain the back emf
+    that limits a motor's current, and the eddy currents that brake trains and heat
+    metal. Two worked examples follow.
+  hashtags: ["#physics", "#electromagnetism", "#generator"]
+  tags:
+    - electric generator
+    - back emf
+    - eddy currents
+    - alternating current
+    - electromagnetic induction
+    - electromagnetism
+    - physics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Nearly all the world's electricity comes from one simple act: spinning a coil of wire in a
+      magnetic field. The voltage it produces is not steady but a smooth wave, and that wave is where
+      alternating current comes from.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawEMF}, is the voltage from a coil rotating steadily in a magnetic field, plotted against
+      time, in green. It is not a constant; it rises and falls as a sine wave, swinging positive then
+      negative and back again, once every full turn of the coil. The reason is Faraday's law. As the
+      coil rotates, the magnetic flux through it goes up and down smoothly, and the induced voltage
+      tracks the rate at which that flux changes — fastest when the coil is edge-on to the field, zero
+      for an instant when it is face-on. The result is this clean oscillation, and it is exactly the
+      alternating-current voltage that comes out of every wall socket. Spin the coil faster and the wave
+      gets both taller and more frequent, and the crest of that wave, {peakEq}, is fixed by the coil and
+      the speed; this one mechanism, a coil turning in a field, is the beating heart of every power
+      station on the grid, whether the turbine is driven by steam, water, or wind.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 6, 1]
+        y: [-3, 3, 1]
+        x_length: 8.0
+        y_length: 3.6
+        x_label: "t"
+        y_label: "\\mathcal{E}"
+      steps:
+        - {id: drawEMF, action: plot_function, params: {func: sin, color: green, label: "\\mathcal{E}(t)"}}
+    board:
+      - id: peakEq
+        latex: "\\mathcal{E}_0 = NBA\\omega"
+        say: "the peak e m f equals N B A omega"
+        color: green
+        legend:
+          - {sym: "N", name: "turns in the coil", unit: ""}
+          - {sym: "A", name: "coil area", unit: "m^2"}
+          - {sym: "\\omega", name: "angular speed", unit: "rad/s"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Derive the wave, {emfEq}. Take a coil of N turns and area A spinning at angular speed omega in a
+      field B. The flux through it is N B A times the cosine of omega t, rising and falling as the coil
+      turns. Faraday's law says the e m f is minus the rate of change of that flux, and the derivative of
+      cosine is minus sine, so the e m f is N B A omega times the sine of omega t — a sine wave. Its peak
+      value, {peakEq2}, is N B A omega: more turns, a stronger field, a larger coil, or a faster spin all
+      raise the voltage. Now two consequences that matter in every machine. First, back emf, {backEq}. A
+      motor is a generator run in reverse, but once it is turning, its own rotating coil generates an e m
+      f that opposes the supply voltage — Lenz's law again. This back e m f is what limits the current a
+      motor draws: at the instant of switch-on the coil is not yet moving, there is no back e m f, and a
+      large surge current flows; as the motor speeds up, the back e m f grows and the current drops to a
+      safe running value. It is why a motor labouring under heavy load, unable to speed up, can overheat.
+      Second, eddy currents. When the changing flux passes through a solid lump of metal rather than a
+      thin wire, it induces whole swirling loops of current within the metal. These dissipate energy as
+      heat, which is sometimes exactly what you want — the magnetic brakes that slow trains and
+      rollercoasters, and the induction hobs that heat a pan directly — and sometimes a pure nuisance, as
+      in the cores of transformers and motors, where the wasted heat is suppressed by building the core
+      from thin insulated laminations that break the eddy loops apart.
+    board:
+      - id: emfEq
+        latex: "\\mathcal{E} = NBA\\omega\\sin(\\omega t)"
+        say: "the e m f equals N B A omega, times sine omega t"
+        color: green
+      - id: peakEq2
+        latex: "\\mathcal{E}_0 = NBA\\omega"
+        say: "the peak e m f is N B A omega"
+        color: green
+        box: true
+      - id: backEq
+        latex: "\\mathcal{E}_{back} \\text{ opposes the supply}"
+        say: "the back e m f opposes the supply voltage"
+        color: orange
+
+  - id: s4
+    kind: problem
+    narration: >
+      Here, {statement}, is a generator. A coil of known turns, area and spin speed rotates in
+      a field, {given}; find the peak e m f. {find} Use the peak formula, {step1}: N B A omega, a hundred
+      turns, times nought point two tesla, times nought point zero one square metres, times fifty radians
+      per second. Multiply through, {answer}: ten volts. That is the crest of the sine wave; the voltage
+      swings between plus and minus ten as the coil turns. Spin it twice as fast and the peak doubles —
+      and the wave repeats twice as often.
+    board:
+      - id: statement
+        text: "Peak emf of a rotating coil."
+      - id: given
+        latex: "N = 100,\\ B = 0.2\\ \\text{T},\\ A = 0.01\\ \\text{m}^2,\\ \\omega = 50\\ \\text{rad/s}"
+        say: "a hundred turns, nought point two tesla, nought point zero one square metres, fifty radians per second"
+        role: given
+      - id: find
+        text: "Find the peak emf = NBAω."
+        role: find
+      - id: step1
+        latex: "\\mathcal{E}_0 = (100)(0.2)(0.01)(50)"
+        say: "the peak e m f is a hundred times nought point two times nought point zero one times fifty"
+        role: step
+        color: green
+      - id: answer
+        latex: "\\mathcal{E}_0 = 10\\ \\text{V}"
+        say: "the peak e m f is ten volts"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "100 * 0.2 * 0.01 * 50"
+      value: 10
+      unit: "V"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Now the useful value, {statement2}. The generator produces that peak voltage, {given2};
+      find the root-mean-square voltage, the value a meter reads and the one that matters for power. {find2}
+      For a sine wave the root-mean-square value is the peak divided by the square root of two, {step2}:
+      ten over root two. That comes to about seven point zero seven volts, {answer2}. This is the number
+      quoted for mains electricity — when a socket is called two hundred and thirty volts, that is the
+      root-mean-square, while the peak is actually higher by a factor of root two. The root-mean-square
+      value is what delivers the same heating power as a steady direct voltage of the same size.
+    board:
+      - id: statement2
+        text: "RMS voltage of the generator."
+      - id: given2
+        latex: "\\mathcal{E}_0 = 10\\ \\text{V}"
+        say: "peak e m f ten volts"
+        role: given
+      - id: find2
+        text: "Find the RMS emf = ε₀/√2."
+        role: find
+      - id: step2
+        latex: "\\mathcal{E}_{rms} = \\dfrac{\\mathcal{E}_0}{\\sqrt{2}} = \\dfrac{10}{\\sqrt{2}}"
+        say: "the root-mean-square e m f is the peak over root two, ten over root two"
+        role: step
+        color: green
+      - id: answer2
+        latex: "\\mathcal{E}_{rms} \\approx 7.07\\ \\text{V}"
+        say: "the root-mean-square e m f is about seven point zero seven volts"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "10 / np.sqrt(2)"
+      value: 7.07
+      unit: "V"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: a coil spinning in a magnetic field generates a sinusoidal e m f with peak N B A
+      omega, the source of alternating current; a running motor produces a back e m f that limits its
+      current; and changing flux in solid metal drives eddy currents, used for braking and heating but
+      suppressed in cores. Next: Inductance — self-inductance, the RL circuit and energy in a magnetic
+      field.

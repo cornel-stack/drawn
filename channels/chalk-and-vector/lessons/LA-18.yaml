@@ -1,0 +1,201 @@
+# LA-18: Gram-Schmidt in 3D — building an orthonormal basis step by step.
+# Hefferon, Linear Algebra, Gram-Schmidt Orthogonalisation (CC BY-SA 3.0). ~7 minutes.
+# Colour: v1/u1 = blue, v2 = orange, projection = green, u2 = red.
+schema_version: 1
+id: LA-18
+channel: chalk-and-vector
+title: "Gram-Schmidt: building an orthonormal basis step by step"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "Gram-Schmidt Orthogonalisation"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/020-projection.md"
+  pages: "283-298"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "Make any basis perpendicular"
+  keyword: "perpendicular"
+publish:
+  title: "Gram-Schmidt Explained: Turning Any Basis Into an Orthonormal One"
+  summary: >
+    Perpendicular bases make linear algebra easy, and Gram-Schmidt builds one from
+    any basis at all. We show the single repeated move — subtract off the
+    projection onto what you already have — why it leaves a perpendicular leftover,
+    and how normalising finishes the job. Two worked examples follow.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - Gram-Schmidt
+    - orthonormal basis
+    - orthogonalisation
+    - projection
+    - linear algebra
+    - orthogonal basis
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Perpendicular coordinate axes make everything simpler. Gram-Schmidt is the procedure that takes
+      any basis, however skewed, and straightens it into a set of mutually perpendicular directions.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawV1}, is v-one, and here, {drawV2}, is v-two: two vectors that are not perpendicular, v-one
+      in blue and v-two in orange, leaning towards each other. We want to replace them with perpendicular vectors that span
+      the same space. Keep the first one as it is. For the second, here is the single idea of the whole
+      method, {project}: find the projection of v-two onto v-one, the part of v-two that points along
+      v-one, shown in green. Then subtract it off. What remains — v-two minus that projection — is the
+      part of v-two with nothing of v-one left in it, and so it stands at a perfect right angle to
+      v-one. That leftover is our new second vector, {gs2Eq}, perpendicular to the first by construction. That is
+      the entire trick, repeated: to orthogonalise a vector, strip away its shadow on everything you
+      have already built, and keep the perpendicular remainder. Do it for a third vector against the
+      first two, a fourth against the first three, and you march through any basis turning it
+      perpendicular, one vector at a time.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-2, 5, 1], y: [-1, 4, 1]}
+        vectors:
+          v1: {to: [3, 1], color: blue, label: "v_1"}
+          v2: {to: [1, 3], color: orange, label: "v_2"}
+      steps:
+        - {id: drawV1, action: draw, params: {name: v1}}
+        - {id: drawV2, action: draw, params: {name: v2}}
+        - {id: project, action: dot_product, params: {a: v1, b: v2, color: green}}
+    board:
+      - id: gs2Eq
+        latex: "u_2 = v_2 - \\text{proj}_{u_1}(v_2)"
+        say: "u two equals v two minus the projection of v two onto u one"
+        color: red
+        legend:
+          - {sym: "\\text{proj}_{u_1}(v_2)", name: "the part of v2 along u1", unit: ""}
+          - {sym: "u_2", name: "the perpendicular leftover", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Write the steps out, {gs1Eq}. The first new vector, u-one, is just v-one unchanged. The second,
+      {gs2Eq2}, is v-two minus its projection onto u-one — and because subtracting the projection removes
+      exactly the component along u-one, the result is orthogonal to u-one, guaranteed. You can check it
+      in one line: dot u-two with u-one and the projection was built precisely to make that zero. For a
+      third vector you subtract its projections onto both u-one and u-two, leaving something
+      perpendicular to both; the pattern continues for as many vectors as you have. That gives an
+      orthogonal basis. One finishing touch makes it orthonormal, {normEq}: divide each vector by its own
+      length, so every one has length one. Now why go to all this trouble? Because an orthonormal basis
+      is the friendliest coordinate system there is. Finding a vector's coordinates stops being a system
+      of equations and becomes a set of simple dot products. Projections onto the space become trivial
+      sums. And the change-of-basis matrix is orthogonal, meaning its inverse is just its transpose, so
+      translating back and forth costs almost nothing. This is why Gram-Schmidt sits under so much of
+      applied linear algebra: it is the first step of the QR decomposition that computers use to solve
+      least-squares problems, and it is how you build the clean, perpendicular frames in which hard
+      problems become easy. Start crooked, strip away the shadows, and end up with a perfect set of
+      right angles. It is worth appreciating a subtle guarantee the method carries, {hl:gs2Eq2}. At no
+      point does Gram-Schmidt change the space you can reach — each new vector is the old one minus a
+      combination of earlier ones, so the span is preserved exactly; you end up pointing at the same
+      territory, only with perpendicular signposts. And it never produces a zero vector unless the
+      originals were dependent to begin with: if some vector lay entirely in the span of the earlier ones,
+      subtracting its projection would leave nothing, and that is precisely how the process detects
+      redundancy. There is one practical wrinkle the pure formula hides, {hl:normEq}. Carried out in exact
+      arithmetic it is flawless, but on a computer, with rounding at every step, the classical version
+      slowly loses orthogonality as errors accumulate, so numerical libraries use a rearranged form called
+      modified Gram-Schmidt, or sidestep it entirely with other factorisations. The idea, though, is the
+      one to carry away: any basis, however tangled, can be combed straight into perpendicular directions
+      just by repeatedly removing what you already have.
+    board:
+      - id: gs1Eq
+        latex: "u_1 = v_1"
+        say: "u one equals v one"
+        color: blue
+      - id: gs2Eq2
+        latex: "u_2 = v_2 - \\dfrac{v_2\\cdot u_1}{u_1\\cdot u_1}\\,u_1"
+        say: "u two equals v two minus, v two dot u one over u one dot u one, times u one"
+        color: red
+        box: true
+      - id: normEq
+        latex: "e_i = \\dfrac{u_i}{\\lVert u_i \\rVert}"
+        say: "normalise each one by dividing by its length"
+        color: green
+
+  - id: s4
+    kind: problem
+    narration: >
+      The projection step. {statement} Two vectors in three dimensions are given, {given}; find the
+      coefficient in the projection of v-two onto u-one, the first step of Gram-Schmidt. {find} The
+      coefficient is v-two dot u-one, over u-one dot u-one, {step1}. The numerator: one times one, plus
+      zero times one, plus one times zero, which is one. The denominator: one plus one plus zero, which
+      is two. So the coefficient is one half, {answer}. The projection is therefore half of u-one, and
+      subtracting it from v-two will give the perpendicular piece.
+    board:
+      - id: statement
+        text: "The Gram-Schmidt projection coefficient."
+      - id: given
+        latex: "u_1 = \\begin{pmatrix}1\\\\1\\\\0\\end{pmatrix}, \\quad v_2 = \\begin{pmatrix}1\\\\0\\\\1\\end{pmatrix}"
+        say: "u one is one, one, zero; v two is one, zero, one"
+        role: given
+      - id: find
+        text: "Find the coefficient (v₂·u₁)/(u₁·u₁)."
+        role: find
+      - id: step1
+        latex: "\\dfrac{v_2\\cdot u_1}{u_1\\cdot u_1} = \\dfrac{1}{2}"
+        say: "v two dot u one over u one dot u one is one over two"
+        role: step
+        color: green
+      - id: answer
+        latex: "\\text{coefficient} = \\tfrac{1}{2}"
+        say: "the coefficient is one half"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(1*1 + 0*1 + 1*0) / (1*1 + 1*1 + 0*0)"
+      value: 0.5
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Checking orthogonality. {statement2} The new vector u-two comes out as the result of that
+      subtraction, {given2}; confirm it is perpendicular to u-one. {find2} Two vectors are perpendicular
+      exactly when their dot product is zero, so compute u-one dot u-two, {step1b}: one times a half,
+      plus one times minus a half, plus zero times one. That is a half minus a half plus nothing, which
+      is zero, {answer2}. The dot product vanishes, so u-two really is at a right angle to u-one, exactly
+      as Gram-Schmidt promised. The projection was subtracted precisely so that this would happen — the
+      method cannot fail to produce a right angle.
+    board:
+      - id: statement2
+        text: "Verify the vectors are orthogonal."
+      - id: given2
+        latex: "u_1 = \\begin{pmatrix}1\\\\1\\\\0\\end{pmatrix}, \\quad u_2 = \\begin{pmatrix}0.5\\\\-0.5\\\\1\\end{pmatrix}"
+        say: "u one is one, one, zero; u two is a half, minus a half, one"
+        role: given
+      - id: find2
+        text: "Check u₁·u₂ = 0."
+        role: find
+      - id: step1b
+        latex: "u_1\\cdot u_2 = 1(0.5) + 1(-0.5) + 0(1)"
+        say: "u one dot u two is one times a half, plus one times minus a half, plus zero times one"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "u_1\\cdot u_2 = 0 \\;\\checkmark"
+        say: "the dot product is zero, so they are perpendicular"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "1*0.5 + 1*(-0.5) + 0*1"
+      value: 0
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: Gram-Schmidt turns any basis into a perpendicular one by subtracting, from each
+      vector, its projection onto the ones already built, leaving an orthogonal remainder; normalise and
+      you have an orthonormal basis, the easiest coordinate system in all of linear algebra. Next: Least
+      squares explained visually — regression is projection.
