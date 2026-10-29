@@ -1,0 +1,218 @@
+# LA-23: Matrix powers, Fibonacci and the closed form — diagonalisation in action.
+# Hefferon, Linear Algebra, Topic: Linear Recurrences (CC BY-SA 3.0). Follows LA-22.
+# ~7 minutes. Colour: Fibonacci/ratios = orange, eigenvalues/golden = red,
+# closed form = green, matrix = blue.
+schema_version: 1
+id: LA-23
+channel: chalk-and-vector
+title: "Matrix powers, Fibonacci and the closed form (diagonalisation in action)"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "Topic: Linear Recurrences"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/041-topic-linear-recurrences.md"
+  pages: "484-491"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "A formula for the nth Fibonacci"
+  keyword: "nth Fibonacci"
+publish:
+  title: "Fibonacci's Closed Form: Diagonalisation and the Golden Ratio"
+  summary: >
+    There is an exact formula for the nth Fibonacci number — no adding up the whole
+    sequence. It falls straight out of diagonalising a two-by-two matrix, and its
+    eigenvalues are the golden ratio. We turn the recurrence into a matrix power,
+    diagonalise, and read off Binet's formula. Two worked examples.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - Fibonacci
+    - golden ratio
+    - diagonalisation
+    - linear recurrence
+    - Binet formula
+    - linear algebra
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      The Fibonacci numbers seem to demand that you add your way up the whole sequence to reach any term. Yet
+      there is an exact formula for the nth one, and it comes straight out of diagonalising a single
+      two-by-two matrix.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Start with a clue, {goldenLine}: take the ratio of each Fibonacci number to the one before it, and plot
+      those ratios, {r1} {r2} {r3} {r4}. They bounce above and below a single value and close in on it — one
+      point six one eight, the golden ratio, in red. That the ratios converge to a fixed number is the
+      fingerprint of an eigenvalue at work. The reason is that stepping the Fibonacci sequence forward is a
+      matrix multiplication, and repeatedly multiplying by a matrix is dominated by its largest eigenvalue,
+      which for this matrix is exactly the golden ratio. So the sequence grows, in the long run, like that
+      eigenvalue raised to the nth power. Diagonalisation turns this clue into an exact formula, {binetEq}: the
+      nth Fibonacci number equals the golden ratio to the n, minus its companion value to the n, all over the
+      square root of five. No adding up the sequence — just two powers of two numbers and a subtraction.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 6, 1]
+        y: [0, 2.5, 0.5]
+        x_length: 7.6
+        y_length: 3.6
+        x_label: "n"
+        y_label: "F_{n+1}/F_n"
+      steps:
+        - {id: goldenLine, action: plot_line, params: {name: phi, a: 0, b: 1, c: 1.618, color: red, label: "\\varphi"}}
+        - {id: r1, action: mark_point, params: {x: 1, y: 1, color: orange, dashed: false}}
+        - {id: r2, action: mark_point, params: {x: 2, y: 2, color: orange, dashed: false}}
+        - {id: r3, action: mark_point, params: {x: 3, y: 1.5, color: orange, dashed: false}}
+        - {id: r4, action: mark_point, params: {x: 4, y: 1.667, color: orange, dashed: false}}
+    board:
+      - id: binetEq
+        latex: "F_n = \\dfrac{\\varphi^n - \\psi^n}{\\sqrt{5}}"
+        say: "the nth Fibonacci is phi to the n minus psi to the n, over root five"
+        color: green
+        legend:
+          - {sym: "\\varphi", name: "golden ratio (1+\\sqrt5)/2", unit: ""}
+          - {sym: "\\psi", name: "its companion (1-\\sqrt5)/2", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here, {recEq}: each Fibonacci number is the sum of the two before it. Turn that into a matrix. Pack
+      two consecutive terms into a vector, and one step of the sequence is a single matrix multiplication,
+      {matEq}: the next pair equals the matrix one, one, one, zero, times the current pair. The top row
+      rebuilds the sum, the bottom row just carries a term down. So the pair after n steps is that matrix
+      raised to the nth power, times the starting pair, {powEq}. We are back to a matrix power — and from the
+      last lesson we know exactly what to do: diagonalise. The eigenvalues come from the characteristic
+      equation, {charEq}: lambda squared minus lambda minus one equals zero, whose roots are one plus or minus
+      the square root of five, over two. The larger root is the golden ratio; the smaller, its companion, is a
+      small negative number. Diagonalise the matrix with these eigenvalues, raise the diagonal to the nth
+      power — which just raises each eigenvalue to the n — and change back. Reading off the Fibonacci entry
+      gives the closed form, {binetEq2}: phi to the n minus psi to the n, over root five. Look at what it says,
+      {hl:binetEq2}. The companion value psi is about minus zero point six, so its powers shrink towards zero
+      and quickly become negligible. That leaves the nth Fibonacci number as essentially the golden ratio to
+      the n, over root five, rounded to the nearest whole number. The famously integer, famously additive
+      Fibonacci sequence is, underneath, a single irrational number raised to a power. This is diagonalisation
+      earning its keep: a recurrence that looked locked into step-by-step addition turns out to have a direct
+      formula, because in the eigenbasis the matrix is just two independent powers. The same move cracks any
+      linear recurrence, solves systems of differential equations, and predicts the long-run growth of any
+      process that advances by a matrix — the dominant eigenvalue sets the rate, every time.
+    board:
+      - id: recEq
+        latex: "F_{n+1} = F_n + F_{n-1}"
+        say: "each Fibonacci number is the sum of the two before it"
+        color: orange
+      - id: matEq
+        latex: "\\begin{pmatrix}F_{n+1}\\\\F_n\\end{pmatrix} = \\begin{pmatrix}1 & 1\\\\1 & 0\\end{pmatrix}\\begin{pmatrix}F_n\\\\F_{n-1}\\end{pmatrix}"
+        say: "the next pair equals the matrix one, one, one, zero, times the current pair"
+        color: blue
+      - id: powEq
+        latex: "\\begin{pmatrix}F_{n+1}\\\\F_n\\end{pmatrix} = M^n \\begin{pmatrix}1\\\\0\\end{pmatrix}"
+        say: "the pair after n steps is M to the n times the starting pair"
+        color: blue
+        box: true
+      - id: charEq
+        latex: "\\lambda^2 - \\lambda - 1 = 0 \\;\\Rightarrow\\; \\lambda = \\dfrac{1 \\pm \\sqrt{5}}{2}"
+        say: "lambda squared minus lambda minus one equals zero, roots one plus or minus root five over two"
+        color: red
+        box: true
+      - id: binetEq2
+        latex: "F_n = \\dfrac{\\varphi^n - \\psi^n}{\\sqrt{5}}"
+        say: "the nth Fibonacci is phi to the n minus psi to the n over root five"
+        color: green
+
+  - id: s4
+    kind: problem
+    narration: >
+      The golden eigenvalues. {statement} The Fibonacci matrix has a trace and determinant you can read off,
+      {given}; find its eigenvalues. {find} The characteristic equation is lambda squared minus the trace times
+      lambda plus the determinant, {step1}: the trace is one, the determinant is zero times one minus one times
+      one, which is minus one, giving lambda squared minus lambda minus one. The quadratic formula gives the
+      roots, {step2}: one plus or minus the square root of five, all over two. Numerically that is about one
+      point six one eight and minus zero point six one eight, {answer}. The first is the golden ratio itself —
+      the growth rate hidden inside the Fibonacci numbers.
+    board:
+      - id: statement
+        text: "Eigenvalues of the Fibonacci matrix."
+      - id: given
+        latex: "M = \\begin{pmatrix}1 & 1\\\\1 & 0\\end{pmatrix},\\ \\ \\text{tr}=1,\\ \\det=-1"
+        say: "the matrix one, one, one, zero, with trace one and determinant minus one"
+        role: given
+      - id: find
+        text: "Find the eigenvalues λ."
+        role: find
+      - id: step1
+        latex: "\\lambda^2 - \\lambda - 1 = 0"
+        say: "lambda squared minus lambda minus one equals zero"
+        role: step
+        color: blue
+      - id: step2
+        latex: "\\lambda = \\dfrac{1 \\pm \\sqrt{5}}{2}"
+        say: "lambda is one plus or minus root five, over two"
+        role: step
+        color: red
+      - id: answer
+        latex: "\\varphi \\approx 1.618,\\ \\ \\psi \\approx -0.618"
+        say: "about one point six one eight, and minus zero point six one eight"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "(1 + np.sqrt(5)) / 2"
+      value: 1.618
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} Use the closed form to find the tenth Fibonacci number directly, {given2}. {find2} Binet's
+      formula says it is the golden ratio to the tenth, minus the companion to the tenth, over root five,
+      {step1b}. The golden ratio to the tenth is about one hundred and twenty-three; the companion, being small
+      and negative, to the tenth is a tiny positive number, about zero point zero one, {step2b}. Their
+      difference over root five comes out to fifty-five exactly, {answer2}. And indeed the sequence one, one,
+      two, three, five, eight, thirteen, twenty-one, thirty-four, fifty-five lands on fifty-five as its tenth
+      term — reached in one calculation, with no adding.
+    board:
+      - id: statement2
+        text: "The tenth Fibonacci from the formula."
+      - id: given2
+        latex: "F_{10} = \\dfrac{\\varphi^{10} - \\psi^{10}}{\\sqrt{5}}"
+        say: "F ten is phi to the tenth minus psi to the tenth, over root five"
+        role: given
+      - id: find2
+        text: "Compute F₁₀."
+        role: find
+      - id: step1b
+        latex: "\\varphi^{10} \\approx 122.99,\\ \\ \\psi^{10} \\approx 0.01"
+        say: "phi to the tenth is about one hundred twenty-three, psi to the tenth about zero point zero one"
+        role: step
+        color: red
+      - id: step2b
+        latex: "F_{10} = \\dfrac{122.99 - 0.01}{\\sqrt{5}}"
+        say: "F ten is one hundred twenty-three minus a hundredth, over root five"
+        role: step
+        color: green
+      - id: answer2
+        latex: "F_{10} = 55"
+        say: "the tenth Fibonacci number is fifty-five"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(((1+np.sqrt(5))/2)**10 - ((1-np.sqrt(5))/2)**10)/np.sqrt(5)"
+      value: 55
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: a linear recurrence like Fibonacci is a matrix power in disguise — pack consecutive terms
+      into a vector and each step is one multiplication. Diagonalise that matrix and the power becomes trivial,
+      giving a closed form whose base is the matrix's dominant eigenvalue, here the golden ratio. That is why
+      the Fibonacci numbers grow like the golden ratio, and why there is an exact formula for the nth one.
+      Next: Markov chains with matrices — where does the system end up?

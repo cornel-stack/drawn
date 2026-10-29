@@ -1,0 +1,212 @@
+# EM-20: Maxwell's four equations, explained one picture at a time.
+# OpenStax University Physics Vol. 2, §16.1 Maxwell's Equations (CC BY 4.0). ~7.5 min.
+# Colour: electric = blue, magnetic = red, light/wave = green, charge = orange.
+schema_version: 1
+id: EM-20
+channel: pen-and-pendulum
+title: "Maxwell's four equations, explained one picture at a time"
+target_minutes: 7
+source:
+  book: "University Physics Volume 2 (OpenStax)"
+  section: "§16.1 Maxwell's Equations and Electromagnetic Waves"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/139-16-1-maxwell-s-equations-and-electromagnetic-waves.md"
+  pages: "670-675"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "Four lines that describe light"
+  keyword: "describe light"
+publish:
+  title: "Maxwell's Equations Explained: The Four Laws That Describe Light"
+  summary: >
+    Four equations capture everything about electricity and magnetism — and
+    together they predict light itself. We explain what each one says in plain
+    words, how Maxwell's single correction to Ampere's law unlocked
+    electromagnetic waves, and why their speed is the speed of light. Two examples.
+  hashtags: ["#physics", "#electromagnetism", "#light"]
+  tags:
+    - Maxwell's equations
+    - electromagnetic waves
+    - speed of light
+    - Faraday's law
+    - Ampere's law
+    - electromagnetism
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Four equations contain the whole of electricity and magnetism. Written together for the first time by
+      James Clerk Maxwell, they did something no one expected: they predicted light, and told us how fast it
+      must travel.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {plotE}, is what the four equations produce: a wave. An electric field, in blue, oscillates up and
+      down, and locked in step with it a magnetic field, {plotB}, in red, oscillates at right angles. Neither
+      field is driven by any charge or wire; each is created by the other. A changing magnetic field makes an
+      electric field, and a changing electric field makes a magnetic field, so the two regenerate each other
+      endlessly and sail off through empty space on their own. That self-sustaining ripple is an
+      electromagnetic wave. Maxwell computed its speed from the two constants of electricity and magnetism and
+      found, {cEq}, one over the square root of the electric constant times the magnetic constant — which comes
+      out to three hundred million metres per second, exactly the measured speed of light. The conclusion was
+      inescapable: light is an electromagnetic wave. Radio, microwaves, X-rays and visible light are all the
+      same phenomenon, the same four equations, differing only in how fast they wave.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 12, 2]
+        y: [-3, 3, 1]
+        x_length: 7.8
+        y_length: 3.4
+        x_label: "x"
+        y_label: ""
+      steps:
+        - {id: plotE, action: plot_function, params: {func: sin, color: blue, label: "E"}}
+        - {id: plotB, action: plot_function, params: {func: sin_small, color: red, label: "B"}}
+    board:
+      - id: cEq
+        latex: "c = \\dfrac{1}{\\sqrt{\\varepsilon_0 \\mu_0}}"
+        say: "the speed is one over the square root of the electric constant times the magnetic constant"
+        color: green
+        legend:
+          - {sym: "\\varepsilon_0", name: "the electric constant", unit: "F/m"}
+          - {sym: "\\mu_0", name: "the magnetic constant", unit: "H/m"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      First, {gaussE}, Gauss's law for electricity: the electric
+      flux out through any closed surface is the charge enclosed, divided by the electric constant. In plain
+      words, electric field lines begin and end on charges — positive charges are sources, negative ones are
+      sinks. The second is Gauss's law for magnetism, {gaussB}: the magnetic flux through any closed surface is
+      always zero. This says there are no magnetic charges, no isolated north or south poles; magnetic field
+      lines never start or stop, they only form closed loops. The third is Faraday's law, {faraday}: a changing
+      magnetic flux creates a circulating electric field. This is the law behind every generator — move a
+      magnet near a coil and you drive a current. The fourth is Ampère's law with Maxwell's correction,
+      {ampere}: a magnetic field circulates around both an electric current and a changing electric flux. That
+      second term, the changing electric flux, is Maxwell's single addition, {hl:ampere}, and it is the keystone
+      of the whole structure. Before it, Ampère's law was logically inconsistent — it gave different answers for
+      the same loop depending on which surface you chose. Maxwell's extra term, the displacement current, fixed
+      the contradiction and, with it, completed the symmetry: now a changing electric field makes a magnetic
+      field, just as Faraday's changing magnetic field makes an electric one. Put the third and fourth laws
+      together and that symmetry feeds itself. A changing electric field creates a changing magnetic field,
+      which creates a changing electric field, on and on, a wave that needs no medium and no source once
+      launched. The mathematics forces its speed to be one over the root of the two constants, the speed of
+      light. So four compact statements — charges make electric fields, there are no magnetic charges, changing
+      magnetism makes electricity, and changing electricity makes magnetism — contain electric motors,
+      radio, and the light from distant stars. It is among the greatest unifications in all of science.
+    board:
+      - id: gaussE
+        latex: "\\oint \\vec{E}\\cdot d\\vec{A} = \\dfrac{Q}{\\varepsilon_0}"
+        say: "the electric flux through a closed surface is the enclosed charge over the electric constant"
+        color: blue
+      - id: gaussB
+        latex: "\\oint \\vec{B}\\cdot d\\vec{A} = 0"
+        say: "the magnetic flux through any closed surface is zero"
+        color: red
+      - id: faraday
+        latex: "\\oint \\vec{E}\\cdot d\\vec{l} = -\\dfrac{d\\Phi_B}{dt}"
+        say: "a changing magnetic flux drives a circulating electric field"
+        color: blue
+        box: true
+      - id: ampere
+        latex: "\\oint \\vec{B}\\cdot d\\vec{l} = \\mu_0 I + \\mu_0\\varepsilon_0\\dfrac{d\\Phi_E}{dt}"
+        say: "a magnetic field circulates around a current and a changing electric flux"
+        color: red
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      {statement} The speed falls out of two constants. The electric and magnetic constants of empty space are
+      known from simple laboratory experiments, {given}; compute the speed of an electromagnetic wave. {find}
+      The speed is one over the square root of their product, {step1}. Multiply the two constants, {step2}: the
+      electric constant times the magnetic constant is about one point one one times ten to the minus
+      seventeen, in the right units. Take the square root and invert, {answer}: very nearly three times ten to
+      the eighth metres per second. That these two electrical constants, measured with capacitors and coils,
+      should combine to give the speed of light was Maxwell's thunderclap — the first hint that light and
+      electromagnetism are one.
+    board:
+      - id: statement
+        text: "The speed of light from two constants."
+      - id: given
+        latex: "\\varepsilon_0 = 8.85\\times10^{-12},\\ \\ \\mu_0 = 1.26\\times10^{-6}"
+        say: "electric constant eight point eight five times ten to the minus twelve, magnetic constant one point two six times ten to the minus six"
+        role: given
+      - id: find
+        text: "Find the wave speed c."
+        role: find
+      - id: step1
+        latex: "c = \\dfrac{1}{\\sqrt{\\varepsilon_0 \\mu_0}}"
+        say: "the speed is one over the root of their product"
+        role: step
+        color: green
+      - id: step2
+        latex: "\\varepsilon_0 \\mu_0 \\approx 1.11\\times10^{-17}"
+        say: "their product is about one point one one times ten to the minus seventeen"
+        role: step
+        color: blue
+      - id: answer
+        latex: "c \\approx 3.0\\times10^{8}\\ \\text{m/s}"
+        say: "the speed is about three times ten to the eighth metres per second"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "1/np.sqrt(8.85e-12 * 1.26e-6)"
+      value: 3.0e8
+      unit: "m/s"
+      tol: 0.02
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} An FM radio station broadcasts at a known frequency, {given2}; find the wavelength of its
+      waves. {find2} For any electromagnetic wave the speed equals the frequency times the wavelength, so the
+      wavelength is the speed of light over the frequency, {step1b}. Put in the numbers, {step2b}: three times
+      ten to the eighth metres per second, over one hundred million cycles per second. That is three metres,
+      {answer2}. So the radio waves carrying that station are three metres from crest to crest — the same kind
+      of wave as light, merely stretched a few million times longer.
+    board:
+      - id: statement2
+        text: "Wavelength of a radio station."
+      - id: given2
+        latex: "f = 100\\ \\text{MHz} = 10^{8}\\ \\text{Hz}"
+        say: "frequency one hundred megahertz, ten to the eighth hertz"
+        role: given
+      - id: find2
+        text: "Find the wavelength λ."
+        role: find
+      - id: step1b
+        latex: "\\lambda = \\dfrac{c}{f}"
+        say: "the wavelength is the speed of light over the frequency"
+        role: step
+        color: green
+      - id: step2b
+        latex: "= \\dfrac{3\\times10^{8}}{10^{8}}"
+        say: "equals three times ten to the eighth, over ten to the eighth"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "\\lambda = 3\\ \\text{m}"
+        say: "the wavelength is three metres"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "3e8 / 1e8"
+      value: 3
+      unit: "m"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: Maxwell's four equations say that charges make electric fields, that there are no magnetic
+      charges, that changing magnetism makes electricity, and that changing electricity makes magnetism. The
+      last two together produce a self-sustaining electromagnetic wave whose speed, fixed by the electric and
+      magnetic constants, is the speed of light — so light is electromagnetism. Next: How Maxwell's equations
+      predict light — the wave equation for E and B.

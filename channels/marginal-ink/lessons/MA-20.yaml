@@ -1,0 +1,218 @@
+# MA-20: Classical vs Keynesian — what they actually disagree about.
+# OpenStax Principles of Economics 3e, §24.1 Macroeconomic Perspectives on Demand
+# and Supply (CC BY 4.0) — Keynes' Law vs Say's Law, the AD-AS model. ~7 minutes.
+# Colour: aggregate supply = orange, aggregate demand = blue, potential/classical = red, Keynesian = green.
+schema_version: 1
+id: MA-20
+channel: marginal-ink
+title: "Classical vs Keynesian: what they actually disagree about"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§24.1 Macroeconomic Perspectives on Demand and Supply"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/277-24-1-macroeconomic-perspectives-on-demand-and-supply.md"
+  pages: "599-604"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "One curve settles the argument"
+  keyword: "settles the argument"
+publish:
+  title: "Classical vs Keynesian Economics: What They Really Disagree About"
+  summary: >
+    The oldest argument in macroeconomics is not about politics — it is about one
+    curve. Classical economists say supply drives the economy and prices adjust;
+    Keynesians say demand drives it and prices are sticky. We show how the shape of
+    the aggregate supply curve contains both views, and when each one is right.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - Keynesian economics
+    - classical economics
+    - aggregate demand
+    - aggregate supply
+    - Keynes law
+    - Say law
+    - macroeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      The oldest quarrel in macroeconomics is often mistaken for a clash of politics. It is really a
+      disagreement about one thing: whether it is demand or supply that sets the size of the economy — and the
+      answer, it turns out, is written in the shape of a single curve.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is that curve, {drawAS}, the aggregate supply curve, in orange: the total output firms produce at
+      each price level. Its shape is everything. On the left, where output is low and factories sit idle,
+      it is nearly flat — firms can make more without raising prices, so output is limited only by how much is
+      demanded. On the right, as output approaches the economy's full capacity, {drawPot}, the red line marking
+      potential output, the curve turns almost vertical — with every worker and machine already busy, more
+      demand cannot raise output, it only raises prices. Now lay demand across it, {drawAD}, the aggregate
+      demand curve in blue. Where demand crosses the flat stretch, the economy is in the Keynesian world:
+      slumped below capacity, and output is whatever demand calls for — boost demand and you boost output.
+      Where it crosses the steep stretch, the economy is in the classical world: pinned at full capacity, and
+      extra demand spills entirely into prices. The two schools are not describing different economies; they
+      are describing different parts of the same curve, {zoneEq}.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 5, 1]
+        y: [0, 8, 2]
+        x_length: 7.6
+        y_length: 3.6
+        x_label: "Y"
+        y_label: "P"
+      steps:
+        - {id: drawAS, action: plot_function, params: {func: as_curve, color: orange, label: "AS"}}
+        - {id: drawPot, action: plot_line, params: {name: pot, a: 1, b: 0, c: 4.3, color: red, label: "Y^*"}}
+        - {id: drawAD, action: plot_line, params: {name: ad, a: 1, b: 1, c: 5, color: blue, label: "AD"}}
+    board:
+      - id: zoneEq
+        latex: "\\text{flat: demand-led} \\;\\mid\\; \\text{steep: supply-led}"
+        say: "the flat part is demand-led, the steep part is supply-led"
+        color: green
+        legend:
+          - {sym: "Y", name: "real output (GDP)", unit: ""}
+          - {sym: "Y^*", name: "potential output", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here, {priceEq}: how quickly prices and wages adjust. That one assumption is what really divides the two
+      schools. The classical economist assumes they are flexible. If demand falls, prices and wages simply drop until
+      everything sells and everyone who wants work is hired, so the economy springs back to full employment on
+      its own. In that world supply rules — output is set by the economy's capacity, its workers, capital and
+      technology — and this is Say's Law, {sayEq}, the old claim that supply creates its own demand. Demand
+      merely decides the price level, not the quantity. The Keynesian economist assumes the opposite, {stickyEq}:
+      prices and especially wages are sticky, slow to fall. Firms cut output and lay off workers rather than
+      cut prices, so a drop in demand drags the whole economy down and leaves it stuck below capacity, with
+      involuntary unemployment that does not quickly cure itself. In that world demand rules, {keynesEq} —
+      Keynes' Law, that demand creates its own supply — and the cure for a slump is to raise demand, through
+      government spending or lower interest rates. So the disagreement is sharp and specific, {hl:priceEq}: are
+      prices flexible, so the economy self-corrects and only supply matters; or are they sticky, so slumps
+      persist and demand must be managed? The resolution the modern synthesis offers is the curve we drew. In a
+      deep recession the economy sits on the flat Keynesian stretch, where the Keynesian is right and demand
+      policy works. Near full employment it sits on the steep classical stretch, where the classical is right
+      and pushing demand only causes inflation. Both are correct — about different times. The practical
+      question a policymaker faces is never classical or Keynesian in the abstract, but simply which part of
+      the curve the economy is on right now, and that is a question about how much slack there is. The great
+      divide, once you see it this way, is less a war of ideologies than a disagreement about a single number:
+      the speed at which prices clear.
+    board:
+      - id: priceEq
+        latex: "\\text{prices: flexible?} \\;\\leftrightarrow\\; \\text{sticky?}"
+        say: "the core question: are prices flexible or sticky?"
+        color: red
+        box: true
+      - id: sayEq
+        latex: "\\text{Say's Law: supply} \\Rightarrow \\text{demand}"
+        say: "Say's Law, supply creates its own demand"
+        color: orange
+      - id: stickyEq
+        latex: "P, W \\text{ sticky} \\Rightarrow \\text{output falls}"
+        say: "sticky prices and wages mean output falls instead"
+        color: blue
+      - id: keynesEq
+        latex: "\\text{Keynes' Law: demand} \\Rightarrow \\text{supply}"
+        say: "Keynes' Law, demand creates its own supply"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      {statement} The economy sits in the flat Keynesian zone, in a recession, and households spend a known
+      fraction of each extra pound they earn, {given}. By how much does total output rise when government
+      spending increases? {find} In the flat zone, extra spending multiplies through the economy: the
+      multiplier is one over, one minus the fraction people re-spend, {step1}. Put in the number, {step2}: one
+      over, one minus zero point eight, which is one over zero point two. That is five, {answer}. So in a
+      slump, a one-billion rise in government spending lifts total output by five billion — the Keynesian
+      multiplier at work, possible only because there is idle capacity for that extra demand to use.
+    board:
+      - id: statement
+        text: "The multiplier in a recession."
+      - id: given
+        latex: "\\text{MPC} = 0.8\\ \\ (\\text{flat zone})"
+        say: "people re-spend eighty per cent of extra income, in the flat zone"
+        role: given
+      - id: find
+        text: "Find the spending multiplier."
+        role: find
+      - id: step1
+        latex: "k = \\dfrac{1}{1 - \\text{MPC}}"
+        say: "the multiplier is one over, one minus the marginal propensity to consume"
+        role: step
+        color: green
+      - id: step2
+        latex: "= \\dfrac{1}{1 - 0.8} = \\dfrac{1}{0.2}"
+        say: "equals one over, one minus zero point eight, which is one over zero point two"
+        role: step
+        color: blue
+      - id: answer
+        latex: "k = 5"
+        say: "the multiplier is five"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "1 / (1 - 0.8)"
+      value: 5
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} Now the economy is at full capacity, on the steep classical stretch, and we measure actual
+      output against potential, {given2}. What is the output gap, and what does extra demand achieve here?
+      {find2} The output gap is actual output minus potential output, {step1b}: ten thousand minus ten
+      thousand, {step2b}, which is zero, {answer2}. The economy is already at its potential, so there is no
+      slack. On this part of the curve the classical view holds: an increase in demand cannot raise output
+      past capacity, so it raises only the price level — it causes inflation, not growth. The same policy that
+      cured the slump now merely stokes prices. Which is why the first question is always: where on the curve
+      are we?
+    board:
+      - id: statement2
+        text: "The output gap at full capacity."
+      - id: given2
+        latex: "Y = 10000,\\quad Y^* = 10000"
+        say: "actual output ten thousand, potential output ten thousand"
+        role: given
+      - id: find2
+        text: "Find the output gap Y − Y*."
+        role: find
+      - id: step1b
+        latex: "\\text{gap} = Y - Y^*"
+        say: "the output gap is actual output minus potential output"
+        role: step
+        color: red
+      - id: step2b
+        latex: "= 10000 - 10000"
+        say: "equals ten thousand minus ten thousand"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "\\text{gap} = 0"
+        say: "the output gap is zero"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "10000 - 10000"
+      value: 0
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: classical and Keynesian economics disagree about how fast prices and wages adjust.
+      Classical economists assume they are flexible, so the economy self-corrects and supply sets output;
+      Keynesians assume they are sticky, so demand sets output and slumps persist. The aggregate supply curve
+      holds both views: flat and demand-led in a recession, steep and supply-led at full capacity. The real
+      question is which part of the curve the economy is on. Next: Real business cycle theory — recessions as
+      rational responses?

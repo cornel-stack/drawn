@@ -22,6 +22,10 @@ _FUNCS = {
     "char_poly": (lambda x: x * x - 4.0 * x + 3.0, r"\lambda^2 - 4\lambda + 3"),
     "sin": (lambda x: 2.0 * np.sin(x), r"\sin x"),
     "cos": (lambda x: 2.0 * np.cos(x), r"\cos x"),
+    # a smaller-amplitude, in-phase sine — e.g. the magnetic field B of a plane
+    # electromagnetic wave, which peaks together with E (in phase) but is drawn
+    # shorter so the two curves are tellable apart on one set of axes.
+    "sin_small": (lambda x: 1.2 * np.sin(x), r"\sin x"),
     "exp": (lambda x: np.exp(0.5 * x), "e^{x}"),
     "cubic": (lambda x: 0.12 * x ** 3, "x^3"),
     # a concave, bowed-out production-possibilities frontier: integer-clean,
@@ -74,6 +78,12 @@ _FUNCS = {
                     r"g > r:\ \text{converges}"),
     "debt_snowball": (lambda x: 20.0 * np.exp(0.15 * np.clip(x, 0.0, None)),
                       r"r > g:\ \text{snowballs}"),
+    # the aggregate-supply curve of the AD-AS model: nearly flat at low output
+    # (the Keynesian zone, where demand sets output and prices barely move) and
+    # rising steeply as output nears potential (the neoclassical zone, where
+    # supply is the binding constraint and extra demand just raises the price level).
+    "as_curve": (lambda x: 1.0 + np.exp(1.1 * (np.clip(x, 0.0, None) - 3.6)),
+                 r"AS"),
 }
 
 # Named right-hand sides f(x, y) for a first-order ODE y' = f(x, y), and the
