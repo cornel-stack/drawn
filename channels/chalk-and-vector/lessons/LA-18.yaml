@@ -59,8 +59,8 @@ scenes:
       params:
         axes: {x: [-2, 5, 1], y: [-1, 4, 1]}
         vectors:
-          v1: {to: [3, 1], color: blue, label: "v_1"}
-          v2: {to: [1, 3], color: orange, label: "v_2"}
+          v1: {to: [3, 1], color: blue, label: "v_{1}"}
+          v2: {to: [1, 3], color: orange, label: "v_{2}"}
       steps:
         - {id: drawV1, action: draw, params: {name: v1}}
         - {id: drawV2, action: draw, params: {name: v2}}

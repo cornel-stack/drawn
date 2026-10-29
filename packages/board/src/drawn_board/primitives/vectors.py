@@ -65,6 +65,11 @@ class Vectors(Primitive):
                      stroke_width=_VEC_STROKE, max_tip_length_to_length_ratio=_TIP_RATIO)
 
     def _label(self, text, point, color, direction=None):
+        # a math vector name with a subscript or LaTeX (e.g. v_1, \vec{b}_2) must go
+        # through MathTex so the subscript renders; plain letters keep the handwriting
+        # font to match the board style.
+        if "_" in text or "\\" in text or "^" in text:
+            return self._mlabel(text, point, color, direction)
         from manim import Text
 
         lbl = Text(text, font=self.channel.font.handwriting, weight="BOLD",
