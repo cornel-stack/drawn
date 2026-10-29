@@ -85,20 +85,20 @@ scenes:
       of which reduces to two-by-twos, all the way down. Second, and this is the real trick, you may
       expand along any row or any column you like, and the answer is always the same. So pick the
       row or column with the most zeros — every zero entry kills an entire minor, since it multiplies
-      to nothing. A determinant with a row of mostly zeros collapses almost instantly. This is why a
+      to nothing. A determinant with a row of mostly zeros collapses almost instantly, {hl:expEq2}. This is why a
       triangular matrix, with zeros filling one corner, has a determinant that is simply the product
       of its diagonal: expand down the sparse column each time and only the diagonal survives. The
       cleverness is never in grinding through the arithmetic; it is in choosing the lazy row before
-      you start. It is worth seeing where the alternating signs actually come from, because they are not
+      you start. It is worth seeing where the alternating signs actually come from, {hl:minorEq}, because they are not
       arbitrary. Deleting an entry's row and column leaves the minor, but to line that minor up as a
       proper sub-determinant you must slide the deleted row and column out past the others, and each swap
       of adjacent rows or columns flips the sign of a determinant — we saw that in the area picture,
-      where exchanging two edges reverses orientation. The number of swaps needed is exactly i plus j, so
+      where exchanging two edges reverses orientation, {hl:expEq2}. The number of swaps needed is exactly i plus j, so
       the sign is minus one to that power: the checkerboard is just bookkeeping for all those orientation
-      flips. Expansion is also the bridge to the general theory, since the same formula defines the
+      flips. Expansion is also the bridge to the general theory, {hl:minorEq}, since the same formula defines the
       determinant for a matrix of any size purely in terms of smaller ones. That is why every property we
       have met — that a zero row gives zero, that a triangular matrix multiplies its diagonal, that
-      swapping rows flips the sign — can be proved once and for all by induction on the size. For hand
+      swapping rows flips the sign — can be proved once and for all by induction on the size, {hl:expEq2}. For hand
       computation it is unbeatable on small or sparse matrices; for large dense ones, row reduction is
       faster, but the idea underneath is the same determinant, approached from a different side.
     board:
