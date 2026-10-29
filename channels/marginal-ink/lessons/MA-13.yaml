@@ -1,0 +1,212 @@
+# MA-13: The AD-AS model — demand and supply shocks, short run to long run.
+# OpenStax Principles of Economics 3e, Ch 24 Aggregate Demand/Supply (CC BY 4.0).
+# ~7 minutes. Colour: AD = orange, SRAS = blue, equilibrium = green.
+schema_version: 1
+id: MA-13
+channel: marginal-ink
+title: "The AD-AS model: demand and supply shocks, short run to long run"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§24.2-24.4 Building AD-AS and Shifts in Aggregate Demand and Supply"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/278-24-2-building-a-model-of-aggregate-demand-and-aggregate-supply.md"
+  pages: "571-592"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "Booms, busts and stagflation"
+  keyword: "stagflation"
+publish:
+  title: "The AD-AS Model: Demand Shocks, Supply Shocks and Stagflation"
+  summary: >
+    The aggregate demand and aggregate supply model is the workhorse for the whole
+    economy's price level and output. We build it, show how a demand shock moves
+    output and prices the same way, why a supply shock moves them opposite ways
+    into stagflation, and how the long run pins output to potential. Two examples.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - AD-AS model
+    - aggregate demand
+    - aggregate supply
+    - stagflation
+    - demand shock supply shock
+    - macroeconomics
+    - potential GDP
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      One diagram holds the whole economy's output and price level at once. The aggregate demand and
+      aggregate supply model shows how booms, recessions and even stagflation all play out on the same
+      two curves.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawAD}, is aggregate demand, in orange — output along the bottom, the price level up the
+      side. It slopes down: when the overall price level is lower, households, firms and foreigners buy
+      more of the economy's output. And here is short-run aggregate supply, {drawAS}, in blue, sloping
+      up: because wages and some prices are slow to adjust, a higher price level makes production more
+      profitable, so firms supply more. Where the two cross, {mark}, is the economy's short-run
+      equilibrium — the price level and the level of output at which total spending matches total
+      production. That single point is the state of the whole economy, {eqEq}: its real output, which drives
+      jobs, and its price level, which drives inflation. Everything interesting in short-run
+      macroeconomics is a shift of one of these two curves and the new crossing it produces — a boom, a
+      slump, a bout of inflation — all read off the same picture.
+    animation:
+      primitive: supply_demand
+      params:
+        q_max: 9
+        p_max: 9
+        demand: {a: 8, b: 0.8}
+        supply: {c: 1, d: 0.7}
+        x_label: "Y"
+        y_label: "P"
+      steps:
+        - {id: drawAD, action: draw_demand, params: {color: orange}}
+        - {id: drawAS, action: draw_supply, params: {color: blue}}
+        - {id: mark, action: equilibrium, params: {color: green}}
+    board:
+      - id: eqEq
+        latex: "\\text{AD} \\cap \\text{SRAS} = (Y^*, P^*)"
+        say: "aggregate demand and short-run supply cross at the equilibrium output and price level"
+        color: green
+        legend:
+          - {sym: "AD", name: "aggregate demand (down)", unit: ""}
+          - {sym: "SRAS", name: "short-run aggregate supply (up)", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Three curves, {adEq}, carry the model: aggregate demand slopes down; short-run aggregate supply
+      slopes up; and there is a third, the long-run aggregate supply, {asEq}, a vertical line at
+      potential output — the most the economy can produce at full employment, fixed by its resources and
+      technology and utterly independent of the price level. Now work the shocks. A demand shock shifts
+      aggregate demand, {shockEq}. A surge in confidence or government spending pushes AD to the right,
+      and the new crossing has both higher output and a higher price level — a boom with inflation;
+      output and prices move the same way. A collapse in demand does the reverse, pulling the economy
+      into recession with falling prices. A supply shock, by contrast, shifts aggregate supply, and here
+      is the twist that makes supply shocks so feared. A jump in oil prices or a crop failure raises
+      firms' costs and pushes short-run supply to the left; the new crossing has lower output but a
+      higher price level — output and prices move in opposite directions. That painful combination,
+      stagnation together with inflation, is stagflation, and it is exactly what a supply shock delivers.
+      Finally the long run. Whatever the short-run disturbance, as wages and prices eventually adjust the
+      economy is drawn back to potential output on the vertical long-run supply curve; a demand boom
+      ends up as pure inflation with output back at potential, and the short-run gains fade. Short run
+      for output, long run for prices — the model holds both at once, {hl:shockEq}. This is why the AD-AS
+      model is so central to policy. It separates the two things a government cares about — how much the
+      economy produces, and how fast prices rise — and shows that the same shock can push them together or
+      pull them apart. A demand slump, with output and prices both falling, calls for stimulus to shift
+      aggregate demand back out; the cure is clear. But a supply shock poses a genuine dilemma, because
+      fighting the inflation by cutting demand deepens the slump, while fighting the slump by boosting
+      demand worsens the inflation — no shift of aggregate demand fixes both at once, which is precisely
+      why stagflation is so hard to escape. The model also makes room for growth: as potential output
+      expands year by year, the long-run supply curve marches steadily rightward, and the economy's trend
+      is that rightward march with the short-run cycle playing out around it.
+    board:
+      - id: adEq
+        latex: "\\text{AD}: \\; P \\downarrow \\Rightarrow Y_d \\uparrow"
+        say: "aggregate demand: a lower price level raises output demanded"
+        color: orange
+      - id: asEq
+        latex: "\\text{LRAS at } Y_{pot} \\; (\\text{vertical})"
+        say: "long-run aggregate supply is vertical at potential output"
+        color: blue
+      - id: shockEq
+        latex: "\\text{demand shock} \\to \\text{shift AD}; \\;\\text{supply shock} \\to \\text{shift AS}"
+        say: "a demand shock shifts aggregate demand; a supply shock shifts aggregate supply"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Finding the equilibrium. {statement} Aggregate demand and short-run supply are given as simple
+      lines, {given}; find the equilibrium output. {find} At the crossing the two price levels are equal,
+      so set the curves equal, {step1}: ten minus Y equals Y. Collect the Y's, {step2}: ten equals two Y,
+      so Y is five. Output settles at five, {answer}, with a price level of five to match. That point is
+      where aggregate spending exactly equals aggregate production — the resting state of the economy
+      until some shock moves a curve.
+    board:
+      - id: statement
+        text: "Short-run equilibrium of the AD-AS model."
+      - id: given
+        latex: "\\text{AD}: P = 10 - Y, \\quad \\text{SRAS}: P = Y"
+        say: "aggregate demand P equals ten minus Y; short-run supply P equals Y"
+        role: given
+      - id: find
+        text: "Find Y* where AD = SRAS."
+        role: find
+      - id: step1
+        latex: "10 - Y = Y"
+        say: "ten minus Y equals Y"
+        role: step
+        color: orange
+      - id: step2
+        latex: "10 = 2Y \\;\\Rightarrow\\; Y = 5"
+        say: "ten equals two Y, so Y is five"
+        role: step
+        color: blue
+      - id: answer
+        latex: "Y^* = 5, \\quad P^* = 5"
+        say: "equilibrium output five, price level five"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "10 / 2"
+      value: 5
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      A demand shock. {statement2} A surge in spending shifts aggregate demand to the right, {given2};
+      find the new equilibrium output. {find2} The new demand curve sits four higher at every output, so
+      set it equal to the unchanged supply, {step1b}: fourteen minus Y equals Y. Solve, {step2b}:
+      fourteen equals two Y, so Y is seven. Output has jumped from five to seven, {answer2}, and the
+      price level has risen with it — the hallmark of a demand shock, output and prices climbing together
+      into a boom. In the long run, though, as wages catch up, output drifts back to potential and the
+      boom leaves only higher prices behind.
+    board:
+      - id: statement2
+        text: "Output after a demand shock."
+      - id: given2
+        latex: "\\text{AD}': P = 14 - Y, \\quad \\text{SRAS}: P = Y"
+        say: "the new aggregate demand P equals fourteen minus Y; supply unchanged at P equals Y"
+        role: given
+      - id: find2
+        text: "Find the new Y*."
+        role: find
+      - id: step1b
+        latex: "14 - Y = Y"
+        say: "fourteen minus Y equals Y"
+        role: step
+        color: orange
+      - id: step2b
+        latex: "14 = 2Y \\;\\Rightarrow\\; Y = 7"
+        say: "fourteen equals two Y, so Y is seven"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "Y^* = 7 \\;(\\text{up from } 5)"
+        say: "equilibrium output seven, up from five"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "14 / 2"
+      value: 7
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: aggregate demand slopes down, short-run aggregate supply up, and they cross at the
+      economy's output and price level; a demand shock moves output and prices the same way, a supply
+      shock moves them opposite ways into stagflation, and in the long run output returns to potential.
+      Next: The Phillips curve — why it worked, broke, and came back.

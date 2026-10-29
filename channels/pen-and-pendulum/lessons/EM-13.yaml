@@ -1,0 +1,199 @@
+# EM-13: Faraday's law and Lenz's law — electromagnetic induction in one animation.
+# OpenStax University Physics Vol. 2 §13.1-13.2 (CC BY 4.0). ~7 minutes.
+# Colour: flux = purple, EMF = green, time = blue, field = orange.
+schema_version: 1
+id: EM-13
+channel: pen-and-pendulum
+title: "Faraday's law and Lenz's law: electromagnetic induction in one animation"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "§13.1-13.2 Faraday's Law and Lenz's Law"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/111-13-1-faraday-s-law.md"
+  pages: "587-608"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "Change makes electricity"
+  keyword: "Change"
+publish:
+  title: "Faraday's Law and Lenz's Law: How a Changing Field Makes Electricity"
+  summary: >
+    A steady magnetic field does nothing, but a changing one drives a current.
+    Faraday's law pins down how much — the induced voltage equals the rate the
+    magnetic flux changes — and Lenz's law fixes the direction: the current always
+    opposes the change that made it. Two worked examples follow.
+  hashtags: ["#physics", "#electromagnetism", "#induction"]
+  tags:
+    - Faraday's law
+    - Lenz's law
+    - electromagnetic induction
+    - magnetic flux
+    - induced emf
+    - electromagnetism
+    - physics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Hold a magnet still by a coil and nothing happens. Move it, and a current flows. The whole of
+      electromagnetic induction springs from that one word: change.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawFlux}, is the magnetic flux through a loop of wire, plotted against time, in purple.
+      The flux is rising steadily — picture a magnet being pushed towards the loop at a constant rate,
+      so more and more field threads through it. Faraday's law says the induced voltage is the rate at
+      which this flux changes, {faradayEq}, which is simply the slope of the line, {markSlope}. A steadily rising flux gives a constant slope, and so a constant induced voltage. The
+      lesson is in the slope and nothing else: a flux that is large but unchanging — a flat line —
+      induces no voltage at all, while a flux that changes quickly, a steep line, induces a large one.
+      It is never the amount of flux that matters, only how fast it changes. Push the magnet faster and
+      the line steepens and the voltage grows; hold it still and the line goes flat and the current
+      dies. Induction is a machine that turns change itself into electricity.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 5, 1]
+        y: [0, 5, 1]
+        x_length: 8.0
+        y_length: 3.6
+        x_label: "t"
+        y_label: "\\Phi"
+      steps:
+        - {id: drawFlux, action: plot_line, params: {name: flux, a: -0.8, b: 1, c: 0, color: purple, label: "\\Phi(t)"}}
+        - {id: markSlope, action: mark_point, params: {x: 3, y: 2.4, color: green, label: "\\mathcal{E} = -d\\Phi/dt"}}
+    board:
+      - id: faradayEq
+        latex: "\\mathcal{E} = -\\dfrac{d\\Phi}{dt}"
+        say: "the induced e m f equals minus the rate of change of flux"
+        color: green
+        legend:
+          - {sym: "\\mathcal{E}", name: "induced EMF (voltage)", unit: "V"}
+          - {sym: "\\Phi", name: "magnetic flux", unit: "Wb"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      First define the flux, {fluxEq}: the magnetic flux through a loop is the field times the area it
+      passes through, when the field is square-on — more generally, field times area times the cosine of
+      the angle between them. Flux is a measure of how much magnetic field threads the loop. Faraday's
+      law is then this, {faradayEq2}: the induced e m f equals minus the rate of change of that flux,
+      and for a coil of N turns it is N times larger, since each turn is threaded in its own right. You
+      can change the flux three ways — change the field's strength, change the loop's area, or rotate
+      the loop to change the angle — and any of them induces a voltage. Now the minus sign, which is
+      Lenz's law, {lenzEq}, and it is not a detail but a deep principle. The induced current always
+      flows in the direction whose own magnetic field opposes the change in flux that produced it. If
+      the flux through the loop is rising, the induced current sets up a field to push back against the
+      rise; if it is falling, the current tries to prop it up. The reason is conservation of energy. If
+      the induced current reinforced the change instead of opposing it, the change would grow on its
+      own, the current would grow with it, and you would have unlimited energy from nothing — a
+      perpetual-motion machine. Nature forbids it, so the induced effect always fights its own cause.
+      That opposition is also what you feel as resistance when you push a magnet into a coil, {hl:faradayEq2},
+      and it is exactly the force a generator works against to turn motion into electrical energy. The
+      reach of these two laws is hard to overstate. Every electrical generator in every power station
+      runs on Faraday's law: spin a coil in a magnetic field, the flux through it rises and falls, and an
+      e m f is induced — the mechanical work of the turbine becomes electrical energy. A transformer uses
+      it too, one coil's changing current driving a changing flux that induces a voltage in a second coil
+      nearby, which is how the grid steps voltages up and down. Induction cooktops heat a pan by driving
+      changing currents in its base; the card you tap to pay, the wireless charger on a desk, the pickup
+      under a guitar string — all are Faraday's law at work, {hl:lenzEq}. And Lenz's law, the stubborn
+      minus sign, is the quiet guarantee that none of them breaks the conservation of energy: you only
+      ever get electrical energy out by putting mechanical work in against the induced opposition.
+    board:
+      - id: fluxEq
+        latex: "\\Phi = B A \\cos\\theta"
+        say: "the flux equals B times A times cosine theta"
+        color: purple
+      - id: faradayEq2
+        latex: "\\mathcal{E} = -N\\dfrac{d\\Phi}{dt}"
+        say: "the e m f equals minus N times the rate of change of flux"
+        color: green
+        box: true
+      - id: lenzEq
+        latex: "\\text{induced current opposes the change}"
+        say: "the induced current opposes the change in flux"
+        color: orange
+
+  - id: s4
+    kind: problem
+    narration: >
+      Here, {statement}, is a changing field. A single loop of known area sits in a field
+      that is increasing steadily, {given}; find the induced e m f. {find} With the area fixed, the flux
+      changes only because the field does, so the rate of change of flux is the area times the rate of
+      change of the field, {step1}: nought point zero two square metres times three tesla per second.
+      That is nought point zero six volts, {answer} — sixty millivolts. Double the rate at which the
+      field grows and you double the voltage; let the field settle to a steady value and the voltage
+      falls to zero.
+    board:
+      - id: statement
+        text: "EMF from a changing field."
+      - id: given
+        latex: "A = 0.02\\ \\text{m}^2, \\quad \\dfrac{dB}{dt} = 3\\ \\text{T/s}, \\quad N = 1"
+        say: "area nought point zero two square metres, field rising at three tesla per second, one turn"
+        role: given
+      - id: find
+        text: "Find the induced EMF."
+        role: find
+      - id: step1
+        latex: "\\mathcal{E} = A\\dfrac{dB}{dt} = (0.02)(3)"
+        say: "the e m f is the area times the rate of change of B, nought point zero two times three"
+        role: step
+        color: green
+      - id: answer
+        latex: "\\mathcal{E} = 0.06\\ \\text{V}"
+        say: "the e m f is nought point zero six volts"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "0.02 * 3"
+      value: 0.06
+      unit: "V"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      The flux itself. {statement2} A loop of the same area sits square-on in a steady field, {given2};
+      find the magnetic flux through it. {find2} With the field square-on the angle is zero and its
+      cosine is one, so the flux is simply the field times the area, {step2}: nought point five tesla
+      times nought point zero two square metres. That is nought point zero one webers, {answer2}. This
+      flux, held steady, induces no voltage — remember, only its change does. But start to vary it, and
+      this is the quantity whose rate of change Faraday's law turns into an e m f.
+    board:
+      - id: statement2
+        text: "Magnetic flux through a loop."
+      - id: given2
+        latex: "B = 0.5\\ \\text{T}, \\quad A = 0.02\\ \\text{m}^2, \\quad \\theta = 0"
+        say: "field nought point five tesla, area nought point zero two square metres, square-on"
+        role: given
+      - id: find2
+        text: "Find the flux Φ = BA."
+        role: find
+      - id: step2
+        latex: "\\Phi = BA = (0.5)(0.02)"
+        say: "the flux is B times A, nought point five times nought point zero two"
+        role: step
+        color: purple
+      - id: answer2
+        latex: "\\Phi = 0.01\\ \\text{Wb}"
+        say: "the flux is nought point zero one webers"
+        role: answer
+        box: true
+        color: purple
+    check:
+      expr: "0.5 * 0.02"
+      value: 0.01
+      unit: "Wb"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: magnetic flux is field times area; Faraday's law says the induced e m f equals
+      minus the rate of change of that flux, times the number of turns; and Lenz's law, the minus sign,
+      means the induced current always opposes the change that made it, as energy conservation demands.
+      Next: Motional emf — the sliding rod, derived two ways.

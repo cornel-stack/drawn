@@ -1,0 +1,206 @@
+# LA-16: Change of basis — the same vector in two languages.
+# Hefferon, Linear Algebra, Change of Basis (CC BY-SA 3.0). ~7 minutes.
+# Colour: b1 = blue, b2 = green, vector v = orange, coordinates = yellow.
+schema_version: 1
+id: LA-16
+channel: chalk-and-vector
+title: "Change of basis: the same vector in two languages"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "Change of Basis"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/019-change-of-basis.md"
+  pages: "251-266"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "One arrow, two addresses"
+  keyword: "two addresses"
+publish:
+  title: "Change of Basis Explained: The Same Vector in Two Coordinate Systems"
+  summary: >
+    A vector does not change when you change coordinates — only its list of numbers
+    does. We show how the change-of-basis matrix translates a vector's coordinates
+    from one basis to another, why the new basis vectors are its columns, and how
+    the same idea rewrites a whole matrix. Two worked examples follow.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - change of basis
+    - coordinates
+    - basis
+    - linear algebra
+    - change of coordinates
+    - similarity
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A vector is a fixed arrow in space. Its coordinates are not fixed at all — they depend on the
+      basis you choose, and switching basis rewrites the same arrow in a new language.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is a vector, {drawV}, v in orange, sitting at the point three, two. In the standard basis
+      those are its coordinates: three steps along the first axis, two along the second. But suppose
+      we choose a different basis, {drawBasis}: b-one still pointing east, but b-two now pointing up
+      and to the right. The very same arrow, measured against these new vectors, {buildCombo}, is one
+      step of b-one plus two steps of b-two. So in the new basis the coordinates of v are one, two,
+      {coordNote} — a completely different pair of numbers for exactly the same vector. Nothing about the arrow has
+      moved; only the ruler we measure it with has changed. This is the whole idea of a change of
+      basis: one geometric object, two descriptions. Choosing coordinates is like choosing a language,
+      and the vector is the meaning that survives translation between them. The job now is to find the
+      dictionary — the rule that converts one set of coordinates into the other.
+    animation:
+      primitive: linear_transform
+      params:
+        x_range: [-2, 5]
+        y_range: [-1, 4]
+        matrix: [[1, 1], [0, 1]]
+      steps:
+        - {id: drawV, action: vector, params: {x: 3, y: 2, color: orange, label: "\\vec{v}"}}
+        - {id: drawBasis, action: columns, params: {c1_color: blue, c2_color: green, labels: ["\\vec{b}_1", "\\vec{b}_2"]}}
+        - {id: buildCombo, action: combo, params: {matrix: [[1, 1], [0, 1]], x: 1, y: 2, c1_color: blue, c2_color: green}}
+    board:
+      - id: coordNote
+        latex: "\\vec{v}:\\; (3,2)_{std} = (1,2)_{B}"
+        say: "v is three, two in the standard basis, but one, two in the new basis"
+        color: yellow
+        legend:
+          - {sym: "(3,2)_{std}", name: "coordinates in the standard basis", unit: ""}
+          - {sym: "(1,2)_{B}", name: "coordinates in basis B", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Build the dictionary, {changeEq}. Make a matrix P whose columns are the new basis vectors,
+      written in standard coordinates. Then P has a lovely job: feed it a vector's coordinates in the
+      new basis and it returns the same vector's coordinates in the standard basis, because multiplying
+      by P is exactly forming the combination of new basis vectors. So v in standard coordinates equals
+      P times v in the new basis. To go the other way — from standard coordinates to the new ones — you
+      simply invert, {invEq}: the new coordinates are P inverse times the standard ones. P translates
+      from the new language to the standard one, and P inverse translates back. The vector itself is
+      untouched; P and its inverse only re-express it. The same device upgrades to whole transformations,
+      {simEq}. If a matrix A performs some map in standard coordinates, the matrix that performs the
+      same map in the new basis is P inverse A P. Read it right to left, step by step: translate the input
+      into standard coordinates with P, apply A there, then translate the result back with P inverse.
+      This sandwich, P inverse A P, is called a similarity transformation, and it is one of the most
+      important moves in the subject — because by choosing the basis cleverly, you can often make A P
+      inverse into something beautifully simple, like a diagonal matrix, which is exactly the trick
+      behind eigenvectors, waiting a few lessons ahead. It is worth dwelling on why a change of basis
+      is so useful rather than a mere relabelling, {hl:changeEq}. A hard problem in one coordinate system
+      can become easy in another, without changing the problem at all. Describe a rotation in ordinary
+      x-y coordinates and you get a matrix full of sines and cosines; describe the same rotation in a
+      basis aligned with its axis and it barely moves at all. Nothing physical changed — only the
+      language. The art, again and again in this subject, is to hunt for the basis in which your
+      particular map wears its simplest face, solve the problem there where it is transparent, and then
+      translate the answer back with P. The vector, the transformation, the underlying geometry are all
+      basis-independent facts; the coordinates are the words we happen to use, {hl:invEq}, and a wise
+      choice of words can turn a page of algebra into a single line.
+    board:
+      - id: changeEq
+        latex: "\\vec{v}_{std} = P\\,[\\vec{v}]_B"
+        say: "v in standard coordinates equals P times v in basis B"
+        color: blue
+      - id: invEq
+        latex: "[\\vec{v}]_B = P^{-1}\\vec{v}_{std}"
+        say: "v in basis B equals P inverse times v in standard coordinates"
+        color: yellow
+        box: true
+      - id: simEq
+        latex: "A' = P^{-1} A P"
+        say: "the map in the new basis is P inverse A P"
+        color: green
+
+  - id: s4
+    kind: problem
+    narration: >
+      Finding new coordinates. {statement} A vector and a new basis are given, {given}; find the
+      vector's coordinates in that basis. {find} We need weights a and b with a times b-one plus b
+      times b-two equal to v, {step1}: a plus b equals three across the top, and b equals two down the
+      bottom. The second line gives b straight away, two; then a is three minus two, {step2}, which is
+      one. So in the new basis the coordinates are one, two, {answer}. The same arrow that was three,
+      two in standard coordinates is one, two here — a translation, nothing more.
+    board:
+      - id: statement
+        text: "Coordinates in a new basis."
+      - id: given
+        latex: "\\vec{b}_1=\\begin{pmatrix}1\\\\0\\end{pmatrix},\\ \\vec{b}_2=\\begin{pmatrix}1\\\\1\\end{pmatrix},\\ \\vec{v}=\\begin{pmatrix}3\\\\2\\end{pmatrix}"
+        say: "b one is one, zero; b two is one, one; v is three, two"
+        role: given
+      - id: find
+        text: "Find [v]_B."
+        role: find
+      - id: step1
+        latex: "a + b = 3, \\quad b = 2"
+        say: "a plus b equals three, b equals two"
+        role: step
+        color: blue
+      - id: step2
+        latex: "a = 3 - 2 = 1"
+        say: "a equals three minus two, one"
+        role: step
+        color: green
+      - id: answer
+        latex: "[\\vec{v}]_B = (1, 2)"
+        say: "the coordinates in basis B are one, two"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "3 - 2"
+      value: 1
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Translating back. {statement2} Now go the other way: a vector's coordinates in the new basis are
+      given, {given2}; find its standard coordinates. {find2} This is just forming the combination,
+      {step1b}: one times b-one plus two times b-two, which is one times one, zero, plus two times one,
+      one. Add them entry by entry, {step2b}: the first component is one plus two, three; the second is
+      zero plus two, two. So the standard coordinates are three, two, {answer2} — exactly the vector we
+      started from. Multiplying by P, whose columns are the basis vectors, has carried the new
+      coordinates back to the standard ones, confirming the dictionary works both ways.
+    board:
+      - id: statement2
+        text: "From new coordinates back to standard."
+      - id: given2
+        latex: "[\\vec{v}]_B = (1, 2), \\quad \\vec{b}_1=\\begin{pmatrix}1\\\\0\\end{pmatrix}, \\vec{b}_2=\\begin{pmatrix}1\\\\1\\end{pmatrix}"
+        say: "v in basis B is one, two; b one is one, zero; b two is one, one"
+        role: given
+      - id: find2
+        text: "Find v in standard coordinates."
+        role: find
+      - id: step1b
+        latex: "\\vec{v} = 1\\begin{pmatrix}1\\\\0\\end{pmatrix} + 2\\begin{pmatrix}1\\\\1\\end{pmatrix}"
+        say: "v equals one times b one plus two times b two"
+        role: step
+        color: blue
+      - id: step2b
+        latex: "= \\begin{pmatrix}1+2\\\\0+2\\end{pmatrix}"
+        say: "equals one plus two, zero plus two"
+        role: step
+        color: green
+      - id: answer2
+        latex: "\\vec{v} = (3, 2)"
+        say: "the standard coordinates are three, two"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "1*1 + 2*1"
+      value: 3
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: a vector's coordinates depend on the basis, and the change-of-basis matrix P, with
+      the new basis vectors as its columns, translates new coordinates into standard ones, while P
+      inverse goes back; the same sandwich P inverse A P rewrites a whole map in a new basis. Next:
+      Orthogonal projection — the closest point and why it matters.
