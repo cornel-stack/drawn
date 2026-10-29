@@ -1,0 +1,206 @@
+# MA-18: The Mundell-Fleming trilemma — the impossible trinity.
+# FLAGGED source: intro OpenStax does not cover the formal Mundell-Fleming model.
+# Grounded in OpenStax Principles 3e §29.4 Exchange Rate Policies (fixed vs floating,
+# pegs, intervention) + §29.2 capital flows + §28 monetary policy (all CC BY 4.0);
+# the trilemma itself is the standard construction (flagged in the review).
+# ~7 minutes. Colour: fixed rate = blue, free capital = orange, monetary independence = green, impossible = red.
+schema_version: 1
+id: MA-18
+channel: marginal-ink
+title: "The Mundell-Fleming model: the trilemma every central bank faces"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§29.4 Exchange Rate Policies (with §29.2, §28.3)"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/341-29-4-exchange-rate-policies.md"
+  pages: "724-731"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "Pick two. You can't have three."
+  keyword: "Pick two"
+publish:
+  title: "The Impossible Trinity: Why No Country Can Have It All"
+  summary: >
+    Every open economy wants three things: a stable exchange rate, free movement
+    of capital, and control of its own interest rates. The Mundell-Fleming
+    trilemma proves it can have only two at once. We show the triangle, the
+    interest-rate mechanism that forces the choice, and work two examples.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - Mundell-Fleming
+    - impossible trinity
+    - trilemma
+    - exchange rate policy
+    - monetary policy
+    - capital controls
+    - macroeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Every country with an open economy wants three things at once: a stable exchange rate, free movement of
+      money across its borders, and control of its own interest rates. A simple and ruthless result says it
+      can have any two — never all three.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is the triangle, {drawTri}: three goals, one at each corner. At the top, a fixed exchange
+      rate, in blue — stability for traders and investors. At one foot, free movement of capital, in orange —
+      money allowed to flow in and out freely. At the other, an independent monetary policy, in green — the
+      power to set your own interest rates to manage your own economy. Every country would like all three. The
+      trilemma says you can only ever stand on one edge of this triangle, joining two corners, and must give up
+      the third. Choose the bottom edge, {edgeFloat}: free capital and your own interest rates, but then the
+      exchange rate must float — this is the United States, Britain, Japan. Choose the left edge, {edgeUnion}:
+      a fixed rate and free capital, but then you surrender monetary control — this is the euro, where members
+      share one interest rate. Choose the right edge, {edgeControl}: a fixed rate and your own interest rates,
+      but only by restricting capital flows — this was China for decades. The centre, all three at once, is
+      simply unreachable, {markX}. Not difficult — impossible.
+    animation:
+      primitive: trilemma
+      params:
+        corners:
+          top: "Fixed exchange rate"
+          left: "Free capital flows"
+          right: "Own interest rate"
+      steps:
+        - {id: drawTri, action: draw_triangle, params: {corner_color: blue}}
+        - {id: edgeFloat, action: highlight_edge, params: {edge: bottom, label: "Floating rate", color: green}}
+        - {id: edgeUnion, action: highlight_edge, params: {edge: left, label: "Currency union", color: blue}}
+        - {id: edgeControl, action: highlight_edge, params: {edge: right, label: "Capital controls", color: orange}}
+        - {id: markX, action: mark_center, params: {color: red, label: "impossible"}}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      The reason, {parityEq}, is one equation about where money goes. Investors
+      chase the best return, so money flows until the interest rate at home equals the interest rate abroad
+      plus whatever the currency is expected to gain or lose — the rate abroad plus the expected depreciation
+      of the home currency. This is interest parity, and with capital free to move it holds like gravity. Now
+      follow the logic. Suppose you want a fixed exchange rate and you let capital move freely. If the rate is
+      credibly fixed, nobody expects it to change, so the expected depreciation is zero, {fixedEq}, and the
+      equation collapses to one line: your interest rate must equal the world's, {pinnedEq}. You have lost
+      monetary independence entirely — the left edge of the triangle. Now suppose instead you insist on setting
+      your own interest rate while keeping capital free. If you push your rate below the world's, money floods
+      out seeking better returns abroad; above it, money floods in. Either way the exchange rate is driven to
+      move — you cannot hold it fixed. You have the bottom edge: an independent policy and free capital, but a
+      floating rate. The only way to keep both a fixed rate and your own interest rate is to break the
+      equation itself by stopping the capital from moving, {hl:parityEq} — capital controls, the right edge.
+      Three goals, three edges, and the interest-parity equation standing guard over every one of them. The
+      trilemma is not a matter of clever policy or political will; it is an accounting fact about money seeking
+      its best return. Every central bank in the world lives somewhere on this triangle, and the debates over
+      the euro, over China's managed currency, over every emerging-market crisis, are in the end arguments
+      about which corner to give up.
+    board:
+      - id: parityEq
+        latex: "i = i^* + \\Delta e^e"
+        say: "the home interest rate equals the world rate plus the expected depreciation"
+        color: red
+        box: true
+        legend:
+          - {sym: "i^*", name: "the world interest rate", unit: ""}
+          - {sym: "\\Delta e^e", name: "expected depreciation", unit: ""}
+      - id: fixedEq
+        latex: "\\text{fixed} \\Rightarrow \\Delta e^e = 0"
+        say: "a credibly fixed rate means zero expected depreciation"
+        color: blue
+      - id: pinnedEq
+        latex: "i = i^*"
+        say: "so the home rate is pinned to the world rate"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      The cost of a peg. {statement} A country pegs its currency credibly and keeps its capital account open,
+      while the world interest rate is given, {given}; find the interest rate it is forced to set. {find} With
+      a credible peg the expected depreciation is zero, so interest parity says the home rate equals the world
+      rate plus zero, {step1}. Put in the number, {step2}: four per cent plus nothing. The home rate must be
+      four per cent, {answer}. If the country's own economy needed a lower rate to fight a recession, too bad —
+      the peg and open capital have taken that lever away. That is the price of the left edge of the triangle.
+    board:
+      - id: statement
+        text: "The rate a peg forces on you."
+      - id: given
+        latex: "i^* = 4\\%,\\quad \\text{credible peg}\\ (\\Delta e^e = 0)"
+        say: "world rate four per cent, a credible peg so zero expected depreciation"
+        role: given
+      - id: find
+        text: "Find the required home rate i."
+        role: find
+      - id: step1
+        latex: "i = i^* + \\Delta e^e"
+        say: "home rate equals world rate plus expected depreciation"
+        role: step
+        color: red
+      - id: step2
+        latex: "= 4\\% + 0"
+        say: "equals four per cent plus zero"
+        role: step
+        color: blue
+      - id: answer
+        latex: "i = 4\\%"
+        say: "the home rate must be four per cent"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "4 + 0"
+      value: 4
+      unit: "%"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} A different country lets its currency float and sets a high interest rate; markets observe
+      both its rate and the world rate, {given2}. What depreciation are they expecting? {find2} Rearrange
+      interest parity: the expected depreciation is the home rate minus the world rate, {step1b}. Put in the
+      numbers, {step2b}: seven per cent minus four per cent. Markets expect the currency to lose three per cent
+      of its value, {answer2}. This is the sting in the tail of a high interest rate — it does not mean free
+      money, because the extra return is exactly what investors demand to hold a currency they expect to fall.
+      The equation always balances.
+    board:
+      - id: statement2
+        text: "What a high rate signals."
+      - id: given2
+        latex: "i = 7\\%,\\quad i^* = 4\\%"
+        say: "home rate seven per cent, world rate four per cent"
+        role: given
+      - id: find2
+        text: "Find the expected depreciation."
+        role: find
+      - id: step1b
+        latex: "\\Delta e^e = i - i^*"
+        say: "expected depreciation is the home rate minus the world rate"
+        role: step
+        color: red
+      - id: step2b
+        latex: "= 7\\% - 4\\%"
+        say: "equals seven per cent minus four per cent"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "\\Delta e^e = 3\\%"
+        say: "markets expect a three per cent depreciation"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "7 - 4"
+      value: 3
+      unit: "%"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the trilemma says an open economy can choose only two of three goals — a fixed exchange
+      rate, free capital movement, and an independent monetary policy — because interest parity ties them
+      together. Fix the rate with open capital and you lose your own interest rate; keep both and the rate must
+      float; hold the rate and set your own policy only by controlling capital. Next: Bank runs and financial
+      crises — the Diamond-Dybvig idea.

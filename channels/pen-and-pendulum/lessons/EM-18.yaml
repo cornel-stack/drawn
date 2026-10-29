@@ -1,0 +1,225 @@
+# EM-18: AC circuits — impedance, phasors and resonance.
+# OpenStax University Physics Vol. 2, §15.2-15.3 Simple AC Circuits / RLC Series
+# Circuits with AC (CC BY 4.0). Follows EM-17 (resonance ω0 = 1/sqrt(LC)). ~7 minutes.
+# Colour: impedance = blue, reactance = orange, resonance = red, resistance = green.
+schema_version: 1
+id: EM-18
+channel: pen-and-pendulum
+title: "AC circuits: impedance, phasors and resonance without the panic"
+target_minutes: 7
+source:
+  book: "University Physics Volume 2 (OpenStax)"
+  section: "§15.2-15.3 Simple AC Circuits; RLC Series Circuits with AC"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/132-15-3-rlc-series-circuits-with-ac.md"
+  pages: "636-645"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "One frequency lets everything through"
+  keyword: "one frequency"
+publish:
+  title: "AC Circuits Made Simple: Impedance, Phasors and Resonance"
+  summary: >
+    Alternating current turns Ohm's law into something richer. We introduce
+    reactance and impedance — resistance's frequency-dependent cousins — show how
+    phasors tame the phase shifts, and find the resonant frequency where a circuit
+    lets current through most freely. Two worked examples: impedance and resonance.
+  hashtags: ["#physics", "#electromagnetism", "#circuits"]
+  tags:
+    - AC circuits
+    - impedance
+    - reactance
+    - phasors
+    - resonance
+    - RLC circuit
+    - electromagnetism
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      In a direct-current circuit, Ohm's law says it all. Drive the same circuit with alternating
+      current and resistance gains two frequency-dependent cousins, capacitors and coils push the current out
+      of step with the voltage, and at one special frequency the circuit springs to life.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is the headline behaviour, {plotRes}: the current amplitude in a series circuit of a resistor, a
+      coil and a capacitor, plotted in blue against the driving frequency. It is small at low and high
+      frequencies but rises to a sharp peak in between, {markPeak}, at the resonant frequency in red. There,
+      and only there, the circuit lets the most current through. Why the peak? Because the coil and capacitor
+      oppose alternating current in opposite ways. Their opposition is called reactance, and the total
+      opposition of the whole circuit — resistance and reactance combined — is the impedance, {zEq}, which
+      plays the role of resistance in an alternating-current Ohm's law. The coil's reactance grows with
+      frequency while the capacitor's shrinks, so at exactly one frequency the two cancel, the impedance
+      collapses to the bare resistance, and the current shoots up. That cancellation frequency is the peak
+      you see. Tune a circuit to it and you have built the heart of every radio: a filter that selects one
+      frequency out of the thousands in the air.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 6, 1]
+        y: [0, 6, 1]
+        x_length: 7.8
+        y_length: 3.6
+        x_label: "\\omega"
+        y_label: "I"
+      steps:
+        - {id: plotRes, action: plot_function, params: {func: resonance, color: blue, label: "I(\\omega)"}}
+        - {id: markPeak, action: mark_point, params: {x: 3, y: 5, color: red, label: "\\omega_0"}}
+    board:
+      - id: zEq
+        latex: "Z = \\sqrt{R^2 + (X_L - X_C)^2}"
+        say: "the impedance is the root of R squared plus, X L minus X C, squared"
+        color: blue
+        legend:
+          - {sym: "X_L", name: "inductive reactance, \\omega L", unit: "\\Omega"}
+          - {sym: "X_C", name: "capacitive reactance, 1/\\omega C", unit: "\\Omega"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      The coil first, {xlEq}. A coil's opposition to alternating current, its inductive
+      reactance, is the angular frequency times the inductance — it rises with frequency, because a faster
+      change provokes a stronger back-voltage. A capacitor's opposition, its capacitive reactance, is one
+      over the angular frequency times the capacitance, {xcEq} — it falls with frequency, because a rapidly
+      alternating voltage barely lets the plates charge. Now, the three voltages do not peak at the same
+      instant. Across the resistor, voltage and current move in step; across the coil the voltage leads the
+      current by a quarter cycle; across the capacitor it lags by a quarter cycle. To add voltages that are
+      out of step, represent each as a phasor, a little arrow rotating at the driving frequency, and add them
+      like vectors rather than like numbers. The resistor's arrow points along the current; the two reactance
+      arrows point in opposite directions at right angles to it. Add them by Pythagoras and the total
+      opposition is the impedance, {zEq2}: the root of resistance squared plus the net reactance squared.
+      Alternating-current Ohm's law then reads that the current amplitude is the voltage amplitude over the
+      impedance, {ohmEq}. Everything now follows. The current is largest when the impedance is smallest, and
+      the impedance is smallest when the two reactances cancel, {resEq}: inductive equal to capacitive. Set
+      omega L equal to one over omega C and solve, {hl:resEq}, and the resonant frequency is one over the
+      root of L C — the very same frequency at which an L C circuit oscillates on its own. Resonance in a
+      driven circuit is that natural oscillation, fed from outside. At resonance the net reactance is zero,
+      the impedance is just the resistance, and the phase shift between current and voltage vanishes. Away
+      from it, the current drops and lags or leads, which is exactly why the peak is sharp and why a radio
+      tuned to one station rejects the rest.
+    board:
+      - id: xlEq
+        latex: "X_L = \\omega L"
+        say: "inductive reactance is omega L"
+        color: orange
+      - id: xcEq
+        latex: "X_C = \\dfrac{1}{\\omega C}"
+        say: "capacitive reactance is one over omega C"
+        color: orange
+      - id: zEq2
+        latex: "Z = \\sqrt{R^2 + (X_L - X_C)^2}"
+        say: "the impedance is the root of R squared plus the net reactance squared"
+        color: blue
+        box: true
+      - id: ohmEq
+        latex: "I_0 = \\dfrac{V_0}{Z}"
+        say: "the current amplitude is the voltage amplitude over the impedance"
+        color: green
+      - id: resEq
+        latex: "X_L = X_C \\ \\Rightarrow\\ \\omega_0 = \\dfrac{1}{\\sqrt{LC}}"
+        say: "when the reactances are equal, the resonant frequency is one over the root of L C"
+        color: red
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Finding the impedance and current. {statement} A series circuit has a known resistance and net
+      reactance driven by an alternating source, {given}; find the impedance and the current amplitude. {find}
+      The impedance is the root of resistance squared plus net reactance squared, {step1}: thirty squared is
+      nine hundred, forty squared is sixteen hundred, and their sum is two thousand five hundred. The root of
+      that is fifty ohms, {step2}. The current amplitude is the voltage amplitude over the impedance, {step3}:
+      one hundred volts over fifty ohms, which is two amperes, {answer}. Notice the thirty, forty, fifty right
+      triangle hiding in the impedance — resistance and reactance combine like the legs of a right angle,
+      never by simple addition.
+    board:
+      - id: statement
+        text: "Impedance and current of an RLC circuit."
+      - id: given
+        latex: "R = 30\\,\\Omega,\\ X_L - X_C = 40\\,\\Omega,\\ V_0 = 100\\,\\text{V}"
+        say: "resistance thirty ohms, net reactance forty ohms, voltage one hundred volts"
+        role: given
+      - id: find
+        text: "Find Z and the current I₀."
+        role: find
+      - id: step1
+        latex: "Z = \\sqrt{30^2 + 40^2}"
+        say: "impedance is the root of thirty squared plus forty squared"
+        role: step
+        color: blue
+      - id: step2
+        latex: "= \\sqrt{2500} = 50\\,\\Omega"
+        say: "which is the root of two thousand five hundred, fifty ohms"
+        role: step
+        color: orange
+      - id: step3
+        latex: "I_0 = \\dfrac{100}{50}"
+        say: "the current is one hundred over fifty"
+        role: step
+        color: green
+      - id: answer
+        latex: "I_0 = 2\\,\\text{A}"
+        say: "the current amplitude is two amperes"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "100 / np.sqrt(30**2 + 40**2)"
+      value: 2
+      unit: "A"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} Now find the frequency at which this kind of circuit resonates, {given2}. {find2} At
+      resonance the reactances cancel, so the resonant angular frequency is one over the root of L times C,
+      {step1b}. Multiply the values, {step2b}: two henries times five thousandths of a farad is one
+      hundredth, in seconds squared. Its square root is one tenth of a second, and one over that is ten,
+      {answer2}. So this circuit resonates at ten radians per second; drive it there and the current peaks,
+      drive it elsewhere and the current falls away. The resonant frequency depends only on the coil and the
+      capacitor, never on the resistance — the resistance sets how sharp the peak is, not where it sits.
+    board:
+      - id: statement2
+        text: "Resonant frequency of the circuit."
+      - id: given2
+        latex: "L = 2\\,\\text{H},\\quad C = 0.005\\,\\text{F}"
+        say: "inductance two henries, capacitance five thousandths of a farad"
+        role: given
+      - id: find2
+        text: "Find the resonant frequency ω₀."
+        role: find
+      - id: step1b
+        latex: "\\omega_0 = \\dfrac{1}{\\sqrt{LC}}"
+        say: "omega nought is one over the root of L C"
+        role: step
+        color: red
+      - id: step2b
+        latex: "LC = (2)(0.005) = 0.01"
+        say: "L C is two times five thousandths, which is one hundredth"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "\\omega_0 = 10\\,\\text{rad/s}"
+        say: "the resonant frequency is ten radians per second"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "1/np.sqrt(2 * 0.005)"
+      value: 10
+      unit: "rad/s"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: in an alternating-current circuit, coils and capacitors add reactance, which combines with
+      resistance by Pythagoras into the impedance, and the current amplitude is the voltage over the
+      impedance. At the resonant frequency, one over the root of L C, the reactances cancel, the impedance
+      falls to the resistance alone, and the current peaks. Next: How a transformer works — and why the grid
+      runs on alternating current.

@@ -17,6 +17,9 @@ _LINE_STROKE = 6
 _FUNCS = {
     "parabola": (lambda x: 0.3 * x * x, "x^2"),
     "line": (lambda x: x, "x"),
+    # the characteristic polynomial of A = [[2,1],[1,2]]: det(A - λI) = λ² - 4λ + 3,
+    # which factors as (λ-1)(λ-3), so its roots (the eigenvalues) are λ = 1 and λ = 3.
+    "char_poly": (lambda x: x * x - 4.0 * x + 3.0, r"\lambda^2 - 4\lambda + 3"),
     "sin": (lambda x: 2.0 * np.sin(x), r"\sin x"),
     "cos": (lambda x: 2.0 * np.cos(x), r"\cos x"),
     "exp": (lambda x: np.exp(0.5 * x), "e^{x}"),
@@ -50,6 +53,12 @@ _FUNCS = {
     # a solenoid's field: uniform inside (here the interval 1 < x < 4), ~zero
     # outside — the headline result of Ampere's law, B = mu0 n I inside.
     "solenoid_field": (lambda x: np.where((x > 1.0) & (x < 4.0), 4.0, 0.0), r"\mu_0 n I"),
+    # the resonance curve of a series RLC circuit driven at angular frequency x = ω:
+    # current amplitude I = V / sqrt(R^2 + (ωL - 1/(ωC))^2). With V=5, R=1, L=1,
+    # C=1/9 the reactances cancel at ω0 = 1/sqrt(LC) = 3, where the curve peaks at
+    # I = V/R = 5 (maximum current) and falls away on either side.
+    "resonance": (lambda x: 5.0 / np.sqrt(1.0 + (x - 9.0 / np.clip(x, 0.3, None)) ** 2),
+                  r"I(\omega)"),
     # debt/GDP trajectories from the government budget constraint. When the growth
     # rate exceeds the interest rate (g > r) a constant primary deficit leaves the
     # ratio converging to a finite steady state; when r > g the same deficit makes
