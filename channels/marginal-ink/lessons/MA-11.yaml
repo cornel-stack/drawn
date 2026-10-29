@@ -1,0 +1,218 @@
+# MA-11: The LM curve, derived — money-market equilibrium.
+# OpenStax Principles of Economics 3e, Ch 27-28 money and monetary policy (CC BY 4.0)
+# for money demand/supply; the LM curve itself is the standard intermediate-macro
+# construction (flagged in the review). ~7 minutes.
+# Colour: LM curve = blue, equilibria = green, money = orange.
+schema_version: 1
+id: MA-11
+channel: marginal-ink
+title: "The LM curve, derived: money-market equilibrium"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§28.3-28.4 Monetary Policy and the Money Market"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/328-28-4-monetary-policy-and-economic-outcomes.md"
+  pages: "685-700"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "Why booms raise interest rates"
+  keyword: "booms"
+publish:
+  title: "The LM Curve, Derived: Money-Market Equilibrium and the Interest Rate"
+  summary: >
+    The LM curve traces every pair of interest rate and output at which the money
+    market clears. We derive it from money demand and a fixed money supply, show why
+    it slopes up — more output means more money demanded, pushing the interest rate
+    higher — and compute the equilibrium rate. Two worked examples follow.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - LM curve
+    - money market
+    - money demand
+    - interest rate
+    - monetary policy
+    - macroeconomics
+    - IS-LM
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      When an economy booms, interest rates tend to climb even before any central banker lifts a
+      finger. The LM curve explains why — it is the line where the demand for money meets a fixed
+      supply.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Output along the bottom, {drawLM}, the interest rate up the side, and this blue line is the
+      LM curve. Every point on it is a state where the money market clears — where the amount of
+      money people want to hold exactly equals the fixed amount in circulation, {moneyEq}. This time the curve
+      slopes upward, and the reason is worth drawing out. Start low, {markA}, at point A: when output
+      is low, people make few transactions and need little money, so even a low interest rate is
+      enough to persuade them to hold just the fixed supply. Now let output rise and move to point B,
+      {markB}: more activity means more money wanted for day-to-day spending, but the supply has not
+      grown, so the interest rate must climb to discourage the extra demand and keep the market in
+      balance. Higher output, higher interest rate — that is the message of the LM curve, the mirror
+      image of the downward IS curve. The money market pushes rates up as the economy expands,
+      because money is fixed while the appetite for it grows.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 10, 1]
+        y: [0, 10, 1]
+        x_length: 8.0
+        y_length: 3.6
+        x_label: "Y"
+        y_label: "r"
+      steps:
+        - {id: drawLM, action: plot_line, params: {name: lm, a: -0.8, b: 1, c: 1, color: blue, label: "LM"}}
+        - {id: markA, action: mark_point, params: {x: 2.5, y: 3, color: green, label: "A"}}
+        - {id: markB, action: mark_point, params: {x: 7, y: 6.6, color: green, label: "B"}}
+    board:
+      - id: moneyEq
+        latex: "\\dfrac{M}{P} = L(Y, r)"
+        say: "real money supply equals money demand, a function of Y and r"
+        color: orange
+        legend:
+          - {sym: "M/P", name: "real money supply (fixed)", unit: ""}
+          - {sym: "L(Y,r)", name: "money demand", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here, {moneyEq2}, is the money-market condition: the real money supply, set by the central
+      bank, equals the demand for money. Money demand has two drivers. It rises with income,
+      because more output means more transactions and so more money needed to carry them out. And it
+      falls with the interest rate, because the interest you forgo by holding money rather than bonds
+      is the cost of keeping it — the higher that cost, the less money people choose to hold. Write
+      that demand as a simple line, {demandEq}: money demand equals a piece that grows with income,
+      k times Y, minus a piece that shrinks with the interest rate, h times r. Set it equal to the
+      fixed supply and rearrange for the interest rate. Now the logic of the slope is plain, {lmLogic}:
+      raise output, and money demand rises; but the supply is fixed, so to bring demand back down to
+      that fixed level, the interest rate must rise. Every level of output pins down the interest rate
+      that clears the money market, and because higher output always needs a higher rate, the LM curve
+      slopes up. One more lever completes the picture: the central bank. If it increases the money
+      supply, there is more money to go round at every level of output, so the clearing interest rate
+      is lower — the whole LM curve shifts down. That is the mechanism of monetary policy, and the LM
+      curve is the second half of the IS-LM model, which we assemble next by bringing the goods market
+      and the money market together. It is worth being precise about what sits behind money demand,
+      because it is the engine of the whole curve. People hold money for a simple reason: it is the
+      one asset you can spend directly, so it must be kept on hand for transactions. But money held
+      in your pocket or a current account earns little or no interest, while bonds and savings do. So
+      every pound of money you hold has an opportunity cost — the interest you gave up by not holding
+      an interest-bearing asset instead. When interest rates are high, that cost is steep, and people
+      economise on money, holding as little as they can manage; when rates are low, the cost is
+      trivial, and they hold more freely. That is the behaviour behind the downward response of money
+      demand to the interest rate, and combined with its upward response to income, it is what gives
+      the LM curve its upward slope. Understand the demand for money and the curve is no longer a
+      line to memorise but a direct consequence of how people weigh convenience against the return
+      they forgo.
+    board:
+      - id: moneyEq2
+        latex: "\\dfrac{M}{P} = L(Y, r)"
+        say: "real money supply equals money demand"
+        color: orange
+      - id: demandEq
+        latex: "L = kY - hr"
+        say: "money demand equals k Y minus h r"
+        color: blue
+      - id: lmLogic
+        latex: "Y \\uparrow \\;\\Rightarrow\\; \\text{money demand} \\uparrow \\;\\Rightarrow\\; r \\uparrow"
+        say: "higher output raises money demand, which raises the interest rate"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      The clearing interest rate. {statement} Money demand and the real money supply are given,
+      {given}; find the interest rate that clears the money market at an output of three hundred.
+      {find} Set money demand equal to supply, {step1}: a half times three hundred, minus ten r,
+      equals one hundred. A half of three hundred is one hundred and fifty, so one hundred and fifty
+      minus ten r is one hundred. Solve for r, {step2}: ten r is fifty, so r is five, {answer}. At
+      this output the interest rate must sit at five per cent for the money people want to hold to
+      match the money available.
+    board:
+      - id: statement
+        text: "Interest rate that clears the money market."
+      - id: given
+        latex: "\\dfrac{M}{P} = 100, \\quad L = 0.5Y - 10r, \\quad Y = 300"
+        say: "real money supply one hundred, money demand a half Y minus ten r, output three hundred"
+        role: given
+      - id: find
+        text: "Find r."
+        role: find
+      - id: step1
+        latex: "0.5(300) - 10r = 100"
+        say: "a half of three hundred, minus ten r, equals one hundred"
+        role: step
+        color: blue
+      - id: step2
+        latex: "150 - 10r = 100 \\;\\Rightarrow\\; 10r = 50"
+        say: "one hundred fifty minus ten r equals one hundred, so ten r is fifty"
+        role: step
+        color: orange
+      - id: answer
+        latex: "r = 5\\%"
+        say: "the interest rate is five per cent"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(0.5*300 - 100) / 10"
+      value: 5
+      unit: "%"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Why the curve slopes up. {statement2} Keep everything the same but let output rise to four
+      hundred, {given2}; find the new clearing interest rate. {find2} Set demand equal to supply
+      again, {step1b}: a half times four hundred, minus ten r, equals one hundred. A half of four
+      hundred is two hundred, so two hundred minus ten r is one hundred. Solve, {step2b}: ten r is
+      one hundred, so r is ten, {answer2}. Output rose from three hundred to four hundred, and the
+      clearing interest rate climbed from five per cent to ten. That upward step is the LM curve in
+      action: a bigger economy, with the same money, demands a higher interest rate.
+    board:
+      - id: statement2
+        text: "Higher output, higher rate."
+      - id: given2
+        latex: "\\dfrac{M}{P} = 100, \\quad L = 0.5Y - 10r, \\quad Y = 400"
+        say: "same money supply and demand, output now four hundred"
+        role: given
+      - id: find2
+        text: "Find the new r."
+        role: find
+      - id: step1b
+        latex: "0.5(400) - 10r = 100"
+        say: "a half of four hundred, minus ten r, equals one hundred"
+        role: step
+        color: blue
+      - id: step2b
+        latex: "200 - 10r = 100 \\;\\Rightarrow\\; 10r = 100"
+        say: "two hundred minus ten r equals one hundred, so ten r is one hundred"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "r = 10\\%"
+        say: "the interest rate is ten per cent"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(0.5*400 - 100) / 10"
+      value: 10
+      unit: "%"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the LM curve shows every interest rate and output pair at which money demand
+      equals the fixed money supply; it slopes up because higher output raises money demand, forcing
+      the interest rate up; and the central bank shifts it by changing the money supply. Next: The
+      IS-LM model — fiscal and monetary policy in one diagram.

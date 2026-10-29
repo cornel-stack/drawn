@@ -1,0 +1,208 @@
+# LA-14: Why is the determinant like that? (area, volume and sign).
+# Hefferon, Linear Algebra, Topic: Geometry of Determinants (CC BY-SA 3.0). ~7 minutes.
+# Colour: i-hat = blue, j-hat = green, area/det = yellow, orientation = orange.
+schema_version: 1
+id: LA-14
+channel: chalk-and-vector
+title: "Why is the determinant like that? Area, volume and sign"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "Topic: Geometry of Determinants"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/027-geometry-of-determinants.md"
+  pages: "350-366"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "The formula finally makes sense"
+  keyword: "makes sense"
+publish:
+  title: "Why the Determinant Is Defined That Way: Area, Volume and Sign"
+  summary: >
+    The determinant formula looks arbitrary until you see what it measures: the
+    factor by which a transformation scales area, with a sign for whether it flips
+    orientation. We show why linearity forces a single scaling factor, what the
+    sign means, and how it extends to volume. Two worked examples follow.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - determinant
+    - area scaling
+    - orientation
+    - linear algebra
+    - volume
+    - signed area
+    - geometry
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      The determinant formula, a d minus b c, is handed to students as a rule to memorise. It
+      is really the answer to a geometric question: by how much does this transformation stretch
+      area, and does it turn space inside out?
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawBasis}, are the basis vectors and the unit square they span, {drawSquare}, an
+      area of exactly one. Apply a matrix, {applyA}, and the square is carried into a
+      parallelogram. Here is the whole idea: the area of that parallelogram is the determinant,
+      {detBox}. The determinant is nothing more than the factor by which the transformation
+      scales area, {detEq}. A unit square of area one becomes a parallelogram of area six, so this matrix
+      multiplies every area by six. And because the map is linear, it is the same factor for
+      every shape, not just the square — tile any region with tiny squares, each is scaled by
+      six, so the whole region is too. That is why a single number can capture how a
+      transformation affects all of area at once. The formula a d minus b c is simply the
+      arithmetic that computes this parallelogram's area from the matrix entries. Everything
+      mysterious about the determinant dissolves once you read it as a scaling factor for area.
+    animation:
+      primitive: linear_transform
+      params:
+        x_range: [-4, 6]
+        y_range: [-2, 4]
+        matrix: [[3, 1], [0, 2]]
+      steps:
+        - {id: drawBasis, action: draw_basis, params: {i_color: blue, j_color: green}}
+        - {id: drawSquare, action: unit_square, params: {color: yellow}}
+        - {id: applyA, action: apply_matrix, params: {matrix: [[3, 1], [0, 2]]}}
+        - {id: detBox, action: determinant, params: {color: yellow}}
+    board:
+      - id: detEq
+        latex: "\\det A = \\text{area scaling factor}"
+        say: "the determinant is the area scaling factor"
+        color: yellow
+        legend:
+          - {sym: "\\det A", name: "how much area is stretched", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Write the formula, {formulaEq}: for a two-by-two matrix the determinant is a d minus b c.
+      We have seen it is the signed area of the parallelogram built from the columns. Now the
+      word signed matters, and this is the second half of the determinant's meaning, {signEq}. If
+      the determinant is positive, the transformation preserves orientation — a shape traced
+      anticlockwise still runs anticlockwise after the map. If it is negative, orientation is
+      flipped, as though space were reflected in a mirror; the absolute value still gives the area
+      factor, but the minus sign is the flag for a flip. And if the determinant is zero, the
+      parallelogram has collapsed to a segment of zero area, which is the transformation crushing
+      the plane onto a line — exactly the singular, non-invertible case we met before. One elegant
+      consequence falls straight out, {prodEq}: the determinant of a product is the product of the
+      determinants. It could hardly be otherwise, because doing one transformation after another
+      scales area first by one factor and then by the next, and scaling factors simply multiply.
+      The whole picture lifts cleanly into higher dimensions: in three dimensions the determinant
+      is the signed volume of the box spanned by the three columns, scaling all volume by that
+      factor, with the sign marking a left-hand from a right-hand orientation. Area in two
+      dimensions, volume in three, hypervolume beyond — the determinant is the one number that
+      says how a transformation scales the size of space, and whether it flips it. This reading also
+      makes several facts you may have taken on faith suddenly obvious. Why does a determinant of
+      zero mean no inverse? Because a transformation that scales area to zero has flattened space,
+      and nothing can un-flatten it. Why is the determinant of the identity one? Because the
+      do-nothing map leaves every area unchanged, a scaling factor of one. Why does swapping two
+      rows flip the sign? Because exchanging two basis vectors reverses the orientation of the box
+      they frame. Even the rule that a matrix with a repeated or proportional row has determinant
+      zero is immediate: its columns lie in a lower-dimensional space, so the box they span is flat.
+      None of these are arbitrary algebraic quirks; each is a plain statement about area, volume and
+      orientation. Learn to see the determinant as a signed scaling factor, and its long list of
+      properties stops being a table to memorise and becomes a single idea viewed from different
+      sides.
+    board:
+      - id: formulaEq
+        latex: "\\det A = ad - bc"
+        say: "the determinant is a d minus b c"
+        color: yellow
+      - id: signEq
+        latex: "\\det A < 0 \\;\\Rightarrow\\; \\text{orientation flipped}"
+        say: "a negative determinant means orientation is flipped"
+        color: orange
+      - id: prodEq
+        latex: "\\det(AB) = \\det(A)\\det(B)"
+        say: "the determinant of a product is the product of the determinants"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Area scaling. {statement} A matrix is given, {given}; find the factor by which it scales
+      area. {find} The determinant is the leading diagonal product minus the other, {step1}:
+      three times two minus one times zero, which is six. It is positive, so orientation is
+      preserved, {answer}, and every area is multiplied by six — a triangle of area two would
+      become a triangle of area twelve. The sign of the determinant being positive tells us the
+      transformation stretches without reflecting.
+    board:
+      - id: statement
+        text: "Find the area scaling factor."
+      - id: given
+        latex: "A = \\begin{pmatrix}3 & 1\\\\0 & 2\\end{pmatrix}"
+        say: "A is three, one, zero, two"
+        role: given
+      - id: find
+        text: "Find det A."
+        role: find
+      - id: step1
+        latex: "\\det A = 3(2) - 1(0) = 6"
+        say: "the determinant is three times two minus one times zero, six"
+        role: step
+        color: yellow
+      - id: answer
+        latex: "\\det A = 6 > 0 \\;(\\text{area} \\times 6)"
+        say: "the determinant is six, positive, so area is multiplied by six"
+        role: answer
+        box: true
+        color: yellow
+    check:
+      expr: "3*2 - 1*0"
+      value: 6
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      A negative determinant. {statement2} A second matrix is given, {given2}; find its
+      determinant and say what the sign means. {find2} Apply the formula, {step1b}: zero times
+      zero minus two times three, which is minus six. The determinant is negative, {step2b}, so
+      two things are true at once: the absolute value, six, is the area scaling factor, and the
+      minus sign says the transformation flips orientation — it reflects the plane as it stretches
+      it, {answer2}. A shape that ran anticlockwise now runs clockwise. The magnitude handles the
+      size; the sign handles the flip.
+    board:
+      - id: statement2
+        text: "Find the determinant and its sign."
+      - id: given2
+        latex: "B = \\begin{pmatrix}0 & 2\\\\3 & 0\\end{pmatrix}"
+        say: "B is zero, two, three, zero"
+        role: given
+      - id: find2
+        text: "Find det B and interpret the sign."
+        role: find
+      - id: step1b
+        latex: "\\det B = 0(0) - 2(3)"
+        say: "the determinant is zero times zero minus two times three"
+        role: step
+        color: yellow
+      - id: step2b
+        latex: "\\det B = -6 < 0"
+        say: "the determinant is minus six, negative"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "\\text{area} \\times 6, \\;\\text{orientation flipped}"
+        say: "area is multiplied by six, and orientation is flipped"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "0*0 - 2*3"
+      value: -6
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the determinant is the factor by which a transformation scales area in two
+      dimensions, or volume in three; its sign tells whether orientation is preserved or flipped;
+      and a determinant of zero means space has been crushed. Next: Cofactor expansion without
+      tears — where the formula comes from.

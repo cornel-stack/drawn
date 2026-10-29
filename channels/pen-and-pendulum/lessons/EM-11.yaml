@@ -1,0 +1,205 @@
+# EM-11: The Biot-Savart law — the field of a straight wire and a loop, derived.
+# OpenStax University Physics Vol. 2 §12.1-12.4 (CC BY 4.0). ~7 minutes.
+# Colour: field B = purple, current/wire = orange, distance = blue, loop = green.
+schema_version: 1
+id: EM-11
+channel: pen-and-pendulum
+title: "The Biot-Savart law: the field of a straight wire and a loop, derived"
+target_minutes: 7
+source:
+  book: "OpenStax University Physics Vol. 2"
+  section: "§12.1-12.4 Biot-Savart Law, Straight Wire and Current Loop"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/101-12-1-the-biot-savart-law.md"
+  pages: "545-566"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "Where a wire's field comes from"
+  keyword: "comes from"
+publish:
+  title: "The Biot-Savart Law: Deriving the Field of a Wire and a Loop"
+  summary: >
+    Every bit of current makes its own slice of magnetic field. The Biot-Savart law
+    says how, and adding up the slices gives the field of a whole circuit. We state
+    the law, derive the field of a long straight wire (which falls as 1/r) and the
+    field at the centre of a loop. Two worked examples follow.
+  hashtags: ["#physics", "#electromagnetism", "#magnetism"]
+  tags:
+    - Biot-Savart law
+    - magnetic field of a wire
+    - current loop
+    - magnetic field
+    - electromagnetism
+    - physics
+    - right-hand rule
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A current-carrying wire wraps itself in a magnetic field. The Biot-Savart law is the recipe
+      for that field, built from the contribution of every tiny piece of the current.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Consider a long straight wire, {drawB}, and how strong its magnetic field is at different
+      distances. The field circles the wire in loops — picture gripping the wire with your right
+      hand, thumb along the current, and your fingers curl the way the field points. This curve
+      shows its strength against distance: right next to the wire the field is intense, and it
+      weakens as you move away, falling off as one over the distance, {wireEq}. Double your distance from the
+      wire and the field halves; go ten times further and it is a tenth as strong. That gentle,
+      unending one-over-r decline, {markNear}, is the signature of a straight wire's field, and it
+      is what we are about to derive. Notice it never quite reaches zero — a wire's magnetic
+      influence, however faint, reaches out indefinitely. The question the Biot-Savart law answers
+      is where this precise shape comes from: why one over the distance, and not one over its
+      square, or anything else.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 5, 1]
+        y: [0, 5, 1]
+        x_length: 8.0
+        y_length: 3.6
+        x_label: "r"
+        y_label: "B"
+      steps:
+        - {id: drawB, action: plot_function, params: {func: inverse_r, color: purple, label: "B(r)"}}
+        - {id: markNear, action: mark_point, params: {x: 1, y: 4, color: blue, label: "B \\propto 1/r"}}
+    board:
+      - id: wireEq
+        latex: "B = \\dfrac{\\mu_0 I}{2\\pi r}"
+        say: "B equals mu nought I over two pi r"
+        color: purple
+        legend:
+          - {sym: "I", name: "current in the wire", unit: "A"}
+          - {sym: "r", name: "distance from the wire", unit: "m"}
+          - {sym: "\\mu_0", name: "permeability of free space", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here, {bsEq}, is the Biot-Savart law itself. It says that each tiny length of wire carrying
+      current contributes a slice of magnetic field: the slice is proportional to the current and
+      the length of the element, it falls off as the inverse square of the distance, and its
+      direction is given by a cross product of the element with the direction to the point — so the
+      field curls around the current, never points along it. The constant out front, mu nought over
+      four pi, carries the permeability of free space. The full field of any circuit is then the sum
+      of all these slices, added up along the whole wire. Do that sum for an infinitely long
+      straight wire and the inverse-square contributions, spread along the line, combine into a
+      field that falls only as one over the distance, {wireEq2}: B equals mu nought I over two pi r,
+      circling the wire. The geometry turns an inverse-square law for each piece into an inverse
+      law for the whole line — that is the answer to our question. Now bend the wire into a circular
+      loop and ask for the field at its centre. Every element of the ring is the same distance R
+      away, and by the cross product each contributes field in the same direction, straight through
+      the centre, so they reinforce rather than partly cancel. The sum is clean, {loopEq}: B equals
+      mu nought I over two R. A loop concentrates its field through the middle, which is the first
+      step toward building an electromagnet by stacking many loops into a coil. It is worth noticing
+      what the Biot-Savart law has in common with the law for electric fields, and where it parts
+      ways. Both fall off as the inverse square from a point source, and both carry a constant of
+      nature out front. But the electric field of a charge points straight out along the line to it,
+      while the magnetic field of a current element points sideways, at right angles, because of the
+      cross product. That single difference — a cross product where the electric law has none — is
+      why magnetic field lines curl around currents in closed loops instead of streaming out from
+      them, and it is the deep reason there are no magnetic charges to begin or end the lines on. The
+      Biot-Savart law is exact and completely general, but adding up its slices by integration is
+      hard work for any but the simplest shapes. For circuits with real symmetry — a long wire, a
+      solenoid, a toroid — there is a far quicker route to the same fields, and that shortcut,
+      Ampere's law, is where we turn next.
+    board:
+      - id: bsEq
+        latex: "d\\vec{B} = \\dfrac{\\mu_0}{4\\pi}\\dfrac{I\\,d\\vec{l}\\times\\hat{r}}{r^2}"
+        say: "d B equals mu nought over four pi, times I d l cross r hat, over r squared"
+        color: purple
+      - id: wireEq2
+        latex: "B_{wire} = \\dfrac{\\mu_0 I}{2\\pi r}"
+        say: "the wire field is mu nought I over two pi r"
+        color: purple
+        box: true
+      - id: loopEq
+        latex: "B_{loop} = \\dfrac{\\mu_0 I}{2R}"
+        say: "the loop field at the centre is mu nought I over two R"
+        color: green
+
+  - id: s4
+    kind: problem
+    narration: >
+      The field near a wire. {statement} A straight wire carries a current, and we want the field a
+      short distance away, {given}; find it. {find} Use the straight-wire formula, {step1}: mu
+      nought, which is four pi times ten to the minus seven, times the ten amp current, over two pi
+      times the distance of five centimetres. The pi cancels top and bottom, and working it through
+      gives four times ten to the minus five tesla, {answer}. That is a modest field, under a
+      thousandth of the Earth's, but it grows as you approach the wire and would double if you
+      halved your distance.
+    board:
+      - id: statement
+        text: "Field near a straight wire."
+      - id: given
+        latex: "I = 10\\ \\text{A}, \\quad r = 0.05\\ \\text{m}"
+        say: "current ten amperes, distance five centimetres"
+        role: given
+      - id: find
+        text: "Find B = μ₀I/(2πr)."
+        role: find
+      - id: step1
+        latex: "B = \\dfrac{(4\\pi\\times10^{-7})(10)}{2\\pi(0.05)}"
+        say: "B equals four pi times ten to the minus seven, times ten, over two pi times nought point zero five"
+        role: step
+        color: purple
+      - id: answer
+        latex: "B = 4\\times 10^{-5}\\ \\text{T}"
+        say: "B equals four times ten to the minus five tesla"
+        role: answer
+        box: true
+        color: purple
+    check:
+      expr: "(4*np.pi*1e-7 * 10) / (2*np.pi*0.05)"
+      value: 4e-5
+      unit: "T"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Now a loop, {statement2}, instead of a straight wire. A circular loop of known radius carries
+      the same current, {given2}; find the field at its centre. {find2} Use the loop formula, {step2}: mu
+      nought times ten amperes, over twice the radius of ten centimetres. That comes to about six
+      point three times ten to the minus five tesla, {answer2} — stronger than the wire field we
+      just found, because at the centre every part of the loop pushes the field the same way. Stack
+      a hundred such loops into a coil and the field multiplies a hundredfold; that is how a weak
+      current becomes a useful electromagnet.
+    board:
+      - id: statement2
+        text: "Field at the centre of a loop."
+      - id: given2
+        latex: "I = 10\\ \\text{A}, \\quad R = 0.1\\ \\text{m}"
+        say: "current ten amperes, radius ten centimetres"
+        role: given
+      - id: find2
+        text: "Find B = μ₀I/(2R)."
+        role: find
+      - id: step2
+        latex: "B = \\dfrac{(4\\pi\\times10^{-7})(10)}{2(0.1)}"
+        say: "B equals four pi times ten to the minus seven, times ten, over two times nought point one"
+        role: step
+        color: green
+      - id: answer2
+        latex: "B \\approx 6.3\\times 10^{-5}\\ \\text{T}"
+        say: "B is about six point three times ten to the minus five tesla"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(4*np.pi*1e-7 * 10) / (2 * 0.1)"
+      value: 6.28e-5
+      unit: "T"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the Biot-Savart law gives the field of each current element as a cross product
+      falling off as inverse square; summed along a straight wire it gives B equals mu nought I over
+      two pi r, circling the wire; and at the centre of a loop it gives mu nought I over two R. Next:
+      Ampere's law — the wire, the solenoid and the toroid.
