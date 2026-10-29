@@ -60,9 +60,11 @@ scenes:
       primitive: vectors
       params:
         axes: {x: [-1, 5, 1], y: [-1, 5, 1]}
+        # consistent with A = [[2,1],[1,2]] (the matrix used in s4/s5):
+        # A[1.5,0.5]=[3.5,2.5] (generic u rotates); A[1.2,1.2]=[3.6,3.6]=3v (eigenvector, λ=3).
         vectors:
-          u: {to: [2.2, 0.5], color: orange, label: "u"}
-          Au: {to: [2.6, 2.2], color: orange, label: "Au"}
+          u: {to: [1.5, 0.5], color: orange, label: "u"}
+          Au: {to: [3.5, 2.5], color: orange, label: "Au"}
           v: {to: [1.2, 1.2], color: blue, label: "v"}
           Av: {to: [3.6, 3.6], color: blue, label: "\\lambda v"}
       steps:
