@@ -1,0 +1,204 @@
+# MA-17: Exchange rates and the balance of payments.
+# OpenStax Principles of Economics 3e, §29.1-29.2 (CC BY 4.0) for the foreign-exchange
+# market and appreciation/depreciation; the balance-of-payments identity (current +
+# financial account = 0) is the standard construction (flagged in the review).
+# ~7 minutes. Colour: demand = blue, supply = orange, exchange rate = green, balance = red.
+schema_version: 1
+id: MA-17
+channel: marginal-ink
+title: "Exchange rates and the balance of payments, explained"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§29.1-29.2 The Foreign Exchange Market"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/339-29-2-demand-and-supply-shifts-in-foreign-exchange-markets.md"
+  pages: "715-723"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "A strong currency can hurt"
+  keyword: "can hurt"
+publish:
+  title: "Exchange Rates Explained: Why a Strong Currency Isn't Always Good"
+  summary: >
+    An exchange rate is just the price of one currency in terms of another, set by
+    supply and demand. We show how that market works, what makes a currency
+    appreciate or depreciate, why a strong currency is a mixed blessing, and how
+    the balance of payments must always add up. Two worked examples.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - exchange rates
+    - foreign exchange market
+    - appreciation depreciation
+    - balance of payments
+    - current account
+    - macroeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      An exchange rate is nothing exotic. It is a price — the price of one country's money measured in
+      another's — and like any price, it is set by supply and demand. That simple idea explains why
+      currencies rise and fall, and why a strong one is not always good news.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is the market for dollars, {drawD}. The demand for dollars, in blue,
+      comes from foreigners who need them to buy American goods or American assets; it slopes down, because
+      the cheaper the dollar, the more of them people want. The supply of dollars, {drawS}, in orange, comes
+      from Americans wanting foreign currency; it slopes up. Where they cross sets the exchange rate, {mark}:
+      the price of a dollar, in green. Now suppose foreign investors suddenly want more American assets, drawn
+      perhaps by higher interest rates. Demand for dollars shifts outward, {shiftD}, and the exchange rate
+      climbs. When a currency's price rises like this we say it appreciates, {apprEq}; when it falls, it
+      depreciates. Nothing decrees the rate from above — it is simply the price that clears this market,
+      moving whenever demand or supply shifts. Higher relative interest rates, lower relative inflation, or
+      expectations that the currency will strengthen all pull demand up and the currency with it.
+    animation:
+      primitive: supply_demand
+      params:
+        x_label: "Q_{\\$}"
+        y_label: "E"
+      steps:
+        - {id: drawD, action: draw_demand, params: {color: blue}}
+        - {id: drawS, action: draw_supply, params: {color: orange}}
+        - {id: mark, action: equilibrium, params: {color: green}}
+        - {id: shiftD, action: shift, params: {curve: demand, by: 2.0, color: blue}}
+    board:
+      - id: apprEq
+        latex: "E\\uparrow = \\text{appreciation}"
+        say: "a rising exchange rate means the currency appreciates"
+        color: green
+        legend:
+          - {sym: "E", name: "the exchange rate (price of the currency)", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Look closer, {tradeEq}. A rising currency sounds like unambiguous good news, but it cuts both ways. When
+      the dollar appreciates, every foreign good becomes cheaper for Americans — good for shoppers and for firms buying
+      imported parts. But American exports now cost more to foreigners, so exporters sell less, and tourism to
+      America falls. A stronger currency helps importers and hurts exporters; a weaker one does the reverse.
+      Strong is not simply better. This connects to the deepest identity in international economics, the
+      balance of payments, {bopEq}. A country's dealings with the world split into two accounts: the current
+      account, mainly the trade balance of exports minus imports, and the financial account, the net flow of
+      investment and lending. The identity is that, errors aside, these two must sum to zero. Read what that
+      forces, {hl:bopEq}. If a country runs a trade deficit — buying more goods than it sells, a negative
+      current account — then by the identity its financial account must be positive by the same amount.
+      Foreigners are lending to it or buying its assets, financing the extra imports. A trade deficit is not
+      money vanishing; it is exactly matched by capital flowing in. The very same market sets both halves at
+      once. When Americans import more, they supply more dollars to buy foreign currency; when foreigners
+      invest more in America, they demand more dollars. The exchange rate is the price that keeps those flows
+      in balance. So the three ideas lock together: the exchange rate is a price set by currency supply and
+      demand; it moves with interest rates, inflation and expectations; and whatever imbalance shows up in
+      trade must be mirrored by an opposite flow of capital, because the books of a nation, like the books of
+      a firm, must always balance.
+    board:
+      - id: tradeEq
+        latex: "E\\uparrow \\Rightarrow \\text{imports cheaper},\\ \\text{exports dearer}"
+        say: "a stronger currency makes imports cheaper and exports more expensive"
+        color: orange
+      - id: bopEq
+        latex: "\\text{CA} + \\text{FA} = 0"
+        say: "the current account plus the financial account equal zero"
+        color: red
+        box: true
+        legend:
+          - {sym: "\\text{CA}", name: "current account (trade balance)", unit: ""}
+          - {sym: "\\text{FA}", name: "financial account (capital flows)", unit: ""}
+
+  - id: s4
+    kind: problem
+    narration: >
+      Measuring an appreciation. {statement} The price of a British pound, quoted in dollars, rises over a
+      year, {given}; find the percentage by which the pound appreciated. {find} The appreciation is the change
+      in the rate divided by the starting rate, {step1}. Put in the numbers, {step2}: the rate rose from one
+      dollar twenty-five to one dollar fifty, a change of twenty-five cents on a starting value of a dollar
+      twenty-five. Twenty-five over one hundred and twenty-five is one fifth, {answer}. The pound appreciated
+      by twenty per cent — meaning Americans now pay a fifth more dollars for the same pound, and British
+      exports to America have become a fifth dearer.
+    board:
+      - id: statement
+        text: "Percentage appreciation of a currency."
+      - id: given
+        latex: "E:\\ \\$1.25 \\rightarrow \\$1.50\\ \\text{per} \\pounds"
+        say: "the rate rises from one dollar twenty-five to one dollar fifty per pound"
+        role: given
+      - id: find
+        text: "Find the percentage appreciation."
+        role: find
+      - id: step1
+        latex: "\\%\\,\\Delta = \\dfrac{E_1 - E_0}{E_0}"
+        say: "the percentage change is the change in the rate over the starting rate"
+        role: step
+        color: green
+      - id: step2
+        latex: "= \\dfrac{1.50 - 1.25}{1.25} = \\dfrac{0.25}{1.25}"
+        say: "equals zero point two five over one point two five"
+        role: step
+        color: blue
+      - id: answer
+        latex: "= 0.20 = 20\\%"
+        say: "the pound appreciated by twenty per cent"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(1.50 - 1.25) / 1.25"
+      value: 0.20
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      The books must balance. {statement2} A country runs a trade deficit for the year, giving it a negative
+      current account, {given2}; find its financial account, assuming the small statistical discrepancy is
+      zero. {find2} The balance-of-payments identity says the two accounts sum to zero, so the financial
+      account is just the negative of the current account, {step1b}. Put in the number, {step2b}: minus the
+      current account of minus four hundred billion. The two minuses cancel, {answer2}: the financial account
+      is a surplus of four hundred billion. The country imported four hundred billion more than it exported,
+      and foreigners financed precisely that gap by buying four hundred billion of its assets. The deficit and
+      the inflow are two names for one thing.
+    board:
+      - id: statement2
+        text: "Find the financial account from the identity."
+      - id: given2
+        latex: "\\text{CA} = -\\$400\\ \\text{bn}"
+        say: "the current account is a deficit of four hundred billion dollars"
+        role: given
+      - id: find2
+        text: "Find the financial account FA."
+        role: find
+      - id: step1b
+        latex: "\\text{FA} = -\\,\\text{CA}"
+        say: "the financial account is minus the current account"
+        role: step
+        color: red
+      - id: step2b
+        latex: "= -(-400)"
+        say: "equals minus, minus four hundred"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "\\text{FA} = +\\$400\\ \\text{bn}"
+        say: "the financial account is a surplus of four hundred billion"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "0 - (-400)"
+      value: 400
+      unit: "$bn"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: an exchange rate is the price of a currency, set by supply and demand in the foreign
+      exchange market; it appreciates or depreciates as interest rates, inflation and expectations shift those
+      curves, a stronger currency helping importers and hurting exporters; and the balance of payments must
+      net to zero, so every trade deficit is financed by an equal inflow of capital. Next: The Mundell-Fleming
+      model — the trilemma every central bank faces.

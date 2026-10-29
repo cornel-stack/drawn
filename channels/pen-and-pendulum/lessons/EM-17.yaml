@@ -1,0 +1,225 @@
+# EM-17: LC oscillations — a circuit that behaves exactly like a mass on a spring.
+# OpenStax University Physics Vol. 2, §14.5 Oscillations in an LC Circuit (CC BY 4.0).
+# ~7 minutes. Colour: charge = blue, current = orange, energy = green, frequency = red.
+schema_version: 1
+id: EM-17
+channel: pen-and-pendulum
+title: "LC oscillations: a circuit that behaves exactly like a mass on a spring"
+target_minutes: 7
+source:
+  book: "University Physics Volume 2 (OpenStax)"
+  section: "§14.5 Oscillations in an LC Circuit"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/125-14-5-oscillations-in-an-lc-circuit.md"
+  pages: "619-621"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "A spring made of fields"
+  keyword: "fields"
+publish:
+  title: "The LC Circuit: Why It Oscillates Exactly Like a Mass on a Spring"
+  summary: >
+    Wire a charged capacitor to a coil and the charge sloshes back and forth
+    forever — the circuit is the perfect electrical twin of a mass bouncing on a
+    spring. We match the two systems term for term, derive the oscillation
+    frequency 1 over root LC, and solve for frequency and peak current.
+  hashtags: ["#physics", "#electromagnetism", "#oscillations"]
+  tags:
+    - LC circuit
+    - electrical oscillations
+    - simple harmonic motion
+    - resonant frequency
+    - inductor capacitor
+    - electromagnetism
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Connect a charged capacitor to a coil and something remarkable happens: the charge does not just drain
+      away, it swings back and forth, over and over. The circuit has become the exact electrical twin of a
+      mass bouncing on a spring.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Watch the two quantities over time, {plotQ}: the charge on the capacitor, in blue, and the current
+      round the loop, {plotI}, in orange. They rise and fall like two waves a quarter-cycle apart. Start with
+      the capacitor fully charged and no current. The charge is at its peak, {hl:plotQ}, and it begins to
+      discharge, driving a current that builds as the charge falls. When the charge reaches zero the current
+      is at its maximum, {hl:plotI}: all the energy that sat in the capacitor's electric field now lives in
+      the coil's magnetic field. But the coil resists any change in current, so the current keeps flowing and
+      recharges the capacitor the other way, and the whole exchange runs in reverse. Energy sloshes endlessly
+      between the electric field of the capacitor and the magnetic field of the coil, with no resistance to
+      drain it. The charge traces a perfect cosine, {qEq}: it is simple harmonic motion, the very same
+      equation that describes a mass on a spring. When the charge is largest the current is zero, and when the
+      current is largest the charge is zero — energy is never in both places at once, only passing between
+      them.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 12, 2]
+        y: [-3, 3, 1]
+        x_length: 7.8
+        y_length: 3.4
+        x_label: "t"
+        y_label: ""
+      steps:
+        - {id: plotQ, action: plot_function, params: {func: cos, color: blue, label: "q(t)"}}
+        - {id: plotI, action: plot_function, params: {func: sin, color: orange, label: "i(t)"}}
+    board:
+      - id: qEq
+        latex: "q(t) = Q\\cos(\\omega t)"
+        say: "the charge equals its maximum times cosine omega t"
+        color: blue
+        legend:
+          - {sym: "Q", name: "the maximum charge", unit: "C"}
+          - {sym: "\\omega", name: "angular frequency", unit: "rad/s"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here is why, {energyEq}. Start from the energy of the circuit: the energy in the
+      capacitor, a half q squared over C, plus the energy in the coil, a half L times the current squared.
+      With no resistance this total never changes. The current is the rate at which charge leaves the
+      capacitor, {curEq}, so differentiate the constant energy with respect to time and, after cancelling the
+      current, one equation remains, {odeEq}: L times the second derivative of charge, plus charge over C,
+      equals zero. That is the defining equation of simple harmonic motion. Set it beside the mass on a
+      spring, {springEq}: mass times acceleration plus spring constant times displacement equals zero. The
+      two are identical line for line. The inductance L plays the part of the mass, the stubborn resistance to
+      change; one over the capacitance plays the part of the spring constant, the restoring push; and the
+      charge plays the part of the displacement. Everything you know about the spring carries straight over.
+      A spring oscillates at the square root of k over m; the circuit therefore oscillates at the square root
+      of one over L C, which is the angular frequency, {omegaEq}. Larger inductance or larger capacitance
+      means a slower oscillation, exactly as a heavier mass or a softer spring means a slower bounce. The
+      solution is the cosine we already drew, {solEq}: the charge swings between plus and minus its maximum
+      forever, and the current, its derivative, is a sine a quarter-cycle ahead. This correspondence,
+      {hl:springEq}, is one of the most useful in physics. The same second-order equation governs a pendulum,
+      a vibrating atom, a tuned radio circuit and a wobbling bridge, so a single piece of mathematics, solved
+      once, is solved everywhere. An LC circuit is a spring you have built out of fields instead of metal, and
+      because real circuits carry a little resistance, the oscillation slowly dies away — the electrical echo
+      of friction gradually bringing a real spring to rest.
+    board:
+      - id: energyEq
+        latex: "U = \\tfrac{1}{2}\\dfrac{q^2}{C} + \\tfrac{1}{2}L i^2"
+        say: "the energy is a half q squared over C, plus a half L i squared"
+        color: green
+      - id: curEq
+        latex: "i = -\\dfrac{dq}{dt}"
+        say: "the current is minus the rate of change of charge"
+        color: orange
+      - id: odeEq
+        latex: "L\\dfrac{d^2 q}{dt^2} + \\dfrac{q}{C} = 0"
+        say: "L times the second derivative of charge, plus charge over C, equals zero"
+        color: blue
+        box: true
+      - id: springEq
+        latex: "m\\dfrac{d^2 x}{dt^2} + k x = 0"
+        say: "mass times acceleration plus spring constant times displacement equals zero"
+        color: red
+      - id: omegaEq
+        latex: "\\omega = \\dfrac{1}{\\sqrt{LC}}"
+        say: "the angular frequency is one over the square root of L C"
+        color: red
+        box: true
+      - id: solEq
+        latex: "q(t) = Q\\cos(\\omega t)"
+        say: "the charge is its maximum times cosine omega t"
+        color: blue
+
+  - id: s4
+    kind: problem
+    narration: >
+      The oscillation frequency. {statement} An inductor and a capacitor of known values are wired into a
+      loop, {given}; find the angular frequency at which the charge oscillates. {find} The frequency is one
+      over the square root of L times C, {step1}. Multiply the values, {step2}: half a henry times two
+      microfarads is one millionth, in seconds squared. Its square root is one thousandth of a second, and one
+      over that is a thousand, {answer}. So the charge swings back and forth a thousand radians per second —
+      about one hundred and sixty full cycles each second, a frequency you could hear as a low hum.
+    board:
+      - id: statement
+        text: "Resonant frequency of an LC circuit."
+      - id: given
+        latex: "L = 0.5\\ \\text{H},\\quad C = 2\\ \\mu\\text{F}"
+        say: "inductance half a henry, capacitance two microfarads"
+        role: given
+      - id: find
+        text: "Find the angular frequency ω."
+        role: find
+      - id: step1
+        latex: "\\omega = \\dfrac{1}{\\sqrt{LC}}"
+        say: "omega equals one over the square root of L C"
+        role: step
+        color: red
+      - id: step2
+        latex: "LC = (0.5)(2\\times 10^{-6}) = 10^{-6}"
+        say: "L C is a half times two microfarads, which is one millionth"
+        role: step
+        color: blue
+      - id: answer
+        latex: "\\omega = 1000\\ \\text{rad/s}"
+        say: "the angular frequency is one thousand radians per second"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "1/np.sqrt(0.5 * 2e-6)"
+      value: 1000
+      unit: "rad/s"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      The peak current. {statement2} The same circuit starts with a known charge on the capacitor, {given2};
+      find the largest current that flows. {find2} Energy is conserved, so the energy that starts in the
+      capacitor, a half Q squared over C, must all appear in the coil at the moment the current peaks, a half
+      L I squared, {step1b}. Solve for the peak current and it is the maximum charge times the angular
+      frequency, {step2b}. Put in the numbers, {step3b}: a charge of one hundred microcoulombs times a
+      thousand radians per second. That is a tenth of an ampere, {answer2}. So a modest charge, trading back
+      and forth a thousand times a second, drives a peak current of a hundred milliamperes.
+    board:
+      - id: statement2
+        text: "Peak current from energy conservation."
+      - id: given2
+        latex: "Q = 100\\ \\mu\\text{C},\\quad \\omega = 1000\\ \\text{rad/s}"
+        say: "maximum charge one hundred microcoulombs, angular frequency one thousand"
+        role: given
+      - id: find2
+        text: "Find the peak current I."
+        role: find
+      - id: step1b
+        latex: "\\tfrac{1}{2}\\dfrac{Q^2}{C} = \\tfrac{1}{2}L I^2"
+        say: "a half Q squared over C equals a half L I squared"
+        role: step
+        color: green
+      - id: step2b
+        latex: "I = Q\\,\\omega"
+        say: "the peak current is the maximum charge times the angular frequency"
+        role: step
+        color: orange
+      - id: step3b
+        latex: "= (100\\times 10^{-6})(1000)"
+        say: "equals one hundred microcoulombs times one thousand"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "I = 0.1\\ \\text{A}"
+        say: "the peak current is a tenth of an ampere"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "100e-6 * 1000"
+      value: 0.1
+      unit: "A"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: an LC circuit trades energy between the capacitor's electric field and the coil's magnetic
+      field, obeying the same equation as a mass on a spring, so the charge oscillates as a cosine at angular
+      frequency one over the root of L C. Inductance acts as mass, inverse capacitance as the spring. Next: AC
+      circuits — impedance, phasors and resonance without the panic.

@@ -1,0 +1,215 @@
+# LA-20: Eigenvectors and eigenvalues — the directions a matrix doesn't turn.
+# Hefferon, Linear Algebra, Five.II Similarity / eigenvalues (CC BY-SA 3.0); the
+# geometric reading and stable-state meaning follow the Topic: Stable Populations.
+# ~7 minutes. Colour: eigenvector = blue, eigenvalue = red, generic vector = orange.
+schema_version: 1
+id: LA-20
+channel: chalk-and-vector
+title: "Eigenvectors and eigenvalues: the directions a matrix doesn't turn"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "Five.II Similarity (Eigenvalues and Eigenvectors)"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/039-topic-stable-populations.md"
+  pages: "399-404"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "The arrows a matrix can't turn"
+  keyword: "can't turn"
+publish:
+  title: "Eigenvectors Explained: The Directions a Matrix Cannot Turn"
+  summary: >
+    A matrix sends most vectors spinning off in a new direction — but a special
+    few it only stretches, never turns. Those are its eigenvectors, and the
+    stretch factors are its eigenvalues. We show what Av = λv means geometrically,
+    where the characteristic equation comes from, and verify two eigenpairs.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - eigenvectors
+    - eigenvalues
+    - characteristic equation
+    - linear algebra
+    - linear transformation
+    - invariant directions
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A matrix takes a vector and usually sends it off in a new direction. But almost every matrix has a few
+      special directions it cannot turn — it can only stretch or shrink them. Those directions are its
+      eigenvectors.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Feed a matrix a typical vector, {drawU}, here in orange. The matrix sends it to a new
+      arrow, {drawAu}, pointing somewhere else entirely — the direction has turned. That is what matrices
+      usually do. Now feed it one of its special vectors, {drawV}, in blue. The matrix sends it to, {drawAv},
+      a longer arrow lying along the very same line — the direction has not moved at all; the vector has
+      only been stretched. A vector a matrix maps onto a scalar multiple of itself is an eigenvector, and
+      the factor by which it is scaled is the eigenvalue, {eigEq}. Here the blue vector was stretched to
+      three times its length, so its eigenvalue is three. The eigenvalue can be anything: greater than one
+      stretches, between zero and one shrinks, negative flips the arrow to point backwards along the same
+      line, and an eigenvalue of one leaves the vector completely fixed. What never changes for an
+      eigenvector is the line it lies on. Most directions get rotated by a matrix; these chosen few are held
+      fast, and that is precisely what makes them worth finding.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-1, 5, 1], y: [-1, 5, 1]}
+        vectors:
+          u: {to: [2.2, 0.5], color: orange, label: "u"}
+          Au: {to: [2.6, 2.2], color: orange, label: "Au"}
+          v: {to: [1.2, 1.2], color: blue, label: "v"}
+          Av: {to: [3.6, 3.6], color: blue, label: "\\lambda v"}
+      steps:
+        - {id: drawU, action: draw, params: {name: u}}
+        - {id: drawAu, action: draw, params: {name: Au}}
+        - {id: drawV, action: draw, params: {name: v}}
+        - {id: drawAv, action: draw, params: {name: Av}}
+    board:
+      - id: eigEq
+        latex: "A\\mathbf{v} = \\lambda\\mathbf{v}"
+        say: "A times v equals lambda times v"
+        color: blue
+        legend:
+          - {sym: "\\mathbf{v}", name: "the eigenvector (direction held)", unit: ""}
+          - {sym: "\\lambda", name: "the eigenvalue (stretch factor)", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Turn the picture into algebra, {defEq}. An eigenvector is any non-zero vector for which A times the
+      vector equals a number times the same vector. Move everything to one side, {rearrEq}: A times the
+      vector minus lambda times the vector is zero. Factor the vector out, being careful to keep the
+      dimensions right by writing lambda as lambda times the identity matrix, {factorEq}: the quantity A
+      minus lambda I, times the vector, is zero. Now read what this says. We want a non-zero vector that the
+      matrix A minus lambda I sends to zero. A matrix only collapses a non-zero vector to zero when it is
+      singular — when it squashes space flat — and a matrix is singular exactly when its determinant is
+      zero. So the eigenvalues are precisely the numbers lambda that make this determinant vanish,
+      {charEq}. This is the characteristic equation, and solving it is how you actually find the
+      eigenvalues — the subject of the next lesson. For now the meaning is what matters. Each eigenvalue
+      from that equation comes with its own line of eigenvectors, a direction the matrix holds fixed and
+      merely scales. Why does any of this earn its keep? Because along its eigenvectors a matrix acts like
+      a simple number, not a tangle of mixing rows, {hl:defEq}. Repeated multiplication, which is a mess
+      for a general vector, becomes nothing more than repeated scaling along each eigenvector — so the
+      long-run behaviour of a system that steps forward by multiplying by a matrix is governed by its
+      largest eigenvalue, and its steady state is the eigenvector for an eigenvalue of one. The crooked
+      action of a matrix, split along its eigenvectors, dissolves into a handful of independent stretches.
+      That is why eigenvectors sit at the heart of stability, vibration, data compression and the ranking
+      algorithms that run search engines: find the directions a matrix cannot turn, and a hard problem
+      falls apart into easy pieces.
+    board:
+      - id: defEq
+        latex: "A\\mathbf{v} = \\lambda\\mathbf{v}, \\quad \\mathbf{v} \\neq \\mathbf{0}"
+        say: "A times v equals lambda v, for a non-zero vector v"
+        color: blue
+      - id: rearrEq
+        latex: "A\\mathbf{v} - \\lambda\\mathbf{v} = \\mathbf{0}"
+        say: "A v minus lambda v equals zero"
+        color: orange
+      - id: factorEq
+        latex: "(A - \\lambda I)\\,\\mathbf{v} = \\mathbf{0}"
+        say: "the quantity A minus lambda I, times v, equals zero"
+        color: orange
+        box: true
+      - id: charEq
+        latex: "\\det(A - \\lambda I) = 0"
+        say: "the determinant of A minus lambda I equals zero"
+        color: red
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Verifying an eigenvector. {statement} A two-by-two matrix and a candidate vector are given, {given};
+      check whether the vector is an eigenvector, and if so find its eigenvalue. {find} Multiply the matrix
+      by the vector, {step1}: the top row gives two times one plus one times one, which is three; the bottom
+      row gives one times one plus two times one, which is three. The result is the vector three, three,
+      {step2}, which is exactly three times the original vector one, one. Since the output is a scalar
+      multiple of the input, the vector is an eigenvector, and its eigenvalue is three, {answer}. The matrix
+      stretched it threefold without turning it.
+    board:
+      - id: statement
+        text: "Is the vector an eigenvector?"
+      - id: given
+        latex: "A = \\begin{pmatrix}2 & 1\\\\1 & 2\\end{pmatrix},\\ \\ \\mathbf{v} = \\begin{pmatrix}1\\\\1\\end{pmatrix}"
+        say: "the matrix two, one, one, two; the vector one, one"
+        role: given
+      - id: find
+        text: "Find Av and the eigenvalue λ."
+        role: find
+      - id: step1
+        latex: "A\\mathbf{v} = \\begin{pmatrix}2(1)+1(1)\\\\1(1)+2(1)\\end{pmatrix}"
+        say: "A times v is two plus one, on top of one plus two"
+        role: step
+        color: blue
+      - id: step2
+        latex: "= \\begin{pmatrix}3\\\\3\\end{pmatrix} = 3\\begin{pmatrix}1\\\\1\\end{pmatrix}"
+        say: "equals three, three, which is three times the vector one, one"
+        role: step
+        color: green
+      - id: answer
+        latex: "\\lambda = 3"
+        say: "the eigenvalue is three"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "(2*1 + 1*1) / 1"
+      value: 3
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      A second eigenvector, a different eigenvalue. {statement2} The same matrix meets a new candidate,
+      {given2}; find its eigenvalue. {find2} Multiply again, {step1b}: the top row is two times one plus one
+      times minus one, which is one; the bottom row is one times one plus two times minus one, which is
+      minus one. The result is the vector one, minus one, {step2b}, which is one times the original vector.
+      The eigenvalue is one, {answer2}. So the same matrix holds two different directions fixed — the
+      diagonal, which it triples, and the anti-diagonal, which it leaves untouched. Each eigenvector carries
+      its own eigenvalue.
+    board:
+      - id: statement2
+        text: "A second eigenvector of the same matrix."
+      - id: given2
+        latex: "\\mathbf{v} = \\begin{pmatrix}1\\\\-1\\end{pmatrix}"
+        say: "the vector one, minus one"
+        role: given
+      - id: find2
+        text: "Find the eigenvalue λ."
+        role: find
+      - id: step1b
+        latex: "A\\mathbf{v} = \\begin{pmatrix}2(1)+1(-1)\\\\1(1)+2(-1)\\end{pmatrix}"
+        say: "A times v is two minus one, on top of one minus two"
+        role: step
+        color: blue
+      - id: step2b
+        latex: "= \\begin{pmatrix}1\\\\-1\\end{pmatrix} = 1\\begin{pmatrix}1\\\\-1\\end{pmatrix}"
+        say: "equals one, minus one, which is one times the vector"
+        role: step
+        color: green
+      - id: answer2
+        latex: "\\lambda = 1"
+        say: "the eigenvalue is one"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "(2*1 + 1*(-1)) / 1"
+      value: 1
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: an eigenvector is a direction a matrix only stretches, never turns, and its eigenvalue
+      is the stretch factor, defined by A times the vector equals lambda times the vector. The eigenvalues
+      are the numbers that make the determinant of A minus lambda I vanish. Next: How to actually find
+      eigenvalues — the characteristic polynomial, visualised.
