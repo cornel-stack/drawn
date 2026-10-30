@@ -1,0 +1,257 @@
+# MA-24: Why poor countries don't always catch up — convergence and the Solow puzzle.
+# OpenStax Principles of Economics 3e, §20 Economic Growth (capital deepening, the
+# per-capita production function, diminishing returns), CC BY 4.0. The Solow steady
+# state and the conditional-convergence resolution are the standard construction
+# (flagged in the review). ~11 minutes.
+# Colour: output = orange, investment/saving = green, depreciation = red, steady state = blue.
+schema_version: 1
+id: MA-24
+channel: marginal-ink
+title: "Why poor countries don't always catch up: convergence and the Solow puzzle"
+target_minutes: 11
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§20 Economic Growth (capital deepening and the production function)"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/228-20-3-components-of-economic-growth.md"
+  pages: "480-495"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "The catch-up that never came"
+  keyword: "never came"
+publish:
+  title: "Convergence and the Solow Puzzle: Why Poor Countries Don't Catch Up"
+  summary: >
+    Diminishing returns to capital predict that poor countries should grow fast and
+    catch the rich — yet most never do. We build the Solow growth model, show why it
+    forecasts convergence, confront the puzzle that convergence often fails, and
+    reveal the resolution: countries converge to their own steady state, not yours.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - economic growth
+    - Solow model
+    - convergence
+    - capital deepening
+    - diminishing returns
+    - macroeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      The most basic theory of growth makes a hopeful prediction: poor countries should grow faster than rich
+      ones and gradually catch up. For some, they did. For many, the catch-up never came — and explaining why
+      is one of the central puzzles of economics.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is the engine of growth, {drawF}, the production function in orange: output per worker as a function
+      of capital per worker. Its shape is everything — it rises, but with diminishing returns, each new machine
+      adding less than the last. A country saves and invests a fixed share of its output, {drawS}, the green
+      curve, which is what builds new capital. But capital also wears out and must be replaced as the workforce
+      grows, {drawD}, the red line: a constant fraction lost every year. Where investment meets this
+      replacement line, {markStar}, the economy reaches its steady state, capital per worker k-star, in blue.
+      Below it, investment outruns wear and capital grows; above it, wear wins and capital shrinks; so the
+      economy always moves toward k-star and settles. The crucial feature is that the two curves must cross,
+      {steadyEq}, because diminishing returns bend investment down while replacement rises in a straight line.
+      Every economy, left alone, converges to a steady level of capital and output per worker.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 12, 2]
+        y: [0, 8, 2]
+        x_length: 7.6
+        y_length: 3.6
+        x_label: "k"
+        y_label: "\\text{per worker}"
+      steps:
+        - {id: drawF, action: plot_function, params: {func: output_pw, color: orange, label: "f(k)"}}
+        - {id: drawS, action: plot_function, params: {func: saving_pw, color: green, label: "s\\,f(k)"}}
+        - {id: drawD, action: plot_line, params: {name: dep, a: 0.2, b: -1, c: 0, color: red, label: "(n+\\delta)k"}}
+        - {id: markStar, action: mark_point, params: {x: 9, y: 1.8, color: blue, label: "k^*"}}
+    board:
+      - id: steadyEq
+        latex: "s\\,f(k^*) = (n+\\delta)\\,k^*"
+        say: "at the steady state, investment equals replacement"
+        color: blue
+        legend:
+          - {sym: "s", name: "the saving rate", unit: ""}
+          - {sym: "n+\\delta", name: "population growth plus depreciation", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      The famous prediction, {returnsEq}. Because returns to capital diminish, the first
+      machines in a capital-poor country are enormously productive, while the millionth machine in a
+      capital-rich one barely moves output. So the return to investment is high where capital is scarce and low
+      where it is abundant. A poor country, far below its steady state, therefore grows quickly; a rich country,
+      near its steady state, grows slowly. Run that forward and the gap should close, {convergeEq}: poor
+      countries grow faster, rich countries grow slower, and incomes converge. Capital should even flow
+      downhill, from rich countries where it earns little to poor ones where it earns much, speeding the
+      catch-up. This is the convergence hypothesis, and for a club of countries it genuinely holds — the war-torn
+      economies of Western Europe and Japan grew rapidly and caught up to the United States after 1945, exactly
+      as the theory says. The East Asian tigers — South Korea, Taiwan, Singapore — did the same a generation
+      later, turning themselves from poor to rich in a few decades by accumulating capital and skills at a
+      furious pace. The logic is clean, the mechanism is real, and where it happens, convergence can be
+      breathtakingly fast.
+    board:
+      - id: returnsEq
+        latex: "\\text{MPK} = f'(k) \\ \\downarrow \\ \\text{as } k \\uparrow"
+        say: "the marginal product of capital falls as capital rises"
+        color: orange
+        box: true
+      - id: convergeEq
+        latex: "k \\text{ low} \\Rightarrow \\text{growth high}"
+        say: "low capital means high growth, so poor countries catch up"
+        color: green
+        box: true
+
+  - id: s4
+    kind: derivation
+    narration: >
+      So here is the puzzle, {puzzleEq}. Look across the whole world and the prediction simply fails. Over the
+      past century many poor countries have not grown faster than rich ones; some have stagnated, and the gap
+      between the richest and poorest nations has widened, not narrowed. Capital has often flowed the wrong way,
+      from poor countries to rich ones — economists call this the Lucas paradox, {hl:puzzleEq}: if capital truly
+      earned more where it is scarce, it should pour into poor countries, yet it does not, because the high
+      returns that diminishing returns promise are swamped by the risk and friction of weak institutions.
+      Absolute convergence — the idea that every country heads toward the same income — is flatly rejected by
+      the data. The resolution is subtle and important, {conditionalEq}. Each
+      country does converge, but to its own steady state, not to a shared one. And that steady state depends on
+      the country's own saving rate, its population growth, and above all its level of technology and the
+      quality of its institutions — the total productivity with which it turns capital and labour into output.
+      Property rights that reward investment, the rule of law, functioning markets, an educated workforce,
+      openness to the world's stock of technology — these are the deep determinants of where a country's steady
+      state sits, and they are far harder to build than a pile of machines. A country with low savings, weak
+      institutions or poor technology has a low steady state, {hl:conditionalEq},
+      and it converges down toward that, staying poor. This is conditional convergence: countries converge, but
+      each to its own target, and the targets differ enormously. Poor countries that share the rich world's
+      institutions and savings do catch up; those that do not, converge to a lower level and stay there.
+      The deepest lesson follows from the diminishing returns we started with, {deepEq}. Capital accumulation
+      alone cannot explain why some nations are twenty or thirty times richer than others, because its returns
+      diminish — pile up capital and growth peters out. Such vast, persistent gaps must come instead from
+      differences in productivity: technology, education, and the institutions that let an economy use its
+      resources well. The Solow puzzle ends by redirecting the entire question of why nations are rich away
+      from how much they save and toward how productively they can use what they have.
+    board:
+      - id: puzzleEq
+        latex: "\\text{gaps widen, not narrow}"
+        say: "in the data, income gaps often widen rather than narrow"
+        color: red
+        box: true
+      - id: conditionalEq
+        latex: "k^* = k^*(s,\\ n,\\ A)"
+        say: "each country's steady state depends on its saving, population growth and productivity"
+        color: blue
+        box: true
+      - id: deepEq
+        latex: "\\text{gaps} \\Leftarrow \\text{productivity } A,\\ \\text{not } k"
+        say: "the great income gaps come from productivity, not capital alone"
+        color: orange
+
+  - id: s5
+    kind: problem
+    narration: >
+      Finding the steady state. {statement} An economy's output per worker is the square root of its capital
+      per worker, and we know its saving rate and its depreciation rate, {given}; find its steady-state
+      capital. {find} At the steady state, investment equals replacement: the saving rate times the square root
+      of capital equals the depreciation rate times capital, {step1}. Divide through and rearrange, {step2}: the
+      square root of capital is the saving rate over the depreciation rate, so capital is that ratio squared.
+      Put in the numbers, {step3}: zero point three over zero point one is three, and three squared is nine,
+      {answer}. The steady-state capital per worker is nine. Raise the saving rate and this rises; but because
+      it enters as a square of a ratio with diminishing returns behind it, even large changes in saving move the
+      steady state only so far. A country cannot simply save its way to the top; diminishing returns see to
+      that.
+    board:
+      - id: statement
+        text: "Steady-state capital in the Solow model."
+      - id: given
+        latex: "f(k)=\\sqrt{k},\\ \\ s=0.3,\\ \\ \\delta=0.1"
+        say: "output is root k, saving rate zero point three, depreciation zero point one"
+        role: given
+      - id: find
+        text: "Find the steady-state capital k*."
+        role: find
+      - id: step1
+        latex: "s\\sqrt{k} = \\delta k"
+        say: "investment equals replacement at the steady state"
+        role: step
+        color: green
+      - id: step2
+        latex: "\\sqrt{k} = \\dfrac{s}{\\delta} \\;\\Rightarrow\\; k = \\left(\\dfrac{s}{\\delta}\\right)^2"
+        say: "root k is s over delta, so k is that ratio squared"
+        role: step
+        color: blue
+      - id: step3
+        latex: "= \\left(\\dfrac{0.3}{0.1}\\right)^2 = 3^2"
+        say: "zero point three over zero point one is three, squared"
+        role: step
+        color: orange
+      - id: answer
+        latex: "k^* = 9"
+        say: "the steady-state capital is nine"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "(0.3/0.1)**2"
+      value: 9
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: problem
+    narration: >
+      {statement2} Why should the poor grow faster? Compare the return to capital in a poor economy and a rich
+      one, with the same technology, {given2}; find how much higher the poor country's return is. {find2} The
+      marginal product of capital, for output equal to the square root of capital, is a half over the square
+      root of capital, {step1b}. The poor country has capital of one, the rich has nine, so take the ratio of
+      their returns, {step2b}: a half over root one, divided by a half over root nine. The halves cancel, and
+      root nine over root one is three, {answer2}. The capital-poor country earns three times the return on new
+      investment. That is exactly why, with the same technology, it should grow faster and converge — and why,
+      when it does not, the culprit must be a difference in technology or institutions, not in capital.
+    board:
+      - id: statement2
+        text: "Returns to capital, poor versus rich."
+      - id: given2
+        latex: "k_{poor}=1,\\quad k_{rich}=9,\\quad f(k)=\\sqrt{k}"
+        say: "poor capital one, rich capital nine, output root k"
+        role: given
+      - id: find2
+        text: "Find MPK_poor / MPK_rich."
+        role: find
+      - id: step1b
+        latex: "\\text{MPK} = \\dfrac{1}{2\\sqrt{k}}"
+        say: "the marginal product of capital is a half over root k"
+        role: step
+        color: orange
+      - id: step2b
+        latex: "\\dfrac{\\text{MPK}_{poor}}{\\text{MPK}_{rich}} = \\dfrac{1/(2\\sqrt{1})}{1/(2\\sqrt{9})}"
+        say: "the ratio is a half over root one, over a half over root nine"
+        role: step
+        color: green
+      - id: answer2
+        latex: "= \\dfrac{\\sqrt{9}}{\\sqrt{1}} = 3"
+        say: "the poor country earns three times the return"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "(1/(2*np.sqrt(1)))/(1/(2*np.sqrt(9)))"
+      value: 3
+      unit: ""
+      tol: 0.01
+
+  - id: s7
+    kind: end
+    narration: >
+      To summarise: the Solow model says every economy converges to a steady state where investment just
+      replaces worn-out capital, and because returns to capital diminish, poor countries should grow faster and
+      catch up. Many do not, because convergence is conditional — each country heads to its own steady state,
+      set by its saving, population growth and, above all, its productivity and institutions. The great gaps
+      between nations are gaps in productivity, not capital. It is a humbling redirection: the path out of
+      poverty runs less through saving and machines than through the harder work of building the institutions
+      and know-how that make machines productive in the first place. Next: a whirlwind recap — all of
+      intermediate macroeconomics in twenty minutes.

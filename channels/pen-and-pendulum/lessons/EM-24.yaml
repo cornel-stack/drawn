@@ -1,0 +1,363 @@
+# EM-24: ALL of Magnetism & Induction in 15 minutes — an anchor recap.
+# OpenStax University Physics Vol. 2, Ch.11-14 (magnetic forces through inductance),
+# CC BY 4.0. A brisk comprehensive survey. ~15 minutes.
+# Colour: magnetic field = red, force = blue, current = orange, induction/EMF = green.
+schema_version: 1
+id: EM-24
+channel: pen-and-pendulum
+title: "ALL of Magnetism & Induction in 15 minutes"
+target_minutes: 15
+source:
+  book: "University Physics Volume 2 (OpenStax)"
+  section: "Ch.11-14 (Magnetic Forces & Fields through Inductance)"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/093-11-3-motion-of-a-charged-particle-in-a-magnetic-field.md"
+  pages: "chapters 11-14"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "Moving charge, bending path"
+  keyword: "bending path"
+publish:
+  title: "ALL of Magnetism and Induction in 15 Minutes"
+  summary: >
+    A single fast tour of the second half of electromagnetism: the magnetic force on
+    moving charges and currents, the fields that currents create, Ampere's law,
+    magnetic flux, and the induction laws of Faraday and Lenz — each idea, its key
+    equation, and how they connect. The perfect revision pass. Three worked examples.
+  hashtags: ["#physics", "#electromagnetism", "#revision"]
+  tags:
+    - magnetism
+    - magnetic force
+    - Ampere's law
+    - electromagnetic induction
+    - Faraday's law
+    - Lenz's law
+    - electromagnetism
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Magnetism is electricity in motion. A moving charge feels a sideways push, a current bends a compass,
+      and a changing magnetic field conjures a voltage from nothing. Here is the whole of magnetism and
+      induction, each law and how it leads to the next.
+
+  - id: s2
+    kind: derivation
+    narration: >
+      The magnetic force, {forceEq}. A charge moving through a magnetic
+      field feels a force equal to the charge, times its velocity crossed with the field — the Lorentz force.
+      Its size is q v B times the sine of the angle between velocity and field, {magEq}, so a charge moving
+      along the field feels nothing, and one moving across it feels the most. The cross product makes this
+      force always perpendicular to the motion, {perpEq}, which has a striking consequence: a magnetic force
+      does no work and cannot change a particle's speed, only its direction. A charge fired across a uniform
+      field is bent into a circle, {circleEq}, with a radius set by its momentum divided by charge times
+      field. This is how mass spectrometers sort ions and how particle accelerators steer their beams.
+      Remarkably, the time to complete one loop does not depend on the speed at all — the principle of the
+      cyclotron.
+    board:
+      - id: forceEq
+        latex: "\\vec{F} = q\\,\\vec{v}\\times\\vec{B}"
+        say: "the force is the charge times velocity crossed with the field"
+        color: blue
+        box: true
+      - id: magEq
+        latex: "F = qvB\\sin\\theta"
+        say: "its magnitude is q v B sine theta"
+        color: blue
+      - id: perpEq
+        latex: "\\vec{F}\\perp\\vec{v} \\;\\Rightarrow\\; W = 0"
+        say: "the force is perpendicular to velocity, so it does no work"
+        color: blue
+      - id: circleEq
+        latex: "r = \\dfrac{mv}{qB}"
+        say: "the radius of the circular path is m v over q B"
+        color: blue
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Force on a wire, {wireEq}: a current is many moving charges, so a wire in a field feels a force too — the
+      field, times the current, times the length of wire in the field, times the sine of the angle. Lay a current-carrying wire
+      across a magnetic field and it is pushed sideways — the principle of every electric motor. Bend that
+      wire into a loop, {torqueEq}, and the two sides feel opposite forces, which twist the loop: a current
+      loop in a field feels a torque proportional to the current, its area and the field. Let it keep turning
+      and reverse the current each half-turn, and you have a motor, converting electrical energy into
+      rotation. The same loop read backwards — turned by hand to make a current — is a generator. Force on a
+      current is where magnetism does mechanical work.
+    board:
+      - id: wireEq
+        latex: "F = BIL\\sin\\theta"
+        say: "the force on a wire is B I L sine theta"
+        color: blue
+        box: true
+      - id: torqueEq
+        latex: "\\tau = NIAB\\sin\\theta"
+        say: "the torque on a loop is N I A B sine theta"
+        color: blue
+
+  - id: s4
+    kind: derivation
+    narration: >
+      Fields come from currents, {biotEq}. The Biot-Savart law says each little piece
+      of current contributes a field, and adding them along a long straight wire gives a tidy result,
+      {wireFieldEq}: the field circles the wire, with a strength of the magnetic constant times the current,
+      over two pi times the distance. It falls off as one over the distance and wraps around the wire in the
+      direction your right hand's fingers curl when your thumb points along the current. A current does not
+      just respond to magnetic fields; it makes one, looping around itself.
+    board:
+      - id: biotEq
+        latex: "dB = \\dfrac{\\mu_0}{4\\pi}\\dfrac{I\\,dl\\sin\\theta}{r^2}"
+        say: "the Biot-Savart law gives the field of a current element"
+        color: red
+      - id: wireFieldEq
+        latex: "B = \\dfrac{\\mu_0 I}{2\\pi r}"
+        say: "a straight wire makes a field mu nought I over two pi r"
+        color: red
+        box: true
+
+  - id: s5
+    kind: derivation
+    narration: >
+      Ampère's law, {ampereEq}: the magnetic field summed around
+      any closed loop equals the magnetic constant times the current threading through it — the shortcut for
+      symmetric situations. It is the magnetic
+      twin of Gauss's law, trading a hard sum over current elements for a single line when there is symmetry.
+      Apply it to a tightly wound coil, a solenoid, {solenoidEq}, and the field inside comes out uniform and
+      simple: the magnetic constant, times the number of turns per unit length, times the current. A solenoid
+      is how you make a strong, controllable, uniform magnetic field — the electromagnet inside every relay,
+      speaker and MRI machine.
+    board:
+      - id: ampereEq
+        latex: "\\oint \\vec{B}\\cdot d\\vec{l} = \\mu_0 I_{enc}"
+        say: "the field around a closed loop is the magnetic constant times the enclosed current"
+        color: red
+        box: true
+      - id: solenoidEq
+        latex: "B = \\mu_0 n I"
+        say: "inside a solenoid the field is mu nought n I"
+        color: red
+
+  - id: s6
+    kind: derivation
+    narration: >
+      Two currents attract or repel, {parallelEq}: each makes a field and feels the other's. Two parallel wires
+      carrying current in the same direction attract; in opposite directions
+      they repel — the reverse of what charges do. The force per length is the magnetic constant times the two
+      currents, over two pi times their separation. This force is so fundamental it once defined the ampere
+      itself: the current that makes two wires a metre apart pull with a fixed force. Magnetism links current
+      to current directly, with no charges in sight.
+    board:
+      - id: parallelEq
+        latex: "\\dfrac{F}{L} = \\dfrac{\\mu_0 I_1 I_2}{2\\pi d}"
+        say: "the force per length between two wires is mu nought I one I two over two pi d"
+        color: blue
+        box: true
+
+  - id: s7
+    kind: derivation
+    narration: >
+      Now the deepest idea, induction, {fluxEq}. First define magnetic flux: the field times the area it
+      threads, times the cosine of the angle — how much field pierces a loop. Faraday's law is the
+      centrepiece, {faradayEq}: a changing magnetic flux through a loop induces a voltage around it, equal to
+      minus the rate of change of flux, times the number of turns. Move a magnet toward a coil, change the
+      current in a neighbouring circuit, or simply turn a loop in a field, and a voltage appears from nothing
+      but change. The minus sign is Lenz's law, {lenzEq}: the induced current flows so as to oppose the change
+      that made it. Push a magnet in and the coil pushes back; pull it out and the coil tries to hold it. This
+      is energy conservation in disguise — you must do work against the opposition, and that work becomes the
+      electrical energy. You can feel it directly: drop a magnet down a thick copper pipe and it falls in slow
+      motion, because the currents it induces in the walls flow so as to oppose its fall, and the very same
+      effect brakes high-speed trains without touching them and heats the pan on an induction hob. Induction
+      is how every generator, transformer and induction charger turns motion or change into current.
+    board:
+      - id: fluxEq
+        latex: "\\Phi = BA\\cos\\theta"
+        say: "magnetic flux is the field times area times cosine theta"
+        color: green
+      - id: faradayEq
+        latex: "\\varepsilon = -N\\dfrac{d\\Phi}{dt}"
+        say: "the induced emf is minus N times the rate of change of flux"
+        color: green
+        box: true
+      - id: lenzEq
+        latex: "\\text{induced current opposes the change}"
+        say: "Lenz's law: the induced current opposes the change"
+        color: green
+
+  - id: s8
+    kind: derivation
+    narration: >
+      Motional emf, {motionalEq}: slide a straight rod of length L through a
+      field at speed v, and a voltage appears across its ends equal to the field times the length times the
+      speed. The reason is the force on the charges in the moving rod: the magnetic force sweeps them to one
+      end until a voltage builds to balance it. This motional emf is Faraday's law for a moving conductor, and
+      it is the heart of a generator — spin a coil in a field and this voltage, rising and falling as the
+      angle changes, is the alternating current that powers the world.
+    board:
+      - id: motionalEq
+        latex: "\\varepsilon = BLv"
+        say: "the motional emf is B L v"
+        color: green
+        box: true
+
+  - id: s9
+    kind: derivation
+    narration: >
+      Self-inductance, {selfEq}: induction even works on a circuit through its own field. A changing current
+      changes its own flux, which by Faraday's law induces a voltage opposing the change — self-inductance, equal to minus the
+      inductance times the rate of change of current. A coil therefore resists changes in its current, and
+      stores energy in its magnetic field as it does so, {energyEq}: a half times the inductance times the
+      current squared, the magnetic twin of a capacitor's energy. And two coils sharing a core, one changing
+      current inducing a voltage in the other, make a transformer, {transEq}: the voltage ratio equals the
+      ratio of the turns. Self-inductance, magnetic energy and the transformer all flow from the same law of
+      induction that began with a moving magnet.
+    board:
+      - id: selfEq
+        latex: "\\varepsilon = -L\\dfrac{dI}{dt}"
+        say: "the self-induced emf is minus L times the rate of change of current"
+        color: green
+        box: true
+      - id: energyEq
+        latex: "U = \\tfrac{1}{2}L I^2"
+        say: "the energy stored in an inductor is a half L I squared"
+        color: green
+      - id: transEq
+        latex: "\\dfrac{V_s}{V_p} = \\dfrac{N_s}{N_p}"
+        say: "a transformer's voltage ratio equals its turns ratio"
+        color: orange
+
+  - id: s10
+    kind: problem
+    narration: >
+      Force on a moving charge. {statement} A proton crosses a magnetic field at right angles with known
+      speed, {given}; find the magnetic force on it. {find} At right angles the force is simply the charge
+      times the speed times the field, {step1}. Put in the numbers, {step2}: the proton's charge, one point
+      six times ten to the minus nineteen coulombs, times a million metres per second, times half a tesla.
+      Multiplying gives eight times ten to the minus fourteen newtons, {answer}: a tiny force, but on a tiny
+      proton it is a fierce acceleration, and it bends the path into a tight circle.
+    board:
+      - id: statement
+        text: "Magnetic force on a proton."
+      - id: given
+        latex: "q = 1.6\\times10^{-19},\\ v = 10^6,\\ B = 0.5\\ \\text{T}"
+        say: "charge one point six times ten to the minus nineteen, speed a million, field half a tesla"
+        role: given
+      - id: find
+        text: "Find the force F."
+        role: find
+      - id: step1
+        latex: "F = qvB"
+        say: "at right angles, force is q v B"
+        role: step
+        color: blue
+      - id: step2
+        latex: "= (1.6\\times10^{-19})(10^6)(0.5)"
+        say: "charge times speed times field"
+        role: step
+        color: red
+      - id: answer
+        latex: "F = 8\\times10^{-14}\\ \\text{N}"
+        say: "the force is eight times ten to the minus fourteen newtons"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "1.6e-19 * 1e6 * 0.5"
+      value: 8e-14
+      unit: "N"
+      tol: 0.02
+
+  - id: s11
+    kind: problem
+    narration: >
+      {statement2} A long straight wire carries a current; find the magnetic field a short distance away,
+      {given2}. {find2} The field of a straight wire is the magnetic constant times the current, over two pi
+      times the distance, {step1b}. Put in the numbers, {step2b}: the magnetic constant is four pi times ten
+      to the minus seven, so the two pis cancel, leaving two times ten to the minus seven, times the current
+      of ten, over the distance of five centimetres. That works out to four times ten to the minus five tesla,
+      {answer2}: a fraction of the Earth's own field, a few centimetres from a modest current.
+    board:
+      - id: statement2
+        text: "Field of a straight wire."
+      - id: given2
+        latex: "I = 10\\ \\text{A},\\quad r = 0.05\\ \\text{m}"
+        say: "current ten amperes, distance five centimetres"
+        role: given
+      - id: find2
+        text: "Find the field B."
+        role: find
+      - id: step1b
+        latex: "B = \\dfrac{\\mu_0 I}{2\\pi r}"
+        say: "the field is mu nought I over two pi r"
+        role: step
+        color: red
+      - id: step2b
+        latex: "= \\dfrac{(2\\times10^{-7})(10)}{0.05}"
+        say: "two times ten to the minus seven, times ten, over zero point zero five"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "B = 4\\times10^{-5}\\ \\text{T}"
+        say: "the field is four times ten to the minus five tesla"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "(4*pi*1e-7 * 10)/(2*pi*0.05)"
+      value: 4e-5
+      unit: "T"
+      tol: 0.02
+
+  - id: s12
+    kind: problem
+    narration: >
+      {statement3} A coil of many turns sees its magnetic flux change; find the induced voltage, {given3}.
+      {find3} Faraday's law says the emf is the number of turns times the rate of change of flux, {step1c}.
+      Put in the numbers, {step2c}: one hundred turns, times a flux change of two tenths of a weber, over a
+      tenth of a second. That is one hundred times two, {answer3}: two hundred volts. A modest flux change,
+      multiplied by many turns and a quick change, induces a substantial voltage — which is exactly how a coil
+      turns a flick of magnetism into real electrical power.
+    board:
+      - id: statement3
+        text: "Induced emf from Faraday's law."
+      - id: given3
+        latex: "N = 100,\\ \\Delta\\Phi = 0.2\\ \\text{Wb},\\ \\Delta t = 0.1\\ \\text{s}"
+        say: "one hundred turns, flux change zero point two webers, in a tenth of a second"
+        role: given
+      - id: find3
+        text: "Find the induced emf."
+        role: find
+      - id: step1c
+        latex: "\\varepsilon = N\\dfrac{\\Delta\\Phi}{\\Delta t}"
+        say: "the emf is N times the rate of change of flux"
+        role: step
+        color: green
+      - id: step2c
+        latex: "= 100 \\times \\dfrac{0.2}{0.1}"
+        say: "one hundred times zero point two over zero point one"
+        role: step
+        color: orange
+      - id: answer3
+        latex: "\\varepsilon = 200\\ \\text{V}"
+        say: "the induced emf is two hundred volts"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "100 * 0.2 / 0.1"
+      value: 200
+      unit: "V"
+      tol: 0.01
+
+  - id: s13
+    kind: end
+    narration: >
+      That is the whole of magnetism and induction in one arc: a moving charge feels the Lorentz force,
+      currents feel forces and make fields by Biot-Savart and Ampère, two currents push on each other, and a
+      changing flux induces a voltage by Faraday's law, always opposing the change through Lenz's law — giving
+      us motors, generators, transformers and inductors. Every one of these equations says one thing: moving
+      charge is the source of magnetism, and changing magnetism is the source of electricity. That single
+      reciprocity drives the electric grid, the electric motor and the radio wave alike. Put it together with
+      electrostatics and you have the four laws of Maxwell, and with them, light itself. Next: Special
+      relativity — why magnetism is just electricity seen in motion.
