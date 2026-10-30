@@ -158,7 +158,7 @@ scenes:
   - id: s7
     kind: derivation
     narration: >
-      Now the deepest idea, induction, {fluxEq}. First define magnetic flux: the field times the area it
+      Induction, {fluxEq}. First define magnetic flux: the field times the area it
       threads, times the cosine of the angle — how much field pierces a loop. Faraday's law is the
       centrepiece, {faradayEq}: a changing magnetic flux through a loop induces a voltage around it, equal to
       minus the rate of change of flux, times the number of turns. Move a magnet toward a coil, change the
