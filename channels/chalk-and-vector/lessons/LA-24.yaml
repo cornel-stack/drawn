@@ -1,0 +1,214 @@
+# LA-24: Markov chains with matrices — where does the system end up?
+# Hefferon, Linear Algebra, Topic: Markov Chains (CC BY-SA 3.0). ~7 minutes.
+# Colour: probability/state = blue, steady state (eigenvalue 1) = red, transition = orange.
+schema_version: 1
+id: LA-24
+channel: chalk-and-vector
+title: "Markov chains with matrices: where does the system end up?"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "Topic: Markov Chains"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/024-topic-markov-chains.md"
+  pages: "323-328"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "The forecast forgets where it started"
+  keyword: "forgets where it started"
+publish:
+  title: "Markov Chains: How a System Forgets Where It Started"
+  summary: >
+    A Markov chain steps between states by chance, and the whole process is one
+    matrix multiplication repeated. We show why the long-run distribution settles
+    to a steady state that forgets the starting point entirely — and why that
+    steady state is simply the eigenvector for the eigenvalue one. Two examples.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - Markov chains
+    - stochastic matrix
+    - steady state
+    - stationary distribution
+    - eigenvector
+    - linear algebra
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A system hops between states at random — sunny to rainy, page to page, mood to mood. Track the
+      probabilities and the whole random process becomes a single matrix multiplication, repeated. Where it
+      ends up is one of the most elegant results in linear algebra.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Take a simple weather model, {steadyLine}: each day is sunny or rainy, with fixed chances of switching.
+      Start certain that today is sunny — probability one — and ask the chance of sun on each following day,
+      {p0} {p1} {p2} {p3}, the blue points. Day by day the probability slides and settles onto a single value,
+      two-thirds, the red line. Start instead certain of rain, and the probability climbs to the very same
+      two-thirds. Whatever you assume about today, the forecast far enough ahead forgets it completely and
+      converges to one fixed distribution. That limiting distribution is called the steady state, and finding
+      it is the whole game. The reason the process is so tractable is that advancing one day is just
+      multiplying the probability vector by a fixed matrix, so the steady state is the one distribution that
+      multiplication leaves unchanged, {steadyEq}: the transition matrix times the steady state gives back the
+      steady state. If that condition looks familiar, it should — it is an eigenvector equation with
+      eigenvalue one.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 6, 1]
+        y: [0, 1.1, 0.2]
+        x_length: 7.6
+        y_length: 3.6
+        x_label: "n"
+        y_label: "P(\\text{sun})"
+      steps:
+        - {id: steadyLine, action: plot_line, params: {name: ss, a: 0, b: 1, c: 0.667, color: red, label: "\\pi"}}
+        - {id: p0, action: mark_point, params: {x: 0, y: 1.0, color: blue, dashed: false}}
+        - {id: p1, action: mark_point, params: {x: 1, y: 0.8, color: blue, dashed: false}}
+        - {id: p2, action: mark_point, params: {x: 2, y: 0.72, color: blue, dashed: false}}
+        - {id: p3, action: mark_point, params: {x: 3, y: 0.688, color: blue, dashed: false}}
+    board:
+      - id: steadyEq
+        latex: "T\\,\\boldsymbol{\\pi} = \\boldsymbol{\\pi}"
+        say: "the transition matrix times the steady state gives back the steady state"
+        color: red
+        legend:
+          - {sym: "T", name: "the transition matrix", unit: ""}
+          - {sym: "\\boldsymbol{\\pi}", name: "the steady-state distribution", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Set it up properly, {vecEq}. The state of the system is a probability vector — a list of the chances of
+      being in each state, which are non-negative and sum to one. One step forward multiplies that vector by
+      the transition matrix, {stepEq}: the next day's probabilities equal the matrix times today's. The matrix
+      is special — each of its columns sums to one, because from any state the chances of going somewhere must
+      total one. A matrix like that is called stochastic, and it has a quiet guarantee built in. Because every
+      column sums to one, the number one is always an eigenvalue, {eigEq} — which means a steady-state
+      distribution always exists, the eigenvector for that eigenvalue. Now run the chain forward: after n
+      steps the distribution is the matrix raised to the nth power, times the start, {powEq}. We know from
+      diagonalisation that powers are governed by eigenvalues. For a well-behaved chain every eigenvalue
+      except the one has size less than one, so all their powers decay to nothing, and only the eigenvalue-one
+      part survives. That surviving part is the steady state, and the decay of the rest is exactly why the
+      system forgets where it began. To find the steady state you do not simulate for a thousand days; you
+      solve one eigenvector equation, {solveEq}: the transition matrix minus the identity, times the
+      distribution, equals zero, together with the requirement that the entries sum to one. This single idea
+      runs an enormous amount of the modern world. It is how search engines rank the web — the importance of
+      a page is its entry in the steady state of a random surfer clicking links. It models queues, the
+      spread of opinions, the weather, the genetics of populations and the credit ratings of companies.
+      Anywhere a system moves between states with fixed odds, a stochastic matrix captures it, and its
+      long-run fate is one eigenvector. The randomness in the small washes out, and what remains is a single,
+      predictable distribution — the system's destiny, written as the eigenvector for one.
+    board:
+      - id: vecEq
+        latex: "\\mathbf{p} = \\begin{pmatrix}p_1\\\\ \\vdots \\\\ p_k\\end{pmatrix},\\quad \\textstyle\\sum p_i = 1"
+        say: "the state is a probability vector whose entries sum to one"
+        color: blue
+      - id: stepEq
+        latex: "\\mathbf{p}_{n+1} = T\\,\\mathbf{p}_n"
+        say: "the next distribution is the matrix times the current one"
+        color: orange
+        box: true
+      - id: eigEq
+        latex: "\\text{columns sum to }1 \\;\\Rightarrow\\; \\lambda = 1 \\text{ exists}"
+        say: "because columns sum to one, an eigenvalue of one always exists"
+        color: red
+      - id: powEq
+        latex: "\\mathbf{p}_n = T^n \\mathbf{p}_0"
+        say: "after n steps the distribution is T to the n times the start"
+        color: orange
+      - id: solveEq
+        latex: "(T - I)\\,\\boldsymbol{\\pi} = \\mathbf{0}"
+        say: "solve the transition matrix minus the identity, times pi, equals zero"
+        color: red
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      One step of the chain. {statement} The weather has a transition matrix, and today is certainly sunny,
+      {given}; find tomorrow's probabilities. {find} Multiply the matrix by today's vector, {step1}: the sunny
+      row gives zero point eight times one, plus zero point four times zero, which is zero point eight; the
+      rainy row gives zero point two times one, plus zero point six times zero, which is zero point two. So
+      tomorrow, {answer}: an eighty per cent chance of sun, twenty per cent of rain. One matrix multiplication
+      has carried the forecast forward a day.
+    board:
+      - id: statement
+        text: "One step of a weather chain."
+      - id: given
+        latex: "T = \\begin{pmatrix}0.8 & 0.4\\\\0.2 & 0.6\\end{pmatrix},\\ \\ \\mathbf{p}_0 = \\begin{pmatrix}1\\\\0\\end{pmatrix}"
+        say: "the transition matrix, and today certainly sunny"
+        role: given
+      - id: find
+        text: "Find tomorrow's distribution p₁."
+        role: find
+      - id: step1
+        latex: "\\mathbf{p}_1 = T\\mathbf{p}_0 = \\begin{pmatrix}0.8(1)+0.4(0)\\\\0.2(1)+0.6(0)\\end{pmatrix}"
+        say: "multiply the matrix by the vector one, zero"
+        role: step
+        color: orange
+      - id: answer
+        latex: "\\mathbf{p}_1 = \\begin{pmatrix}0.8\\\\0.2\\end{pmatrix}"
+        say: "eighty per cent sun, twenty per cent rain"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "0.8*1 + 0.4*0"
+      value: 0.8
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} Now find where it ends up — the steady-state chance of sun, {given2}. {find2} In the steady
+      state the probability of sun is unchanged from one day to the next, so it equals the sunny row applied to
+      itself: zero point eight times the chance of sun, plus zero point four times the chance of rain, which is
+      one minus the chance of sun, {step1b}. Tidy that up, {step2b}: zero point four equals zero point six
+      times the chance of sun. Divide, {answer2}: the steady-state chance of sun is two-thirds, about
+      sixty-seven per cent — exactly the value the blue points were climbing down to. The long-run forecast is
+      sunny two days in three, no matter what today holds.
+    board:
+      - id: statement2
+        text: "The steady-state probability of sun."
+      - id: given2
+        latex: "0.8\\,s + 0.4(1-s) = s"
+        say: "in the steady state, the sunny equation applied to itself"
+        role: given
+      - id: find2
+        text: "Solve for s = P(sun)."
+        role: find
+      - id: step1b
+        latex: "0.8s + 0.4 - 0.4s = s"
+        say: "expand the bracket"
+        role: step
+        color: orange
+      - id: step2b
+        latex: "0.4 = 0.6\\,s"
+        say: "zero point four equals zero point six times s"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "s = \\tfrac{0.4}{0.6} = \\tfrac{2}{3}"
+        say: "the steady-state chance of sun is two-thirds"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "0.4 / 0.6"
+      value: 0.6667
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: a Markov chain evolves a probability vector by repeatedly multiplying by a stochastic
+      matrix, whose columns sum to one. That guarantees an eigenvalue of one, whose eigenvector is the
+      steady-state distribution the system converges to — forgetting its starting point as the smaller
+      eigenvalues decay. Find it by solving a single eigenvector equation. Next: PageRank — the eigenvector
+      that built Google.

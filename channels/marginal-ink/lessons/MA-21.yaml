@@ -1,0 +1,213 @@
+# MA-21: Real business cycle theory — recessions as rational responses?
+# FLAGGED source: intro OpenStax does not cover formal RBC theory. Grounded in
+# OpenStax Principles 3e §26 The Neoclassical Perspective (potential GDP, flexible
+# prices, supply-side) + §20 growth/productivity (CC BY 4.0); RBC itself is the
+# standard construction (flagged in the review). ~7 minutes.
+# Colour: productivity = orange, output = blue, shock/recession = red.
+schema_version: 1
+id: MA-21
+channel: marginal-ink
+title: "Real business cycle theory: recessions as rational responses?"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§26 The Neoclassical Perspective (with §20 Economic Growth)"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/302-26-1-the-building-blocks-of-neoclassical-analysis.md"
+  pages: "645-655"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "What if recessions are efficient?"
+  keyword: "efficient"
+publish:
+  title: "Real Business Cycle Theory: Are Recessions a Rational Response?"
+  summary: >
+    One school of macroeconomics makes a startling claim: recessions are not market
+    failures but the economy's efficient response to a fall in productivity. We lay
+    out real business cycle theory, its technology-shock mechanism and its radical
+    policy conclusion, and show why it remains so controversial. Two examples.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - real business cycle
+    - technology shock
+    - neoclassical economics
+    - productivity
+    - business cycles
+    - macroeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Most theories treat a recession as something gone wrong — a failure of demand to be fixed. One school
+      disagrees completely. It argues that a recession can be the economy working exactly as it should,
+      responding rationally to a change in what it is able to produce.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Start with the production function, {drawHi}, the orange curve: the output an economy makes from its
+      capital and labour. Its height is set by productivity — the technology and know-how that turn inputs
+      into goods. Now suppose productivity falls: a bad harvest, an energy shock, a tangle of new red tape.
+      The whole curve drops, {drawLo}, in red, because the same workers and machines now produce less.
+      Output falls — a recession. Here is the provocative claim of real business cycle theory. That fall is
+      not a malfunction; it is the economy's best response to genuinely worse conditions, {shockEq}. When
+      productivity and therefore wages drop, rational workers choose to work a little less and wait for
+      better-paid times, and firms rationally invest less when the return has fallen. Everyone is doing the
+      optimal thing, markets clear, and yet output and employment fall. The recession is efficient. In this
+      view, booms and slumps are just the economy tracking the ups and downs of its own productivity, and the
+      business cycle is the rational echo of real shocks to what we can make.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 9, 1]
+        y: [0, 8, 2]
+        x_length: 7.6
+        y_length: 3.6
+        x_label: "K"
+        y_label: "Y"
+      steps:
+        - {id: drawHi, action: plot_function, params: {func: output_pw, color: orange, label: "A\\sqrt{K}"}}
+        - {id: drawLo, action: plot_function, params: {func: prodfn_lo, color: red, label: "A'\\sqrt{K}"}}
+    board:
+      - id: shockEq
+        latex: "A \\downarrow \\;\\Rightarrow\\; Y \\downarrow"
+        say: "a fall in productivity lowers output"
+        color: red
+        legend:
+          - {sym: "A", name: "total factor productivity", unit: ""}
+          - {sym: "Y", name: "output (GDP)", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Set out the logic, {prodEq}. Output equals productivity times a function of capital and labour, so
+      anything that moves productivity moves output directly. Real business cycle theory, built by Kydland and
+      Prescott in the nineteen-eighties, makes productivity shocks the engine of the whole business cycle.
+      Not shocks to demand, not mistakes by the central bank — real shocks to the economy's ability to
+      produce. The model takes the neoclassical world seriously: prices and wages are flexible, markets always
+      clear, and people are forward-looking optimisers. The key behaviour is how they respond to a temporary
+      change in the reward for working, {labourEq}. When productivity is high, wages are high, so people work
+      more and take their leisure later; when productivity is low, wages are low, so they work less now and
+      wait — economists call this intertemporal substitution of labour. Employment rises and falls not because
+      workers are thrown out of jobs against their will, but because they are rationally choosing when to
+      work. Put these together, {hl:prodEq}, and a fall in productivity produces lower output, lower
+      employment and lower investment — a recession — with every market clearing and every agent optimising.
+      That leads to the theory's most radical and contested conclusion, {policyEq}: if a recession is the
+      efficient response to a real shock, then trying to stimulate the economy out of it is a mistake. There
+      is nothing to fix; demand management can only push the economy away from the optimal path it is already
+      on. This is the opposite of the Keynesian prescription. The disagreement could hardly be sharper, and it
+      is why the theory is so controversial. Critics find it hard to accept that the mass unemployment of a
+      deep depression is anyone's rational choice, or to identify the great productivity collapse that a severe
+      recession would require. But real business cycle theory earned its lasting influence another way. It
+      forced macroeconomics to build its models from the ground up — from optimising households and firms,
+      with explicit shocks — and that method of rigorous microfoundations now underlies almost every modern
+      model, Keynesian ones included. Whether or not recessions are truly efficient, the discipline of asking
+      exactly how rational agents would respond has permanently changed how the subject is done.
+    board:
+      - id: prodEq
+        latex: "Y = A \\cdot F(K, L)"
+        say: "output equals productivity times a function of capital and labour"
+        color: blue
+        box: true
+      - id: labourEq
+        latex: "w = A\\cdot\\text{MPL}"
+        say: "the wage is productivity times the marginal product of labour"
+        color: orange
+      - id: policyEq
+        latex: "\\text{efficient slump} \\Rightarrow \\text{no stimulus}"
+        say: "if the slump is efficient, stimulus is a mistake"
+        color: red
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      {statement} An economy's output is productivity times the square root of capital times labour, and we
+      know its productivity and inputs, {given}; find its output. {find} Put the numbers into the production
+      function, {step1}: productivity of two, times the square root of one hundred times one hundred. The
+      square root of ten thousand is one hundred, {step2}, and two times one hundred is two hundred, {answer}.
+      So the economy produces two hundred units — its potential output, given this level of productivity.
+    board:
+      - id: statement
+        text: "Output from the production function."
+      - id: given
+        latex: "Y = A\\sqrt{KL},\\ \\ A=2,\\ K=100,\\ L=100"
+        say: "output is A times root K L, with productivity two, capital one hundred, labour one hundred"
+        role: given
+      - id: find
+        text: "Find output Y."
+        role: find
+      - id: step1
+        latex: "Y = 2\\sqrt{100 \\times 100}"
+        say: "output is two times the square root of one hundred times one hundred"
+        role: step
+        color: blue
+      - id: step2
+        latex: "= 2\\sqrt{10000} = 2(100)"
+        say: "equals two times the root of ten thousand, which is two times one hundred"
+        role: step
+        color: orange
+      - id: answer
+        latex: "Y = 200"
+        say: "output is two hundred"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "2 * np.sqrt(100 * 100)"
+      value: 200
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} Now a negative technology shock cuts productivity by a tenth, from two to one point eight,
+      with capital and labour unchanged, {given2}; find the new output. {find2} Output is proportional to
+      productivity, so recompute with the lower value, {step1b}: one point eight times the square root of ten
+      thousand, which is one point eight times one hundred, {step2b}. That is one hundred and eighty,
+      {answer2}. Output fell from two hundred to one hundred and eighty — a ten per cent drop, exactly
+      matching the ten per cent fall in productivity. The recession is the economy faithfully tracking its own
+      productivity down, no more and no less.
+    board:
+      - id: statement2
+        text: "Output after a productivity shock."
+      - id: given2
+        latex: "A' = 1.8,\\ \\ K=100,\\ L=100"
+        say: "new productivity one point eight, capital and labour unchanged"
+        role: given
+      - id: find2
+        text: "Find the new output Y'."
+        role: find
+      - id: step1b
+        latex: "Y' = 1.8\\sqrt{100 \\times 100}"
+        say: "output is one point eight times the root of ten thousand"
+        role: step
+        color: red
+      - id: step2b
+        latex: "= 1.8(100)"
+        say: "equals one point eight times one hundred"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "Y' = 180"
+        say: "the new output is one hundred and eighty"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "1.8 * np.sqrt(100 * 100)"
+      value: 180
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: real business cycle theory holds that recessions are driven by real productivity shocks,
+      not demand failures, and that in a world of flexible prices and optimising agents a slump can be the
+      efficient response to worse conditions — implying that stabilisation policy does more harm than good.
+      Controversial in its conclusions, it nonetheless gave macroeconomics the microfoundations now used
+      everywhere. Next: Rational expectations and the Lucas critique.

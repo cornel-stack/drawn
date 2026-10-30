@@ -1,0 +1,210 @@
+# EM-21: How Maxwell's equations predict light — the wave equation for E and B.
+# OpenStax University Physics Vol. 2, §16.2 Plane Electromagnetic Waves (CC BY 4.0).
+# Follows EM-20. ~7 minutes. Colour: electric = blue, magnetic = red, wave/speed = green.
+schema_version: 1
+id: EM-21
+channel: pen-and-pendulum
+title: "How Maxwell's equations predict light: the wave equation for E and B"
+target_minutes: 7
+source:
+  book: "University Physics Volume 2 (OpenStax)"
+  section: "§16.2 Plane Electromagnetic Waves"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/140-16-2-plane-electromagnetic-waves.md"
+  pages: "676-682"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "Two laws become a wave"
+  keyword: "become a wave"
+publish:
+  title: "The Wave Equation for Light: How Maxwell's Equations Predict It"
+  summary: >
+    Maxwell's equations do not just allow light — they force it. We combine
+    Faraday's law and the Ampere-Maxwell law in empty space and watch a wave
+    equation appear, with a propagation speed fixed at one over the root of the two
+    electromagnetic constants: the speed of light. Two worked examples.
+  hashtags: ["#physics", "#electromagnetism", "#light"]
+  tags:
+    - wave equation
+    - electromagnetic waves
+    - Maxwell's equations
+    - speed of light
+    - transverse wave
+    - electromagnetism
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Last time we saw that Maxwell's four equations allow an electromagnetic wave. Now we show they demand
+      one. Combine just two of them in empty space and a wave equation appears on its own, carrying a speed
+      that could only be the speed of light.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {plotE}, is a disturbance in the electric field travelling along a line, the blue wave. In empty
+      space, far from any charge or current, only two of Maxwell's equations are in play: Faraday's law, that
+      a changing magnetic field curls up an electric field, and the Ampère-Maxwell law, that a changing
+      electric field curls up a magnetic one. Feed each into the other and the result is a single equation for
+      the electric field alone, {waveEq}: its curvature in space equals a constant times its acceleration in
+      time. That is the wave equation — the exact form obeyed by a wave on a string or a sound wave in air —
+      and the moment it appears, a travelling wave is guaranteed. The constant sitting in front, {hl:waveEq},
+      is the product of the two electromagnetic constants, and matching this equation to the standard wave
+      equation forces the wave's speed to be one over the square root of that product. Put in the measured
+      values and the speed comes out at three hundred million metres per second — the speed of light. The
+      magnetic field obeys the very same equation, locked to the electric one, and the two sail along together
+      as light.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 12, 2]
+        y: [-3, 3, 1]
+        x_length: 7.8
+        y_length: 3.4
+        x_label: "x"
+        y_label: "E"
+      steps:
+        - {id: plotE, action: plot_function, params: {func: sin, color: blue, label: "E"}}
+    board:
+      - id: waveEq
+        latex: "\\dfrac{\\partial^2 E}{\\partial x^2} = \\mu_0\\varepsilon_0\\,\\dfrac{\\partial^2 E}{\\partial t^2}"
+        say: "the second space derivative of E equals mu nought epsilon nought times its second time derivative"
+        color: blue
+        legend:
+          - {sym: "\\mu_0\\varepsilon_0", name: "equals 1/c^2", unit: "s^2/m^2"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Start with Faraday, {faradayEq}: for a wave running along the x-axis, it
+      relates how the electric field changes along the direction of travel to how the magnetic field changes
+      in time. The Ampère-Maxwell law gives the mirror-image relation, {ampereEq}: how the magnetic field
+      changes in space to how the electric field changes in time. Each law ties a space-change of one field
+      to a time-change of the other. Now differentiate the first again and substitute the second into it —
+      the magnetic field drops out entirely, leaving a closed equation for the electric field by itself,
+      {waveEq2}: its second derivative in space equals mu-nought epsilon-nought times its second derivative in
+      time. Compare it, {hl:waveEq2}, with the wave equation every physicist knows, {standardEq}: the second
+      space derivative equals one over the speed squared, times the second time derivative. The two match
+      line for line, so the coefficient mu-nought epsilon-nought must be one over the speed squared — which
+      pins the speed at one over the root of mu-nought epsilon-nought, {speedEq}. There was no freedom in
+      this. Maxwell's equations, with nothing added, produce a wave, and they fix its speed with no
+      adjustable dial — it is set entirely by two constants you can measure with a capacitor and a coil on a
+      laboratory bench. When Maxwell computed that number and found it equal to the measured speed of light,
+      the conclusion was forced: light is this very wave. The electric and magnetic fields are not merely
+      present in light; their mutual regeneration, Faraday feeding Ampère and back again, is what light is.
+      Everything else — that the wave is transverse, that E equals c times B, that it needs no medium —
+      follows from the same two laws. A disturbance in the electromagnetic field, once begun, must propagate,
+      and it must do so at the speed of light.
+    board:
+      - id: faradayEq
+        latex: "\\dfrac{\\partial E}{\\partial x} = -\\dfrac{\\partial B}{\\partial t}"
+        say: "Faraday: the space change of E equals minus the time change of B"
+        color: blue
+      - id: ampereEq
+        latex: "\\dfrac{\\partial B}{\\partial x} = -\\mu_0\\varepsilon_0\\,\\dfrac{\\partial E}{\\partial t}"
+        say: "Ampere-Maxwell: the space change of B equals minus mu nought epsilon nought times the time change of E"
+        color: red
+      - id: waveEq2
+        latex: "\\dfrac{\\partial^2 E}{\\partial x^2} = \\mu_0\\varepsilon_0\\,\\dfrac{\\partial^2 E}{\\partial t^2}"
+        say: "the second space derivative of E equals mu nought epsilon nought times its second time derivative"
+        color: blue
+        box: true
+      - id: standardEq
+        latex: "\\dfrac{\\partial^2 E}{\\partial x^2} = \\dfrac{1}{c^2}\\,\\dfrac{\\partial^2 E}{\\partial t^2}"
+        say: "the standard wave equation, with one over c squared in front"
+        color: green
+      - id: speedEq
+        latex: "c = \\dfrac{1}{\\sqrt{\\mu_0\\varepsilon_0}}"
+        say: "so the speed is one over the root of mu nought epsilon nought"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      {statement} The two fields are locked together. In a light wave the electric and magnetic fields are not
+      independent; their amplitudes obey E equals c times B. Given the magnetic amplitude of a wave, {given},
+      find the electric amplitude. {find} Multiply the magnetic field by the speed of light, {step1}: three
+      times ten to the eighth, times two times ten to the minus six teslas. That is six hundred, {answer}: an
+      electric amplitude of six hundred volts per metre. The factor of the speed of light between them is why
+      the electric field of light is numerically huge while the magnetic field looks tiny — they carry equal
+      energy, but in very different units.
+    board:
+      - id: statement
+        text: "Electric field from the magnetic field."
+      - id: given
+        latex: "B_0 = 2\\times10^{-6}\\ \\text{T},\\ \\ c = 3\\times10^{8}\\ \\text{m/s}"
+        say: "magnetic amplitude two times ten to the minus six teslas, speed of light three times ten to the eighth"
+        role: given
+      - id: find
+        text: "Find the electric amplitude E₀."
+        role: find
+      - id: step1
+        latex: "E_0 = c\\,B_0 = (3\\times10^{8})(2\\times10^{-6})"
+        say: "E nought is c times B nought"
+        role: step
+        color: blue
+      - id: answer
+        latex: "E_0 = 600\\ \\text{V/m}"
+        say: "the electric amplitude is six hundred volts per metre"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "3e8 * 2e-6"
+      value: 600
+      unit: "V/m"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} A beam of green light has a known frequency, {given2}; find its wavelength. {find2} For any
+      electromagnetic wave the speed of light equals frequency times wavelength, so the wavelength is the speed
+      over the frequency, {step1b}. Put in the numbers, {step2b}: three times ten to the eighth metres per
+      second, over six times ten to the fourteen cycles per second. That is five times ten to the minus seven
+      metres, {answer2}: five hundred nanometres — right in the middle of the visible range, which is exactly
+      the colour we see as green. The same wave equation that governs radio governs light; only the frequency,
+      and so the wavelength, has changed.
+    board:
+      - id: statement2
+        text: "Wavelength of green light."
+      - id: given2
+        latex: "f = 6\\times10^{14}\\ \\text{Hz}"
+        say: "frequency six times ten to the fourteenth hertz"
+        role: given
+      - id: find2
+        text: "Find the wavelength λ."
+        role: find
+      - id: step1b
+        latex: "\\lambda = \\dfrac{c}{f}"
+        say: "the wavelength is the speed of light over the frequency"
+        role: step
+        color: green
+      - id: step2b
+        latex: "= \\dfrac{3\\times10^{8}}{6\\times10^{14}}"
+        say: "equals three times ten to the eighth over six times ten to the fourteenth"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "\\lambda = 5\\times10^{-7}\\ \\text{m} = 500\\ \\text{nm}"
+        say: "the wavelength is five hundred nanometres"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "3e8 / 6e14"
+      value: 5.0e-7
+      unit: "m"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: in empty space, Faraday's law and the Ampère-Maxwell law combine into a wave equation for
+      the electric field, and an identical one for the magnetic field. Matching it to the standard wave
+      equation fixes the speed at one over the root of mu-nought epsilon-nought — the speed of light — with no
+      free parameters. Maxwell's equations do not merely permit light; they predict it. Next: The Poynting
+      vector — where the energy in a circuit actually flows.

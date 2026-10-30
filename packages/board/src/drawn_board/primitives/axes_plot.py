@@ -36,6 +36,11 @@ _FUNCS = {
     "prodfn": (lambda x: 10.0 * np.sqrt(np.clip(x, 0.0, None)), r"10\sqrt{k}"),
     # the same function lifted by better technology / human capital (shifts up).
     "prodfn_hi": (lambda x: 13.0 * np.sqrt(np.clip(x, 0.0, None)), r"13\sqrt{k}"),
+    # the production function after a negative productivity (technology) shock:
+    # lower total factor productivity A pulls the whole Y = A*sqrt(K) curve down,
+    # so the same capital and labour produce less output — the real-business-cycle
+    # reading of a recession.
+    "prodfn_lo": (lambda x: 1.4 * np.sqrt(np.clip(x, 0.0, None)), r"A'\sqrt{K}"),
     # Solow per-worker diagram: output y = 2*sqrt(k), saving/investment s*y with
     # s = 0.3, and depreciation drawn as a line (delta k). With delta = 0.3 the
     # saving curve 0.6*sqrt(k) meets the delta-k line at the steady state k* = 4,
