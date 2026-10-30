@@ -97,24 +97,25 @@ scenes:
       behaviour of a two-dimensional linear system at a glance. Complex eigenvalues always come in conjugate
       pairs for a real matrix, and for a two-by-two their magnitude has a beautifully simple form, {detEq}:
       the magnitude squared equals the determinant. So the determinant alone tells you the fate of the
-      spiral — determinant above one, it flies apart; below one, it decays to rest; exactly one, it circles
-      forever. This is why complex eigenvalues are the signature of oscillation everywhere in science: a mass
-      on a spring with friction, a swinging pendulum losing energy, an electrical circuit ringing down, a
-      predator-prey cycle. Each is a system whose matrix has complex eigenvalues. There is a continuous
-      version of the same idea that makes this precise. Many systems in physics are written not as a
-      step-by-step multiplication but as a rate of change: the velocity of the state is a matrix times the
-      state. The solutions of such a system are built from e to the lambda t, the exponential of an
-      eigenvalue times time. Split a complex eigenvalue into its real and imaginary parts, a plus b i, and
-      that exponential factors cleanly into two: e to the a t, a real exponential that grows or decays, times
-      e to the i b t, which by Euler's formula is cosine b t plus i sine b t, a pure oscillation. So the real
-      part of the eigenvalue is the growth or decay rate of the amplitude, and the imaginary part is the
-      angular frequency of the oscillation. A negative real part and the oscillation dies away; a positive
-      real part and it grows without bound; a real part of exactly zero and it rings at constant amplitude
-      forever. One complex number carries two independent pieces of physics: how fast the system swings, and
-      whether the swinging fades. It is the same decomposition as the spiral, now in continuous time — the
-      angle has become a frequency, the magnitude a growth rate. The textbook that computes a complex
-      eigenvalue and moves on has skipped the best part. The number is telling you the system spins, how
-      fast, and whether it is settling down or blowing up.
+      spiral, {hl:detEq} — determinant above one, it flies apart; below one, it decays to rest; exactly one,
+      it circles forever. This is why complex eigenvalues are the signature of oscillation everywhere in
+      science, {hl:rootsEq}: a mass on a spring with friction, a swinging pendulum losing energy, an
+      electrical circuit ringing down, a predator-prey cycle. Each is a system whose matrix has complex
+      eigenvalues. There is a continuous version of the same idea that makes this precise, {hl:polarEq}. Many
+      systems in physics are written not as a step-by-step multiplication but as a rate of change: the
+      velocity of the state is a matrix times the state. The solutions of such a system are built from e to
+      the lambda t, the exponential of an eigenvalue times time. Split a complex eigenvalue into its real and
+      imaginary parts, a plus b i, {hl:rootsEq}, and that exponential factors cleanly into two: e to the a t,
+      a real exponential that grows or decays, times e to the i b t, which by Euler's formula is cosine b t
+      plus i sine b t, a pure oscillation. So the real part of the eigenvalue is the growth or decay rate of
+      the amplitude, {hl:polarEq}, and the imaginary part is the angular frequency of the oscillation. A
+      negative real part and the oscillation dies away; a positive real part and it grows without bound; a
+      real part of exactly zero and it rings at constant amplitude forever. One complex number carries two
+      independent pieces of physics, {hl:detEq}: how fast the system swings, and whether the swinging fades.
+      It is the same decomposition as the spiral, now in continuous time — the angle has become a frequency,
+      the magnitude a growth rate. The textbook that computes a complex eigenvalue and moves on has skipped
+      the best part. The number is telling you the system spins, how fast, and whether it is settling down or
+      blowing up, {hl:detEq}.
     board:
       - id: rotEq
         latex: "R = \\begin{pmatrix}\\cos\\theta & -\\sin\\theta\\\\ \\sin\\theta & \\cos\\theta\\end{pmatrix}"
