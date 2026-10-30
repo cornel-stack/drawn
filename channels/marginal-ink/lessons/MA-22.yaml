@@ -1,0 +1,223 @@
+# MA-22: Rational expectations and the Lucas critique.
+# FLAGGED source: intro OpenStax does not cover the formal Lucas critique. Grounded
+# in OpenStax Principles 3e §26.2 (rational expectations, policy implications) +
+# the expectations-augmented Phillips curve (CC BY 4.0); the Lucas critique itself is
+# the standard construction (flagged in the review). ~7 minutes.
+# Colour: short-run Phillips = blue, long-run/natural = red, expectations = orange, inflation = green.
+schema_version: 1
+id: MA-22
+channel: marginal-ink
+title: "Rational expectations and the Lucas critique"
+target_minutes: 7
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§26.2 The Policy Implications of the Neoclassical Perspective"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/303-26-2-the-policy-implications-of-the-neoclassical-perspective.md"
+  pages: "650-656"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "The tradeoff that destroyed itself"
+  keyword: "destroyed itself"
+publish:
+  title: "Rational Expectations and the Lucas Critique, Explained"
+  summary: >
+    Once people see a policy coming, they act on it — and that simple idea upended
+    macroeconomics. We show how rational expectations make anticipated policy
+    toothless, why the inflation-unemployment tradeoff vanished the moment
+    governments tried to exploit it, and what the Lucas critique demands instead.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - rational expectations
+    - Lucas critique
+    - Phillips curve
+    - expectations
+    - monetary policy
+    - macroeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      For a while, economists believed a government could buy lower unemployment with a little more inflation.
+      Then people started to see the policy coming — and the whole bargain fell apart. The reason reshaped
+      modern macroeconomics.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawSR}, is the bargain they thought they had — the blue curve: the Phillips curve, a downward
+      tradeoff between unemployment and inflation. Accept a bit more inflation, it promised, and unemployment
+      falls. A government could pick a nicer point by simply running the economy hotter. But watch what
+      happens when it tries, {drawLR}. The lower unemployment is real only for as long as the inflation is a
+      surprise. Once workers and firms expect the higher inflation, they build it straight into wages and
+      prices, and unemployment drifts back to its natural rate — the red vertical line. The only way to keep
+      unemployment low is to surprise people again, with yet more inflation, and the whole blue curve shifts
+      upward, {drawSR2}, in orange. Try to live on the tradeoff and you end up at the same unemployment with
+      ever-higher inflation. In the long run there is no tradeoff at all, only a vertical line at the natural
+      rate. The relationship the government tried to exploit, {phillipsEq}, dissolved the moment it was
+      exploited — which is the entire point.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [2, 8, 1]
+        y: [0, 10, 2]
+        x_length: 7.6
+        y_length: 3.6
+        x_label: "U\\%"
+        y_label: "\\pi\\%"
+      steps:
+        - {id: drawSR, action: plot_line, params: {name: sr, a: 1, b: 1, c: 10, color: blue, label: "SRPC"}}
+        - {id: drawLR, action: plot_line, params: {name: lr, a: 1, b: 0, c: 5, color: red, label: "U^*"}}
+        - {id: drawSR2, action: plot_line, params: {name: sr2, a: 1, b: 1, c: 13, color: orange, label: "SRPC'"}}
+    board:
+      - id: phillipsEq
+        latex: "\\pi = \\pi^e - \\beta\\,(U - U^*)"
+        say: "inflation equals expected inflation, minus beta times the unemployment gap"
+        color: blue
+        legend:
+          - {sym: "\\pi^e", name: "expected inflation", unit: ""}
+          - {sym: "U^*", name: "the natural rate", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here, {reEq}: rational expectations. It says that people do not make
+      systematic mistakes: they use all the information they have, including their understanding of how policy
+      works, so on average their expectations are correct. They are not clairvoyant — they are simply not
+      repeatedly fooled in the same way. Feed that into the Phillips curve. If a central bank announces it
+      will expand the money supply, people with rational expectations predict the resulting inflation and
+      raise their prices and wages at once, {anticipEq}. The inflation arrives, but the fall in unemployment
+      does not, because nothing was a surprise. Anticipated policy changes only the price level, not real
+      output — only genuine surprises move the real economy, and surprises cannot be delivered on a schedule.
+      This leads to the deeper and more unsettling idea, the Lucas critique, {lucasEq}. For years, economists
+      forecast the effects of policy from historical relationships fitted to past data — the Phillips curve
+      being the prime example. Lucas pointed out the fatal flaw, {hl:lucasEq}: those relationships are not
+      laws of nature. They are the by-product of how people behaved under the old policy, and that behaviour
+      rested on their expectations. Change the policy and you change the expectations, and the historical
+      relationship you measured simply breaks. The Phillips curve of the nineteen-sixties looked stable and
+      exploitable; governments ran inflation up to buy low unemployment; people learned to expect the
+      inflation; and the curve shifted until the nineteen-seventies delivered high inflation and high
+      unemployment together — exactly what the old curve said was impossible. The correlation was never
+      structural. The Lucas critique's demand is therefore radical, {deepEq}: do not build models on
+      surface correlations that will shift the moment policy does. Build them on the deep things that do not
+      move — the preferences and constraints of households and firms — and derive behaviour, and its response
+      to new policy, from those. This is the microfoundations programme, and together with rational
+      expectations it is why modern macroeconomic models are built from optimising agents who see policy
+      coming. The lasting lesson is humbling. An economy is not a fixed machine whose levers a planner can
+      pull; it is a crowd of people who respond to the very policies meant to steer them, and any policy that
+      ignores how expectations will adjust is building on sand.
+    board:
+      - id: reEq
+        latex: "E[\\pi] = \\pi \\;\\;(\\text{no systematic error})"
+        say: "expected inflation equals actual inflation on average, no systematic error"
+        color: orange
+        box: true
+      - id: anticipEq
+        latex: "\\text{anticipated policy} \\Rightarrow \\text{prices only}"
+        say: "anticipated policy moves only prices, not output"
+        color: green
+      - id: lucasEq
+        latex: "\\text{params depend on policy regime}"
+        say: "estimated relationships depend on the policy regime"
+        color: red
+        box: true
+      - id: deepEq
+        latex: "\\text{model deep parameters, not correlations}"
+        say: "model the deep policy-invariant parameters, not surface correlations"
+        color: blue
+
+  - id: s4
+    kind: problem
+    narration: >
+      Expectations in a nominal rate. {statement} Lenders demand a real return and fully anticipate inflation,
+      {given}; find the nominal interest rate they will charge. {find} By the Fisher relation, which rational
+      expectations makes bite, the nominal rate is the real rate plus expected inflation, {step1}. Put in the
+      numbers, {step2}: two per cent real, plus four per cent expected inflation. That is six per cent,
+      {answer}. Because lenders see the inflation coming, they build it into the rate in advance — so a
+      central bank cannot lower the real cost of borrowing just by creating expected inflation. The
+      expectation has already priced it in.
+    board:
+      - id: statement
+        text: "The Fisher relation with rational expectations."
+      - id: given
+        latex: "r = 2\\%,\\quad \\pi^e = 4\\%"
+        say: "real rate two per cent, expected inflation four per cent"
+        role: given
+      - id: find
+        text: "Find the nominal rate i."
+        role: find
+      - id: step1
+        latex: "i = r + \\pi^e"
+        say: "the nominal rate is the real rate plus expected inflation"
+        role: step
+        color: orange
+      - id: step2
+        latex: "= 2\\% + 4\\%"
+        say: "equals two per cent plus four per cent"
+        role: step
+        color: green
+      - id: answer
+        latex: "i = 6\\%"
+        say: "the nominal rate is six per cent"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "2 + 4"
+      value: 6
+      unit: "%"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} Now show the long-run tradeoff vanishes. Use the expectations-augmented Phillips curve,
+      with expectations correct and unemployment at its natural rate, {given2}; find inflation. {find2}
+      Substitute into the curve, {step1b}: inflation is expected inflation, minus a half times the gap between
+      unemployment and the natural rate. In the long run expectations are right and unemployment sits at its
+      natural rate, so the gap is zero, {step2b}. Inflation simply equals expected inflation, {answer2}:
+      whatever people expect, with unemployment unmoved at the natural rate. The tradeoff is gone. The central
+      bank can set the inflation rate, but not buy lower unemployment with it — in the long run the Phillips
+      curve is vertical.
+    board:
+      - id: statement2
+        text: "The long-run Phillips curve."
+      - id: given2
+        latex: "\\pi^e = 5\\%,\\quad U = U^* = 5\\%,\\quad \\beta = 0.5"
+        say: "expected inflation five per cent, unemployment at the natural rate, beta a half"
+        role: given
+      - id: find2
+        text: "Find long-run inflation π."
+        role: find
+      - id: step1b
+        latex: "\\pi = \\pi^e - 0.5\\,(U - U^*)"
+        say: "inflation is expected inflation minus a half the unemployment gap"
+        role: step
+        color: blue
+      - id: step2b
+        latex: "= 5\\% - 0.5\\,(5 - 5)"
+        say: "equals five per cent minus a half times zero"
+        role: step
+        color: red
+      - id: answer2
+        latex: "\\pi = 5\\% = \\pi^e"
+        say: "inflation equals expected inflation, five per cent"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "5 - 0.5*(5 - 5)"
+      value: 5
+      unit: "%"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: rational expectations says people anticipate policy and do not make systematic errors, so
+      anticipated policy moves prices but not real output — the inflation-unemployment tradeoff holds only by
+      surprise, and vanishes once exploited. The Lucas critique warns that historical relationships shift when
+      policy does, because they rest on expectations, so models must be built on deep, policy-invariant
+      parameters. Next: Quantitative easing and the zero lower bound — what the Fed actually did.

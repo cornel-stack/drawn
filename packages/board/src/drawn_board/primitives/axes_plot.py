@@ -62,6 +62,10 @@ _FUNCS = {
     # a solenoid's field: uniform inside (here the interval 1 < x < 4), ~zero
     # outside — the headline result of Ampere's law, B = mu0 n I inside.
     "solenoid_field": (lambda x: np.where((x > 1.0) & (x < 4.0), 4.0, 0.0), r"\mu_0 n I"),
+    # inverse-square falloff of radiated intensity with distance: the power per unit
+    # area of a wave from a point source drops as 1/r^2 as the energy spreads over an
+    # ever-larger sphere. Scaled to 8 at r = 1, capped at 9.5 near the source.
+    "inv_sq": (lambda x: np.minimum(8.0 / np.clip(x, 0.4, None) ** 2, 9.5), r"\dfrac{1}{r^2}"),
     # the resonance curve of a series RLC circuit driven at angular frequency x = ω:
     # current amplitude I = V / sqrt(R^2 + (ωL - 1/(ωC))^2). With V=5, R=1, L=1,
     # C=1/9 the reactances cancel at ω0 = 1/sqrt(LC) = 3, where the curve peaks at

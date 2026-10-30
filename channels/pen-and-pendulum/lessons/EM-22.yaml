@@ -1,0 +1,208 @@
+# EM-22: The Poynting vector — where the energy in a circuit actually flows.
+# OpenStax University Physics Vol. 2, §16.3 Energy Carried by Electromagnetic Waves
+# (CC BY 4.0). Follows EM-21. ~7 minutes.
+# Colour: electric = blue, magnetic = red, energy/Poynting = green, intensity = orange.
+schema_version: 1
+id: EM-22
+channel: pen-and-pendulum
+title: "The Poynting vector: where the energy in a circuit actually flows"
+target_minutes: 7
+source:
+  book: "University Physics Volume 2 (OpenStax)"
+  section: "§16.3 Energy Carried by Electromagnetic Waves"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/141-16-3-energy-carried-by-electromagnetic-waves.md"
+  pages: "683-686"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "Energy flows outside the wire"
+  keyword: "outside the wire"
+publish:
+  title: "The Poynting Vector: Where Energy in a Circuit Really Flows"
+  summary: >
+    Electromagnetic waves carry energy, and the Poynting vector says exactly where
+    it goes: in the direction of E crossed with B. Follow it into a simple circuit
+    and you find something startling — the energy does not travel inside the wire
+    at all, but through the field around it. We derive it and work two examples.
+  hashtags: ["#physics", "#electromagnetism", "#energy"]
+  tags:
+    - Poynting vector
+    - electromagnetic energy
+    - intensity
+    - energy flux
+    - circuits
+    - electromagnetism
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Electromagnetic waves carry energy, and one vector points exactly where that energy flows. Follow it
+      into an ordinary circuit and it overturns a picture almost everyone carries: the energy does not travel
+      down the inside of the wire at all.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {plotI}: the intensity of a wave, in orange, the power it
+      delivers per unit of area, plotted against distance from the source. It falls off as one over the distance squared,
+      because the same energy spreads over an ever-larger sphere. The quantity that tracks this flow of energy
+      is the Poynting vector, {poyntingEq}: one over the magnetic constant, times the electric field crossed
+      with the magnetic field. Two facts are packed into that cross product. Its size is the power per unit
+      area the wave carries — the intensity. And its direction, the direction of E crossed with B, is the
+      direction the energy travels, which for a wave is exactly the way it propagates. So the fields do not
+      merely oscillate; their cross product is a river of energy flowing through space. Because the fields in
+      a light wave rise and fall, the instantaneous flow pulses, so what we usually want is its time average,
+      the steady intensity. Point the Poynting vector at a solar panel and it tells you the power arriving;
+      point it into a circuit, and it tells you something no one expects.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 6, 1]
+        y: [0, 10, 2]
+        x_length: 7.8
+        y_length: 3.6
+        x_label: "r"
+        y_label: "I"
+      steps:
+        - {id: plotI, action: plot_function, params: {func: inv_sq, color: orange, label: "I(r)"}}
+    board:
+      - id: poyntingEq
+        latex: "\\vec{S} = \\dfrac{1}{\\mu_0}\\,\\vec{E}\\times\\vec{B}"
+        say: "the Poynting vector is one over mu nought, times E cross B"
+        color: green
+        legend:
+          - {sym: "\\vec{S}", name: "energy flux (power/area)", unit: "W/m^2"}
+          - {sym: "\\mu_0", name: "the magnetic constant", unit: "H/m"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Size first, {magEq}. For a wave, the electric and magnetic fields are perpendicular,
+      so the cross product is just their product, and the magnitude of the Poynting vector is E times B over
+      the magnetic constant. Using the earlier result that E equals c times B, this can be written entirely in
+      terms of the electric field. The fields oscillate, so average over a cycle, {avgEq}: the average
+      intensity is the peak electric field squared, times the electric constant and the speed of light, over
+      two. That single number is what a light meter reads and what warms your face in the sun. Now turn the
+      Poynting vector on a humble circuit — a current flowing down a resistive wire, {circuitEq}. Along the
+      wire there is an electric field, pushing the current; the field points down the wire. Around the wire,
+      the current wraps a magnetic field in circles. Take the cross product of the two, down the wire crossed
+      with around it, and it points radially inward, {hl:circuitEq} — straight into the wire from the space
+      outside. The Poynting vector says the energy that heats the resistor does not arrive along the inside of
+      the wire, carried by the electrons. It flows in through the sides, out of the electromagnetic field in
+      the empty space surrounding the wire, and the wire merely guides that field. Integrate the inward flow
+      over the wire's surface and it equals exactly the power dissipated, current squared times resistance —
+      the familiar heating, delivered from the outside in. This is not a mathematical curiosity; it is how
+      energy truly moves in every circuit and every power line. The wires are guides for the field, and the
+      energy travels in the field around them. The humble cross product of E and B, once you take it
+      seriously, rewrites your picture of what a current even is — not energy flowing in a pipe, but a field
+      in space, shepherded by metal, pouring its energy wherever the resistance lets it in.
+    board:
+      - id: magEq
+        latex: "S = \\dfrac{EB}{\\mu_0}"
+        say: "the magnitude is E times B over the magnetic constant"
+        color: green
+      - id: avgEq
+        latex: "I = \\dfrac{1}{2}c\\,\\varepsilon_0 E_0^2"
+        say: "the average intensity is a half c epsilon nought E peak squared"
+        color: orange
+        box: true
+      - id: circuitEq
+        latex: "\\vec{E}\\parallel\\text{wire},\\ \\vec{B}\\circlearrowleft \\;\\Rightarrow\\; \\vec{S}\\ \\text{inward}"
+        say: "E along the wire crossed with B around it points inward"
+        color: blue
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      The brightness of a wave. {statement} A light wave has a known peak electric field, {given}; find the
+      average intensity it carries. {find} The average intensity is a half times the speed of light, times the
+      electric constant, times the peak field squared, {step1}. Put in the numbers, {step2}: a half times
+      three times ten to the eighth, times eight point eight five times ten to the minus twelve, times one
+      hundred squared. One hundred squared is ten thousand, and multiplying through gives about thirteen,
+      {answer}: roughly thirteen watts per square metre. A modest field, yet a steady river of energy through
+      every square metre it crosses.
+    board:
+      - id: statement
+        text: "Intensity from the peak field."
+      - id: given
+        latex: "E_0 = 100\\ \\text{V/m},\\ c = 3\\times10^{8},\\ \\varepsilon_0 = 8.85\\times10^{-12}"
+        say: "peak field one hundred volts per metre, speed of light, electric constant"
+        role: given
+      - id: find
+        text: "Find the average intensity I."
+        role: find
+      - id: step1
+        latex: "I = \\tfrac{1}{2}c\\,\\varepsilon_0 E_0^2"
+        say: "intensity is a half c epsilon nought E peak squared"
+        role: step
+        color: orange
+      - id: step2
+        latex: "= \\tfrac{1}{2}(3\\times10^{8})(8.85\\times10^{-12})(100)^2"
+        say: "a half times the speed of light, the electric constant, and one hundred squared"
+        role: step
+        color: blue
+      - id: answer
+        latex: "I \\approx 13.3\\ \\text{W/m}^2"
+        say: "about thirteen watts per square metre"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "0.5 * 3e8 * 8.85e-12 * 100**2"
+      value: 13.3
+      unit: "W/m^2"
+      tol: 0.02
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} Confirm the Poynting picture for a resistor: compute the power it dissipates the ordinary
+      way, {given2}, and know that the field delivers exactly this from outside. {find2} The power dissipated
+      is the current squared times the resistance, {step1b}. Put in the numbers, {step2b}: two amperes
+      squared, times ten ohms. Two squared is four, times ten is forty, {answer2}: forty watts. That is the
+      figure the Poynting vector, integrated over the wire's surface, must equal — and it does. The forty
+      watts heating this resistor flow in through its sides, out of the surrounding field, not along the wire.
+      The arithmetic is the familiar one; what has changed is where you now know the energy comes from.
+    board:
+      - id: statement2
+        text: "Power into a resistor."
+      - id: given2
+        latex: "I = 2\\ \\text{A},\\quad R = 10\\ \\Omega"
+        say: "current two amperes, resistance ten ohms"
+        role: given
+      - id: find2
+        text: "Find the dissipated power P."
+        role: find
+      - id: step1b
+        latex: "P = I^2 R"
+        say: "power is current squared times resistance"
+        role: step
+        color: green
+      - id: step2b
+        latex: "= (2)^2 (10)"
+        say: "equals two squared times ten"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "P = 40\\ \\text{W}"
+        say: "the power is forty watts"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "2**2 * 10"
+      value: 40
+      unit: "W"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: the Poynting vector, one over the magnetic constant times E crossed with B, gives both
+      the intensity of an electromagnetic wave and the direction its energy travels. Its time average is the
+      intensity a light meter reads. Turn it on a circuit and it reveals that the energy heating a wire enters
+      from the field in the space around it, not along the metal — the wire only guides the field. Next: a rapid
+      recap — all of electrostatics and circuits, in fifteen minutes.

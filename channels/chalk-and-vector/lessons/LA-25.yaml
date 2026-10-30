@@ -1,0 +1,213 @@
+# LA-25: PageRank — the eigenvector that built Google.
+# Hefferon, Linear Algebra, Topic: Page Ranking (CC BY-SA 3.0). Follows LA-24
+# (Markov steady state). ~7 minutes.
+# Colour: page rank = blue, link matrix = orange, damping = green, eigenvector = red.
+schema_version: 1
+id: LA-25
+channel: chalk-and-vector
+title: "PageRank: the eigenvector that built Google"
+target_minutes: 7
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "Topic: Page Ranking"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/040-topic-page-ranking.md"
+  pages: "480-483"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "A $100 billion eigenvector"
+  keyword: "eigenvector"
+publish:
+  title: "PageRank Explained: The Eigenvector That Built Google"
+  summary: >
+    Google's original ranking was one eigenvector. PageRank calls a page important
+    if important pages link to it — a circular definition that linear algebra
+    resolves exactly, as the steady state of a random web surfer. We build the
+    idea, add the damping factor that makes it work, and compute a rank.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - PageRank
+    - eigenvector
+    - Markov chain
+    - Google
+    - random surfer
+    - linear algebra
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      When Google began, its ranking of the entire web was computed as a single eigenvector. The idea behind
+      it, called PageRank, turns a circular-sounding definition of importance into one clean equation in
+      linear algebra.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawP1}, are four web pages, with the bars showing the importance PageRank assigns them, in
+      blue, {drawP2} {drawP3} {drawP4}. Page one towers over the others — not because it has the most links
+      pointing at it, but because the pages that link to it are themselves important. That is the whole idea,
+      and it sounds hopelessly circular: a page is important if important pages link to it. How can you rank
+      pages by importance when the ranking depends on itself? Linear algebra answers exactly. Picture a surfer
+      clicking links at random, hopping from page to page forever. The fraction of time they spend on each
+      page is its importance — a page is visited often if it is reached from other often-visited pages. But
+      that random hopping is a Markov chain, and the long-run fraction of time on each page is its steady
+      state, the eigenvector for eigenvalue one. So PageRank is nothing but the steady state of a random
+      surfer, {prEq}: the rank vector is the one distribution the web's link matrix leaves unchanged. The
+      circular definition was not a flaw; it was an eigenvector equation waiting to be recognised.
+    animation:
+      primitive: bars
+      params:
+        value_max: 50
+        bar_width: 1.1
+      steps:
+        - {id: drawP1, action: segment, params: {stack: p1, value: 38, color: blue, x: -3.3, col_label: "p1"}}
+        - {id: drawP2, action: segment, params: {stack: p2, value: 12, color: blue, x: -1.1, col_label: "p2"}}
+        - {id: drawP3, action: segment, params: {stack: p3, value: 30, color: blue, x: 1.1, col_label: "p3"}}
+        - {id: drawP4, action: segment, params: {stack: p4, value: 20, color: blue, x: 3.3, col_label: "p4"}}
+    board:
+      - id: prEq
+        latex: "\\boldsymbol{\\pi} = H\\,\\boldsymbol{\\pi}"
+        say: "the rank vector is the link matrix times itself, unchanged"
+        color: red
+        legend:
+          - {sym: "\\boldsymbol{\\pi}", name: "the PageRank vector", unit: ""}
+          - {sym: "H", name: "the link (transition) matrix", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Build the link matrix, {linkEq}. For each page, look at the links leaving it and split one unit of
+      importance equally among them — a page with four outgoing links passes a quarter of its rank along each.
+      Collect these into a matrix H, whose column for each page lists where that page sends its rank. Because
+      every page's outgoing shares sum to one, the columns of H sum to one: it is a stochastic matrix, exactly
+      like the weather model. PageRank is then its steady state, {steadyEq}, the eigenvector for eigenvalue
+      one, and you find it the same way — by power iteration, multiplying a starting guess by H over and over
+      until it settles. Rank flows along links and pools on the important pages. There is a snag, though,
+      {hl:linkEq}. The real web is not tidy: some pages have no outgoing links at all, and whole clusters link
+      only among themselves, which can trap the surfer or drain the rank away, leaving the steady state
+      ill-defined. The fix is as elegant as the model, {dampEq}. Suppose that at each step the surfer, with a
+      high probability — Google used eighty-five per cent — follows a random link, but occasionally, the rest
+      of the time, gets bored and teleports to a completely random page anywhere on the web. This mixing is
+      written as a new matrix, {googleEq}: the damping factor times the link matrix, plus the small chance of
+      a random jump, spread evenly over all pages. That one adjustment guarantees the surfer can always get
+      anywhere, which makes the chain well-behaved and its steady state unique and reachable. The resulting
+      matrix is called the Google matrix, and PageRank is its dominant eigenvector. The achievement is
+      breathtaking in hindsight: the importance of every page on the web, a vector with billions of entries,
+      computed as the steady state of one enormous Markov chain. It is the same mathematics as the weather
+      and the stable population — a stochastic matrix, an eigenvalue of one, a steady state the system
+      converges to — scaled to the whole internet. An entire company, and much of how we find information,
+      was built on recognising that a vague, circular notion of importance is precisely an eigenvector.
+    board:
+      - id: linkEq
+        latex: "H_{ij} = \\dfrac{1}{(\\text{out-links of } j)}"
+        say: "each link passes an equal share of the page's rank"
+        color: orange
+      - id: steadyEq
+        latex: "\\boldsymbol{\\pi} = H\\,\\boldsymbol{\\pi} \\;\\Leftrightarrow\\; (H - I)\\boldsymbol{\\pi} = \\mathbf{0}"
+        say: "the rank is the eigenvector of H for eigenvalue one"
+        color: red
+        box: true
+      - id: dampEq
+        latex: "d = 0.85"
+        say: "with probability eighty-five per cent the surfer follows a link"
+        color: green
+      - id: googleEq
+        latex: "G = d\\,H + \\dfrac{1-d}{N}\\,J"
+        say: "the Google matrix is the damping times H, plus a small even chance of a random jump"
+        color: green
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Rank flowing in. {statement} A page is linked to by two others, whose ranks and out-link counts we know,
+      {given}; find the rank flowing into it. {find} Each linking page contributes its own rank divided by its
+      number of out-links, {step1}. Page B has rank zero point four and two outgoing links, so it passes a
+      half of zero point four, which is zero point two; page C has rank zero point three and three outgoing
+      links, so it passes a third of zero point three, which is zero point one, {step2}. Add them, {answer}:
+      zero point three flows in. The rank a page collects is the sum of shares handed down its incoming links —
+      more from important pages, less from pages that spread themselves thin.
+    board:
+      - id: statement
+        text: "Rank flowing into a page."
+      - id: given
+        latex: "B: \\pi=0.4,\\ 2\\text{ links};\\quad C: \\pi=0.3,\\ 3\\text{ links}"
+        say: "page B rank zero point four with two links, page C rank zero point three with three links"
+        role: given
+      - id: find
+        text: "Find the incoming rank."
+        role: find
+      - id: step1
+        latex: "\\text{in} = \\dfrac{\\pi_B}{2} + \\dfrac{\\pi_C}{3}"
+        say: "the incoming rank is B's rank over two, plus C's rank over three"
+        role: step
+        color: orange
+      - id: step2
+        latex: "= \\dfrac{0.4}{2} + \\dfrac{0.3}{3} = 0.2 + 0.1"
+        say: "equals zero point two plus zero point one"
+        role: step
+        color: blue
+      - id: answer
+        latex: "\\text{in} = 0.3"
+        say: "zero point three flows in"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "0.4/2 + 0.3/3"
+      value: 0.3
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} Now apply the damping factor to get the page's actual PageRank, {given2}. {find2} The
+      Google rule takes the damping factor times the rank flowing in, plus the small even chance of a random
+      jump, one minus the damping over the number of pages, {step1b}. Put in the numbers, {step2b}: zero point
+      eight five times the zero point three from before, which is zero point two five five, plus zero point
+      one five over five pages, which is zero point zero three. Add them, {answer2}: about zero point two
+      eight five. The damping barely changes a well-linked page's score, but it guarantees every page gets at
+      least a small baseline rank — and it is what makes the whole calculation mathematically sound.
+    board:
+      - id: statement2
+        text: "Applying the damping factor."
+      - id: given2
+        latex: "\\text{in}=0.3,\\ d=0.85,\\ N=5"
+        say: "incoming rank zero point three, damping zero point eight five, five pages"
+        role: given
+      - id: find2
+        text: "Find the damped PageRank."
+        role: find
+      - id: step1b
+        latex: "\\pi = d\\,(\\text{in}) + \\dfrac{1-d}{N}"
+        say: "the rank is damping times the incoming, plus one minus damping over N"
+        role: step
+        color: green
+      - id: step2b
+        latex: "= 0.85(0.3) + \\dfrac{0.15}{5}"
+        say: "equals zero point eight five times zero point three, plus zero point one five over five"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "\\pi \\approx 0.285"
+        say: "the PageRank is about zero point two eight five"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "0.85*0.3 + 0.15/5"
+      value: 0.285
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: PageRank defines a page as important if important pages link to it, a circular definition
+      that resolves exactly as the steady state of a random surfer — the eigenvector of the web's stochastic
+      link matrix for eigenvalue one. A damping factor, modelling an occasional random jump, makes the chain
+      well-behaved and the answer unique. It is the Markov steady state, scaled to the whole internet. Next:
+      Complex eigenvalues mean rotation — the geometry nobody shows you.
