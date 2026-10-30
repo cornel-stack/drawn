@@ -1,0 +1,400 @@
+# MA-25: ALL of Intermediate Macroeconomics in 20 minutes — an anchor recap.
+# OpenStax Principles of Economics 3e, macro chapters (GDP through open economy),
+# CC BY 4.0. A brisk comprehensive survey. ~20 minutes.
+# Colour: output/GDP = blue, money/prices = green, policy = red, growth = orange.
+schema_version: 1
+id: MA-25
+channel: marginal-ink
+title: "ALL of Intermediate Macroeconomics in 20 minutes"
+target_minutes: 20
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "Macroeconomics (GDP, growth, AD-AS, money, policy, open economy)"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/276-introduction-to-the-aggregate-supply-aggregate-demand-model.md"
+  pages: "macro chapters"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "A whole course, one thread"
+  keyword: "one thread"
+publish:
+  title: "ALL of Intermediate Macroeconomics in 20 Minutes"
+  summary: >
+    A single fast tour of the whole of macroeconomics: GDP, growth, unemployment and
+    inflation, the aggregate demand and supply model, the Keynesian multiplier, money
+    and monetary policy, fiscal policy and debt, the Phillips curve, and the open
+    economy — each idea, its key equation, and how they connect. Two worked examples.
+  hashtags: ["#economics", "#macroeconomics", "#revision"]
+  tags:
+    - macroeconomics
+    - GDP
+    - aggregate demand supply
+    - monetary policy
+    - fiscal policy
+    - Phillips curve
+    - revision
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      A whole course in macroeconomics hangs on one thread: what determines the total output of an economy,
+      and how do growth, money, and policy move it? Here is all of it — the national accounts, the central
+      model, and the levers of policy — in a single connected arc.
+
+  - id: s2
+    kind: derivation
+    narration: >
+      GDP, {gdpEq}. Gross domestic product, the total value of
+      final goods and services produced, is where everything begins — and it can be split by who buys it: consumption by households, plus
+      investment by firms, plus government spending, plus net exports — exports minus imports. That is the
+      expenditure identity, and it is the skeleton of everything that follows. One subtlety matters, {realEq}:
+      we care about real GDP, adjusted for inflation, not nominal GDP, because only real output measures how
+      much the economy actually makes. Divide real GDP by the population and you get GDP per capita, the single
+      best summary of a country's material standard of living. GDP is imperfect — it misses unpaid work,
+      leisure, inequality and the environment — but as a measure of the sheer scale of economic activity
+      nothing has replaced it, and every other macroeconomic variable is ultimately a statement about it.
+    board:
+      - id: gdpEq
+        latex: "Y = C + I + G + (X - M)"
+        say: "GDP is consumption plus investment plus government plus net exports"
+        color: blue
+        box: true
+      - id: realEq
+        latex: "\\text{real } Y = \\dfrac{\\text{nominal } Y}{\\text{price level}}"
+        say: "real GDP is nominal GDP adjusted for the price level"
+        color: blue
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Growth, {growthEq}, is what matters over the long run. Output is productivity times the inputs of capital
+      and labour, so an economy grows by adding workers, adding capital, or — above all — raising productivity,
+      the technology and skill with which it uses them. Over a century, even a fraction of a per cent of extra
+      annual growth compounds into an enormous difference in living standards, which is why growth, dull as it
+      sounds, swamps every other macroeconomic concern in the long run. Capital accumulation alone runs into diminishing
+      returns, {diminishEq}: each new machine adds less than the last, so piling up capital cannot sustain
+      growth forever. This is why, in the long run, almost all sustained growth in living standards comes from
+      productivity, not from sheer accumulation — and why the vast gaps between rich and poor nations are gaps
+      in technology and institutions more than in capital.
+    board:
+      - id: growthEq
+        latex: "Y = A \\cdot F(K, L)"
+        say: "output is productivity times a function of capital and labour"
+        color: orange
+        box: true
+      - id: diminishEq
+        latex: "\\text{MPK} \\ \\downarrow \\ \\text{as } K \\uparrow"
+        say: "the marginal product of capital falls as capital rises"
+        color: orange
+
+  - id: s4
+    kind: derivation
+    narration: >
+      Unemployment, {unempEq}, is the first of the two numbers that dominate the short run. It never falls to
+      zero; even a healthy economy has a natural rate, made of people between jobs — frictional unemployment —
+      and mismatches of skills to vacancies — structural unemployment. On top of that sits cyclical
+      unemployment, the part that rises in recessions and falls in booms, and it is the part policy can hope to
+      move. Policy can push unemployment below the natural rate only temporarily, and at the cost of rising
+      inflation. Inflation, {quantityEq}, is explained
+      in the long run by the quantity theory of money: the money supply times how fast it circulates equals the
+      price level times real output. Hold velocity and output roughly fixed, and prices rise in step with the
+      money supply — inflation is, in Milton Friedman's phrase, always and everywhere a monetary phenomenon.
+      Too much money chasing too few goods is what drives a sustained rise in the price level.
+    board:
+      - id: unempEq
+        latex: "u^* = \\text{natural rate of unemployment}"
+        say: "there is a natural rate of unemployment, never zero"
+        color: blue
+      - id: quantityEq
+        latex: "MV = PY"
+        say: "money times velocity equals the price level times real output"
+        color: green
+        box: true
+
+  - id: s4b
+    kind: derivation
+    narration: >
+      Output does not grow smoothly, {cycleEq}: it swings around its long-run trend in the business cycle. An
+      expansion is a stretch of rising output and falling unemployment; a recession, conventionally two
+      quarters of falling output, brings rising unemployment and idle factories. The gap between actual output
+      and potential output — the output gap — measures where in the cycle the economy sits: negative in a slump,
+      with unemployment above its natural rate, and positive in a boom, with inflation building. Stabilisation
+      policy aims to shrink that gap and smooth the cycle, pulling the economy back toward potential, though it
+      can never abolish the ups and downs entirely.
+    board:
+      - id: cycleEq
+        latex: "\\text{output gap} = Y - Y^*"
+        say: "the output gap is actual output minus potential output"
+        color: blue
+        box: true
+
+  - id: s5
+    kind: derivation
+    narration: >
+      The central model, {adasEq}, ties the short run together: aggregate demand and aggregate supply.
+      Aggregate demand is total spending at each price level, sloping down because lower prices lift real
+      wealth, spending and exports; aggregate supply is total output firms offer, {asEq}. The supply curve is the key, nearly flat when the economy has slack and output is
+      demand-determined — the Keynesian zone — and nearly vertical at full capacity, where extra demand only
+      raises prices — the neoclassical zone. Where the two curves cross sets both real output and the price
+      level. Every shock and every policy acts by shifting one of these curves: a demand shift in a slump
+      changes output; the same shift at full capacity changes only prices.
+    board:
+      - id: adasEq
+        latex: "\\text{AD} = \\text{AS} \\;\\Rightarrow\\; (Y,\\ P)"
+        say: "where aggregate demand meets supply sets output and the price level"
+        color: red
+        box: true
+      - id: asEq
+        latex: "\\text{AS: flat (slack)} \\to \\text{steep (capacity)}"
+        say: "aggregate supply runs from flat under slack to steep at capacity"
+        color: blue
+
+  - id: s6
+    kind: derivation
+    narration: >
+      The multiplier, {multiplierEq}, operates in that flat, demand-driven zone. When the government or anyone
+      else spends an extra pound, the recipient spends a fraction of it, the next recipient spends a fraction of
+      that, and so on in a diminishing chain. The total effect is the initial spending times the multiplier, one over one minus the
+      fraction people re-spend — the marginal propensity to consume. A higher propensity to consume means a
+      bigger multiplier and a larger boost to output. This Keynesian multiplier is why, in a recession with
+      idle capacity, a given injection of demand can raise total output by several times its own size.
+    board:
+      - id: multiplierEq
+        latex: "k = \\dfrac{1}{1 - \\text{MPC}}"
+        say: "the multiplier is one over one minus the marginal propensity to consume"
+        color: red
+        box: true
+
+  - id: s7
+    kind: derivation
+    narration: >
+      Money, {moneyEq}, is managed by the central bank. Banks create most of the money supply by lending out
+      deposits while keeping only a fraction in reserve, so the central bank, by controlling reserves and the
+      interest rate, steers the whole quantity of money and credit. Money itself is whatever serves as a medium
+      of exchange, a store of value and a unit of account, and economists track it in measures from narrow cash
+      to broad deposits. Its main tool is the short-term interest
+      rate, {taylorEq}, and a simple rule captures how it sets it — the Taylor rule: raise rates when inflation
+      is above target or output is above potential, cut them otherwise. The crucial feature is that rates must
+      rise more than one-for-one with inflation, so the real interest rate climbs and genuinely cools the
+      economy. Lower rates stimulate borrowing and spending; higher rates restrain them. This is monetary
+      policy, the economy's fastest-acting lever.
+    board:
+      - id: moneyEq
+        latex: "\\text{banks lend reserves} \\Rightarrow \\text{money multiplies}"
+        say: "banks create money by lending out a fraction of deposits"
+        color: green
+      - id: taylorEq
+        latex: "i = r^* + \\pi + 0.5(\\pi-\\pi^*) + 0.5\\,g"
+        say: "the Taylor rule sets the interest rate from inflation and output gaps"
+        color: red
+        box: true
+
+  - id: s7b
+    kind: derivation
+    narration: >
+      The financial system, {financeEq}, is the economy's plumbing: banks and markets channel the savings of
+      households into the investment of firms. When it works, it directs capital to its most productive uses;
+      when it seizes up, the whole economy chokes. Banks are fragile by design, borrowing short from depositors
+      and lending long to borrowers, so a loss of confidence can trigger a bank run that destroys even a sound
+      bank — which is why deposit insurance and a lender of last resort exist, to stop panics before they start.
+      A financial crisis, when credit suddenly freezes, is among the most violent of all macroeconomic shocks,
+      as 2008 showed when a banking panic tipped the world into its deepest recession since the 1930s.
+    board:
+      - id: financeEq
+        latex: "\\text{saving} \\;\\longrightarrow\\; \\text{investment}"
+        say: "the financial system channels saving into investment"
+        color: green
+        box: true
+
+  - id: s8
+    kind: derivation
+    narration: >
+      Fiscal policy, {fiscalEq}, is the other lever: government spending and taxation. In a slump the government
+      can raise spending or cut taxes to lift demand directly, amplified by the multiplier. Some of this works
+      automatically — unemployment benefits rise and tax takings fall in a recession without any new decision,
+      the automatic stabilisers that cushion the cycle on their own. But spending beyond
+      revenue is a deficit, and deficits accumulate into debt, {debtEq}: this year's debt is last year's plus
+      the deficit, which itself includes interest on past debt. What matters is not the raw number but the
+      debt-to-GDP ratio, and whether the economy grows faster than the interest rate on its debt. If growth
+      outpaces interest, even a steady deficit leaves the burden stable or falling; if interest outpaces
+      growth, the debt snowballs. Fiscal policy is powerful but slow, and constrained by this arithmetic of
+      debt. It carries a further catch: heavy government borrowing can crowd out private investment by competing
+      for the same pool of savings and nudging interest rates up, which blunts part of the stimulus — one more
+      reason economists argue endlessly over how much fiscal policy really achieves.
+    board:
+      - id: fiscalEq
+        latex: "\\text{deficit} = G - T"
+        say: "a deficit is government spending minus tax revenue"
+        color: red
+      - id: debtEq
+        latex: "D_t = D_{t-1} + \\text{deficit}_t"
+        say: "debt is last year's debt plus this year's deficit"
+        color: red
+        box: true
+
+  - id: s9
+    kind: derivation
+    narration: >
+      The Phillips curve, {phillipsEq}, is a sharp limit on demand policy. In the short run there seems to be a
+      tradeoff: run the economy hot and unemployment falls but inflation rises. Governments tried to exploit it
+      — until people came to expect the inflation and built it into wages, and the tradeoff vanished. In the
+      long run the Phillips curve is vertical, {verticalEq}: unemployment returns to its natural rate whatever
+      the inflation, so demand policy can buy lower unemployment only by surprise, and only briefly. This is the
+      lesson of rational expectations: anticipated policy moves prices, not real output. It is why central banks
+      now anchor inflation expectations above all, and why the credible, systematic response to inflation
+      matters more than any one-off stimulus. The great cautionary tale is the nineteen-seventies, when
+      governments pushed demand to hold unemployment down, expectations caught up, and the economy ended with
+      high inflation and high unemployment together — stagflation, the very combination the old Phillips curve
+      had called impossible.
+    board:
+      - id: phillipsEq
+        latex: "\\pi = \\pi^e - \\beta(u - u^*)"
+        say: "inflation is expected inflation minus a term in the unemployment gap"
+        color: green
+        box: true
+      - id: verticalEq
+        latex: "\\text{long run: } u \\to u^*"
+        say: "in the long run unemployment returns to its natural rate"
+        color: blue
+
+  - id: s10
+    kind: derivation
+    narration: >
+      The open economy, {fxEq}, links the nation to the world. The exchange rate is the price of one currency in
+      another, set by supply and demand in the foreign exchange market, and it moves with relative interest
+      rates and inflation. A stronger currency makes imports cheaper and exports dearer, so it is a mixed
+      blessing — good for shoppers, hard on exporters. A country's dealings with the world must balance, {bopEq}: its current account, the
+      trade balance, plus its financial account, the net flow of capital, sum to zero — so a trade deficit is
+      financed by an equal inflow of foreign capital. And with free capital movement, a country faces the
+      trilemma: it can fix its exchange rate, keep its monetary independence, or allow free capital flows, but
+      only two of the three. The open economy adds exchange rates and capital flows as new channels through
+      which every domestic policy ripples outward and the rest of the world ripples back.
+    board:
+      - id: fxEq
+        latex: "E = \\text{price of domestic currency}"
+        say: "the exchange rate is the price of the currency, set by supply and demand"
+        color: orange
+      - id: bopEq
+        latex: "\\text{CA} + \\text{FA} = 0"
+        say: "the current account plus the financial account sum to zero"
+        color: green
+        box: true
+
+  - id: s11
+    kind: derivation
+    narration: >
+      One long argument, {debateEq}, runs underneath all of it: how fast do prices and wages adjust? The
+      classical view says they are flexible, so markets clear, the economy self-corrects to potential, and only
+      supply matters in the long run — making active policy unnecessary or even harmful, since the economy will
+      mend itself. The Keynesian view
+      says they are sticky, so demand shortfalls cause lasting slumps that policy should fight. The modern
+      synthesis is the AS curve we drew: Keynesian in the short run, where the curve is flat and demand rules;
+      classical in the long run, where it is vertical and supply rules. Nearly every dispute in macroeconomics —
+      over stimulus, over austerity, over the power of central banks — is at heart a disagreement about where on
+      that curve the economy sits, and how quickly it slides from the short run to the long. That single
+      question has swung the profession back and forth for a century: from classical confidence before the
+      Great Depression, to Keynesian activism after it, to the monetarist and rational-expectations revival of
+      the nineteen-seventies, to the pragmatic blend of both that most economists hold today.
+    board:
+      - id: debateEq
+        latex: "\\text{prices: sticky (short run)} \\to \\text{flexible (long run)}"
+        say: "prices are sticky in the short run, flexible in the long run"
+        color: red
+        box: true
+
+  - id: s12
+    kind: problem
+    narration: >
+      The multiplier. {statement} In a recession, households spend a known fraction of each extra pound,
+      {given}; find the spending multiplier. {find} The multiplier is one over one minus that fraction, {step1}.
+      Put in the number, {step2}: one over one minus zero point seven five, which is one over zero point two
+      five. That is four, {answer}. So in the demand-driven zone, a one-billion rise in government spending
+      lifts total output by four billion — the multiplier at work, possible only because idle capacity lets the
+      extra demand be met.
+    board:
+      - id: statement
+        text: "The Keynesian multiplier."
+      - id: given
+        latex: "\\text{MPC} = 0.75"
+        say: "the marginal propensity to consume is zero point seven five"
+        role: given
+      - id: find
+        text: "Find the multiplier k."
+        role: find
+      - id: step1
+        latex: "k = \\dfrac{1}{1 - \\text{MPC}}"
+        say: "the multiplier is one over one minus the MPC"
+        role: step
+        color: red
+      - id: step2
+        latex: "= \\dfrac{1}{1 - 0.75} = \\dfrac{1}{0.25}"
+        say: "one over one minus zero point seven five"
+        role: step
+        color: blue
+      - id: answer
+        latex: "k = 4"
+        say: "the multiplier is four"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "1 / (1 - 0.75)"
+      value: 4
+      unit: ""
+      tol: 0.01
+
+  - id: s13
+    kind: problem
+    narration: >
+      Money and inflation. {statement2} Over a year the money supply grows and real output grows, with velocity
+      roughly constant, {given2}; find the inflation rate. {find2} In growth-rate form the quantity theory says
+      money growth plus velocity growth equals inflation plus output growth, {step1b}. With velocity constant,
+      inflation is simply money growth minus output growth, {step2b}: five per cent minus two per cent. That is
+      three per cent, {answer2}. The part of money growth that outruns real output shows up as inflation — the
+      quantity theory in action, and the reason central banks watch the money supply and the economy's capacity
+      together.
+    board:
+      - id: statement2
+        text: "Inflation from the quantity theory."
+      - id: given2
+        latex: "\\Delta M = 5\\%,\\ \\Delta Y = 2\\%,\\ \\Delta V = 0"
+        say: "money growth five per cent, output growth two per cent, velocity constant"
+        role: given
+      - id: find2
+        text: "Find the inflation rate π."
+        role: find
+      - id: step1b
+        latex: "\\Delta M + \\Delta V = \\pi + \\Delta Y"
+        say: "money growth plus velocity growth equals inflation plus output growth"
+        role: step
+        color: green
+      - id: step2b
+        latex: "\\pi = \\Delta M - \\Delta Y = 5\\% - 2\\%"
+        say: "inflation is money growth minus output growth"
+        role: step
+        color: blue
+      - id: answer2
+        latex: "\\pi = 3\\%"
+        say: "inflation is three per cent"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "5 - 2"
+      value: 3
+      unit: "%"
+      tol: 0.01
+
+  - id: s14
+    kind: end
+    narration: >
+      That is the whole of macroeconomics in one arc: GDP measures output; growth comes from productivity;
+      unemployment and inflation define the short run; aggregate demand and supply set output and prices; the
+      multiplier, monetary policy and fiscal policy move demand; the Phillips curve and rational expectations
+      limit what demand policy can do; and the open economy links it all to the world. Macroeconomics can feel
+      like a bag of disconnected models, but it is really one question asked at two time horizons: in the short
+      run, demand and sticky prices rule, and policy can help; in the long run, supply, productivity and
+      flexible prices rule, and growth is everything. Hold that one distinction and the whole subject coheres.
+      Next: Why poor countries don't always catch up — convergence and the Solow puzzle.

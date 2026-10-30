@@ -1,0 +1,330 @@
+# LA-28: SVD explained visually — every matrix is rotate, stretch, rotate.
+# FLAGGED: no dedicated SVD topic in the extracted Hefferon text; built from the
+# spectral theorem (LA-27 / Five.II) applied to A^T A. The SVD itself is the standard
+# construction (flagged in the review). ~14 minutes.
+# Colour: input/V = blue, stretch/singular values = orange, output/U = red, decomposition = green.
+schema_version: 1
+id: LA-28
+channel: chalk-and-vector
+title: "SVD explained visually: every matrix is rotate-stretch-rotate"
+target_minutes: 14
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "Five.II Similarity (spectral theorem, applied to A^T A)"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/025-topic-orthonormal-matrices.md"
+  pages: "302-308"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "Every matrix is three moves"
+  keyword: "three moves"
+publish:
+  title: "The Singular Value Decomposition, Visually: Every Matrix Is Rotate-Stretch-Rotate"
+  summary: >
+    The SVD is the most useful factorisation in linear algebra, and it has a vivid
+    geometric meaning: every matrix, whatever it does, is just a rotation, a scaling
+    along axes, and another rotation. We build A = U Sigma V-transpose from the
+    spectral theorem, read off its geometry, and see why it powers data compression.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - singular value decomposition
+    - SVD
+    - matrix factorisation
+    - low-rank approximation
+    - linear algebra
+    - data compression
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      The single most useful factorisation in all of linear algebra is one many courses never reach: the
+      singular value decomposition. Its claim is breathtakingly simple. Every matrix, no matter what it does,
+      is only three moves — a rotation, a stretch, and another rotation.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawV1}, is a unit vector, and here, {drawV2}, a perpendicular partner, both in blue. A general
+      matrix would send them off at some awkward angle to each other. But the singular value decomposition
+      finds a special input pair — the right singular vectors — for which the outputs come out perpendicular
+      too, {drawU1}, in red, {drawU2}. Along each output direction the matrix has simply scaled the unit
+      vector by a number, the singular value: the first stretched by sigma-one, the second by sigma-two. So in
+      the right frame, the matrix takes a perpendicular pair to a perpendicular pair, merely stretching each —
+      which means it carries the unit circle to an ellipse whose axes are the singular values. That is the
+      whole picture, written as a factorisation, {svdEq}: any matrix equals an orthogonal matrix U, times a
+      diagonal matrix of singular values, times another orthogonal matrix V transposed. Reading right to left,
+      V transpose rotates the special input frame onto the axes, sigma stretches along those axes, and U
+      rotates the result into place. It is remarkable that such a frame always exists — that for any matrix at
+      all, however it skews and shears, you can find a perpendicular input pair whose outputs stay
+      perpendicular. The ellipse is its signature: circles go in, ellipses come out, every time. Rotate,
+      stretch, rotate — that is every matrix there is.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-3, 4, 1], y: [-2, 4, 1]}
+        vectors:
+          v1: {to: [1.2, 0.0], color: blue, label: "v_{1}"}
+          v2: {to: [0.0, 1.2], color: blue, label: "v_{2}"}
+          u1: {to: [2.4, 1.2], color: red, label: "\\sigma_1 u_{1}"}
+          u2: {to: [-0.9, 1.8], color: red, label: "\\sigma_2 u_{2}"}
+      steps:
+        - {id: drawV1, action: draw, params: {name: v1}}
+        - {id: drawV2, action: draw, params: {name: v2}}
+        - {id: drawU1, action: draw, params: {name: u1}}
+        - {id: drawU2, action: draw, params: {name: u2}}
+    board:
+      - id: svdEq
+        latex: "A = U\\,\\Sigma\\,V^{\\mathsf{T}}"
+        say: "A equals U, Sigma, V transpose"
+        color: green
+        legend:
+          - {sym: "U, V", name: "orthogonal (rotations)", unit: ""}
+          - {sym: "\\Sigma", name: "diagonal of singular values", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Here is the trick, {trickEq}. For any
+      matrix A, whatever its shape, the product of A transpose and A is square, and it is symmetric — take its
+      transpose and it comes back to itself. By the spectral theorem, a symmetric matrix has real, non-negative
+      eigenvalues and a perpendicular set of eigenvectors. Those eigenvectors are the right singular vectors,
+      the columns of V, {defVEq}, and they are the special input frame we drew. The eigenvalues are
+      non-negative, so take their square roots, {sigmaEq}: those are the singular values, the diagonal of
+      sigma, the stretch factors. Finally, push each input vector through A and normalise, and you get the
+      output frame, the left singular vectors, the columns of U, {defUEq}. Assemble the three and the
+      factorisation holds exactly, {svdEq2}: A equals U sigma V transpose. The power of this is that it works
+      for every matrix without exception, {hl:svdEq2}. Diagonalisation needed a square matrix with enough
+      eigenvectors, and failed for many; the SVD needs nothing. Rectangular matrices, that map one dimension to
+      another, have an SVD. Matrices with no eigenvectors at all have an SVD. The singular values are always
+      real and non-negative, and they are always there. This universality is why the SVD, not diagonalisation,
+      is the factorisation that applied mathematics actually runs on. And its geometry stays fixed no matter the
+      matrix: a sphere in the input space is always carried to an ellipsoid in the output space, the singular
+      values are the lengths of that ellipsoid's semi-axes, and U and V tell you how it is oriented at each end.
+      Every linear map, stripped to its essence, stretches space along a set of perpendicular axes and does
+      nothing else exotic.
+    board:
+      - id: trickEq
+        latex: "A^{\\mathsf{T}}A \\ \\text{is symmetric}"
+        say: "A transpose A is square and symmetric"
+        color: blue
+        box: true
+      - id: defVEq
+        latex: "V:\\ \\text{eigenvectors of } A^{\\mathsf{T}}A"
+        say: "V holds the eigenvectors of A transpose A"
+        color: blue
+      - id: sigmaEq
+        latex: "\\sigma_i = \\sqrt{\\lambda_i}"
+        say: "the singular values are the square roots of the eigenvalues"
+        color: orange
+        box: true
+      - id: defUEq
+        latex: "u_i = \\dfrac{1}{\\sigma_i}A v_i"
+        say: "each left singular vector is A times v, normalised"
+        color: red
+      - id: svdEq2
+        latex: "A = U\\,\\Sigma\\,V^{\\mathsf{T}}"
+        say: "A equals U sigma V transpose"
+        color: green
+        box: true
+
+  - id: s4
+    kind: derivation
+    narration: >
+      By convention, {orderEq}, the singular values are listed from largest to smallest — and that ordering is
+      why anyone outside a classroom cares. Here is the key fact: they tell you how much of the matrix lives
+      along each direction. A large singular value means the matrix stretches strongly along that axis — that direction
+      carries a lot of the action. A tiny singular value means it barely stretches there — that direction
+      carries almost nothing. So you can throw the small ones away. Keep only the largest few singular values
+      and their vectors, and you get the best possible approximation of the matrix by a simpler one,
+      {lowRankEq} — the famous low-rank approximation, and it is provably the best of its kind. This single
+      idea is everywhere, {hl:lowRankEq}. An image is a matrix of pixel values; keep its top singular values
+      and you have compressed it, often to a tenth of its size, with almost no visible loss — that is image
+      compression. A giant table of users against the films they rated is a matrix; its top few singular values
+      capture the hidden tastes that predict what else they will like — that is the recommender system behind
+      streaming services. Principal component analysis, which finds the directions of greatest variation in
+      data, is an SVD in disguise. Noise reduction, which drops the small singular values holding the random
+      jitter, is the same move. Even solving equations that have no exact solution uses the SVD, through the
+      pseudoinverse, to find the best answer. In every case the logic is identical: decompose into independent
+      stretches, rank them by size, and keep the ones that matter. The singular value decomposition is the
+      mathematical statement that complicated linear data is usually, underneath, a few strong directions plus
+      a lot of small stuff you can safely ignore — and that is why it quietly runs so much of the digital world.
+    board:
+      - id: orderEq
+        latex: "\\sigma_1 \\geq \\sigma_2 \\geq \\cdots \\geq 0"
+        say: "the singular values are ordered from largest to smallest"
+        color: orange
+        box: true
+      - id: lowRankEq
+        latex: "A \\approx \\textstyle\\sum_{i=1}^{k} \\sigma_i\\, u_i v_i^{\\mathsf{T}}"
+        say: "keeping the top k singular values gives the best low-rank approximation"
+        color: green
+        box: true
+
+  - id: s4b
+    kind: derivation
+    narration: >
+      Compare it with the eigendecomposition, {compareEq}. Diagonalisation writes a square matrix as P D P
+      inverse — one basis, used for both input and output. But that only works when the matrix has enough
+      eigenvectors, and the basis P is generally not perpendicular. The singular value decomposition uses two
+      orthonormal bases instead, {twoBasisEq}: V at the input and U at the output, linked by the singular
+      values. That extra freedom is exactly what lets it handle every matrix, square or not, while keeping both
+      bases perfectly perpendicular. A symmetric matrix is just the special case where the two bases coincide
+      and the singular values are the sizes of the eigenvalues, so the SVD and the spectral theorem agree.
+      There is one more gift, {hl:twoBasisEq}. The SVD solves a problem that defeated us earlier: a linear
+      system with no exact solution. Invert the non-zero singular values and swap U and V, and you build the
+      pseudoinverse, {pseudoEq}, which hands back the least-squares best answer to any system at all — even a
+      rectangular or singular one, where ordinary inversion is simply impossible. It is the same best-fit
+      answer we found by projection, now delivered by one decomposition. That is why the SVD is the workhorse
+      of numerical linear algebra: a single factorisation that diagonalises, inverts, approximates, and lays
+      bare the geometry, all at once — and does it stably, even when the matrix is close to singular and other
+      methods fall apart.
+    board:
+      - id: compareEq
+        latex: "A = PDP^{-1}\\ \\text{vs}\\ A = U\\Sigma V^{\\mathsf{T}}"
+        say: "eigendecomposition versus the singular value decomposition"
+        color: blue
+      - id: twoBasisEq
+        latex: "V \\ \\text{in},\\quad U \\ \\text{out}\\ \\ (\\text{both orthonormal})"
+        say: "two orthonormal bases, V at the input and U at the output"
+        color: green
+        box: true
+      - id: pseudoEq
+        latex: "A^{+} = V\\,\\Sigma^{+}\\,U^{\\mathsf{T}}"
+        say: "the pseudoinverse is V, sigma-plus, U transpose"
+        color: orange
+        box: true
+
+  - id: s5
+    kind: problem
+    narration: >
+      Finding singular values. {statement} For a given matrix we are told the eigenvalues of A transpose A,
+      {given}; find the singular values. {find} The singular values are simply the square roots of those
+      eigenvalues, {step1}. The eigenvalues are four and one, so take their roots, {step2}: the square root of
+      four is two, and the square root of one is one, {answer}. The singular values are two and one, listed
+      largest first. The matrix stretches twice as hard along its first singular direction as its second — the
+      ellipse it makes from a circle is twice as long as it is wide.
+    board:
+      - id: statement
+        text: "Singular values from A·ᵀA eigenvalues."
+      - id: given
+        latex: "\\lambda(A^{\\mathsf{T}}A) = 4,\\ 1"
+        say: "the eigenvalues of A transpose A are four and one"
+        role: given
+      - id: find
+        text: "Find the singular values σ."
+        role: find
+      - id: step1
+        latex: "\\sigma_i = \\sqrt{\\lambda_i}"
+        say: "singular values are the square roots of the eigenvalues"
+        role: step
+        color: orange
+      - id: step2
+        latex: "= \\sqrt{4},\\ \\sqrt{1}"
+        say: "the square roots of four and one"
+        role: step
+        color: blue
+      - id: answer
+        latex: "\\sigma_1 = 2,\\ \\ \\sigma_2 = 1"
+        say: "the singular values are two and one"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "np.sqrt(4)"
+      value: 2
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: problem
+    narration: >
+      How much the biggest matters. {statement2} With those two singular values, find the fraction of the
+      matrix's total energy carried by the largest, {given2}. {find2} Energy is measured by the squares of the
+      singular values, so the fraction is the largest squared, over the sum of all the squares, {step1b}. Put
+      in the numbers, {step2b}: two squared is four, one squared is one, so it is four over four plus one. That
+      is four-fifths, {answer2}: eighty per cent. A single direction carries eighty per cent of everything the
+      matrix does, so keeping just that one and discarding the other loses only a fifth — which is exactly why
+      dropping small singular values compresses so well while keeping the picture nearly intact.
+    board:
+      - id: statement2
+        text: "Energy in the top singular value."
+      - id: given2
+        latex: "\\sigma_1 = 2,\\quad \\sigma_2 = 1"
+        say: "singular values two and one"
+        role: given
+      - id: find2
+        text: "Find σ₁² / (σ₁² + σ₂²)."
+        role: find
+      - id: step1b
+        latex: "\\text{fraction} = \\dfrac{\\sigma_1^2}{\\sigma_1^2 + \\sigma_2^2}"
+        say: "the fraction is the largest squared over the sum of squares"
+        role: step
+        color: green
+      - id: step2b
+        latex: "= \\dfrac{4}{4 + 1}"
+        say: "equals four over four plus one"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "= 0.8 = 80\\%"
+        say: "eighty per cent"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "2**2 / (2**2 + 1**2)"
+      value: 0.8
+      unit: ""
+      tol: 0.01
+
+  - id: s6b
+    kind: problem
+    narration: >
+      {statement3} The singular values give one more crucial number, the condition number; compute it from the
+      two we have, {given3}. {find3} The condition number is the ratio of the largest singular value to the
+      smallest, {step1c}: two over one, which is two, {answer3}. A condition number of two is small and
+      healthy — the matrix stretches at most twice as unevenly across its directions, so it is
+      well-conditioned, and solving a system with it is numerically stable. A condition number in the thousands
+      would be a warning: it means the smallest singular value is nearly zero, the matrix is close to singular,
+      and any solution would amplify tiny errors into huge ones. The condition number is the single most
+      important measure of a matrix's numerical health, and it falls straight out of the singular value
+      decomposition — one more reason the SVD is the tool numerical analysts reach for first.
+    board:
+      - id: statement3
+        text: "The condition number."
+      - id: given3
+        latex: "\\sigma_1 = 2,\\quad \\sigma_2 = 1"
+        say: "singular values two and one"
+        role: given
+      - id: find3
+        text: "Find κ = σ₁/σ₂."
+        role: find
+      - id: step1c
+        latex: "\\kappa = \\dfrac{\\sigma_1}{\\sigma_2} = \\dfrac{2}{1}"
+        say: "the condition number is the largest over the smallest singular value"
+        role: step
+        color: orange
+      - id: answer3
+        latex: "\\kappa = 2"
+        say: "the condition number is two"
+        role: answer
+        box: true
+        color: orange
+    check:
+      expr: "2 / 1"
+      value: 2
+      unit: ""
+      tol: 0.01
+
+  - id: s7
+    kind: end
+    narration: >
+      To summarise: the singular value decomposition writes any matrix at all as U sigma V transpose — a
+      rotation, a stretch along perpendicular axes by the singular values, and another rotation. It is built
+      from the spectral theorem applied to A transpose A, it exists for every matrix including rectangular and
+      non-diagonalisable ones, and its singular values rank the directions by importance. Keeping only the
+      largest gives the best simple approximation, which is why the SVD underlies image compression, recommender
+      systems and principal component analysis. Every matrix is rotate, stretch, rotate. Next: Principal
+      component analysis from scratch — the linear algebra behind dimensionality reduction.

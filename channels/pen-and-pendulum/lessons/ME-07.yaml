@@ -1,0 +1,205 @@
+# ME-07: Newton's three laws, properly — what each one actually says.
+# OpenStax University Physics Vol. 1, §5.2-5.5 Newton's Laws (CC BY 4.0). ~7 minutes.
+# Colour: force = blue, acceleration = green, mass = orange, reaction = red.
+schema_version: 1
+id: ME-07
+channel: pen-and-pendulum
+title: "Newton's three laws, properly: what each one actually says"
+target_minutes: 7
+source:
+  book: "University Physics Volume 1 (OpenStax)"
+  section: "§5.2-5.5 Newton's Laws of Motion"
+  license: "CC BY 4.0"
+  file: "university-physics-vol1/040-5-3-newton-s-second-law.md"
+  pages: "170-185"
+thumbnail:
+  kicker: "Mechanics"
+  hook: "Force doesn't cause motion"
+  keyword: "doesn't cause motion"
+publish:
+  title: "Newton's Three Laws, Properly Explained: What Each One Really Says"
+  summary: >
+    Everyone can recite Newton's laws; far fewer understand what they actually
+    claim. We clear up the deep points — that force causes a change in motion, not
+    motion itself; that mass is resistance to acceleration; and that action-reaction
+    pairs act on different bodies and never cancel. Two worked examples.
+  hashtags: ["#physics", "#mechanics", "#newton"]
+  tags:
+    - Newton's laws
+    - force
+    - acceleration
+    - inertia
+    - action reaction
+    - mechanics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Everyone can recite Newton's three laws. Far fewer can say what they actually mean. Each one hides a
+      subtle point that overturns a piece of common sense, and together they are the foundation of all
+      mechanics.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      The second law, {drawF}: a net force, in blue. Apply it to a mass and the
+      object accelerates, {drawA}, in green — speeds up, slows down, or changes direction — in the same
+      direction as the force. The law is an equation, {secondEq}: the net force equals the mass times the
+      acceleration. Read it carefully, because it says something people routinely get wrong. Force does not
+      cause motion; it causes a change in motion. A heavier mass, {hl:secondEq}, resists acceleration more, so
+      the same force produces less acceleration — that resistance to being accelerated is exactly what we mean
+      by mass. And it is the net force, the sum of all forces, that matters: if the forces on an object cancel,
+      its acceleration is zero even though forces are acting. The acceleration points along the net force, and
+      its size is that force divided by the mass.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-1, 5, 1], y: [-3, 2, 1]}
+        vectors:
+          F: {to: [3.5, 0], color: blue, label: "F_{net}"}
+          a: {to: [2.0, 0], color: green, label: "a"}
+      steps:
+        - {id: drawF, action: draw, params: {name: F}}
+        - {id: drawA, action: draw_at, params: {name: a, basepoint: [0, -1.4]}}
+    board:
+      - id: secondEq
+        latex: "\\vec{F}_{net} = m\\vec{a}"
+        say: "the net force equals mass times acceleration"
+        color: blue
+        box: true
+        legend:
+          - {sym: "m", name: "mass (resistance to acceleration)", unit: "kg"}
+          - {sym: "\\vec{a}", name: "acceleration", unit: "m/s^2"}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Now all three in order, {firstEq}. The first law: an object at rest stays at rest, and an object in
+      motion stays in motion at constant velocity, unless a net external force acts on it. The deep claim is in
+      that last clause. It takes no force to keep something moving — a puck on frictionless ice glides forever.
+      Force is needed only to change velocity, not to maintain it. This overturns two thousand years of
+      Aristotle, who thought motion needed a continual push; Newton saw that the pushing only overcomes
+      friction, and without friction, nothing is needed at all. The first law also defines the stage: it holds
+      only in an inertial frame, one that is not itself accelerating. The second law we have met, {secondEq2}:
+      net force is mass times acceleration, the quantitative core that tells you exactly how motion changes.
+      The third law is the one most often misread, {thirdEq}: for every action there is an equal and opposite
+      reaction. The crucial words are hidden — the two forces act on different bodies. When you push on a wall,
+      the wall pushes back on you with equal strength; those are two forces, one on the wall and one on you,
+      {hl:thirdEq}. Because they act on different objects, they never cancel — a common mistake is to think
+      action and reaction cancel out, but each acts on a separate body, so each has its own effect. This is why
+      you can walk: you push the ground backward, and the ground pushes you forward. It is why a rocket flies
+      in empty space, pushing exhaust one way and itself the other. Forces, Newton realised, are never
+      solitary; they are always an interaction between two things, perfectly matched and oppositely aimed.
+      Put the three together and you have a complete account of motion: the first law says force is what
+      changes velocity, the second says exactly how much, and the third says forces always come in pairs,
+      {hl:secondEq2}. From these three sentences, and nothing more, follow orbits, bridges, engines and the
+      path of every thrown ball — the whole science of motion, built on three careful claims about force.
+    board:
+      - id: firstEq
+        latex: "\\vec{F}_{net} = 0 \\;\\Rightarrow\\; \\vec{v} = \\text{const}"
+        say: "first law: no net force means constant velocity"
+        color: green
+        box: true
+      - id: secondEq2
+        latex: "\\vec{F}_{net} = m\\vec{a}"
+        say: "second law: net force is mass times acceleration"
+        color: blue
+        box: true
+      - id: thirdEq
+        latex: "\\vec{F}_{AB} = -\\vec{F}_{BA}"
+        say: "third law: the force of A on B is minus the force of B on A"
+        color: red
+        box: true
+
+  - id: s4
+    kind: problem
+    narration: >
+      Force, mass, acceleration. {statement} A net force acts on a block of known mass, {given}; find its
+      acceleration. {find} Rearrange the second law: acceleration is the net force divided by the mass, {step1}.
+      Put in the numbers, {step2}: twenty newtons over five kilograms. That is four, {answer}: four metres per
+      second squared, in the direction of the force. Double the force and you double the acceleration; double
+      the mass instead, and you halve it — acceleration is force over mass, nothing more.
+    board:
+      - id: statement
+        text: "Acceleration from a net force."
+      - id: given
+        latex: "F_{net} = 20\\ \\text{N},\\quad m = 5\\ \\text{kg}"
+        say: "net force twenty newtons, mass five kilograms"
+        role: given
+      - id: find
+        text: "Find the acceleration a."
+        role: find
+      - id: step1
+        latex: "a = \\dfrac{F_{net}}{m}"
+        say: "acceleration is net force over mass"
+        role: step
+        color: green
+      - id: step2
+        latex: "= \\dfrac{20}{5}"
+        say: "equals twenty over five"
+        role: step
+        color: blue
+      - id: answer
+        latex: "a = 4\\ \\text{m/s}^2"
+        say: "the acceleration is four metres per second squared"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "20 / 5"
+      value: 4
+      unit: "m/s^2"
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      {statement2} Two forces act on a four-kilogram cart in opposite directions, {given2}; find its
+      acceleration. {find2} First find the net force: forces along a line simply add, with opposite directions
+      taking opposite signs, {step1b}: thirty newtons forward minus eighteen newtons back is twelve newtons
+      forward. Then apply the second law, {step2b}: twelve newtons over four kilograms. That is three, {answer2}:
+      three metres per second squared, in the direction of the larger force. Only the net force accelerates the
+      cart — the eighteen newtons does not vanish, it just subtracts from the thirty, leaving twelve to do the
+      work.
+    board:
+      - id: statement2
+        text: "Acceleration from two opposing forces."
+      - id: given2
+        latex: "F_1 = 30\\ \\text{N},\\ F_2 = 18\\ \\text{N (opposite)},\\ m = 4\\ \\text{kg}"
+        say: "thirty newtons forward, eighteen newtons back, mass four kilograms"
+        role: given
+      - id: find2
+        text: "Find the acceleration a."
+        role: find
+      - id: step1b
+        latex: "F_{net} = 30 - 18 = 12\\ \\text{N}"
+        say: "the net force is thirty minus eighteen, twelve newtons"
+        role: step
+        color: blue
+      - id: step2b
+        latex: "a = \\dfrac{F_{net}}{m} = \\dfrac{12}{4}"
+        say: "acceleration is twelve over four"
+        role: step
+        color: green
+      - id: answer2
+        latex: "a = 3\\ \\text{m/s}^2"
+        say: "the acceleration is three metres per second squared"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "(30 - 18) / 4"
+      value: 3
+      unit: "m/s^2"
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: Newton's first law says an object's velocity stays constant unless a net force acts — force
+      changes motion, it does not maintain it. The second law makes this exact: net force equals mass times
+      acceleration, with mass the resistance to being accelerated. The third law says forces always come in
+      equal, opposite pairs acting on different bodies, which never cancel. Next: Free-body diagrams — the
+      five-step method that solves any force problem.
