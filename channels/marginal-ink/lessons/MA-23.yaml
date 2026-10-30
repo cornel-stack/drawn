@@ -1,0 +1,258 @@
+# MA-23: Quantitative easing and the zero lower bound — what the Fed actually did.
+# FLAGGED source: intro OpenStax does not formally cover QE/ZLB mechanics. Grounded
+# in OpenStax Principles 3e §28.3 (how a central bank executes monetary policy, open
+# market operations, names QE) + §28.2 banking (CC BY 4.0); the QE/ZLB mechanics are
+# the standard construction (flagged in the review). ~11 minutes.
+# Colour: policy rate/ZLB = blue, QE/bonds = green, long rates = orange, balance sheet = red.
+schema_version: 1
+id: MA-23
+channel: marginal-ink
+title: "Quantitative easing and the zero lower bound: what the Fed actually did"
+target_minutes: 11
+source:
+  book: "OpenStax Principles of Economics 3e"
+  section: "§28.3 How a Central Bank Executes Monetary Policy"
+  license: "CC BY 4.0"
+  file: "principles-economics-3e/327-28-3-how-a-central-bank-executes-monetary-policy.md"
+  pages: "673-692"
+thumbnail:
+  kicker: "Macroeconomics"
+  hook: "When zero isn't low enough"
+  keyword: "zero isn't low enough"
+publish:
+  title: "Quantitative Easing and the Zero Lower Bound, Explained"
+  summary: >
+    When the Fed cut interest rates to zero and the economy still needed help, it
+    reached for a new tool. We explain the zero lower bound that traps conventional
+    policy, how quantitative easing pushes down long-term rates by buying bonds with
+    newly created money, and the debate over whether it actually works.
+  hashtags: ["#economics", "#macroeconomics", "#econ"]
+  tags:
+    - quantitative easing
+    - zero lower bound
+    - monetary policy
+    - Federal Reserve
+    - bond yields
+    - macroeconomics
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      In a normal downturn, a central bank cuts interest rates to revive the economy. But what happens when it
+      has cut them all the way to zero and the economy still needs more? In 2008, the Federal Reserve faced
+      exactly that, and reached for a tool most people had never heard of.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here is what that tool does, {drawPre}: the yield curve, the interest rate on government debt plotted
+      against how long you lend for, in blue. Normally it slopes up — lending for ten years earns more than
+      for one. Conventional policy controls only the very short end, the overnight rate, by buying and selling
+      short-term bills. But in a deep slump the central bank cuts that short rate to its floor, {zlbEq}: zero.
+      It cannot push a nominal interest rate much below zero, because anyone offered a negative return would
+      simply hold cash instead. That floor is the zero lower bound, and once the economy is against it,
+      conventional policy is out of room. Quantitative easing is the response, {drawPost}: the central bank
+      creates new reserves and uses them to buy longer-term bonds, pulling the whole far end of the curve down
+      too, in green. It cannot cut the short rate below zero, so instead it reaches out along the curve and
+      lowers the rates it does not normally touch.
+    animation:
+      primitive: axes_plot
+      params:
+        x: [0, 10, 2]
+        y: [0, 8, 2]
+        x_length: 7.6
+        y_length: 3.6
+        x_label: "\\text{maturity}"
+        y_label: "\\text{yield }\\%"
+      steps:
+        - {id: drawPre, action: plot_function, params: {func: output_pw, color: blue, label: "\\text{before}"}}
+        - {id: drawPost, action: plot_function, params: {func: saving_pw, color: green, label: "\\text{after QE}"}}
+    board:
+      - id: zlbEq
+        latex: "i \\geq 0"
+        say: "the nominal interest rate cannot fall much below zero"
+        color: blue
+        legend:
+          - {sym: "i", name: "the short-term policy rate", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Understand the trap first, {convEq}. In ordinary times a central bank steers the economy by setting the
+      short-term interest rate: cut it, and borrowing is cheaper, spending and investment rise. It does this
+      through open market operations — buying short-term government bonds from banks, which pays new reserves
+      into the banking system and pushes the overnight rate down. But this lever has a hard floor. Once the
+      rate reaches zero, {hl:convEq}, it cannot go meaningfully lower, because a bank or saver would rather
+      hold physical cash, which pays zero, than lend at a loss. The economy can still be far too weak at a zero
+      rate — this is the liquidity trap that worried economists since Keynes. The real interest rate that
+      matters for spending is the nominal rate minus expected inflation, {realEq}, so even a zero nominal rate
+      leaves the real rate stuck at minus the inflation rate, which in a slump with low inflation may not be
+      low enough to spark recovery. Japan hit this wall in the nineteen-nineties and has lived against it for
+      decades, and the rich world joined it after 2008. Conventional policy, in short, has run out of
+      ammunition precisely when it is needed most.
+    board:
+      - id: convEq
+        latex: "i \\downarrow \\;\\Rightarrow\\; \\text{spending} \\uparrow"
+        say: "cutting the rate raises spending — until the rate hits zero"
+        color: blue
+        box: true
+      - id: realEq
+        latex: "r = i - \\pi^e"
+        say: "the real rate is the nominal rate minus expected inflation"
+        color: orange
+
+  - id: s4
+    kind: derivation
+    narration: >
+      Here is the response, {buyEq}. Quantitative easing gets around the floor like this: the central bank
+      creates new reserves — electronic money — and uses them to buy large quantities of longer-term assets: ten-year government
+      bonds, and in the crisis, mortgage-backed securities too. The immediate effect is on bond prices,
+      {priceEq}. A bond pays fixed amounts, so its yield is those payments divided by its price; when the
+      central bank buys bonds in bulk, their price rises and their yield falls. By buying at the long end, it
+      lowers long-term interest rates directly — mortgage rates, corporate borrowing rates — the rates that
+      actually drive big spending decisions, even though the short rate is stuck at zero. There is a second
+      channel, {portEq}: investors who sold their safe bonds to the central bank now hold cash and go looking
+      for returns, bidding up other assets and easing financial conditions broadly. And a third, pure signal:
+      a central bank buying bonds on a huge scale is telling markets it intends to keep policy loose for a long
+      time, which by itself lowers the expected path of future short rates. This forward guidance — promising
+      low rates for longer — can matter as much as the bond-buying itself, because a long rate is really just
+      an average of the short rates markets expect over its life. The visible result is an enormous
+      expansion of the central bank's balance sheet — the Fed's grew from under one trillion dollars to over
+      four — as the reserves it created pile up against the bonds it bought.
+    board:
+      - id: buyEq
+        latex: "\\text{new reserves} \\to \\text{buy long bonds}"
+        say: "the bank creates reserves and buys long-term bonds"
+        color: green
+        box: true
+      - id: priceEq
+        latex: "\\text{price}\\uparrow \\;\\Rightarrow\\; \\text{yield}\\downarrow"
+        say: "buying bonds raises their price and lowers their yield"
+        color: orange
+        box: true
+      - id: portEq
+        latex: "\\text{yield} = \\dfrac{\\text{coupon}}{\\text{price}}"
+        say: "a bond's yield is its payment divided by its price"
+        color: orange
+
+  - id: s5
+    kind: derivation
+    narration: >
+      The verdict, {debateEq}. The intended effect is real: lower long-term rates should
+      lift borrowing, investment and asset prices, and most studies find quantitative easing did push yields
+      down and support demand. The Federal Reserve ran three rounds after the 2008 crisis, from 2008 to 2014,
+      and an even larger programme in the 2020 pandemic, buying trillions in bonds; the Bank of England, the
+      European Central Bank and the Bank of Japan all did the same. When the Fed merely hinted in 2013 that it
+      would slow its purchases, long rates jumped sharply — the so-called taper tantrum — a vivid sign that
+      the buying really had been holding rates down. But the debate is genuine. The impact on actual
+      spending is weaker and less certain than a normal rate cut, because it works through financial markets
+      rather than directly. By lifting asset prices, {hl:debateEq}, it tends to benefit those who already own
+      assets, so critics charge it widens inequality. It can inflate bubbles in stocks and housing, and the
+      vast balance sheet is awkward to unwind — selling the bonds back can jolt markets, the problem of exit.
+      And if the public ever came to expect that newly created reserves would be spent into the economy rather
+      than parked, the inflation risk is real. The honest summary is that quantitative easing is a genuine but
+      blunt and imperfect tool, a way to keep easing when the ordinary lever has bottomed out — powerful
+      enough to matter, uncertain enough to argue about, and now a permanent part of the central banking
+      toolkit.
+    board:
+      - id: debateEq
+        latex: "\\text{long rates}\\downarrow,\\ \\text{asset prices}\\uparrow"
+        say: "QE lowers long rates and raises asset prices"
+        color: green
+        box: true
+
+  - id: s6
+    kind: problem
+    narration: >
+      Bond price and yield. {statement} A perpetual bond pays a fixed coupon each year, and quantitative
+      easing bids its price up, {given}; find the new yield. {find} The yield is the annual coupon divided by
+      the price, {step1}. Before, a hundred-pound coupon on a thousand-pound price was a ten per cent yield.
+      After the central bank's buying lifts the price to one thousand two hundred and fifty, recompute,
+      {step2}: one hundred over one thousand two hundred and fifty. That is zero point zero eight, {answer}: an
+      eight per cent yield. The coupon never changed; by pushing the price up, the central bank pushed the
+      yield down two whole points — and that lower long-term rate is exactly what it was trying to achieve.
+    board:
+      - id: statement
+        text: "How QE lowers a bond's yield."
+      - id: given
+        latex: "\\text{coupon}=100,\\ \\ \\text{price}: 1000 \\to 1250"
+        say: "coupon one hundred, price rises from one thousand to one thousand two hundred and fifty"
+        role: given
+      - id: find
+        text: "Find the new yield."
+        role: find
+      - id: step1
+        latex: "\\text{yield} = \\dfrac{\\text{coupon}}{\\text{price}}"
+        say: "yield is the coupon over the price"
+        role: step
+        color: orange
+      - id: step2
+        latex: "= \\dfrac{100}{1250}"
+        say: "equals one hundred over one thousand two hundred and fifty"
+        role: step
+        color: green
+      - id: answer
+        latex: "\\text{yield} = 0.08 = 8\\%"
+        say: "the new yield is eight per cent"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "100 / 1250"
+      value: 0.08
+      unit: ""
+      tol: 0.01
+
+  - id: s7
+    kind: problem
+    narration: >
+      {statement2} At the zero lower bound, find the real interest rate when inflation is positive, {given2}.
+      {find2} The real rate is the nominal rate minus expected inflation, {step1b}. The nominal rate is stuck
+      at zero, and expected inflation is two per cent, {step2b}, so the real rate is zero minus two, which is
+      minus two per cent, {answer2}. Even pinned at zero, the nominal rate delivers a negative real rate
+      because of inflation — and that is the point. By committing to keep rates low and lifting expected
+      inflation, a central bank at the zero bound tries to drive the real rate lower still, since it is the
+      real rate, not the nominal one, that moves spending.
+    board:
+      - id: statement2
+        text: "The real rate at the zero bound."
+      - id: given2
+        latex: "i = 0\\%,\\quad \\pi^e = 2\\%"
+        say: "nominal rate zero, expected inflation two per cent"
+        role: given
+      - id: find2
+        text: "Find the real rate r."
+        role: find
+      - id: step1b
+        latex: "r = i - \\pi^e"
+        say: "the real rate is the nominal rate minus expected inflation"
+        role: step
+        color: blue
+      - id: step2b
+        latex: "= 0\\% - 2\\%"
+        say: "equals zero minus two per cent"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "r = -2\\%"
+        say: "the real rate is minus two per cent"
+        role: answer
+        box: true
+        color: blue
+    check:
+      expr: "0 - 2"
+      value: -2
+      unit: "%"
+      tol: 0.01
+
+  - id: s8
+    kind: end
+    narration: >
+      To summarise: when a central bank cuts its short-term rate to the zero lower bound and the economy still
+      needs support, conventional policy is exhausted. Quantitative easing creates new reserves to buy
+      longer-term bonds, raising their prices and lowering long-term interest rates, easing financial
+      conditions and signalling a lasting commitment to loose policy. It is powerful but blunt, and its costs
+      and effectiveness are genuinely debated. Next: Why poor countries don't always catch up — convergence
+      and the Solow puzzle.

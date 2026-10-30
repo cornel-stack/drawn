@@ -1,0 +1,410 @@
+# EM-23: ALL of Electrostatics & Circuits in 15 minutes — an anchor recap.
+# OpenStax University Physics Vol. 2, Ch.5-10 (Coulomb's law through DC circuits),
+# CC BY 4.0. A brisk comprehensive survey. ~15 minutes.
+# Colour: charge/field = blue, potential = orange, capacitance = green, current/circuits = red.
+schema_version: 1
+id: EM-23
+channel: pen-and-pendulum
+title: "ALL of Electrostatics & Circuits in 15 minutes"
+target_minutes: 15
+source:
+  book: "University Physics Volume 2 (OpenStax)"
+  section: "Ch.5-10 (Electric Charges & Fields through Direct-Current Circuits)"
+  license: "CC BY 4.0"
+  file: "university-physics-vol2/041-5-3-coulomb-s-law.md"
+  pages: "chapters 5-10"
+thumbnail:
+  kicker: "Electromagnetism"
+  hook: "Six chapters, one picture"
+  keyword: "Six chapters"
+publish:
+  title: "ALL of Electrostatics and Circuits in 15 Minutes"
+  summary: >
+    A single, fast tour of the whole first half of electromagnetism: Coulomb's law,
+    the electric field, Gauss's law, potential, capacitance, current, resistance and
+    DC circuits — each idea, its key equation, and how they connect. The perfect
+    revision pass before an exam. Two worked examples tie it together.
+  hashtags: ["#physics", "#electromagnetism", "#revision"]
+  tags:
+    - electrostatics
+    - electric field
+    - Gauss's law
+    - capacitance
+    - Ohm's law
+    - DC circuits
+    - electromagnetism
+    - OpenStax
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Six chapters of electricity, from the force between two charges to a working circuit, rest on a handful
+      of equations that fit on a single page. Here is the whole of electrostatics and direct-current circuits,
+      each idea and how it leads to the next.
+
+  - id: s2
+    kind: derivation
+    narration: >
+      Charge first, {coulombEq}: Coulomb's law. Two point charges push or pull along the
+      line joining them with a force proportional to the product of the charges and inversely proportional to
+      the square of the distance between them — like charges repel, opposite charges attract. Rather than
+      track forces between every pair, we define a field, {fieldEq}: the electric field at a point is the force
+      a small test charge would feel there, per unit charge. A single point charge makes a field pointing
+      radially outward, falling off as one over distance squared, {pointEq}. The field is the central object:
+      charges make it, and it in turn pushes other charges. And because forces add, fields add — the total
+      field from many charges is just the vector sum of their individual fields, the principle of
+      superposition.
+    board:
+      - id: coulombEq
+        latex: "F = k\\dfrac{q_1 q_2}{r^2}"
+        say: "the force is k q one q two over r squared"
+        color: blue
+        box: true
+      - id: fieldEq
+        latex: "\\vec{E} = \\dfrac{\\vec{F}}{q}"
+        say: "the electric field is the force per unit charge"
+        color: blue
+      - id: pointEq
+        latex: "E = k\\dfrac{q}{r^2}"
+        say: "a point charge makes a field k q over r squared"
+        color: blue
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Next, Gauss's law, {gaussEq}: take any closed surface, and the
+      electric flux through it — the field times area, summed over the surface — equals the charge enclosed
+      divided by the electric constant. Nothing about the shape of the surface matters, only the charge
+      inside. For situations with symmetry this is a shortcut of enormous power. A charged sphere, {sphereEq},
+      produces outside itself exactly the field of a point charge at its centre. An infinite charged sheet,
+      {sheetEq}, produces a uniform field that does not weaken with distance at all. Gauss's law is Coulomb's
+      law rewritten so that symmetry does the work, turning a hard sum over charges into a single line.
+    board:
+      - id: gaussEq
+        latex: "\\oint \\vec{E}\\cdot d\\vec{A} = \\dfrac{Q_{enc}}{\\varepsilon_0}"
+        say: "the flux through a closed surface is the enclosed charge over the electric constant"
+        color: blue
+        box: true
+      - id: sphereEq
+        latex: "E_{sphere} = k\\dfrac{Q}{r^2}"
+        say: "outside a charged sphere the field is that of a point charge"
+        color: blue
+      - id: sheetEq
+        latex: "E_{sheet} = \\dfrac{\\sigma}{2\\varepsilon_0}"
+        say: "an infinite sheet makes a uniform field sigma over two epsilon nought"
+        color: blue
+
+  - id: s4
+    kind: derivation
+    narration: >
+      Potential is next, {potEq}: the electric
+      potential is the potential energy per unit charge — voltage — and for a point charge it falls off as one
+      over the distance, not distance squared. Pushing a charge through a field takes work, and this is where
+      it is stored. The energy of a charge sitting at a potential is simply charge
+      times potential, {energyEq}. Field and potential are two views of the same thing, linked by a slope,
+      {gradEq}: the field is how steeply the potential drops with distance, pointing from high potential to
+      low. This is why field is measured in volts per metre. Charges roll downhill in potential exactly as a
+      ball rolls downhill in height — the field is the steepness of the electrical landscape, and potential is
+      its height.
+    board:
+      - id: potEq
+        latex: "V = k\\dfrac{q}{r}"
+        say: "the potential of a point charge is k q over r"
+        color: orange
+        box: true
+      - id: energyEq
+        latex: "U = qV"
+        say: "the energy of a charge at a potential is charge times potential"
+        color: orange
+      - id: gradEq
+        latex: "E = -\\dfrac{\\Delta V}{\\Delta d}"
+        say: "the field is minus the rate of change of potential with distance"
+        color: orange
+
+  - id: s5
+    kind: derivation
+    narration: >
+      Capacitance, {capEq}: hold charge at a voltage and you have a capacitor. Capacitance is the charge
+      stored per volt applied — a measure of how much a device can hold. For two parallel plates it depends
+      only on their geometry, {plateEq}: the electric constant times the plate area, divided by the gap
+      between them. Bigger plates and a smaller gap store more. Charging a capacitor takes energy, which it
+      holds in the electric field between its plates, {capEnergyEq}: a half times the capacitance times the
+      voltage squared. That stored field energy is what lets a capacitor smooth a supply or flash a camera. A
+      capacitor is to charge what a spring is to force — it pushes back harder the more you load it.
+    board:
+      - id: capEq
+        latex: "C = \\dfrac{Q}{V}"
+        say: "capacitance is charge stored per volt"
+        color: green
+        box: true
+      - id: plateEq
+        latex: "C = \\dfrac{\\varepsilon_0 A}{d}"
+        say: "for parallel plates, the electric constant times area over the gap"
+        color: green
+      - id: capEnergyEq
+        latex: "U = \\tfrac{1}{2}C V^2"
+        say: "the stored energy is a half C V squared"
+        color: green
+
+  - id: s5b
+    kind: derivation
+    narration: >
+      In parallel, {parCapEq}, capacitors add — the mirror image of resistors. Wired side by side they share
+      the full voltage and pool their charge, so the capacitances simply sum. Wired in series, {serCapEq}, it
+      is the inverses that add, so the combination stores less than the smallest — again the opposite of
+      resistors. And slide an insulator, a dielectric, between the plates, {dielEq}, and the capacitance rises
+      by a factor called the dielectric constant: the material partly cancels the field, letting the plates
+      hold more charge at the same voltage. This is why real capacitors are packed with dielectric and wound
+      tight — geometry and material together decide how much they store.
+    board:
+      - id: parCapEq
+        latex: "C_p = C_1 + C_2 + \\cdots"
+        say: "capacitors in parallel add"
+        color: green
+        box: true
+      - id: serCapEq
+        latex: "\\dfrac{1}{C_s} = \\dfrac{1}{C_1} + \\dfrac{1}{C_2} + \\cdots"
+        say: "in series the inverses add"
+        color: green
+      - id: dielEq
+        latex: "C = \\kappa\\, C_0"
+        say: "a dielectric raises capacitance by its dielectric constant"
+        color: green
+
+  - id: s6
+    kind: derivation
+    narration: >
+      Current, {currentEq}: let charge flow and you have it — the rate at which charge passes a point, measured
+      in amperes. Drive it through a material and most obey Ohm's law, {ohmEq}: the voltage across a conductor is
+      the current times its resistance. Resistance itself comes from the material and shape, {resEq}: the
+      resistivity times the length, divided by the cross-sectional area — long thin wires resist more, short
+      fat ones less. And pushing current through resistance dissipates power as heat, {powerEq}: voltage times
+      current, which by Ohm's law is also current squared times resistance. This is the warmth of a bulb, the
+      heat of a toaster, and the loss in every transmission line.
+    board:
+      - id: currentEq
+        latex: "I = \\dfrac{\\Delta Q}{\\Delta t}"
+        say: "current is the rate of charge flow"
+        color: red
+        box: true
+      - id: ohmEq
+        latex: "V = IR"
+        say: "Ohm's law, voltage equals current times resistance"
+        color: red
+        box: true
+      - id: resEq
+        latex: "R = \\rho\\dfrac{L}{A}"
+        say: "resistance is resistivity times length over area"
+        color: red
+      - id: powerEq
+        latex: "P = VI = I^2 R"
+        say: "power is voltage times current, or current squared times resistance"
+        color: red
+
+  - id: s6b
+    kind: derivation
+    narration: >
+      A real battery, {emfEq}, is not a perfect source: it has its own small internal resistance, so the
+      voltage you actually get at its terminals is its ideal driving voltage — the electromotive force — minus
+      the current times that internal resistance. Draw almost no current and you measure the full emf; draw a
+      heavy current and the terminal voltage sags, which is why a car's headlights dim as the starter turns.
+      The power the battery delivers to the circuit is the terminal voltage times the current, {deliverEq},
+      while the remainder is wasted heating the battery itself. Every real source — battery, generator, power
+      supply — carries this internal resistance, and it sets the largest current the source can ever deliver.
+    board:
+      - id: emfEq
+        latex: "V = \\varepsilon - I r"
+        say: "terminal voltage is the emf minus current times internal resistance"
+        color: red
+        box: true
+      - id: deliverEq
+        latex: "P = V I"
+        say: "the power delivered is terminal voltage times current"
+        color: red
+
+  - id: s7
+    kind: derivation
+    narration: >
+      Kirchhoff's laws, {kclEq}: the junction rule
+      says charge is conserved — the current flowing into any node equals the current flowing out. The loop
+      rule says energy is conserved, {kvlEq}: around any closed loop the voltage rises and drops sum to zero.
+      From these follow the combination rules. Resistors in series share the same current and their
+      resistances add, {seriesEq}. Resistors in parallel share the same voltage, and it is their inverses that
+      add, so the combination is always smaller than the smallest, {parallelEq}. With Ohm's law and these two
+      conservation rules, every direct-current circuit, however tangled, can be solved completely.
+    board:
+      - id: kclEq
+        latex: "\\textstyle\\sum I_{in} = \\sum I_{out}"
+        say: "the junction rule: current in equals current out"
+        color: red
+        box: true
+      - id: kvlEq
+        latex: "\\textstyle\\sum V = 0 \\ \\text{(loop)}"
+        say: "the loop rule: voltages around a loop sum to zero"
+        color: red
+        box: true
+      - id: seriesEq
+        latex: "R_s = R_1 + R_2 + \\cdots"
+        say: "resistances in series add"
+        color: red
+      - id: parallelEq
+        latex: "\\dfrac{1}{R_p} = \\dfrac{1}{R_1} + \\dfrac{1}{R_2} + \\cdots"
+        say: "in parallel, the inverses add"
+        color: red
+
+  - id: s7b
+    kind: derivation
+    narration: >
+      Add a capacitor, {rcEq}: a resistor and capacitor together give the circuit a sense of time. Connect a
+      battery and the capacitor does not charge instantly; the voltage across it climbs along a rising curve, fast at first,
+      then slowing as it fills. The rate is set by one number, the time constant, {tauEq}: the resistance times
+      the capacitance. After one time constant the capacitor has reached about sixty-three per cent of the
+      supply voltage; after a few, it is essentially full. Disconnect the battery and it discharges the same
+      way, decaying by the same constant. This rise and fall times the blink of an indicator, the sweep of an
+      old oscilloscope and the beat of a timer circuit — resistance and capacitance together turn a steady
+      voltage into a controlled delay, the first hint of electronics proper.
+    board:
+      - id: rcEq
+        latex: "V_C(t) = V_0\\left(1 - e^{-t/\\tau}\\right)"
+        say: "the capacitor voltage rises as one minus e to the minus t over tau"
+        color: green
+        box: true
+      - id: tauEq
+        latex: "\\tau = RC"
+        say: "the time constant is resistance times capacitance"
+        color: red
+
+  - id: s8
+    kind: problem
+    narration: >
+      Energy in a capacitor. {statement} A capacitor of known size is charged to a known voltage, {given};
+      find the energy it stores. {find} The stored energy is a half times the capacitance times the voltage
+      squared, {step1}. Put in the numbers, {step2}: a half times two microfarads times one hundred volts
+      squared. One hundred squared is ten thousand, two microfarads is two millionths, and multiplying through
+      gives one hundredth of a joule, {answer}: ten millijoules, held in the field between the plates, ready to
+      be released in an instant.
+    board:
+      - id: statement
+        text: "Energy stored in a capacitor."
+      - id: given
+        latex: "C = 2\\ \\mu\\text{F},\\quad V = 100\\ \\text{V}"
+        say: "capacitance two microfarads, voltage one hundred volts"
+        role: given
+      - id: find
+        text: "Find the stored energy U."
+        role: find
+      - id: step1
+        latex: "U = \\tfrac{1}{2}CV^2"
+        say: "energy is a half C V squared"
+        role: step
+        color: green
+      - id: step2
+        latex: "= \\tfrac{1}{2}(2\\times10^{-6})(100)^2"
+        say: "a half times two microfarads times one hundred squared"
+        role: step
+        color: orange
+      - id: answer
+        latex: "U = 0.01\\ \\text{J}"
+        say: "the energy is one hundredth of a joule"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "0.5 * 2e-6 * 100**2"
+      value: 0.01
+      unit: "J"
+      tol: 0.01
+
+  - id: s9
+    kind: problem
+    narration: >
+      A series circuit. {statement2} Two resistors sit in series across a battery, {given2}; find the current
+      the battery drives. {find2} In series the resistances add, so the total resistance is four plus six,
+      which is ten ohms, {step1b}. By Ohm's law the current is the battery voltage divided by that total
+      resistance, {step2b}: twenty volts over ten ohms. That is two amperes, {answer2}. The same two amperes
+      flows through both resistors, since in series there is only one path for the charge — and across each
+      resistor the voltage drops in proportion to its share of the resistance.
+    board:
+      - id: statement2
+        text: "Current in a series circuit."
+      - id: given2
+        latex: "R_1 = 4\\ \\Omega,\\ R_2 = 6\\ \\Omega,\\ V = 20\\ \\text{V}"
+        say: "resistors four ohms and six ohms, battery twenty volts"
+        role: given
+      - id: find2
+        text: "Find the current I."
+        role: find
+      - id: step1b
+        latex: "R_s = 4 + 6 = 10\\ \\Omega"
+        say: "in series the resistances add to ten ohms"
+        role: step
+        color: red
+      - id: step2b
+        latex: "I = \\dfrac{V}{R_s} = \\dfrac{20}{10}"
+        say: "the current is twenty volts over ten ohms"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "I = 2\\ \\text{A}"
+        say: "the current is two amperes"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "20 / (4 + 6)"
+      value: 2
+      unit: "A"
+      tol: 0.01
+
+  - id: s9b
+    kind: problem
+    narration: >
+      {statement3} Now take the same two resistors in parallel. The six-ohm and three-ohm resistors are instead
+      wired side by side, {given3}; find their combined resistance. {find3} In parallel the inverses add, so
+      the reciprocal of the total is a sixth plus a third, {step1c}. A sixth plus a third is a half, so the
+      total is the reciprocal of a half, {step2c}, which is two ohms, {answer3}. Notice it is smaller than
+      either resistor on its own — giving the current two separate paths always eases its passage, so parallel
+      resistances always fall below the smallest branch. Series adds, parallel always shrinks.
+    board:
+      - id: statement3
+        text: "Two resistors in parallel."
+      - id: given3
+        latex: "R_1 = 6\\ \\Omega,\\quad R_2 = 3\\ \\Omega"
+        say: "resistors six ohms and three ohms in parallel"
+        role: given
+      - id: find3
+        text: "Find the parallel resistance."
+        role: find
+      - id: step1c
+        latex: "\\dfrac{1}{R_p} = \\dfrac{1}{6} + \\dfrac{1}{3}"
+        say: "the reciprocal of the total is a sixth plus a third"
+        role: step
+        color: red
+      - id: step2c
+        latex: "= \\dfrac{1}{2} \\;\\Rightarrow\\; R_p = 2"
+        say: "equals a half, so the total is two ohms"
+        role: step
+        color: orange
+      - id: answer3
+        latex: "R_p = 2\\ \\Omega"
+        say: "the parallel resistance is two ohms"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "1/(1/6 + 1/3)"
+      value: 2
+      unit: "Ω"
+      tol: 0.01
+
+  - id: s10
+    kind: end
+    narration: >
+      That is the whole of electrostatics and direct-current circuits in one arc: charge makes a field by
+      Coulomb's law, Gauss's law handles it with symmetry, potential is its energy per charge, a capacitor
+      stores it, current is it flowing, Ohm's law and resistance govern that flow, and Kirchhoff's two
+      conservation laws solve any circuit. Every equation here is a consequence of two ideas — charge makes a
+      field, and energy and charge are conserved. Master this dozen of equations and you hold the whole of
+      static electricity and steady currents; everything else in this half of the subject is an application
+      of them. Next: Magnetism — the other half of electromagnetism.

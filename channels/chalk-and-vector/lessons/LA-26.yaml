@@ -1,0 +1,235 @@
+# LA-26: Complex eigenvalues mean rotation — the geometry nobody shows you.
+# Hefferon, Linear Algebra, Five.I Complex Vector Spaces (CC BY-SA 3.0). ~9 minutes.
+# Colour: rotation/eigenvalue = red, vectors = blue, scaling = orange, oscillation = green.
+schema_version: 1
+id: LA-26
+channel: chalk-and-vector
+title: "Complex eigenvalues mean rotation: the geometry nobody shows you"
+target_minutes: 9
+source:
+  book: "Linear Algebra (Jim Hefferon)"
+  section: "Five.I Complex Vector Spaces"
+  license: "CC BY-SA 3.0"
+  file: "hefferon-linear-algebra/034-complex-vector-spaces.md"
+  pages: "355-360"
+thumbnail:
+  kicker: "Linear Algebra"
+  hook: "Imaginary eigenvalues, real meaning"
+  keyword: "real meaning"
+publish:
+  title: "Complex Eigenvalues Mean Rotation: The Hidden Geometry"
+  summary: >
+    When a real matrix has complex eigenvalues, textbooks shrug and compute. But
+    they have a vivid geometric meaning: the matrix is rotating. We show why a
+    rotation has no real eigenvector, how the magnitude and angle of a complex
+    eigenvalue encode spiralling and spinning, and what that means for stability.
+  hashtags: ["#linearalgebra", "#mathematics", "#math"]
+  tags:
+    - complex eigenvalues
+    - rotation matrix
+    - eigenvalues
+    - linear algebra
+    - dynamical systems
+    - stability
+    - Hefferon
+
+scenes:
+  - id: s1
+    kind: title
+    narration: >
+      Sometimes a perfectly real matrix has eigenvalues that are complex, full of the imaginary unit. It is
+      tempting to treat these as a formality and push the symbols around. But complex eigenvalues have a
+      vivid, concrete meaning: the matrix is turning things in circles.
+
+  - id: s2
+    kind: diagram
+    narration: >
+      Here, {drawV1}, is the one matrix that obviously has no eigenvector: a rotation. Feed it any vector, in
+      blue, and it hands back that vector turned through an angle, {drawRv1} — the same length, a new
+      direction. Try another, {drawV2}, and it too is simply rotated, {drawRv2}. Every single vector changes
+      direction; not one is left pointing where it started. An eigenvector is a direction the matrix
+      preserves, and a rotation preserves no direction at all — so over the real numbers it has no
+      eigenvectors and no eigenvalues. Yet the characteristic equation still produces two roots; they are
+      just complex, {eigEq}: cosine theta plus or minus i sine theta, which is e to the plus or minus i
+      theta. These sit on the unit circle in the complex plane, and the angle in that exponential is exactly
+      the angle of rotation. The complex eigenvalue was never a glitch. It is the rotation, written in the
+      only language that can capture a turn without a fixed direction — the language of complex numbers.
+    animation:
+      primitive: vectors
+      params:
+        axes: {x: [-3, 3, 1], y: [-2, 4, 1]}
+        vectors:
+          v1: {to: [2.4, 0.6], color: blue, label: "v"}
+          Rv1: {to: [1.45, 2.0], color: red, label: "Rv"}
+          v2: {to: [0.5, 1.8], color: blue, label: "u"}
+          Rv2: {to: [-0.77, 1.7], color: red, label: "Ru"}
+      steps:
+        - {id: drawV1, action: draw, params: {name: v1}}
+        - {id: drawRv1, action: draw, params: {name: Rv1}}
+        - {id: drawV2, action: draw, params: {name: v2}}
+        - {id: drawRv2, action: draw, params: {name: Rv2}}
+    board:
+      - id: eigEq
+        latex: "\\lambda = \\cos\\theta \\pm i\\sin\\theta = e^{\\pm i\\theta}"
+        say: "lambda is cosine theta plus or minus i sine theta, which is e to the plus or minus i theta"
+        color: red
+        legend:
+          - {sym: "\\theta", name: "the angle of rotation", unit: ""}
+          - {sym: "|\\lambda|", name: "equals 1 for a pure rotation", unit: ""}
+
+  - id: s3
+    kind: derivation
+    narration: >
+      Work it out directly, {rotEq}. The rotation matrix by angle theta has cosine theta on the diagonal and
+      minus and plus sine theta off it. Its trace is twice cosine theta and its determinant is one — cosine
+      squared plus sine squared. So the characteristic equation is lambda squared, minus twice cosine theta
+      lambda, plus one, {charEq}. Solve it, {rootsEq}: the roots are cosine theta plus or minus the square
+      root of cosine squared minus one, which is the square root of minus sine squared — imaginary. The
+      eigenvalues are cosine theta plus or minus i sine theta, a complex-conjugate pair on the unit circle,
+      and the angle they make is the rotation angle. Now the general lesson, {polarEq}. Write any complex
+      eigenvalue in polar form, as a magnitude r times e to the i theta. The matrix then acts, on a
+      two-dimensional invariant plane, as a rotation by the angle theta together with a scaling by the
+      magnitude r. The two numbers inside a complex eigenvalue do two separate jobs, {hl:polarEq}: the angle
+      sets how fast it rotates, and the magnitude sets whether it grows or shrinks. If the magnitude is
+      exactly one, the eigenvalue sits on the unit circle and you get a pure rotation, round and round
+      forever. If the magnitude is bigger than one, each turn is also a stretch, and points spiral outward.
+      If it is less than one, each turn shrinks, and points spiral inward to the origin. This is the whole
+      behaviour of a two-dimensional linear system at a glance. Complex eigenvalues always come in conjugate
+      pairs for a real matrix, and for a two-by-two their magnitude has a beautifully simple form, {detEq}:
+      the magnitude squared equals the determinant. So the determinant alone tells you the fate of the
+      spiral — determinant above one, it flies apart; below one, it decays to rest; exactly one, it circles
+      forever. This is why complex eigenvalues are the signature of oscillation everywhere in science: a mass
+      on a spring with friction, a swinging pendulum losing energy, an electrical circuit ringing down, a
+      predator-prey cycle. Each is a system whose matrix has complex eigenvalues. There is a continuous
+      version of the same idea that makes this precise. Many systems in physics are written not as a
+      step-by-step multiplication but as a rate of change: the velocity of the state is a matrix times the
+      state. The solutions of such a system are built from e to the lambda t, the exponential of an
+      eigenvalue times time. Split a complex eigenvalue into its real and imaginary parts, a plus b i, and
+      that exponential factors cleanly into two: e to the a t, a real exponential that grows or decays, times
+      e to the i b t, which by Euler's formula is cosine b t plus i sine b t, a pure oscillation. So the real
+      part of the eigenvalue is the growth or decay rate of the amplitude, and the imaginary part is the
+      angular frequency of the oscillation. A negative real part and the oscillation dies away; a positive
+      real part and it grows without bound; a real part of exactly zero and it rings at constant amplitude
+      forever. One complex number carries two independent pieces of physics: how fast the system swings, and
+      whether the swinging fades. It is the same decomposition as the spiral, now in continuous time — the
+      angle has become a frequency, the magnitude a growth rate. The textbook that computes a complex
+      eigenvalue and moves on has skipped the best part. The number is telling you the system spins, how
+      fast, and whether it is settling down or blowing up.
+    board:
+      - id: rotEq
+        latex: "R = \\begin{pmatrix}\\cos\\theta & -\\sin\\theta\\\\ \\sin\\theta & \\cos\\theta\\end{pmatrix}"
+        say: "the rotation matrix by angle theta"
+        color: blue
+      - id: charEq
+        latex: "\\lambda^2 - 2\\cos\\theta\\,\\lambda + 1 = 0"
+        say: "lambda squared minus twice cosine theta lambda plus one equals zero"
+        color: red
+      - id: rootsEq
+        latex: "\\lambda = \\cos\\theta \\pm i\\sin\\theta"
+        say: "the roots are cosine theta plus or minus i sine theta"
+        color: red
+        box: true
+      - id: polarEq
+        latex: "\\lambda = r\\,e^{i\\theta}:\\ \\text{rotate by }\\theta,\\ \\text{scale by }r"
+        say: "a complex eigenvalue rotates by its angle and scales by its magnitude"
+        color: orange
+        box: true
+      - id: detEq
+        latex: "|\\lambda|^2 = \\det"
+        say: "the magnitude squared equals the determinant"
+        color: green
+
+  - id: s4
+    kind: problem
+    narration: >
+      A quarter turn. {statement} The matrix that rotates the plane by ninety degrees is given, {given}; find
+      its eigenvalues. {find} Its trace is zero and its determinant is one, so the characteristic equation is
+      lambda squared plus one equals zero, {step1}. That gives lambda squared equals minus one, {step2}, so
+      the eigenvalues are plus and minus i, {answer}: purely imaginary, sitting at the top and bottom of the
+      unit circle. Purely imaginary eigenvalues mean a pure quarter-turn rotation with no scaling — the
+      magnitude is one, so the matrix spins vectors without growing or shrinking them, exactly as a rotation
+      should.
+    board:
+      - id: statement
+        text: "Eigenvalues of a 90° rotation."
+      - id: given
+        latex: "R = \\begin{pmatrix}0 & -1\\\\ 1 & 0\\end{pmatrix}"
+        say: "the ninety-degree rotation matrix zero, minus one, one, zero"
+        role: given
+      - id: find
+        text: "Find the eigenvalues λ."
+        role: find
+      - id: step1
+        latex: "\\lambda^2 + 1 = 0"
+        say: "the characteristic equation is lambda squared plus one equals zero"
+        role: step
+        color: red
+      - id: step2
+        latex: "\\lambda^2 = -1"
+        say: "lambda squared equals minus one"
+        role: step
+        color: blue
+      - id: answer
+        latex: "\\lambda = \\pm\\, i"
+        say: "the eigenvalues are plus and minus i"
+        role: answer
+        box: true
+        color: red
+    check:
+      expr: "np.sqrt(0*0 - (-1)*1)"
+      value: 1
+      unit: ""
+      tol: 0.01
+
+  - id: s5
+    kind: problem
+    narration: >
+      Spiral in or out? {statement2} A two-by-two system has complex eigenvalues, and we know only its
+      determinant, {given2}; decide whether it spirals inward or outward. {find2} For a complex-conjugate
+      pair, the magnitude of the eigenvalue is the square root of the determinant, {step1b}. The determinant
+      is zero point six four, so the magnitude is the square root of that, {step2b}, which is zero point
+      eight, {answer2}. Because that is less than one, every rotation also shrinks the vector, so the system
+      spirals inward and decays to rest — a stable, ringing-down oscillation. Had the determinant exceeded
+      one, the magnitude would exceed one and the spiral would fly outward instead. The determinant alone
+      decides the fate.
+    board:
+      - id: statement2
+        text: "Stability of a complex pair."
+      - id: given2
+        latex: "\\det = 0.64,\\ \\ \\text{complex eigenvalues}"
+        say: "determinant zero point six four, complex eigenvalues"
+        role: given
+      - id: find2
+        text: "Find |λ| and the stability."
+        role: find
+      - id: step1b
+        latex: "|\\lambda| = \\sqrt{\\det}"
+        say: "the magnitude is the square root of the determinant"
+        role: step
+        color: green
+      - id: step2b
+        latex: "= \\sqrt{0.64}"
+        say: "equals the square root of zero point six four"
+        role: step
+        color: orange
+      - id: answer2
+        latex: "|\\lambda| = 0.8 < 1 \\Rightarrow \\text{inward}"
+        say: "the magnitude is zero point eight, less than one, so it spirals inward"
+        role: answer
+        box: true
+        color: green
+    check:
+      expr: "np.sqrt(0.64)"
+      value: 0.8
+      unit: ""
+      tol: 0.01
+
+  - id: s6
+    kind: end
+    narration: >
+      To summarise: a real matrix with complex eigenvalues is rotating, which is why it has no real
+      eigenvector. Write the eigenvalue in polar form and its angle is the rotation per step while its
+      magnitude is the scaling — greater than one spirals out, less than one spirals in, exactly one circles
+      forever. For a two-by-two the magnitude squared is the determinant, so the determinant alone sets the
+      stability. Complex eigenvalues are the fingerprint of oscillation. Next: The spectral theorem — why
+      symmetric matrices are the nicest matrices of all.
